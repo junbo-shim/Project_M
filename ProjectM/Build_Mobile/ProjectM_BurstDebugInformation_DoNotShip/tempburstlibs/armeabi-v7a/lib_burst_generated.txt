@@ -127,6 +127,7 @@ Library: C:\Users\PC\Desktop\JB\Project_M\ProjectM\Temp\StagingArea\tempburstlib
 --compilation-defines=MODULE_PHYSICS_EXISTS
 --compilation-defines=MODULE_PHYSICS_2D_EXISTS
 --compilation-defines=MODULE_PARTICLE_SYSTEM_EXISTS
+--compilation-defines=XR_MGMT_GTE_320
 --compilation-defines=USING_COMPATIBLE_OCULUS_XR_PLUGIN_VERSION
 --compilation-defines=USING_URP
 --compilation-defines=USING_MRC_COMPATIBLE_URP_VERSION
@@ -135,7 +136,6 @@ Library: C:\Users\PC\Desktop\JB\Project_M\ProjectM\Temp\StagingArea\tempburstlib
 --compilation-defines=OCULUS_XR_3_3_0_OR_NEWER
 --compilation-defines=TIMELINE_FRAMEACCURATE
 --compilation-defines=UNITY_ANALYTICS
---compilation-defines=XR_MGMT_GTE_320
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\PC\Desktop\JB\Project_M\ProjectM\Temp\Burst
 --key-folder=C:/Program Files/Unity/Hub/Editor/2021.3.27f1/Editor/Data/PlaybackEngines/AndroidPlayer
