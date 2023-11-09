@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "597271620982",
+    "project_id": "projectvrgelten",
+    "storage_bucket": "projectvrgelten.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597271620982:android:e286010c4632dfd0989e57",
+        "android_client_info": {
+          "package_name": "com.project.gelten"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597271620982-3nbao849m3mblta71fvsg5j2lhn05rsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnOSpRQTCUQ0fxlINjhomudliMNWodQ2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597271620982-3nbao849m3mblta71fvsg5j2lhn05rsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

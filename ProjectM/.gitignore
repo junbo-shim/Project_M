@@ -74,4 +74,18 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Custom gitignore files
+/[Aa]ssets/Firebase/m2repository/com/google/firebase/firebase-app-unity/11.6.0/firebase-app-unity-11.6.0.srcaar
+
+/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp-11_6_0.bundle
+/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp-11_6_0.dll
+/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp-11_6_0.so
+/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppFirestore.dll
+
+/[Aa]ssets/Plugins/iOS/Firebase/libFirebaseCppApp.a
+/[Aa]ssets/Plugins/iOS/Firebase/libFirebaseCppFirestore.a
+
+/[Aa]ssets/Plugins/tvOS/Firebase/libFirebaseCppApp.a
+/[Aa]ssets/Plugins/tvOS/Firebase/libFirebaseCppFirestore.a
+
 # End of https://www.toptal.com/developers/gitignore/api/unity
