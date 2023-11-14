@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SlotCnt = 16;
+        SlotCnt = 32;
     }
 
     public bool AddItem(Item _item)

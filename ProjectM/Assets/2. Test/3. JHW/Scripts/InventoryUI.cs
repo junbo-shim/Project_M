@@ -13,6 +13,9 @@ public class InventoryUI : MonoBehaviour
     public Slot[] slots;
     public Transform slotHolder;
 
+    public CanvasGroup canvasGroup;
+    private bool openIvUI = true;
+
 
     private void Start()
     {
@@ -21,16 +24,30 @@ public class InventoryUI : MonoBehaviour
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inventory.onSlotCountChange += SlotChange;
         inventory.onChangeItem += RedrawSlotUI;
-        inventoryPanel.SetActive(activeInventory);
+        //inventoryPanel.SetActive(activeInventory);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            activeInventory = !activeInventory;
-            inventoryPanel.SetActive(activeInventory);
+            //activeInventory = !activeInventory;
+            //inventoryPanel.SetActive(activeInventory);
+
+            if(openIvUI == true)
+            {
+                inventoryPanel.GetComponent<CanvasGroup>().alpha = 1;
+                openIvUI = false;
+            }
+            else
+            {
+                inventoryPanel.GetComponent<CanvasGroup>().alpha = 0;
+                openIvUI = true;
+            }
+            
         }
+
+        RedrawSlotUI();
     }
 
 

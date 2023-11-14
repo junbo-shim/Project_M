@@ -9,54 +9,36 @@ public class CreaftingUI : MonoBehaviour
     Inventory inventory;
 
     public Text[] text;
-    //private int currentNumber;
-    //private int currentNumber1;
-    //private int currentNumber2;
-    //private int currentNumber3;
+    public GameObject[] creaftingButton;
+    public GameObject[] creaftingUI;  //스킬 제작시 UI 없앨용도
     private int[] currentNumbers; // 각 아이템에 대한 개수 배열
+
+
+    public GameObject creaftingPanel;
+    bool activeCreafting = false;
+
+    public Transform slotHolder;
 
     private void Start()
     {
         inventory = FindAnyObjectByType<Inventory>();
         currentNumbers = new int[text.Length]; // 배열 초기화
+
+
+        for (int i = 0; i < 4; i++)
+        {
+            creaftingButton[i].SetActive(false);
+        }
     }
 
     // 특정 조건을 확인하여 숫자를 증가시키는 메소드
     public void IncreaseNumber()
     {
-
-        //currentNumber = 0;
-        //currentNumber1 = 0;
-        //currentNumber2 = 0;
-        //currentNumber3 = 0;
-
         // 배열 초기화
         for (int i = 0; i < currentNumbers.Length; i++)
         {
             currentNumbers[i] = 0;
         }
-
-
-
-        //for (int i = 0; i < inventory.items.Count; i++)
-        //{
-        //    if (inventory.items[i].itemName == "Battery")
-        //    {
-        //        currentNumber++;
-        //    }
-        //    else if (inventory.items[i].itemName == "Ladder")
-        //    {
-        //        currentNumber1++;
-        //    }
-        //    else if (inventory.items[i].itemName == "SleepBag")
-        //    {
-        //        currentNumber2++;
-        //    }
-        //    else if (inventory.items[i].itemName == "Supply")
-        //    {
-        //        currentNumber3++;
-        //    }
-        //}
 
 
         // 각 아이템에 대한 개수 계산
@@ -79,15 +61,10 @@ public class CreaftingUI : MonoBehaviour
 
         IncreaseNumber();
 
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (text[i] != null)
             {
-                //text[0].text = currentNumber.ToString() + "/4";
-                //text[1].text = currentNumber1.ToString() + "/4";
-                //text[2].text = currentNumber2.ToString() + "/4";
-                //text[3].text = currentNumber3.ToString() + "/4";
-
                 text[i].text = currentNumbers[i].ToString() + "/4";
 
             }
@@ -116,5 +93,24 @@ public class CreaftingUI : MonoBehaviour
     private void Update()
     {
         UpdateNumberText();
+        CreafringItem();
+
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            activeCreafting = !activeCreafting;
+            creaftingPanel.SetActive(activeCreafting);
+        }
+    }
+
+    private void CreafringItem()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentNumbers[i] >= 4)
+            {
+                creaftingButton[i].SetActive(true);
+            }
+        }
     }
 }
