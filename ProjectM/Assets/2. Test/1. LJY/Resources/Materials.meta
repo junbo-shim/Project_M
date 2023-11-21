@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:ProjectM/Assets/2. Test/1. LJY/Resources/Materials.meta
 guid: bb6928e9d408bb245bfa9de48ba75e38
 folderAsset: yes
 DefaultImporter:
+========
+guid: 61ca2a991b003184985c46933c87ec21
+PrefabImporter:
+>>>>>>>> origin/shim:ProjectM/Assets/2. Test/1. LJY/Prefabs/Hammer.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

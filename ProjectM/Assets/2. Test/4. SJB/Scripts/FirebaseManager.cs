@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Firebase;
 using Firebase.Extensions;
@@ -9,12 +10,13 @@ public partial class FirebaseManager : MonoBehaviour
 {
     public GameObject titleButtonManager;
 
+
     #region 유니티 라이프 사이클
     private void Awake()
     {
-        // DefaultInstance 캐싱 
-        defaultStore = FirebaseFirestore.DefaultInstance;
         CheckFirebaseDependency();
+        playerSaveData = new SaveDataFile();
+        playerInventory = new List<Item>();
     }
     #endregion
 
@@ -64,22 +66,26 @@ public partial class FirebaseManager : MonoBehaviour
         // 만약 실행한 Task 가 실패하거나 취소되었다면 return 으로 메서드 실행을 중지한다
         if (task_.IsCanceled || task_.IsFaulted) 
         {
-            Debug.LogError("Failed to Create new Account" + "\nFailure Reason : " + task_.Result);
+            Debug.LogError("Failed to Create new Account" + "\nFailure Reason : " + task_.Exception);
+            titleButtonManager.GetComponent<TitleButtonManager>().resultText.text =
+                "Failed to Create new Account" + "\nFailure Reason : " + task_.Exception;
             return;
         }
 
         // CreateUserWithEmailAndPasswordAsync 의 결과값을 지역변수로 생성한다
         AuthResult result = task_.Result;
         Debug.LogFormat("Successfully Created" + 
-            "\nYour Name : " + result.User.DisplayName + 
+            "\nYour Email : " + result.User.Email + 
             "\nYour UID : " + result.User.UserId);
+        titleButtonManager.GetComponent<TitleButtonManager>().resultText.text =
+            "Successfully Created" + "\nYour Email : " + result.User.Email + "\nYour UID : " + result.User.UserId;
     }
     #endregion
 
     #region 파이어베이스 비밀번호 초기화 메서드
     private void ResetFirebasePW() 
     {
-    
+      
     }
     #endregion
 
@@ -99,20 +105,28 @@ public partial class FirebaseManager : MonoBehaviour
         // 만약 실행한 Task 가 실패하거나 취소되었다면 return 으로 메서드 실행을 중지한다
         if (task_.IsCanceled || task_.IsFaulted)
         {
-            Debug.LogError("Failed to Login" + "\nFailure Reason : " + task_.Result);
+            Debug.LogError("Failed to Login" + "\nFailure Reason : " + task_.Exception);
+            titleButtonManager.GetComponent<TitleButtonManager>().resultText.text =
+                "Failed to Create new Account" + "\nFailure Reason : " + task_.Exception;
             return;
         }
 
         // SignInWithEmailAndPasswordAsync 의 결과값을 지역변수로 생성한다
         AuthResult result = task_.Result;
         Debug.LogFormat("Login Successful" +
-            "\nYour Name : " + result.User.DisplayName +
+            "\nYour Email : " + result.User.Email +
             "\nYour UID : " + result.User.UserId);
+
+        titleButtonManager.GetComponent<TitleButtonManager>().resultText.text =
+            "Login Successful" + "\nYour Email : " + result.User.Email + "\nYour UID : " + result.User.UserId;
 
         // 회원가입 및 로그인 버튼 비활성화 - 버그
         //titleButtonManager.GetComponent<TitleButtonManager>().MakeRegisterLoginDisable();
 
-        CheckAndInitPlayerData(result.User.UserId);
+        // DefaultInstance 캐싱 
+        defaultStore = FirebaseFirestore.DefaultInstance;
+
+        CheckAndInitPlayerData(result.User.UserId, result.User.Email);
     }
     #endregion
 
@@ -130,6 +144,8 @@ public partial class FirebaseManager : MonoBehaviour
             // 회원가입 및 로그인 버튼 재활성화 - 버그
             //titleButtonManager.GetComponent<TitleButtonManager>().MakeRegisterLoginEnable();
             Debug.LogWarning("Logout Successful");
+
+            titleButtonManager.GetComponent<TitleButtonManager>().resultText.text = "Logout Successful";
         }
     }
     #endregion
