@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,6 +22,7 @@ namespace BNG {
         public bool AutoUpdateUITransforms = true;
 
         public GameObject cursor;
+        public DrawMagic drawMagic;
         private GameObject _cursor;
 
         [Tooltip("If true the cursor and LineRenderer will be Hidden. Otherwise it will still be show at a fixed length")]
@@ -61,6 +62,7 @@ namespace BNG {
                 _cursor = GameObject.Instantiate(cursor);
                 _cursor.transform.SetParent(transform);
                 _cursorInitialLocalScale = transform.localScale;
+                drawMagic.uiCursur = _cursor;
             }
 
             // If no Line Renderer was specified in the editor, check this Transform

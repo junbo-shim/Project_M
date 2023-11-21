@@ -443,6 +443,17 @@
                 },
                 {
                     "name": "",
+                    "id": "af8b0034-9110-447d-b873-b8f96bee4ceb",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Continuous Move",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fa1e2100-b0e0-4e5c-822e-3df406ac00fd",
                     "path": "<XRController>{LeftHand}/secondaryButton",
                     "interactions": "",
@@ -468,6 +479,17 @@
                     "id": "583bd4fd-754c-4e71-972b-60d1e120215b",
                     "path": "<Keyboard>/space",
                     "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce6e0c85-ea10-437a-92d2-5cf61ea9f2a2",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
