@@ -18,10 +18,10 @@ public class ItemDataBase : MonoBehaviour
 
     public void Start()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 16; i++)
         {
             GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 4)]);
+            go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 4)]); 
         }
     }
 }

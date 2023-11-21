@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     Inventory inventory;
+    public Text[] text;
 
-    public GameObject inventoryPanel;
-    bool activeInventory = false;
 
     public Slot[] slots;
-    public Transform slotHolder;
 
+    public Transform slotHolder;
 
     private void Start()
     {
@@ -21,16 +21,11 @@ public class InventoryUI : MonoBehaviour
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inventory.onSlotCountChange += SlotChange;
         inventory.onChangeItem += RedrawSlotUI;
-        inventoryPanel.SetActive(activeInventory);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            activeInventory = !activeInventory;
-            inventoryPanel.SetActive(activeInventory);
-        }
+        RedrawSlotUI();
     }
 
 
@@ -67,6 +62,21 @@ public class InventoryUI : MonoBehaviour
         {
             slots[i].item = inventory.items[i];
             slots[i].UpdateSlotUI();
+
+            //슬롯에 해당하는 아이템의 itemCount를 표시
+            UpdateNumberText(i, inventory.items[i].itemCount);
+        }
+
+    }
+
+
+
+    // Text에 현재 숫자를 업데이트
+    private void UpdateNumberText(int index, int count)
+    {
+        if (text[index] != null)
+        {
+            text[index].text = count.ToString();
         }
     }
 }

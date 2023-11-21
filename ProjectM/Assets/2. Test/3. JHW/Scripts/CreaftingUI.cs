@@ -7,114 +7,78 @@ using UnityEngine.UI;
 public class CreaftingUI : MonoBehaviour
 {
     Inventory inventory;
+    Skill skill;
 
     public Text[] text;
-    //private int currentNumber;
-    //private int currentNumber1;
-    //private int currentNumber2;
-    //private int currentNumber3;
-    private int[] currentNumbers; // 각 아이템에 대한 개수 배열
+    public GameObject[] creaftingButton;
+
+    public Transform slotHolder;
 
     private void Start()
     {
         inventory = FindAnyObjectByType<Inventory>();
-        currentNumbers = new int[text.Length]; // 배열 초기화
+        skill = FindAnyObjectByType<Skill>();
+
+
+        for (int i = 0; i < 4; i++)
+        {
+            creaftingButton[i].SetActive(false);
+        }
     }
 
-    // 특정 조건을 확인하여 숫자를 증가시키는 메소드
-    public void IncreaseNumber()
-    {
-
-        //currentNumber = 0;
-        //currentNumber1 = 0;
-        //currentNumber2 = 0;
-        //currentNumber3 = 0;
-
-        // 배열 초기화
-        for (int i = 0; i < currentNumbers.Length; i++)
-        {
-            currentNumbers[i] = 0;
-        }
-
-
-
-        //for (int i = 0; i < inventory.items.Count; i++)
-        //{
-        //    if (inventory.items[i].itemName == "Battery")
-        //    {
-        //        currentNumber++;
-        //    }
-        //    else if (inventory.items[i].itemName == "Ladder")
-        //    {
-        //        currentNumber1++;
-        //    }
-        //    else if (inventory.items[i].itemName == "SleepBag")
-        //    {
-        //        currentNumber2++;
-        //    }
-        //    else if (inventory.items[i].itemName == "Supply")
-        //    {
-        //        currentNumber3++;
-        //    }
-        //}
-
-
-        // 각 아이템에 대한 개수 계산
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            for (int j = 0; j < currentNumbers.Length; j++)
-            {
-                if (inventory.items[i].itemName == GetItemNameByIndex(j))
-                {
-                    currentNumbers[j]++;
-                }
-            }
-        }
-
-    }
 
     // Text에 현재 숫자를 업데이트하는 메소드
     private void UpdateNumberText()
     {
-
-        IncreaseNumber();
-
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (text[i] != null)
+            if (inventory.items[i].itemName == "Battery")
             {
-                //text[0].text = currentNumber.ToString() + "/4";
-                //text[1].text = currentNumber1.ToString() + "/4";
-                //text[2].text = currentNumber2.ToString() + "/4";
-                //text[3].text = currentNumber3.ToString() + "/4";
-
-                text[i].text = currentNumbers[i].ToString() + "/4";
-
+                text[0].text = inventory.items[i].itemCount.ToString() + "/4";
+                text[1].text = inventory.items[i].itemCount.ToString() + "/4";
+            }
+            else if (inventory.items[i].itemName == "Ladder")
+            {
+                text[2].text = inventory.items[i].itemCount.ToString() + "/4";
+                text[3].text = inventory.items[i].itemCount.ToString() + "/4";
+            }
+            else if (inventory.items[i].itemName == "SleepBag")
+            {
+                text[4].text = inventory.items[i].itemCount.ToString() + "/4";
+                text[5].text = inventory.items[i].itemCount.ToString() + "/4";
+            }
+            else if (inventory.items[i].itemName == "Supply")
+            {
+                text[6].text = inventory.items[i].itemCount.ToString() + "/4";
+                text[7].text = inventory.items[i].itemCount.ToString() + "/4";
             }
         }
     }
 
 
-    // index에 따라 해당하는 아이템의 이름을 반환하는 메소드
-    private string GetItemNameByIndex(int index)
-    {
-        switch (index)
-        {
-            case 0:
-                return "Battery";
-            case 1:
-                return "Ladder";
-            case 2:
-                return "SleepBag";
-            case 3:
-                return "Supply";
-            default:
-                return "";
-        }
-    }
 
     private void Update()
     {
         UpdateNumberText();
+        CreafringItem("Battery");
+        CreafringItem("Ladder");
+        CreafringItem("SleepBag");
+        CreafringItem("Supply");
+    }
+
+    private void CreafringItem(string itemName)
+    {
+
+        int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[itemIndex].itemCount >= 4 )
+            {
+                creaftingButton[i].SetActive(true);
+            }
+
+        }
+
     }
 }
