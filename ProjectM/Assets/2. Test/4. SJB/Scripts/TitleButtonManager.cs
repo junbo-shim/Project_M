@@ -1,11 +1,15 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Firebase;
+using Firebase.Auth;
+using System.Threading.Tasks;
 
 public class TitleButtonManager : MonoBehaviour
 {
     public GameObject firebaseManager;
 
+    public TMP_Text statusText;
     public GameObject buttonRegisterOpen;
     public GameObject buttonLoginOpen;
     public GameObject buttonLogoutOpen;
@@ -16,10 +20,41 @@ public class TitleButtonManager : MonoBehaviour
     public GameObject buttonLogin;
     public TMP_Text resultText;
 
+    public GameObject buttonLoadSave;
+    public GameObject buttonSaveSave;
+    public TMP_Text data;
+
+    public GameObject buttonLoadInven;
+    public GameObject buttonSaveInven;
+    public TMP_InputField dataInputField;
+
     private bool isUIOn = false;
 
+
+
+    private void Update()
+    {
+        UpdateLoginStatus(FirebaseAuth.DefaultInstance.CurrentUser);
+    }
+
+
+
+    public void UpdateLoginStatus(FirebaseUser user_) 
+    {
+        if (user_ == null) 
+        {
+            statusText.text = "Login Status : LogOut";
+        }
+        else if (user_ != null) 
+        {
+            statusText.text = "Login Status : LogIn";
+        }
+    }
+
+    
+
     #region 회원가입 버튼
-    public void PressRegister() 
+    public void OnPressRegister() 
     {
         // Inputfield 가 꺼진 상태라면
         if (isUIOn == false) 
@@ -55,7 +90,7 @@ public class TitleButtonManager : MonoBehaviour
     #endregion
 
     #region 로그인 버튼
-    public void PressLogin() 
+    public void OnPressLogin() 
     {
         if (isUIOn == false) 
         {
@@ -83,7 +118,7 @@ public class TitleButtonManager : MonoBehaviour
     #endregion
 
     #region 로그아웃 버튼
-    public void PressLogout() 
+    public void OnPressLogout() 
     {
         firebaseManager.GetComponent<FirebaseManager>().LogoutFirebase();
     }
@@ -118,6 +153,44 @@ public class TitleButtonManager : MonoBehaviour
     public void MakeRegisterLoginEnable()
     {
 
+    }
+    #endregion
+
+    public void ShowCurrentData()
+    {
+
+    }
+
+    public void PutCurrentData() 
+    {
+        
+    }
+
+    #region 세이브 데이터 다운로드 버튼
+    public void OnPressLoadSave() 
+    {
+        firebaseManager.GetComponent<FirebaseManager>().LoadPlayerSaveFile(FirebaseAuth.DefaultInstance.CurrentUser.UserId);
+    }
+    #endregion
+
+    #region 세이브 데이터 업로드 버튼
+    public void OnPressSaveSave() 
+    {
+        firebaseManager.GetComponent<FirebaseManager>().SavePlayerSaveFile(FirebaseAuth.DefaultInstance.CurrentUser.UserId, "1", "2", "3");
+    }
+    #endregion
+
+    #region 인벤토리 데이터 다운로드 버튼
+    public void OnPressLoadInven() 
+    {
+        firebaseManager.GetComponent<FirebaseManager>().LoadPlayerInven(FirebaseAuth.DefaultInstance.CurrentUser.UserId);
+    }
+    #endregion
+
+    #region 인벤토리 데이터 업로드 버튼
+    public void OnPressSaveInven() 
+    {
+        firebaseManager.GetComponent<FirebaseManager>().SavePlayerInven(FirebaseAuth.DefaultInstance.CurrentUser.UserId, firebaseManager.GetComponent<FirebaseManager>().playerInventory);
     }
     #endregion
 }
