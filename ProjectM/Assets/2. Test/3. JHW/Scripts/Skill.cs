@@ -8,61 +8,70 @@ public class Skill : MonoBehaviour
     CreaftingUI creaftingUI;
     Inventory inventory;
 
-    public GameObject[] mySkill;
-
-    public GameObject skillPanel;
-    bool activeSkill = false;
+    public GameObject[] EnhanceButton;
 
 
     private void Start()
     {
         creaftingUI = FindAnyObjectByType<CreaftingUI>();
         inventory = FindAnyObjectByType<Inventory>();
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
+
+        for(int i = 0; i < 4; i ++)
         {
-            activeSkill = !activeSkill;
-            skillPanel.SetActive(activeSkill);
+            EnhanceButton[i].SetActive(false);
         }
     }
 
+
     public void FireBallSkill()
     {
-        mySkill[0].SetActive(true);
-        creaftingUI.creaftingUI[0].SetActive(false);
+        EnhanceButton[0].SetActive(true);
+        creaftingUI.creaftingButton[0].SetActive(false) ;
 
-        for(int i = 0; i < inventory.items.Count; i++)
+        
+
+        for (int i = 0; i < inventory.items.Count; i++)
         {
             if (inventory.items[i].itemName == "Battery")
             {
-                inventory.items.RemoveAt(i);
-                i--;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
             }
         }
     }
 
+
+    public void EnhanceFireBallSkill()
+    {
+        EnhanceButton[0].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "Battery")
+            {
+                inventory.items[i].itemCount = 0;
+            }
+        }
+    }
+
+
+
     public void RazerSkill()
     {
-        mySkill[1].SetActive(true);
-        creaftingUI.creaftingUI[1].SetActive(false);
+        EnhanceButton[1].SetActive(true);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
             if (inventory.items[i].itemName == "Ladder")
             {
-                inventory.items.RemoveAt(i);
-                i--;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
             }
         }
     }
 
     public void IceBulletSkill()
     {
-        mySkill[2].SetActive(true);
-        creaftingUI.creaftingUI[2].SetActive(false);
+        EnhanceButton[2].SetActive(true);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
@@ -76,8 +85,7 @@ public class Skill : MonoBehaviour
 
     public void PosionSkill()
     {
-        mySkill[3].SetActive(true);
-        creaftingUI.creaftingUI[3].SetActive(false);
+        EnhanceButton[3].SetActive(true);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
