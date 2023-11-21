@@ -19,6 +19,7 @@ public class NPCTack : MonoBehaviour
    
     private void Start()
     {
+        int selectNumber = 1;
         selectTextMeshProsList = new List<TextMeshProUGUI>();
 
         //db 데이터 만큼 선택지 추가 
@@ -28,7 +29,7 @@ public class NPCTack : MonoBehaviour
         //{지문 숫자만큼 생성 end
 
         //생성한 selectTextMeshProsList에 택스트 세팅 (만들어야함)
-        selectTextMeshPro.text = "Asd";
+        selectTextMeshPro.text = selectNumber +". Yes";
         //생성한 selectTextMeshProsList에 택스트 세팅 end
 
         foreach (TextMeshProUGUI tmpText in selectTextMeshProsList) // 데이터를 scrollbar 자식으로 생성
@@ -43,12 +44,33 @@ public class NPCTack : MonoBehaviour
 
     public void TalkOn() // 글보여주기
     {
-        textimageReady.gameObject.SetActive(false);
-        textimage.gameObject.SetActive(true);
+        if (!textimage.gameObject.activeSelf)
+        {
+            textimageReady.gameObject.SetActive(false);
+            textimage.gameObject.SetActive(true);
+        }
+        else
+        {
+            selectRay();
+        }
+       
+
     }
     public void TalkOff() // 글닫기
     {
         textimage.gameObject.SetActive(false);
         textimageReady.gameObject.SetActive(true);
+    }
+    private void selectRay()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        {
+            // 충돌한 객체에 대한 처리 (예: 선택, 상호 작용 등)
+            GameObject hitObject = hit.collider.gameObject;
+            Debug.Log("Ray hit: " + hitObject.name);
+
+            // 여기서 필요한 로직을 추가하세요.
+        }
     }
 }

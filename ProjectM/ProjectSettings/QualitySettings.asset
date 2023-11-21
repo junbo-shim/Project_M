@@ -40,7 +40,8 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: 69b1fa4787c848247b4b84be854a60bf,
+      type: 2}
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Quest
@@ -76,9 +77,14 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 0}
+    customRenderPipeline: {fileID: 11400000, guid: 9e6a7347844916c4687d0aba923c4437,
+      type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 1
+    Server: 0
     Standalone: 0
     WebGL: 1
+    Windows Store Apps: 0
+    iPhone: 0
+    tvOS: 0
