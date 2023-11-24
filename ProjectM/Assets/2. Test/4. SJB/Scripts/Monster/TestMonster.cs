@@ -1,38 +1,44 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TestMonster : MonoBehaviour
 {
     public MonsterStateMachine monsterFSM;
+    public CharacterController monsterControl;
+
     public int hp;
+    public float patrolRange;
+    public float moveSpeed;
 
 
     private void Awake()
     {
         hp = 500;
-    }
-
-    void Update()
-    {
-        TestStateChange();
+        patrolRange = 10f;
+        moveSpeed = 1f;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("PlayerAtk")) 
+        if (other.gameObject.layer == LayerMask.NameToLayer("PatrolBecon"))
         {
-            TestTrigger();
+            //monsterFSM.enumToStateClass[monsterFSM.currentState].OnStateStay(gameObject);
         }
     }
 
-
-    private void TestStateChange() 
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) 
+        TestStateChange();
+    }
+
+
+
+    private void TestStateChange()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            monsterFSM.ChangeState(MonsterStateMachine.State.Idle);
+            monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
         }
-        if (Input.GetKeyDown(KeyCode.W)) 
+        if (Input.GetKeyDown(KeyCode.W))
         {
             monsterFSM.ChangeState(MonsterStateMachine.State.Detect);
         }
@@ -47,22 +53,6 @@ public class TestMonster : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             monsterFSM.ChangeState(MonsterStateMachine.State.Die);
-        }
-
-        monsterFSM.enumToStateClass[monsterFSM.currentState].OnStateStay();
-    }
-
-    private void TestTrigger() 
-    {
-        hp -= 100;
-
-        if (hp <= 100) 
-        {
-            monsterFSM.ChangeState(MonsterStateMachine.State.Runaway);
-        }
-        else 
-        {
-            Debug.LogWarning("HP : " + hp);
         }
     }
 }
