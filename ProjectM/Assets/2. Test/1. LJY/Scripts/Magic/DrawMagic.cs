@@ -27,6 +27,8 @@ public class DrawMagic : MonoBehaviour
     public InputActionReference UIInputAction;  // 인풋 액션 중 UI 클릭 인풋
     private bool isPressing = false;
 
+    public GameObject FireSkill;
+
     private Transform playerCamera;     // UI Rotate에 사용할 플레이어 카메라
     private float playerYRotation;      // UI Rotate에 사용할 플레이어 Y 회전축
     private Vector3 point;               // Line Renderer 회전에 사용할 점 포지션
@@ -169,6 +171,7 @@ public class DrawMagic : MonoBehaviour
         if (myPattern_.SequenceEqual(firePattern))
         {
             Debug.Log("파이어패턴과 일치");
+            FireSkill.SetActive(true);
         }
         else
         {
