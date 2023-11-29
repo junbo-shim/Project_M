@@ -20,6 +20,7 @@ TagManager:
   - Restricted
   - Player
   - Grabbable
+  - Click
   - 
   - 
   - 
@@ -31,16 +32,15 @@ TagManager:
   - 
   - 
   - 
+  - MonsterSonar
+  - MonsterSight
+  - MonsterAtk
+  - Monster
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerFoot
+  - PlayerAtk
+  - Player
   m_SortingLayers:
   - name: Default
     uniqueID: 0
