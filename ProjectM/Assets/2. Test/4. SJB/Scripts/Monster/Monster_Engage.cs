@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Monster_Engage : MonsterState
 {
+    private CharacterController monsterControl;
+
     public override void OnStateEnter()
     {
         Debug.LogWarning("전투 시작");

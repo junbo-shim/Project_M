@@ -4,10 +4,14 @@ public class TestMonster : MonoBehaviour
 {
     public MonsterStateMachine monsterFSM;
     public CharacterController monsterControl;
+    public GameObject monsterSight;
+    public GameObject player;
 
     public int hp;
     public float patrolRange;
     public float moveSpeed;
+    public float sightRange;
+    public float sightAngle;
 
 
     private void Awake()
@@ -15,22 +19,15 @@ public class TestMonster : MonoBehaviour
         hp = 500;
         patrolRange = 10f;
         moveSpeed = 1f;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("PatrolBecon"))
-        {
-            //monsterFSM.enumToStateClass[monsterFSM.currentState].OnStateStay(gameObject);
-        }
+        sightRange = transform.localScale.y * 4f;
+        monsterSight.GetComponent<SphereCollider>().radius = sightRange;
+        sightAngle = 90f;
     }
 
     private void Update()
     {
         TestStateChange();
     }
-
-
 
     private void TestStateChange()
     {
@@ -42,8 +39,9 @@ public class TestMonster : MonoBehaviour
         {
             monsterFSM.ChangeState(MonsterStateMachine.State.Detect);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (monsterSight.GetComponent<MonsterSight>().isInAngle == true)
         {
+            monsterSight.SetActive(false);
             monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
         }
         if (Input.GetKeyDown(KeyCode.R))

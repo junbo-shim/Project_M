@@ -18,4 +18,7 @@ public class MonsterState
     // 상태 중 호출되는 메서드 - 오버로드(patrol)
     public virtual void OnStateStay(GameObject monster_, MonsterStateMachine msm_) { }
     #endregion
+
+    #region Engage
+    #endregion
 }

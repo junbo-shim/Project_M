@@ -10,7 +10,7 @@ public class Monster_Patrol : MonsterState
     private float speed;
 
     private WaitUntil untilMonsterArrived;
-
+    private WaitForSecondsRealtime returnPatrol;
 
 
     public override void OnStateEnter(GameObject monster_) 
@@ -37,6 +37,8 @@ public class Monster_Patrol : MonsterState
 
 
 
+
+
     #region 초기화
     private void Init(GameObject monster_) 
     {
@@ -44,6 +46,7 @@ public class Monster_Patrol : MonsterState
         range = monster_.GetComponent<TestMonster>().patrolRange;
         speed = monster_.GetComponent<TestMonster>().moveSpeed;
         untilMonsterArrived = new WaitUntil(() => Vector3.Distance(destination, monster_.transform.position) < 1.5f);
+        returnPatrol = new WaitForSecondsRealtime(4f);
     }
     #endregion
 
@@ -82,24 +85,26 @@ public class Monster_Patrol : MonsterState
             isAboveTerrain = Physics.Raycast(temp, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain"));
         }
 
-        // Debug Code
-        GameObject temp2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        temp2.transform.position = temp;
-        temp2.GetComponent<BoxCollider>().enabled = false;
-        temp2.GetComponent<MeshRenderer>().material.color = Color.cyan;
-        Debug.LogError(temp);
+        #region DebugCode : Random Vector
+        //GameObject temp2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //temp2.transform.position = temp;
+        //temp2.GetComponent<BoxCollider>().enabled = false;
+        //temp2.GetComponent<MeshRenderer>().material.color = Color.cyan;
+        //Debug.LogError(temp);
+        #endregion
 
 
         // hit point 의 y 좌표를 적용하여 목표 좌표를 저장한다
         destination = new Vector3(temp.x, hit.point.y, temp.z);
-        
 
-        // Debug Code
-        GameObject temp3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        temp3.transform.position = destination;
-        temp3.GetComponent<SphereCollider>().enabled = false;
-        temp3.GetComponent<MeshRenderer>().material.color = Color.red;
-        Debug.LogError(destination);
+
+        #region DebugCode : Random Vector to Ground Vector
+        //GameObject temp3 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //temp3.transform.position = destination;
+        //temp3.GetComponent<SphereCollider>().enabled = false;
+        //temp3.GetComponent<MeshRenderer>().material.color = Color.red;
+        //Debug.LogError(destination);
+        #endregion
     }
     #endregion
 
@@ -113,7 +118,9 @@ public class Monster_Patrol : MonsterState
         {
             // untilMonsterArrived 거리가 1.5f 이하일 때까지 hold 하는 로직
             yield return untilMonsterArrived;
+            //yield return returnPatrol;
             SetDesstination(patrolCenterPoint, range);
+            Debug.LogWarning("SetPoint 작동중");
         }   
     }
     // 이동 코루틴
@@ -127,8 +134,9 @@ public class Monster_Patrol : MonsterState
             // 매 프레임 단위로 루프 작동 : Update 보다 성능에 악영향을 줄 수 있지만 특정 조건에서만 작동하도록 함
             yield return null;
             //Debug.LogWarning(Vector3.Distance(destination, monster_.transform.position));
-
+            monster_.transform.LookAt(destination + new Vector3(0f, monster_.transform.position.y, 0f));
             monsterControl.Move((destination - monster_.transform.position) * speed * Time.deltaTime);
+            Debug.LogWarning("Move 작동중");
         }
     }
     #endregion
