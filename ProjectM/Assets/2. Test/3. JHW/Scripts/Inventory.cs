@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
     public delegate void OnSlotCountChange(int val);  //대리자 정의
     public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
+    public Skill skill;
 
     private int slotCnt;
 
@@ -42,10 +43,6 @@ public class Inventory : MonoBehaviour
     }
 
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         SlotCnt = 32;
@@ -53,17 +50,6 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item _item)
     {
-        //if (items.Count < SlotCnt)
-        //{
-        //    items.Add(_item);
-        //    if (onChangeItem != null)
-        //    {
-        //        onChangeItem.Invoke();
-        //    }
-        //    return true;
-        //}
-
-        //return false;
 
         if (items.Count < SlotCnt)
         {
@@ -100,6 +86,7 @@ public class Inventory : MonoBehaviour
             FieldItem fIeldItem = other.GetComponent<FieldItem>();
             if (AddItem(fIeldItem.GetItem()))
             {
+                skill.CreafringSkill(fIeldItem.item.itemName);
                 fIeldItem.DestroyItem();
             }
         }

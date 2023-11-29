@@ -55,7 +55,15 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < slots.Length; ++i)
         {
-            slots[i].RemoveSlot();
+            for(int j = 0; j < inventory.items.Count; j ++)
+            {
+                if (inventory.items[j].itemCount == 0)
+                {
+                    inventory.items.Remove(inventory.items[j]);
+                }
+            }
+                slots[i].RemoveSlot();
+            
         }
 
         for (int i = 0; i < inventory.items.Count; i++)

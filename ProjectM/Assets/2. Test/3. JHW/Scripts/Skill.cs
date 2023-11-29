@@ -1,100 +1,300 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Skill : MonoBehaviour
 {
 
-    CreaftingUI creaftingUI;
     Inventory inventory;
+    ItemDataBase itemData;
+    IllustratedGuide illustratedGuide;
 
-    public GameObject[] EnhanceButton;
+    public GameObject[] creaftingButton;
+    public GameObject[] enhanceButton;
+    public List<string> creaftedItemNames;
 
+
+    Dictionary<string, int> mySkill = new Dictionary<string, int>();
 
     private void Start()
     {
-        creaftingUI = FindAnyObjectByType<CreaftingUI>();
         inventory = FindAnyObjectByType<Inventory>();
+        itemData = FindAnyObjectByType<ItemDataBase>();
+        illustratedGuide = FindAnyObjectByType<IllustratedGuide>();
 
-
-        for(int i = 0; i < 4; i ++)
+        for (int i = 0; i < 5; i++)
         {
-            EnhanceButton[i].SetActive(false);
+            enhanceButton[i].SetActive(false);
         }
+
+        for (int i = 0; i < 6; i++)
+        {
+            creaftingButton[i].SetActive(false);
+        }
+
+        mySkill.Add("Invisibility", 1106);
+
     }
 
 
+
+    #region FIreBall
     public void FireBallSkill()
     {
-        EnhanceButton[0].SetActive(true);
-        creaftingUI.creaftingButton[0].SetActive(false) ;
-
-        
+        creaftingButton[0].SetActive(false);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName == "Battery")
+            if (inventory.items[i].itemName == "FIreBallRecipe")
             {
                 inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("FIreBallRecipe");
+                EnhanceButtonManager("FIreBallRecipe", 0);
+                illustratedGuide.FireBallChangeColor();
+
             }
         }
+        mySkill.Add("FireBall", 1000);
     }
 
 
     public void EnhanceFireBallSkill()
     {
-        EnhanceButton[0].SetActive(false);
+        enhanceButton[0].SetActive(false);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName == "Battery")
-            {
-                inventory.items[i].itemCount = 0;
-            }
-        }
-    }
-
-
-
-    public void RazerSkill()
-    {
-        EnhanceButton[1].SetActive(true);
-
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].itemName == "Ladder")
+            if (inventory.items[i].itemName == "FIreBallRecipe")
             {
                 inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
             }
         }
-    }
 
-    public void IceBulletSkill()
+        mySkill.Add("E_FireBall", 1001);
+    }
+    #endregion
+
+    #region Protect
+    public void ProtectSkill()
     {
-        EnhanceButton[2].SetActive(true);
+        creaftingButton[1].SetActive(false);
+
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName == "SleepBag")
+            if (inventory.items[i].itemName == "ProtectRecipe")
             {
-                inventory.items.RemoveAt(i);
-                i--;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("ProtectRecipe");
+                EnhanceButtonManager("ProtectRecipe", 1);
+                illustratedGuide.ProtectChangeColor();
             }
         }
+
+        mySkill.Add("Protect", 1102);
     }
 
+
+    public void EnhanceProtectSkill()
+    {
+        enhanceButton[1].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "ProtectRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+            }
+        }
+
+        mySkill.Add("E_Protect", 1103);
+
+    }
+
+    #endregion
+
+    #region IceBall
+    public void IceBallSkill()
+    {
+        creaftingButton[2].SetActive(false);
+
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "IceBallRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("IceBallRecipe");
+                EnhanceButtonManager("IceBallRecipe", 2);
+                illustratedGuide.IceBallChangeColor();
+            }
+        }
+        mySkill.Add("IceBall", 1100);
+
+    }
+
+
+    public void EnhanceIceBallSkill()
+    {
+        enhanceButton[2].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "IceBallRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+            }
+        }
+        mySkill.Add("E_IceBall", 1101);
+
+    }
+    #endregion
+
+    #region Poison
     public void PosionSkill()
     {
-        EnhanceButton[3].SetActive(true);
+        creaftingButton[3].SetActive(false);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName == "Supply")
+            if (inventory.items[i].itemName == "PoisonRecipe")
             {
-                inventory.items.RemoveAt(i);
-                i--;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("PoisonRecipe");
+                EnhanceButtonManager("PoisonRecipe", 3);
+                illustratedGuide.PoisonChangeColor();
             }
         }
+
+        mySkill.Add("Poison", 1002);
+
     }
+
+
+
+    public void EnhancePosionSkill()
+    {
+        enhanceButton[3].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "PoisonRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+            }
+        }
+        mySkill.Add("E_Poison", 1003);
+
+    }
+    #endregion
+
+    #region Jump
+    public void JumpSkill()
+    {
+        creaftingButton[4].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "JumpRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("JumpRecipe");
+                EnhanceButtonManager("JumpRecipe", 4);
+                illustratedGuide.JumpChangeColor();
+            }
+        }
+        mySkill.Add("Jump", 1104);
+
+    }
+
+
+
+    public void EnhanceFlySkill()
+    {
+        enhanceButton[4].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "JumpRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+            }
+        }
+        mySkill.Add("E_Fly", 1105);
+
+    }
+    #endregion
+
+    #region Hill
+    public void HillSkill()
+    {
+        creaftingButton[5].SetActive(false);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "HillRecipe")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                creaftedItemNames.Add("HillRecipe");
+                illustratedGuide.HillChangeColor();
+            }
+        }
+        mySkill.Add("Hill", 1107);
+
+    }
+    #endregion
+
+
+    private void EnhanceButtonManager(string itemName, int buttonIndex)
+    {
+        int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
+
+        if (inventory.items[itemIndex].itemCount >= 4)
+        {
+            enhanceButton[buttonIndex].SetActive(true);
+        }
+        else if (inventory.items[itemIndex].itemCount < 4)
+        {
+            enhanceButton[buttonIndex].SetActive(false);
+        }
+    }
+
+
+    public void CreafringSkill(string itemName)
+    {
+
+
+        int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
+        int itemDBIndex = itemData.itemDB.FindIndex(item => item.itemName == itemName);
+
+        if (creaftedItemNames.Contains(itemName))
+        {
+            EnhanceButtonManager("FIreBallRecipe", 0);
+            EnhanceButtonManager("ProtectRecipe", 1);
+            EnhanceButtonManager("IceBallRecipe", 2);
+            EnhanceButtonManager("PoisonRecipe", 3);
+            EnhanceButtonManager("JumpRecipe", 4);
+            return;
+        }
+
+        if (itemDBIndex < 6)
+        {
+            if (inventory.items[itemIndex].itemCount >= 4)
+            {
+                creaftingButton[itemDBIndex].SetActive(true);
+            }
+        }
+        else
+        {
+            return;
+        }
+
+
+    }
+
+
 
 }
