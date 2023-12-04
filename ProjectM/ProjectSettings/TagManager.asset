@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FieldItem
+  - Wand
+  - MapObj
+  - Floor
   layers:
   - Default
   - TransparentFX
@@ -16,6 +20,8 @@ TagManager:
   - Restricted
   - Player
   - Grabbable
+  - PlayerATK
+  - PlayerFoot
   - 
   - 
   - 
@@ -31,12 +37,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - MonsterSonar
+  - MonsterSight
+  - MonsterATK
+  - Monster
   m_SortingLayers:
   - name: Default
     uniqueID: 0
