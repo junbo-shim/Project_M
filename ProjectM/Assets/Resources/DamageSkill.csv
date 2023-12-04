@@ -1,5 +1,0 @@
-﻿ID,SkillName,Description,SkillDamage,SkillCritical,SkillCriAdd,SkillRange,Value1,Value2,Pattern
-1000,FireBall,미트볼,100,0,0,5,2,-1,0340
-1001,E_FIreBall,미트볼세개,150,0,0,5,2,-1,0340
-1002,Poison,독,0,0,0,5,7,500,032140
-1003,E_Poison,강화독,300,0,0,5,7,500,032140
