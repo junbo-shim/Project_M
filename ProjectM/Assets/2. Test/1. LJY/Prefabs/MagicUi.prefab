@@ -354,7 +354,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bf3e737b2ee88498500472365152ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dots: []
+  dots:
+  - {fileID: 7485495064882686612}
+  - {fileID: 7485495065178473796}
+  - {fileID: 7485495066535310319}
+  - {fileID: 7485495066001358945}
+  - {fileID: 7485495065281236080}
   uiCursur: {fileID: 0}
   firePattern: 00000000030000000400000000000000
   poisonPattern: 000000000300000002000000010000000400000000000000

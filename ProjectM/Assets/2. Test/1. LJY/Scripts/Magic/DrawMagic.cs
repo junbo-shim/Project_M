@@ -63,9 +63,16 @@ public class DrawMagic : MonoBehaviour
         playerCamera = Camera.main.transform;
 
         // LineRenderer 초기화
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = true;
+        if(lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+        }      
         lineRenderer.positionCount = 0; // 초기에는 아무 점도 없으므로 0으로 설정
+    }
+
+    private void OnEnable()
+    {
+        lineRenderer.enabled = true;
     }
 
     void Update()
@@ -76,12 +83,7 @@ public class DrawMagic : MonoBehaviour
         }
         else if (isPressing == true)
         {
-            isPressing = false;
-            CompareSkillPattern(myPattern);
-            myPattern.Clear();
-            dotsTransform.Clear();
-            lineRenderer.positionCount = 0;
-            dotsIndex = 0;
+            ClearMagicUi();
         }
 
         if (isPressing == true && lineRenderer.positionCount > 0 && uiCursur.activeSelf == true)
@@ -93,13 +95,6 @@ public class DrawMagic : MonoBehaviour
         playerYRotation = playerCamera.eulerAngles.y;
         transform.rotation = Quaternion.Euler(0, playerYRotation, 0);
         UpdateLine();
-    }
-
-    void DrawMagicLine()
-    {
-        // LineRenderer를 사용하여 마법진 그리기
-
-
     }
 
     public void OnMouseEnterDot(Magicdot dot_)
@@ -243,26 +238,35 @@ public class DrawMagic : MonoBehaviour
         }
 
         string stringPattern = stringBuilder.ToString();
+        #region 디버깅 로그
+        //Debug.Log(stringPattern);
+        //Debug.Log(stringPattern.Length);
+        //string s = CSVConverter_JHW.Instance.tempString;
+        //Debug.Log(s.Length);
+        //Debug.Log(s);
 
-        Debug.Log(stringPattern);
-        Debug.Log(stringPattern.Length);
-        string s = CSVConverter_JHW.Instance.tempString;
-        Debug.Log(s.Length);
-        Debug.Log(s);
 
 
-
-        Debug.Log(stringPattern.Equals(CSVConverter_JHW.Instance.tempString.Trim()));
-
-        if(CSVConverter_JHW.Instance.patternDic[stringPattern] != null)
+        //Debug.Log(stringPattern.Equals(CSVConverter_JHW.Instance.tempString.Trim()));
+        #endregion
+        if (CSVConverter_JHW.Instance.patternDic.ContainsKey(stringPattern))
         {
-            Debug.Log("들어왔다 준보");
-            
-            GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
-            magicObject = Instantiate(magicObject, transform.position, Quaternion.identity);
+            if (CSVConverter_JHW.Instance.patternDic[stringPattern] != null)
+            {
+                Debug.Log("들어왔다 준보");
+
+                GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
+                magicObject = Instantiate(magicObject, transform.position, Quaternion.identity);
+                magicObject.transform.SetParent(transform.parent);
+                magicObject.GetComponent<MagicBase>().magicUi = gameObject;
+                stringPattern = default(string);
+                lineRenderer.enabled = false;
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
             stringPattern = default(string);
-            lineRenderer.enabled = false;
-            gameObject.SetActive(false);
         }
         // TODO : 스킬 분류 구조를 제작해서 패턴리스트와 스킬을 연동하고, 패턴마다 다른스킬을 사용할 수 있도록 해야한다.
 
@@ -274,5 +278,16 @@ public class DrawMagic : MonoBehaviour
         {
             lineRenderer.SetPosition(i, dotsTransform[i].position);
         }
+    }
+
+    // 패턴 리스트, 라인렌더러 그림, 버튼 눌림등을 초기화
+    private void ClearMagicUi()
+    {
+        isPressing = false;
+        CompareSkillPattern(myPattern);
+        myPattern.Clear();
+        dotsTransform.Clear();
+        lineRenderer.positionCount = 0;
+        dotsIndex = 0;
     }
 }
