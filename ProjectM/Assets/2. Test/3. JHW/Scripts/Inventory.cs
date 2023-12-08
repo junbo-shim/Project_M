@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Inventory : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class Inventory : MonoBehaviour
     public delegate void OnSlotCountChange(int val);  //대리자 정의
     public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
     public Skill skill;
+    public CreaftingItem creaftingItem;
+    public Text[] countNeedItem;
 
     private int slotCnt;
 
@@ -84,13 +88,23 @@ public class Inventory : MonoBehaviour
         if (other.CompareTag("FieldItem"))
         {
             FieldItem fIeldItem = other.GetComponent<FieldItem>();
+
             if (AddItem(fIeldItem.GetItem()))
             {
+
                 skill.CreafringSkill(fIeldItem.item.itemName);
+
+                creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood" , 0);
+                creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
+
+                creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);
+                creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
+                creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
+                creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
+
+
                 fIeldItem.DestroyItem();
             }
         }
     }
-
-
 }
