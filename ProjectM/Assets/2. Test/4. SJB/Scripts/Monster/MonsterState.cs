@@ -18,5 +18,5 @@ public class MonsterState
     public virtual void OnStateStay(GameObject monster_, MonsterStateMachine msm_) { }
 
     // 상태 탈출 시 호출되는 메서드 - 오버로드
-    public virtual void OnStateExit(GameObject monster_) { }
+    public virtual void OnStateExit(GameObject monster_, MonsterStateMachine msm_) { }
 }

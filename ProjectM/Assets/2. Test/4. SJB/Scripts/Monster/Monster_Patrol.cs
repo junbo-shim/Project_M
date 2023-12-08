@@ -1,15 +1,20 @@
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class Monster_Patrol : MonsterState
 {
     private CharacterController monsterControl;
+    private Animator monsterAni;
     private Vector3 patrolCenterPoint;
     private Vector3 destination;
     private float range;
     private float speed;
+    private float gravity;
 
     private WaitForSecondsRealtime returnPatrol;
+
+    public bool isRoutineOn;
 
 
     public override void OnStateEnter(GameObject monster_) 
@@ -17,7 +22,15 @@ public class Monster_Patrol : MonsterState
         Init(monster_);
         SetCenterPoint(monster_.transform.position);
         // 프로토타입
-        monster_.GetComponent<TestMonster>().monsterSight.SetActive(true);
+        if (monster_.GetComponent<TestMonster>() == true)
+        {
+            monster_.GetComponent<TestMonster>().monsterSight.SetActive(true);
+        }
+        else if (monster_.GetComponent<TestBigMonster>() == true) 
+        {
+            monster_.GetComponent<TestBigMonster>().monsterSight.SetActive(true);
+            monster_.GetComponent<TestBigMonster>().monsterSonar.SetActive(true);
+        }
     }
 
     public override void OnStateStay(GameObject monster_, MonsterStateMachine msm_) 
@@ -25,10 +38,24 @@ public class Monster_Patrol : MonsterState
         msm_.StartCoroutine(DoPatrol(monster_, msm_));
     }
 
-    public override void OnStateExit(GameObject monster_) 
+    public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_) 
     {
+        // 만약 코루틴이 살아있을 경우를 대비한 안전장치
+        if (isRoutineOn == true) 
+        {
+            Debug.LogError("?");
+            msm_.StopCoroutine(DoPatrol(monster_, msm_));
+        }
         // 프로토타입
-        monster_.GetComponent<TestMonster>().monsterSight.SetActive(false);
+        if (monster_.GetComponent<TestMonster>() == true)
+        {
+            monster_.GetComponent<TestMonster>().monsterSight.SetActive(false);
+        }
+        else if (monster_.GetComponent<TestBigMonster>() == true)
+        {
+            monster_.GetComponent<TestBigMonster>().monsterSight.SetActive(false);
+            monster_.GetComponent<TestBigMonster>().monsterSonar.SetActive(false);
+        }
         CleanVariables();
     }
 
@@ -40,10 +67,23 @@ public class Monster_Patrol : MonsterState
     private void Init(GameObject monster_) 
     {
         monsterControl = monster_.GetComponent<CharacterController>();
-        range = monster_.GetComponent<TestMonster>().patrolRange;
-        speed = monster_.GetComponent<TestMonster>().moveSpeed;
+        monsterAni = monster_.transform.Find("MonsterRigid").GetComponent<Animator>();
+
+        if (monster_.GetComponent<TestMonster>() == true)
+        {
+            range = monster_.GetComponent<TestMonster>().patrolRange;
+            speed = monster_.GetComponent<TestMonster>().moveSpeed;
+        }
+        else if (monster_.GetComponent<TestBigMonster>() == true)
+        {
+            range = monster_.GetComponent<TestBigMonster>().patrolRange;
+            speed = monster_.GetComponent<TestBigMonster>().moveSpeed;
+        }
+
+        gravity = -9.81f;
 
         returnPatrol = new WaitForSecondsRealtime(4f);
+        isRoutineOn = false;
     }
     #endregion
 
@@ -118,6 +158,9 @@ public class Monster_Patrol : MonsterState
             // Wait 완료할 때까지 그 다음 행동이 대기한다
             yield return msm_.StartCoroutine(Wait());
         }
+
+        // 코루틴 작동 중 여부 체크용
+        isRoutineOn = true;
     }
     #endregion
 
@@ -135,11 +178,19 @@ public class Monster_Patrol : MonsterState
             // 매 프레임 단위로 루프 작동 : Update 보다 성능에 악영향을 줄 수 있지만 특정 조건에서만 작동하도록 함
             yield return null;
 
-            Vector3 temp = new Vector3(destination.x, monster_.transform.position.y, destination.z);
+            Vector3 tempLook = new Vector3(destination.x, monster_.transform.position.y, destination.z);
 
-            monster_.transform.LookAt(temp);
-            monsterControl.Move((destination - monster_.transform.position) * speed * Time.deltaTime);
+            monster_.transform.LookAt(tempLook);
+
+            Vector3 tempMove = 
+                new Vector3(destination.x - monster_.transform.position.x,
+                gravity, destination.z - monster_.transform.position.z).normalized;
+
+            monsterControl.Move(tempMove * speed * Time.deltaTime);
+
+            monsterAni.SetBool("isMoving", true);
         }
+        monsterAni.SetBool("isMoving", false);
     }
 
     // 대기 코루틴
@@ -153,12 +204,17 @@ public class Monster_Patrol : MonsterState
     #region 변수 비우는 메서드
     private void CleanVariables() 
     {
+        monsterAni.SetBool("isMoving", false);
+
         monsterControl = default;
+        monsterAni = default;
         patrolCenterPoint = default;
         destination = default;
         range = default;
         speed = default;
         returnPatrol = default;
+
+        isRoutineOn = false;
     }
     #endregion
 }
