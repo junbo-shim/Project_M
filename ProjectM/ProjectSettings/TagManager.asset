@@ -8,11 +8,12 @@ TagManager:
   - Wand
   - MapObj
   - Floor
+  - 'FieldItem '
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
   - 

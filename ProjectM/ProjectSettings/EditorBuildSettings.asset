@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/1. Main/Scene/Demo.unity
+    guid: ec3f38883f6154e4186cb177e2f03df2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 244160312c06ff6498dac2692b2e0e74,
       type: 2}
@@ -13,7 +16,7 @@ EditorBuildSettings:
     WebXR.Settings: {fileID: 11400000, guid: fe9659bb224bb054bb1dbca065d1d318, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 7c0d65f8139523c47a3ac0b1587ccdf6,
       type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bc87842975b39e54c9a8257bb65aef55,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ca184f69de540744a97b0ca347e3db74,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b545a06d2be622d42ba416b6e5e224e9,
       type: 2}

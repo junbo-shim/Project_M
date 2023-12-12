@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
 
     public static Inventory Instance;
     public delegate void OnSlotCountChange(int val);  //대리자 정의
-    public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
+    //public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
     public Skill skill;
     public CreaftingItem creaftingItem;
     public Text[] countNeedItem;
@@ -32,6 +32,8 @@ public class Inventory : MonoBehaviour
         }
 
         Instance = this;
+
+        Debug.Log(Instance);
     }
 
 
@@ -42,7 +44,7 @@ public class Inventory : MonoBehaviour
         set
         {
             slotCnt = value;
-            onSlotCountChange.Invoke(slotCnt);
+            //onSlotCountChange.Invoke(slotCnt);
         }
     }
 
@@ -50,7 +52,9 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         SlotCnt = 32;
+        Debug.LogWarning(SlotCnt);
     }
+
 
     public bool AddItem(Item _item)
     {

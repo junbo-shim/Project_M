@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3376636280270429957}
   - component: {fileID: 3376636280270429961}
   - component: {fileID: 3376636280270429958}
-  m_Layer: 28
+  m_Layer: 29
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3376636280872583610}
   - component: {fileID: 3376636280872583615}
   - component: {fileID: 3376636280872583614}
-  m_Layer: 24
+  m_Layer: 28
   m_Name: Sonar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

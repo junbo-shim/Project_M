@@ -19627,8 +19627,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collideLayer:
     serializedVersion: 2
-    m_Bits: 307
+    m_Bits: 2147483656
   impactParticle: {fileID: 1475064962942672, guid: 156b5155cd2b0e3469377bac36f848e8,
     type: 3}
-  book: {fileID: 0}
+  book: {fileID: 2992409620654093039, guid: 6d3c3b6404312cd4eb0ebed31ce57eb5, type: 3}
   speed: 5

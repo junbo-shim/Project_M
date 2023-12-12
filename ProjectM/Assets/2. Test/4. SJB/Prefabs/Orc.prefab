@@ -12172,7 +12172,7 @@ GameObject:
   - component: {fileID: 5465495168197953239}
   - component: {fileID: 5465495168197953238}
   - component: {fileID: 5465495168197953233}
-  m_Layer: 28
+  m_Layer: 29
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16669,6 +16669,7 @@ GameObject:
   - component: {fileID: 3966369244665335298}
   - component: {fileID: 3966369244665335296}
   - component: {fileID: 3966369244665335299}
+  - component: {fileID: 5875831897615832462}
   m_Layer: 31
   m_Name: MonsterRigid
   m_TagString: Untagged
@@ -16857,6 +16858,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5875831897615832462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059760845955895659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9874a7474c030044f990edb5b9d71f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8060177556411770578
 GameObject:
   m_ObjectHideFlags: 0

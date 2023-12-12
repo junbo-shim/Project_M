@@ -9,7 +9,7 @@ public class Monster_Engage : MonsterState
     private float radius;
     private float gravity;
 
-    private bool isAttacking;
+    //private bool isAttacking;
 
     public GameObject target;
 
@@ -32,7 +32,7 @@ public class Monster_Engage : MonsterState
 
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
-        // ¸¸¾à ÄÚ·çÆ¾ÀÌ »ì¾ÆÀÖÀ» °æ¿ì¸¦ ´ëºñÇÑ ¾ÈÀüÀåÄ¡
+        // ë§Œì•½ ì½”ë£¨í‹´ì´ ì‚´ì•„ìˆì„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•œ ì•ˆì „ì¥ì¹˜
         if (isRoutineOn == true)
         {
             msm_.StopCoroutine(DoEngage(monster_, msm_));
@@ -44,12 +44,12 @@ public class Monster_Engage : MonsterState
 
 
 
-    #region ÃÊ±âÈ­
+    #region ì´ˆê¸°í™”
     private void Init(GameObject monster_)
     {
         monsterControl = monster_.GetComponent<CharacterController>();
         monsterAni = monster_.transform.Find("MonsterRigid").GetComponent<Animator>();
-        speed = 5f;
+        speed = 3f;
 
         if (monster_.GetComponent<TestMonster>() == true)
         {
@@ -66,7 +66,7 @@ public class Monster_Engage : MonsterState
         }
 
         gravity = -9.81f;
-        isAttacking = false;
+        //isAttacking = false;
         waitTime = new WaitForSecondsRealtime(1f);
         waitTimer = 5;
 
@@ -75,49 +75,49 @@ public class Monster_Engage : MonsterState
     #endregion
 
 
-    #region ±³Àü
-    // Engage »óÅÂÀÏ ¶§ ½ÇÇàÇÒ Çàµ¿
+    #region êµì „
+    // Engage ìƒíƒœì¼ ë•Œ ì‹¤í–‰í•  í–‰ë™
     private IEnumerator DoEngage(GameObject monster_, MonsterStateMachine msm_)
     {
-        // MonsterStateMachine »óÅÂ°¡ Engage ÀÏ ¶§¸¸ Coroutine Áö¼Ó
+        // MonsterStateMachine ìƒíƒœê°€ Engage ì¼ ë•Œë§Œ Coroutine ì§€ì†
         while (msm_.currentState == MonsterStateMachine.State.Engage)
         {
-            // ¸ñÇ¥¸¦ Å½»öÇÏ°í target º¯¼ö¿¡ ÇÒ´çÇÑ´Ù
+            // ëª©í‘œë¥¼ íƒìƒ‰í•˜ê³  target ë³€ìˆ˜ì— í• ë‹¹í•œë‹¤
             CheckTarget(monster_);
 
-            // Å¸°ÙÀÌ ¾ø´Ù¸é
+            // íƒ€ê²Ÿì´ ì—†ë‹¤ë©´
             if (target == null) 
             {
-                // Å¸°Ù Àç°¨Áö¸¦ À§ÇÑ Ä«¿îÆ®´Ù¿î ÄÚ·çÆ¾À» ½ÇÇàÇÑ´Ù
+                // íƒ€ê²Ÿ ì¬ê°ì§€ë¥¼ ìœ„í•œ ì¹´ìš´íŠ¸ë‹¤ìš´ ì½”ë£¨í‹´ì„ ì‹¤í–‰í•œë‹¤
                 yield return msm_.StartCoroutine(WaitForTarget(monster_, msm_));
 
-                // ±×·¡µµ Å¸°ÙÀÌ ¾ø´Ù¸é
+                // ê·¸ë˜ë„ íƒ€ê²Ÿì´ ì—†ë‹¤ë©´
                 if (target == null) 
                 {
-                    // ÄÚ·çÆ¾ ÇêµºÀ» ¿¹¹æÇÏ´Â break
+                    // ì½”ë£¨í‹´ í—›ëì„ ì˜ˆë°©í•˜ëŠ” break
                     yield break;
                 }
             }
-            // Å¸°ÙÀ» È®º¸Çß´Ù¸é
+            // íƒ€ê²Ÿì„ í™•ë³´í–ˆë‹¤ë©´
             else if (target != null) 
             {
-                // Å¸°Ù À§Ä¡±îÁö ¿òÁ÷ÀÌ°í °ø°İÀ» ¼øÂ÷ÀûÀ¸·Î ½ÇÇàÇÑ´Ù
+                // íƒ€ê²Ÿ ìœ„ì¹˜ê¹Œì§€ ì›€ì§ì´ê³  ê³µê²©ì„ ìˆœì°¨ì ìœ¼ë¡œ ì‹¤í–‰í•œë‹¤
                 yield return msm_.StartCoroutine(EngageMove(monster_));
                 yield return msm_.StartCoroutine(Attack(monster_));
             }
         }
 
-        // ÄÚ·çÆ¾ ÀÛµ¿ Áß ¿©ºÎ Ã¼Å©¿ë
+        // ì½”ë£¨í‹´ ì‘ë™ ì¤‘ ì—¬ë¶€ ì²´í¬ìš©
         isRoutineOn = true;
     }
     #endregion
 
 
-    #region ÀÌµ¿
+    #region ì´ë™
     private IEnumerator EngageMove(GameObject monster_)
     {
-        // ¸ñÇ¥ ÁÂÇ¥¿ÍÀÇ °Å¸®°¡ 3f ÀÌÇÏ°¡ µÉ ¶§±îÁö¸¸ while ¹® Áö¼Ó
-        // ¸ó½ºÅÍÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç °ø°İ ¹üÀ§¿Í ¸ÂÃâ °Í
+        // ëª©í‘œ ì¢Œí‘œì™€ì˜ ê±°ë¦¬ê°€ 3f ì´í•˜ê°€ ë  ë•Œê¹Œì§€ë§Œ while ë¬¸ ì§€ì†
+        // ëª¬ìŠ¤í„°ì˜ ì• ë‹ˆë©”ì´ì…˜ ê³µê²© ë²”ìœ„ì™€ ë§ì¶œ ê²ƒ
         while (Vector3.Distance(target.transform.position, monster_.transform.position) > 3f)
         {
             yield return null;
@@ -125,45 +125,45 @@ public class Monster_Engage : MonsterState
             Vector3 tempLook = new Vector3(target.transform.position.x,
                 monster_.transform.position.y, target.transform.position.z);
 
-            // Å¸°ÙÀ» ¹Ù¶óº¸°Ô ÇÑ´Ù
+            // íƒ€ê²Ÿì„ ë°”ë¼ë³´ê²Œ í•œë‹¤
             monster_.transform.LookAt(tempLook);
 
             Vector3 tempMove =
                 new Vector3(target.transform.position.x - monster_.transform.position.x,
                 gravity, target.transform.position.z - monster_.transform.position.z).normalized;
 
-            // Å¸°ÙÀÇ À§Ä¡·Î ¿òÁ÷ÀÎ´Ù
+            // íƒ€ê²Ÿì˜ ìœ„ì¹˜ë¡œ ì›€ì§ì¸ë‹¤
             monsterControl.Move(tempMove * speed * Time.deltaTime);
 
             monsterAni.SetBool("isMoving", true);
         }
         monsterAni.SetBool("isMoving", false);
 
-        // ÀÌµ¿À» ¸¶Ä¡¸é Å¸°Ù º¯¼ö¸¦ ÃÊ±âÈ­ÇÑ´Ù (ÇÃ·¹ÀÌ¾î°¡ Åõ¸íÀÌ³ª ÀÌµ¿¸¶¹ıÀ¸·Î µµ¸ÁÄ¥ ¼ö ÀÖÀ½)
+        // ì´ë™ì„ ë§ˆì¹˜ë©´ íƒ€ê²Ÿ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤ (í”Œë ˆì´ì–´ê°€ íˆ¬ëª…ì´ë‚˜ ì´ë™ë§ˆë²•ìœ¼ë¡œ ë„ë§ì¹  ìˆ˜ ìˆìŒ)
         target = null;
     }
     #endregion
 
 
-    #region °ø°İ (¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı½Ã°£ ¿°µÎ)
+    #region ê³µê²© (ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒì‹œê°„ ì—¼ë‘)
     private IEnumerator Attack(GameObject monster_)
     {
         CheckTarget(monster_);
 
-        // ¸¸¾à Å¸°ÙÀÌ ¾ø´Ù¸é
+        // ë§Œì•½ íƒ€ê²Ÿì´ ì—†ë‹¤ë©´
         if (target == null) 
         { 
             /* Do Nothing */
         }
-        // Å¸°ÙÀÌ Á¸ÀçÇÑ´Ù¸é
+        // íƒ€ê²Ÿì´ ì¡´ì¬í•œë‹¤ë©´
         else if (target != null) 
         {
             monsterAni.SetBool("isAttacking", true);
 
-            // ¾Ö´Ï¸ŞÀÌ¼ÇÀ» À§ÇÑ ´ë±â ½Ã°£
+            // ì• ë‹ˆë©”ì´ì…˜ì„ ìœ„í•œ ëŒ€ê¸° ì‹œê°„
             yield return new WaitForSecondsRealtime(3f);
 
-            // °ø°İÀ» ¸¶Ä¡¸é Å¸°Ù º¯¼ö¸¦ ÃÊ±âÈ­ÇÑ´Ù (ÇÃ·¹ÀÌ¾î°¡ Åõ¸íÀÌ³ª ÀÌµ¿¸¶¹ıÀ¸·Î µµ¸ÁÄ¥ ¼ö ÀÖÀ½)
+            // ê³µê²©ì„ ë§ˆì¹˜ë©´ íƒ€ê²Ÿ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤ (í”Œë ˆì´ì–´ê°€ íˆ¬ëª…ì´ë‚˜ ì´ë™ë§ˆë²•ìœ¼ë¡œ ë„ë§ì¹  ìˆ˜ ìˆìŒ)
             target = null;
         }
 
@@ -173,62 +173,62 @@ public class Monster_Engage : MonsterState
     #endregion
 
 
-    #region °ø°İ Å¸°Ù Lost ½Ã ´ë±â »óÅÂ
+    #region ê³µê²© íƒ€ê²Ÿ Lost ì‹œ ëŒ€ê¸° ìƒíƒœ
     private IEnumerator WaitForTarget(GameObject monster_, MonsterStateMachine msm_)
     {
         int i = 0;
 
-        // Å¸ÀÌ¸Ó ¼³Á¤ÇÑ ºÎºĞ±îÁö ¹İº¹ÇÏ°í, Å¸°ÙÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§¸¸ ¹İº¹
+        // íƒ€ì´ë¨¸ ì„¤ì •í•œ ë¶€ë¶„ê¹Œì§€ ë°˜ë³µí•˜ê³ , íƒ€ê²Ÿì´ ì¡´ì¬í•˜ì§€ ì•Šì„ ë•Œë§Œ ë°˜ë³µ
         while (i < waitTimer && target == null) 
         {
             yield return waitTime;
-            // n ÃÊ¸¶´Ù Å¸°ÙÀ» Ã£´Â´Ù
+            // n ì´ˆë§ˆë‹¤ íƒ€ê²Ÿì„ ì°¾ëŠ”ë‹¤
             CheckTarget(monster_);
             i++;
         }
 
-        // ·çÇÁ¸¦ ´Ù µ¹¾Æµµ Å¸°ÙÀÌ ¾ø´Ù¸é
+        // ë£¨í”„ë¥¼ ë‹¤ ëŒì•„ë„ íƒ€ê²Ÿì´ ì—†ë‹¤ë©´
         if (target == null) 
         {
-            // »óÅÂ¸¦ Á¤Âû·Î º¯È¯ÇÑ´Ù
+            // ìƒíƒœë¥¼ ì •ì°°ë¡œ ë³€í™˜í•œë‹¤
             msm_.ChangeState(MonsterStateMachine.State.Patrol);
         }
     }
     #endregion
 
 
-    #region Å¸°Ù È®ÀÎ ¸Ş¼­µå
+    #region íƒ€ê²Ÿ í™•ì¸ ë©”ì„œë“œ
     private void CheckTarget(GameObject monster_)
     {
-        // Detect -> Engage ÀÏ °æ¿ì target ÃÊ±âÈ­ È¸ÇÇ¿ë ¾ÈÀüÀåÄ¡
+        // Detect -> Engage ì¼ ê²½ìš° target ì´ˆê¸°í™” íšŒí”¼ìš© ì•ˆì „ì¥ì¹˜
         if (target != null) 
         {
             return;
         }
 
-        // OverlapSphere À» »ç¿ëÇÏ¿© Player Layer ¸¦ °ËÃâ½ÃµµÇÑ´Ù
+        // OverlapSphere ì„ ì‚¬ìš©í•˜ì—¬ Player Layer ë¥¼ ê²€ì¶œì‹œë„í•œë‹¤
         Collider[] colliders = Physics.OverlapSphere(monster_.transform.position, radius, LayerMask.GetMask("Player"));
 
         //Debug.LogError(colliders.Length);
 
-        // ¸¸¾à °ËÃâµÈ °ÍÀÌ ¾ø´Ù¸é 
+        // ë§Œì•½ ê²€ì¶œëœ ê²ƒì´ ì—†ë‹¤ë©´ 
         if (colliders.Length <= 0) 
         {
-            // Å¸°Ù º¯¼ö´Â null ÀÌ´Ù
+            // íƒ€ê²Ÿ ë³€ìˆ˜ëŠ” null ì´ë‹¤
             target = null;
-            //Debug.LogWarning("Å¸°Ù ¾øÀ½");
+            //Debug.LogWarning("íƒ€ê²Ÿ ì—†ìŒ");
         }
-        // ¸¸¾à °ËÃâµÈ °ÍÀÌ ÀÖ´Ù¸é
+        // ë§Œì•½ ê²€ì¶œëœ ê²ƒì´ ìˆë‹¤ë©´
         else if (colliders.Length > 0)
         {
-            // foreach ¹İº¹À» ÅëÇØ colliders ¸¦ ¸ğµÎ °Ë»çÇÑ´Ù
+            // foreach ë°˜ë³µì„ í†µí•´ colliders ë¥¼ ëª¨ë‘ ê²€ì‚¬í•œë‹¤
             foreach (var collider in colliders)
             {
-                // ÇÁ·ÎÅäÅ¸ÀÔ
+                // í”„ë¡œí† íƒ€ì…
                 if (collider.GetComponent<Rigidbody>() == true)
                 {
                     target = collider.gameObject;
-                    //Debug.LogWarning("Å¸°Ù Ã£À½");
+                    //Debug.LogWarning("íƒ€ê²Ÿ ì°¾ìŒ");
                 }
             }
         }
@@ -236,7 +236,7 @@ public class Monster_Engage : MonsterState
     #endregion
 
 
-    #region º¯¼ö ºñ¿ì´Â ¸Ş¼­µå
+    #region ë³€ìˆ˜ ë¹„ìš°ëŠ” ë©”ì„œë“œ
     private void CleanVariables(GameObject monster_) 
     {
         monsterAni.SetBool("isMoving", false); 
@@ -246,7 +246,7 @@ public class Monster_Engage : MonsterState
         monsterAni = default;
         speed = default;
         radius = default;
-        isAttacking = false;
+        //isAttacking = false;
         target = null;
         waitTime = default;
         waitTimer = default;

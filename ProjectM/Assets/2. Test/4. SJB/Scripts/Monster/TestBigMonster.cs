@@ -27,11 +27,11 @@ public class TestBigMonster : MonoBehaviour
         moveSpeed = 7f;
         sightRange = transform.localScale.y * 2f;
 
-        // ÇÁ·ÎÅäÅ¸ÀÔ¿ë
+        // í”„ë¡œí† íƒ€ìž…ìš©
         monsterSight.transform.localScale = Vector3.one * sightRange * 2f;
         sightAngle = 90f;
 
-        // ALERT : ¼Ò³ª ¹üÀ§ ¹®Á¦Á¸Àç
+        // ALERT : ì†Œë‚˜ ë²”ìœ„ ë¬¸ì œì¡´ìž¬
         sonarRange = transform.localScale.y * 2.4f;
         monsterSonar.transform.localScale = Vector3.one * sonarRange * 2f;
     }

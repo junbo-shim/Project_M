@@ -96,4 +96,9 @@ crashlytics-build.properties
 # -3.Imports Folder Exception (23.12.4)
 /[Aa]ssets/3. Imports/
 
+# SSM Work Exception (23.12.12)
+/[Aa]ssets/2. Test/2. SSM/Scene/SSMscene/OcclusionCullingData.asset
+/[Aa]ssets/2. Test/2. SSM/Scripts/SSMMap/Rowlan/Terrain/
+
+
 # End of https://www.toptal.com/developers/gitignore/api/unity

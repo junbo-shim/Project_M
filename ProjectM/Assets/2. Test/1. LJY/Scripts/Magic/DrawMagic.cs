@@ -9,11 +9,16 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class DrawMagic : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     private List<Magicdot> dots;    // 마법진 그리는데 이용할 점들의 리스트
     public GameObject uiCursur;
     public List<int> firePattern = new() { 0, 3, 4, 0 };
-    public List<int> poisonPattern = new() { 0, 3, 2, 1, 4, 0 };
+    // 23.12.11 SJB Editted for Prototype
+
+    // 형 매직스포너 끌어다 인스펙터 창에 넣었어요 다시 해보시면 될거에요 원격꺼드릴게요
+    // 준보형 사랑해요 준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요ㅋㅋ
+
+    public List<int> poisonPattern = new() { 3, 4 };
     public List<int> icePattern = new() { 1, 3, 2, 4, 1 };
     public List<int> flyPattern = new() { 0, 1, 2, 3 };
     public List<int> protectPattern = new() { 0, 1, 3, 4, 2, 0 };

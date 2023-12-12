@@ -13,15 +13,15 @@ public class MonsterSight : MonoBehaviour
         InitSight();
     }
 
-    // ¸ó½ºÅÍ ½Ã¾ß ÃÊ±âÈ­
+    // ëª¬ìŠ¤í„° ì‹œì•¼ ì´ˆê¸°í™”
     private void InitSight() 
     {
-        // ¸ó½ºÅÍÀÇ Å°(transform.position.y)¸¸Å­ ¾Æ·¡·Î ³·Ãá´Ù
+        // ëª¬ìŠ¤í„°ì˜ í‚¤(transform.position.y)ë§Œí¼ ì•„ë˜ë¡œ ë‚®ì¶˜ë‹¤
         transform.position = monster.transform.position - new Vector3(0f, monster.transform.position.y, 0f);
 
         if (monster.GetComponent<TestMonster>() == true) 
         {
-            // ¸ó½ºÅÍ¿¡¼­ º¯¼ö¸¦ °¡Á®¿Â´Ù
+            // ëª¬ìŠ¤í„°ì—ì„œ ë³€ìˆ˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤
             viewAngle = monster.GetComponent<TestMonster>().sightAngle * 0.5f;
             viewRange = monster.GetComponent<TestMonster>().sightRange;
         }
@@ -31,14 +31,14 @@ public class MonsterSight : MonoBehaviour
             viewRange = monster.GetComponent<TestBigMonster>().sightRange;
         }
 
-        // ½Ã¾ß ³»¿¡ µé¾î¿Ô´Â°¡¸¦ Ã¼Å©ÇÒ bool
+        // ì‹œì•¼ ë‚´ì— ë“¤ì–´ì™”ëŠ”ê°€ë¥¼ ì²´í¬í•  bool
         isInAngle = false;
     }
 
 
     private void OnTriggerStay(Collider other_)
     {
-        // ÇÁ·ÎÅäÅ¸ÀÔ
+        // í”„ë¡œí† íƒ€ì…
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
         {
             CalcAngle(other_);
@@ -46,29 +46,30 @@ public class MonsterSight : MonoBehaviour
     }
     
 
-    // ¸ó½ºÅÍÀÇ Á¤¸éÀ¸·ÎºÎÅÍ ³»ÀûÇÏ´Â °¢µµ ±¸ÇÏ´Â ¸Ş¼­µå
+    // ëª¬ìŠ¤í„°ì˜ ì •ë©´ìœ¼ë¡œë¶€í„° ë‚´ì í•˜ëŠ” ê°ë„ êµ¬í•˜ëŠ” ë©”ì„œë“œ
     private void CalcAngle(Collider other_) 
     {
-        // ¸ó½ºÅÍÀÇ ½Ã¼± Á¤¸éÀ» ÇâÇÏ´Â º¤ÅÍ¸¦ ±¸ÇÑ´Ù
+        // ëª¬ìŠ¤í„°ì˜ ì‹œì„  ì •ë©´ì„ í–¥í•˜ëŠ” ë²¡í„°ë¥¼ êµ¬í•œë‹¤
         Vector3 frontVec = monster.transform.forward * viewRange;
-        // ¸ó½ºÅÍ·ÎºÎÅÍ ÇÃ·¹ÀÌ¾î±îÁöÀÇ ¹æÇâÀ» °¡Áø º¤ÅÍ°ªÀ» ±¸ÇÑ´Ù
+        // ëª¬ìŠ¤í„°ë¡œë¶€í„° í”Œë ˆì´ì–´ê¹Œì§€ì˜ ë°©í–¥ì„ ê°€ì§„ ë²¡í„°ê°’ì„ êµ¬í•œë‹¤
         Vector3 otherVec = other_.transform.position - monster.transform.position;
 
-        // µÎ º¤ÅÍ°£ÀÇ ³»ÀûÀ» ±¸ÇÑ´Ù (À½¼ö ¶Ç´Â ¾ç¼öÀÇ ÇüÅÂ)
+        // ë‘ ë²¡í„°ê°„ì˜ ë‚´ì ì„ êµ¬í•œë‹¤ (ìŒìˆ˜ ë˜ëŠ” ì–‘ìˆ˜ì˜ í˜•íƒœ)
         float dot = Vector3.Dot(frontVec, otherVec);
-        // µÎ º¤ÅÍ Å©±âÀÇ °öÀ» ±¸ÇÑ´Ù (Ç×»ó ¾ç¼ö)
+        // ë‘ ë²¡í„° í¬ê¸°ì˜ ê³±ì„ êµ¬í•œë‹¤ (í•­ìƒ ì–‘ìˆ˜)
         float magResult = Vector3.Magnitude(frontVec) * Vector3.Magnitude(otherVec);
 
-        // (A*B / |A|*|B|) ÀÇ ¿ªÄÚ»çÀÎ °ªÀ» ±¸ÇÑ´Ù (¶óµğ¾È -> °¢µµ)
+        // (A*B / |A|*|B|) ì˜ ì—­ì½”ì‚¬ì¸ ê°’ì„ êµ¬í•œë‹¤ (ë¼ë””ì•ˆ -> ê°ë„)
         float angle = Mathf.Acos(dot / magResult) * Mathf.Rad2Deg;
         //Debug.Log(angle);
 
-        // ±× °¢µµ¸¦ Ã¼Å©ÇØ¼­ ¸¸¾à true °ªÀÌ ¹İÈ¯µÈ´Ù¸é
+        // ê·¸ ê°ë„ë¥¼ ì²´í¬í•´ì„œ ë§Œì•½ true ê°’ì´ ë°˜í™˜ëœë‹¤ë©´
         if (Check(angle) == true)
         {
             if (monster.GetComponent<TestMonster>() == true)
             {
-                // ¸ó½ºÅÍÀÇ FSM ¿¡ Á¢±ÙÇÏ¿© »óÅÂ¸¦ ±³ÀüÀ¸·Î º¯°æ
+                Debug.LogWarning("???");
+                // ëª¬ìŠ¤í„°ì˜ FSM ì— ì ‘ê·¼í•˜ì—¬ ìƒíƒœë¥¼ êµì „ìœ¼ë¡œ ë³€ê²½
                 monster.GetComponent<TestMonster>().monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
             }
             else if (monster.GetComponent<TestBigMonster>() == true)
@@ -79,7 +80,7 @@ public class MonsterSight : MonoBehaviour
     }
 
 
-    // °¢µµ °Ë»ç
+    // ê°ë„ ê²€ì‚¬
     private bool Check(float angle_)
     {
         if (angle_ <= viewAngle)

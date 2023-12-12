@@ -73,7 +73,7 @@ public class AllBook : MonoBehaviour
 
     private void Update()
     {
-        if(inputActionReference.action.ReadValue<float>() > 0.5f)
+        if(inputActionReference.action.ReadValue<float>() > 0.2f)
         {
             activeCanvas = !activeCanvas;
             onOffCanvas.SetActive(activeCanvas);

@@ -48,7 +48,7 @@ public class ProjectileFireBall : MonoBehaviour
 
         if (this != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

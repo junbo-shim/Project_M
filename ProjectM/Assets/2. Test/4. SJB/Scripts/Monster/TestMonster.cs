@@ -22,7 +22,7 @@ public class TestMonster : MonoBehaviour
         moveSpeed = 4f;
         sightRange = transform.localScale.y * 4f;
 
-        // ÇÁ·ÎÅäÅ¸ÀÔ¿ë
+        // í”„ë¡œí† íƒ€ìž…ìš©
         monsterSight.transform.localScale = Vector3.one * sightRange * 2f;
         sightAngle = 90f;
     }
@@ -33,7 +33,7 @@ public class TestMonster : MonoBehaviour
         StartCoroutine(SpawnAndStartPatrol());
     }
 
-    private IEnumerator SpawnAndStartPatrol() 
+    public IEnumerator SpawnAndStartPatrol() 
     {
         yield return new WaitForSecondsRealtime(1f);
         monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
