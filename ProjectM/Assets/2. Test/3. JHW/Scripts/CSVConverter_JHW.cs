@@ -68,6 +68,7 @@ public class CSVConverter_JHW : MonoBehaviour
         damageSkillData = Resources.Load<TextAsset>("DamageSkill");
         noDamageSkillData = Resources.Load<TextAsset>("NoDamage");
 
+
         DamageSkillList = new List<Damage>();
         NoDamageSkillList = new List<NoDamage>();
     }

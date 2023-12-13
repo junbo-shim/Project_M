@@ -7,17 +7,6 @@ public class FieldItem : MonoBehaviour
     public Item item;
     public SpriteRenderer image;
 
-    // DEMO : 12.9 SJB Editted
-    private void OnTriggerEnter(Collider other_)
-    {
-        if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("Terrain"))) 
-        {
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
-
-
     public void SetItem(Item _item)
     {
         item.itemName = _item.itemName;

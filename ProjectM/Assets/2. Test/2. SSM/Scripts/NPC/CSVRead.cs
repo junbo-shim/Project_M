@@ -27,6 +27,10 @@ public class CSVRead : MonoBehaviour
     }
 
     public Dictionary<string,NPCData> nPCDatas; //데이터 저장용 딕셔너리
+
+    public Dictionary<string, NPCSelectTalkData> nPCSelectTalkDatas; // npc 선택지 저장용 딕셔너리
+
+
     #endregion   
     public void Awake()
     {
@@ -39,27 +43,37 @@ public class CSVRead : MonoBehaviour
             Destroy(gameObject);
         }
         nPCDatas = new Dictionary<string, NPCData>();
+        nPCSelectTalkDatas = new Dictionary<string, NPCSelectTalkData>();
         //
         csvRead();
     }
     #region csv읽는용
     public void csvRead()
     {
-        int i = 0;
-        // csv 읽어오기
-        List<Dictionary<string, object>> csv_Data = CSVReader.Read("NPC");
+        
+        // NPCcsv 읽어오기
+        List<Dictionary<string, object>> csv_Data = CSVReader.Read("NPC"); 
         // 로그로 출력
      
-        foreach (Dictionary<string, object> data in csv_Data)
+        foreach (Dictionary<string, object> data in csv_Data) // 딕셔너리를 읽어옴
         {            
             NPCData npcData = new NPCData();
           
-            setDict(data);
-            i++;
+            setDict(data); //npc 데이터 딕셔너리에 set
+            
         }
-   
+        // NPC_Select_Csv_Data.csv 읽어오기
+        List<Dictionary<string, object>> NPC_Select_Csv_Data = CSVReader.Read("NPC_Select_Csv_Data");
+        // 로그로 출력
 
-         // ListPrint();
+        foreach (Dictionary<string, object> data in NPC_Select_Csv_Data) //딕셔너리 읽어옴
+        {
+           
+            NpcSelectSetDict(data); //npc 선택지데이터 딕셔너리에 set
+
+        }
+
+        // ListPrint();
     }
     #endregion
     #region 딕션너리 데이터 확인용
@@ -77,21 +91,49 @@ public class CSVRead : MonoBehaviour
     {
 
     
-        string id = GetValue<int>(dict, "ID").ToString();
+        string id = GetValue<int>(dict, "NPC_ID").ToString();
         // 딕셔너리에 해당 키에 대응하는 NPCData 객체가 없으면 생성
         if (!nPCDatas.ContainsKey(id))
         {
             nPCDatas[id] = new NPCData();
         } 
-        nPCDatas[id].Id = GetValue<int>(dict, "ID");
+        nPCDatas[id].NPC_ID = GetValue<int>(dict, "NPC_ID");
         nPCDatas[id].Description = GetValue<string>(dict, "Description");
-        nPCDatas[id].Type = GetValue<int>(dict, "Type");
+        nPCDatas[id].Type = GetValue<string>(dict, "Type");
         nPCDatas[id].Name = GetValue<string>(dict, "Name");
         nPCDatas[id].Hp = GetValue<int>(dict, "Hp");
         nPCDatas[id].CatchPossibility = GetValue<bool>(dict,"CatchPossibility");
         nPCDatas[id].Icon = GetValue<string>(dict, "Icon");
         
 
+    }
+    #endregion
+
+    #region npc선택지 데이터 딕셔너리저장
+    public void NpcSelectSetDict(Dictionary<string, object> dict) // 딕셔너리 데이터 넣기 용
+    {
+
+        string id = GetValue<int>(dict, "NPC_ID").ToString();
+        // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
+        if (!nPCSelectTalkDatas.ContainsKey(id))
+        {
+            nPCSelectTalkDatas[id] = new NPCSelectTalkData();
+        }
+
+        nPCSelectTalkDatas[id].Id = GetValue<int>(dict, "ID");
+
+      
+        nPCSelectTalkDatas[id].NPCId = GetValue<int>(dict, "NPC_ID");
+        nPCSelectTalkDatas[id].Choice_Text1 = GetValue<string>(dict, "Choice_Text1");
+       
+        nPCSelectTalkDatas[id].Choice_Text2 = GetValue<string>(dict, "Choice_Text2");
+        nPCSelectTalkDatas[id].Choice_Text3 = GetValue<string>(dict, "Choice_Text3");
+        nPCSelectTalkDatas[id].Choice_Text4 = GetValue<string>(dict, "Choice_Text4");
+        nPCSelectTalkDatas[id].Choice_Text1_Answer = GetValue<string>(dict, "choice_Text1_Answer");
+        nPCSelectTalkDatas[id].Choice_Text2_Answer = GetValue<string>(dict, "choice_Text2_Answer");
+        nPCSelectTalkDatas[id].Choice_Text3_Answer = GetValue<string>(dict, "choice_Text3_Answer");
+        nPCSelectTalkDatas[id].Choice_Text4_Answer = GetValue<string>(dict, "choice_Text4_Answer");
+     
     }
     #endregion
     #region 딕션너리 값을 변환할려는 데이터타입이 맞는지 확인용

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 public class NPCData
 {
-    private int id; // 고유번호
+    private int nPC_ID; // 고유번호
     private string description; // 설명
-    private int type; //퀘스트 타입
+    private string type; //퀘스트 타입
     private string name; // npc 이름 
     private int hp; // 체력
     private bool catchPossibility; // pc가 해당 npc를 잡을 수 있는지 여부
     private string icon; // 상호 작용 아이콘 이름
-    public int Id
+    public int NPC_ID
     {
-        get { return id; }
-        set { id = value; }
+        get { return nPC_ID; }
+        set { nPC_ID = value; }
     }
 
     public string Description
@@ -23,7 +23,7 @@ public class NPCData
         set { description = value; }
     }
  
-    public int Type
+    public string Type
     {
         get { return type; }
         set { type = value; }

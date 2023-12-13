@@ -50,14 +50,6 @@ public class CreaftingUI : MonoBehaviour
         UpdateNumberText("PoisonRecipe", text[6], text[7]);
         UpdateNumberText("JumpRecipe", text[8], text[9]);
         UpdateNumberText("HillRecipe", text[10], text[11]);
-        //UpdateNumberText("SymbolStone_A", text[12], text[13]);
-        //UpdateNumberText("SymbolStone_B", text[14], text[15]);
-        //UpdateNumberText("MedicinalHerb", text[16], text[17]);
-        //UpdateNumberText("Steel", text[18], text[19]);
-        //UpdateNumberText("Wood", text[20], text[21]);
-        //UpdateNumberText("MagicEssence", text[22], text[23]);
-        //UpdateNumberText("ScareCrow", text[24], text[25]);
-        //UpdateNumberText("Trap", text[26], text[27]);
     }
 
 

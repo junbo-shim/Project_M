@@ -1,0 +1,3 @@
+ID,NPC_ID,Choice_Text1,Choice_Text2,Choice_Text3,Choice_Text4,Choice_Text1_Answer,Choice_Text2_Answer,Choice_Text3_Answer,Choice_Text4_Answer
+1,2,wood,free,whew,-1,wood_Answer,free_Answer,whew_Aswer,-1
+2,3,wood_x,free_x,whew_x,-1,wood_Answer_x,free_Answer_x,whew_Aswer_x,-1

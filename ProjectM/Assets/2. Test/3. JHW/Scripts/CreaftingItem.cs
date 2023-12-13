@@ -13,20 +13,23 @@ public class CreaftingItem : MonoBehaviour
 
     public GameObject[] creaftingItemButton;
 
-    public void ScareCrowFindNeedItem(string itemName ,string itemName2, int buttonIndex)
+    public Text[] countNeedItem;
+
+
+    public void ScareCrowFindNeedItem(string itemName, string itemName2, int buttonIndex)
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemIndex2 = inventory.items.FindIndex(item => item.itemName == itemName2);
         Debug.Log(itemIndex);
         Debug.Log(itemIndex2);
 
-        if(itemIndex != -1 &&  itemIndex2 != -1)
+        if (itemIndex != -1 && itemIndex2 != -1)
         {
             if (inventory.items[itemIndex].itemCount >= 2 && inventory.items[itemIndex2].itemCount >= 4)
             {
                 creaftingItemButton[buttonIndex].SetActive(true);
             }
-            else if(inventory.items[itemIndex].itemCount < 2 || inventory.items[itemIndex2].itemCount < 4)
+            else if (inventory.items[itemIndex].itemCount < 2 || inventory.items[itemIndex2].itemCount < 4)
             {
                 creaftingItemButton[buttonIndex].SetActive(false);
             }
@@ -40,12 +43,14 @@ public class CreaftingItem : MonoBehaviour
 
     public void TrabFindNeedItem(string itemName, string itemName2, int buttonIndex)
     {
+
+
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemIndex2 = inventory.items.FindIndex(item => item.itemName == itemName2);
         Debug.Log(itemIndex);
-        Debug.Log(itemIndex2);  
+        Debug.Log(itemIndex2);
 
-        if(itemIndex != -1 && itemIndex2 != -1)
+        if (itemIndex != -1 && itemIndex2 != -1)
         {
             if (inventory.items[itemIndex].itemCount >= 2 && inventory.items[itemIndex2].itemCount >= 4)
             {
@@ -64,13 +69,22 @@ public class CreaftingItem : MonoBehaviour
 
 
 
-    public void ScareCrowDisCountNeedItem(string itemName , string itemName2)
+    public void ScareCrowDisCountNeedItem(string itemName, string itemName2)
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemIndex2 = inventory.items.FindIndex(item => item.itemName == itemName2);
 
         inventory.items[itemIndex].itemCount = inventory.items[itemIndex].itemCount - 2;
         inventory.items[itemIndex2].itemCount = inventory.items[itemIndex2].itemCount - 4;
+
+        UpdateNumberText("MagicEssence", countNeedItem[0]);
+        UpdateNumberText("Wood", countNeedItem[1]);
+        UpdateNumberText("MagicEssence", countNeedItem[2]);
+        UpdateNumberText("Steel", countNeedItem[3]);
+
+
+        ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
+        TrabFindNeedItem("MagicEssence", "Steel", 1);
     }
 
 
@@ -81,6 +95,14 @@ public class CreaftingItem : MonoBehaviour
 
         inventory.items[itemIndex].itemCount = inventory.items[itemIndex].itemCount - 2;
         inventory.items[itemIndex2].itemCount = inventory.items[itemIndex2].itemCount - 4;
+
+        UpdateNumberText("MagicEssence", countNeedItem[0]);
+        UpdateNumberText("Wood", countNeedItem[1]);
+        UpdateNumberText("MagicEssence", countNeedItem[2]);
+        UpdateNumberText("Steel", countNeedItem[3]);
+
+        ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
+        TrabFindNeedItem("MagicEssence", "Steel", 1);
     }
 
     public void CreaftingScareCrowButton()
@@ -109,7 +131,14 @@ public class CreaftingItem : MonoBehaviour
 
         else
         {
-            text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 4;
+            if (inventory.items[itemIndex].itemName != "MagicEssence")
+            {
+                text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 4;
+            }
+            else if (inventory.items[itemIndex].itemName == "MagicEssence")
+            {
+                text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 2;
+            }
         }
     }
 }
