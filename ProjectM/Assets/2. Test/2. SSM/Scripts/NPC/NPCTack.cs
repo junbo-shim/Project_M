@@ -1,210 +1,335 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class NPCTack : MonoBehaviour
+
+public class NPCTack : MonoBehaviour, INPC
 {
     [SerializeField] private string npcID; // 내가 지정할 현재 npcId
-    List<string> npcWoad; // 50글자씩 자른 npc woard
+    private Dictionary<string, List<string>> npcWoadDict; // 50글자씩 자른 npc woard
+    private List<string> npcWoad;
+    private string dictFirst; //npcWoadDict 첫번째 키값 저장용
+    private StringBuilder dictProgressSb; //npcWoadDict 진행중 키값 저장용
     [SerializeField] private TextMeshProUGUI npcTextMeshPro; // npctext박스
-    [SerializeField] private Image textimage; // 대화 박스 이미지
+    public Image textimage; // 대화 박스 이미지
     [SerializeField] private Image textimageReady;// 대화 박스 준비 이미지
     [SerializeField] private Image scrollbar;//스크롤바 위치찾기용
-
-
-    public GameObject selectGameObj; // SelectText박스프리펩
-    #region npc 변수
-    // npc정보 변수
-    int NPC_ID; // npc id
-    string description; // npc 설명
-    int type; // npc 타입
-    string name; // npc 이름
-    int hp; // npc hp 
-    bool catchPossibility; // npc 잡기 가능여부
-    string icon; // npc icon
-    // npc 정보 변수 끝
-
-    // npc 선택지 정보 
-    int selectId; // 선택지 id
-    int selectNPCId; // 선택지 npcid
-
-    private List<string> npcSelectText;// npc 선택지 텍스트
-    private List<string> npcSelectText_Answer; //npc 서택지 텍스트 대답
-    // npc 선택지 정보 끝
-    #endregion
-
-
-    private List<GameObject> npcSelectObject; // npc 선택지 프리팹 생성한거 저장용리스트
-    private NPCChildSet nPCChildSet; // 저장 Obj를 캐싱해서 가지고있는 클레스;
+    public int textLV = 0; // 보여주는 대화 선택지 레벨 (이거에 따라 대화 변화함)
+    private int dialogueLV = 0;// 퀘스트 Lv
+    
+    NPC newNPC; // npc 정보
+    private string[] fruits; // 자른문자저장용
+    public List<ChoiceScripts> choiceScripts;
+    private List<TextMeshProUGUI> choiceObjText; // 선택지TextMeshProUGUI 리스트로 저장용
+    private NPCChildSet npcChildSet; // 저장 Obj를 캐싱해서 가지고있는 클레스;
+    private List<NPCSelectTalkData> dialogueData; // npc 대사,선택지 저장용
+    private NpcAction npcAction; //npcAction 스크립터
     private void Start()
     {
-
-        nPCChildSet = transform.parent.GetComponent<NPCChildSet>(); // npc 아이콘 정보 캐싱해가지고있는 스크립트
-        npcSelectText = new List<string>(); // npc 선택지 리스트
-        npcSelectText_Answer = new List<string>(); // npc 선택지 대답 리스트
-
-        NpcDicSet(); // npc데이터 세팅
-        selectBoxSet(); // npc선택지 데이터 세팅
-        npcWoad = new List<string>(); // npc 대사 세팅 50글자씪 자를리스트 초기화
-
-
-        reCutString(NpcWord());
-        npcTextMeshPro.text = npcWoad[0];// npc 대사 설정 
-        npcSelectTextCreate();
+        SetComponent(); // Component 및 기타 정보 초기화및 세팅
+        SetNpcData(); // npc데이터 세팅
+        NpcWord();
+        dictFirst = npcWoadDict.First().Key; //첫번쨰 키 저장
+        dictProgressSb.Append(dialogueLV==0? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
+        npcTextMeshPro.text = npcWoadDict[dictFirst][0]; // npc 대사 설정  dialogueData[j].Id.ToString() +"_"+ dialogueData[j].Choice_Order_Number .id _ 글등장 순서
+ 
     }
 
-    private void npcSelectTextCreate()
+    private void SetComponent() // 시작 컴포넌트및 정보 세팅
     {
-        int idex = 1;
-        for (int i = 0; i < npcSelectText.Count; i++)
+        npcAction = transform.GetComponent<NpcAction>();
+        dictProgressSb = new StringBuilder();
+        npcWoadDict = new Dictionary<string, List<string>>();
+        choiceScripts = new List<ChoiceScripts>();
+
+        choiceObjText = new List<TextMeshProUGUI>();
+        npcChildSet = transform.parent.GetComponent<NPCChildSet>(); // npc 아이콘 정보 캐싱해가지고있는 스크립트
+        for (int i = 0; i <= 3; i++)
         {
-            if (npcSelectText[i] != null && npcSelectText[i] != "-1")
+            choiceScripts.Add(npcChildSet.ChoiceTransform.transform.GetChild(i).GetComponent<ChoiceScripts>());
+            choiceObjText.Add(npcChildSet.ChoiceTransform.transform.GetChild(i).transform.GetChild(0).transform.GetComponent<TextMeshProUGUI>());
+        }
+
+    }
+    #region NPC 데이터 세팅
+    private void SetNpcData() // NPC 데이터 세팅
+    {
+        if (CSVRead.instance.nPCDatas.ContainsKey(npcID) && CSVRead.instance.nPCDatas != null)
+        {
+            var npcData = CSVRead.instance.nPCDatas[npcID];// CSVRead.instance.nPCDatas[npcID]캐싱
+            if (npcData != null)
             {
-                GameObject instantiatedObject = Instantiate(selectGameObj, nPCChildSet.targetOBj[4].transform.GetChild(1).transform);
+                NPCBase npcBase = new NPCBase();
+                newNPC = npcBase.CreateNPC(npcData.NPC_ID, IconSet(npcData.Type), npcData.Name, npcData.Hp, npcData.CatchPossibility, CSVRead.instance.npcSelectTalkDatas); // npc 정보 newNPC에 세팅
 
-                instantiatedObject.name = idex.ToString();
-                TextMeshProUGUI instantiatedObject_TMP = instantiatedObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                if (instantiatedObject_TMP != null)
-                {
-                    instantiatedObject_TMP.text = npcSelectText[i];
-                }
             }
-            idex++;
         }
 
 
     }
-    #region npc 선택지
-    public void selectBoxSet() // 선택지 정보 셋
-    {
-        if (CSVRead.instance.nPCSelectTalkDatas.ContainsKey(npcID))
-        {
-            selectId = CSVRead.instance.nPCSelectTalkDatas[npcID].Id;
-            selectNPCId = CSVRead.instance.nPCSelectTalkDatas[npcID].NPCId;
-            npcSelectText.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text1);
-            npcSelectText.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text2);
-            npcSelectText.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text3);
-            npcSelectText.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text4);
-            npcSelectText_Answer.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text1_Answer);
-            npcSelectText_Answer.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text2_Answer);
-            npcSelectText_Answer.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text3_Answer);
-            npcSelectText_Answer.Add(CSVRead.instance.nPCSelectTalkDatas[npcID].Choice_Text4_Answer);
 
+    #endregion
+    public void DictLastNumberAdd() // 텍스트 순서 체인지
+    {
+        fruits = dictProgressSb.ToString().Split("_");
+
+        if (npcWoadDict.ContainsKey(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()))
+        {
+            textLV++;
+            dictProgressSb.Clear();
+            dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString());
+           
+        }
+        else if(npcWoadDict.ContainsKey((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1"))
+        {
+            dialogueLV++;
+            dialogueData = newNPC.ContinueDialogue(dialogueLV);
+            npcAction.TalkiClear();
+            dictProgressSb.Clear();
+            dictProgressSb.Append((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1");
+            
+        }
+        else
+        {
+
+            //npcTextMeshPro.text = ""; 종료 대화
+            npcAction.TalkiEnd();
+        }
+    }
+    public void QuestInput() // 플레이어에게 퀘스트 발급
+    {
+
+        if (!CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].Equals("-1"))
+        {
+            QuestMananger.instance.AddPlayerQuest(CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].ToString());
+        }
+    }
+
+
+    public void ChoiseClick(int number, string str)
+    {
+        for (int i = 0; i <= 3; i++)
+        {
+            if (npcChildSet.ChoiceTransform.transform.GetChild(i).gameObject.activeSelf)
+            {
+                npcChildSet.ChoiceTransform.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+       
+        npcTextMeshPro.text = str;
+        DictLastNumberAdd(); ;
+    }
+    //ss
+    #region NPC 선택지
+    private void SetChoiceText() // npc 선택지 세팅
+    {
+        if (dialogueData.Count == 0)
+        {
+            return;
+        }
+
+        if (!dialogueData[textLV].Choice_Text1.Equals("-1"))
+        {
+            choiceObjText[0].text = dialogueData[textLV].Choice_Text1;// choiceObjText[0 : 몇번째?] .text =  dialogueData[0 :몇번째 대화 클래스].Choice_Text
+            choiceScripts[0].id = dialogueData[textLV].Id;
+            choiceScripts[0].Choice_Text_Answer = dialogueData[textLV].Choice_Text1_Answer;
+            choiceScripts[0].number = 0;
+            choiceScripts[0].mbti_ID = dialogueData[textLV].Mbti1_ID;
+            npcChildSet.ChoiceTransform.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            npcChildSet.ChoiceTransform.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        if (!dialogueData[textLV].Choice_Text2.Equals("-1"))
+        {
+            choiceObjText[1].text = dialogueData[textLV].Choice_Text2;// choiceObjText[0 : 몇번째?] .text =  dialogueData[0 :몇번째 대화 클래스].Choice_Text1
+            choiceScripts[1].id = dialogueData[textLV].Id;
+            choiceScripts[1].Choice_Text_Answer = dialogueData[textLV].Choice_Text2_Answer;
+            choiceScripts[1].number = 1;
+            choiceScripts[1].mbti_ID = dialogueData[textLV].Mbti2_ID;
+            npcChildSet.ChoiceTransform.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
+        {
+            npcChildSet.ChoiceTransform.transform.GetChild(1).gameObject.SetActive(false);
+        }
+
+        if (!dialogueData[textLV].Choice_Text3.Equals("-1"))
+        {
+            choiceObjText[2].text = dialogueData[textLV].Choice_Text3;// choiceObjText[0 : 몇번째?] .text =  dialogueData[0 :몇번째 대화 클래스].Choice_Text1
+            choiceScripts[2].id = dialogueData[textLV].Id;
+            choiceScripts[2].Choice_Text_Answer = dialogueData[textLV].Choice_Text3_Answer;
+            choiceScripts[2].number = 2;
+            choiceScripts[2].mbti_ID = dialogueData[textLV].Mbti3_ID;
+            npcChildSet.ChoiceTransform.transform.GetChild(2).gameObject.SetActive(true);
+        }
+        else
+        {
+            npcChildSet.ChoiceTransform.transform.GetChild(2).gameObject.SetActive(false);
+        }
+
+        if (!dialogueData[textLV].Choice_Text4.Equals("-1"))
+        {
+            choiceObjText[3].text = dialogueData[textLV].Choice_Text4;// choiceObjText[0 : 몇번째?] .text =  dialogueData[0 :몇번째 대화 클래스].Choice_Text1
+            choiceScripts[3].id = dialogueData[textLV].Id;
+            choiceScripts[3].Choice_Text_Answer = dialogueData[textLV].Choice_Text4_Answer;
+            choiceScripts[3].number = 3;
+            choiceScripts[3].mbti_ID = dialogueData[textLV].Mbti4_ID;
+            npcChildSet.ChoiceTransform.transform.GetChild(3).gameObject.SetActive(true);
+        }
+        else
+        {
+            npcChildSet.ChoiceTransform.transform.GetChild(3).gameObject.SetActive(false);
+        }
+
+    }
+    public void ExitTalk() // 대화종료 시 선택지 비활성화
+    {
+        textLV = 0;
+        for (int i = 0; i <= 3; i++)
+        {
+            if (npcChildSet.ChoiceTransform.transform.GetChild(i).gameObject.activeSelf)
+            {
+                npcChildSet.ChoiceTransform.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
     #endregion
-    #region 글교체
-    public int wordChange(int i) // 글 교체
+    #region npc글세팅
+    public int WordChange(int i) // 글 교체 및 npc대화
     {
-        if (npcWoad.Count - 1 > i)
+    
+        if (i == -1)
         {
-            i = i + 1;
-            npcTextMeshPro.text = npcWoad[i];
-
-            return i;
+            
+            TalkOff();
+            return i + 1;
         }
-        return i;
+
+        if (i < npcWoadDict[dictProgressSb.ToString()].Count)
+        {
+            if(i == 0)
+            {
+                TalkOn();
+            }
+          
+            npcTextMeshPro.text = npcWoadDict[dictProgressSb.ToString()][i];
+            if (i == npcWoadDict[dictProgressSb.ToString()].Count-1)
+            {
+                SetChoiceText();
+            }
+        }
+
+        return i + 1;
     }
-    #endregion
-    #region 50 글자씩 컷팅해서 리스트에 담는함수
     private string reCutString(string str) // 재귀로 50글자 초과시 word컷처리
     {
         if (str.Length > 50)
         {
+
             npcWoad.Add(str.Substring(0, 50));
             return reCutString(str.Substring(50));
         }
         else
         {
+
             npcWoad.Add(str);
         }
 
         return null;
     }
-    #endregion
-    #region npc글세팅
     public string NpcWord() //csv에서 Description 읽어옴
     {
-
-        if (npcID.Equals(NPC_ID.ToString()))
+        if (npcID.Equals(newNPC.NPC_ID.ToString()))
         {
+            for (int i = 0; i <= newNPC.ContinueDialogueCount; i++)
+            {
+                dialogueData = newNPC.ContinueDialogue(i);
+              
+         
 
-            return description;
+                for (int j = 0; j < dialogueData.Count; j++)
+                {
+                    if (dialogueData.Count == 0)
+                    {
+                        break;
+                    }
+                    if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[j].Quest_ID.ToString()))
+                    {
+                        dialogueLV++;
+                    }
+                    npcWoad = new List<string>(); // npc 대사 세팅 50글자씪 자를리스트 초기화
+                    reCutString(dialogueData[j].Choice_Before_Dialogue);
+                    npcWoadDict.Add(dialogueData[j].Talk_Priority.ToString() + "_" + dialogueData[j].Choice_Order_Number.ToString(), npcWoad);
+
+                } 
+              
+            }
+
         }
 
-        return "x? :";
+        return "대화종료";
     }
-    #endregion
-    #region csv에서 클레스 가져와서 세팅
-    private void NpcDicSet() 
-    {
-        if (CSVRead.instance.nPCDatas.ContainsKey(npcID))
-        {
-            NPC_ID = CSVRead.instance.nPCDatas[npcID].NPC_ID;
-            description = CSVRead.instance.nPCDatas[npcID].Description;
-            name = CSVRead.instance.nPCDatas[npcID].Name;
-            type = IconSet(CSVRead.instance.nPCDatas[npcID].Type);
-            hp = CSVRead.instance.nPCDatas[npcID].Hp;
-            catchPossibility = CSVRead.instance.nPCDatas[npcID].CatchPossibility;
-            icon = CSVRead.instance.nPCDatas[npcID].Icon;
-
-        }
-
-    }
-
     #endregion
     #region 글보여주기 닫기
     public void IconOn()
     {
 
-
-        if (type == -1)
+        if (newNPC.Type == -1)
         {
             return;
         }
 
-        if (!nPCChildSet.targetOBj[type].gameObject.activeSelf)
+        if (!npcChildSet.targetOBj[newNPC.Type].gameObject.activeSelf)
         {
-            nPCChildSet.targetOBj[type].gameObject.SetActive(true);
+            npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(true);
         }
     }
     public void TalkOn() // 글보여주기
     {
-        if (type == -1)
+
+        Debug.Log("놀러옴");
+        if (newNPC.Type == -1)
         {
             Debug.LogError("Npc Text Type :-1"); //npc 텍스트가 널일경우 
             return;
         }
-        if (!textimage.gameObject.activeSelf)
+        if (!npcChildSet.targetOBj[4].gameObject.activeSelf)
         {
-            nPCChildSet.targetOBj[type].gameObject.SetActive(false);
-            nPCChildSet.targetOBj[4].gameObject.SetActive(true);
+            npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
+            npcChildSet.targetOBj[4].gameObject.SetActive(true);
         }
+
     }
     public void TalkOff() // 글닫기
     {
-        if (type == -1)
+        if (newNPC.Type == -1)
         {
             return;
-        }
-
-        nPCChildSet.targetOBj[4].gameObject.SetActive(false);
-        nPCChildSet.targetOBj[type].gameObject.SetActive(true);
+        } 
+      
+        npcChildSet.targetOBj[4].gameObject.SetActive(false);
+        npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(true);
 
 
     }
 
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
-        if (type == -1)
+        if (newNPC.Type == -1)
         {
             return;
         }
-        nPCChildSet.targetOBj[4].gameObject.SetActive(false);
+        npcChildSet.targetOBj[4].gameObject.SetActive(false);
 
-        nPCChildSet.targetOBj[type].gameObject.SetActive(false);
+        npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
     }
     #endregion
     #region 아이콘 번호로 부여

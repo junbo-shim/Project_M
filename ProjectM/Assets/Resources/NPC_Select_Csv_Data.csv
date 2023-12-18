@@ -1,3 +1,4 @@
-ID,NPC_ID,Choice_Text1,Choice_Text2,Choice_Text3,Choice_Text4,Choice_Text1_Answer,Choice_Text2_Answer,Choice_Text3_Answer,Choice_Text4_Answer
-1,2,wood,free,whew,-1,wood_Answer,free_Answer,whew_Aswer,-1
-2,3,wood_x,free_x,whew_x,-1,wood_Answer_x,free_Answer_x,whew_Aswer_x,-1
+ID,Description,NPC_ID,Quest_ID,Choice_Before_Dialogue,Choice_Order_Number,Next_Choice_ID,Choice_Text1,Choice_Text2,Choice_Text3,Choice_Text4,Choice_Text1_Answer,Choice_Text2_Answer,Choice_Text3_Answer,Choice_Text4_Answer,MBTI1_ID,MBTI2_ID,MBTI3_ID,MBTI4_ID,Talk_Priority
+1,asd,2,2,"It happened in the middle of a night when I was eight years old. I was sleeping in my bed. But when I shifted onto my right side to check the time on my clock, I saw (a) a man crouching next to my bed. He had dark blue skin, and his blue eyes seemed to be reflecting a lot of light as if the moon had been shining on him. And his hair was the darkest shade of black I've ever seen.",1,2,1Choice,2Choice,3Choice,4Choice,Choice_Text1_Answer,Choice_Text2_Answer,Choice_Text3_Answer,Choice_Text4_Answer,1,1,1,1,1
+2,asd,2,2,Hi,1,2,1Choice_,2Choice_,3Choice_,4Choice_,Choice_Text1_Answer_,Choice_Text2_Answer_,Choice_Text3_Answer_,Choice_Text4_Answer_,1,1,1,1,1
+3,asd,2,2,Hi WEW,1,2,1Choice_,2Choice_,3Choice_,4Choice_,Choice_Text1_Answer_,Choice_Text2_Answer_,Choice_Text3_Answer_,Choice_Text4_Answer_,1,1,1,1,2

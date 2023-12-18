@@ -1,0 +1,3 @@
+ID,QuestType,Quest_Name_Key,Quest_Goal_Key,Quest_Explain_Key,Quest_Background_Type,Quest_Area_Type,CompletionCondition_ID,Quest_NPC_Success_ID,PrecedeQuest_ID,LinkQuest_ID,Quest_Progress_Dialogue,Reward_ID
+1,Main,Red,RadKill,RadKill12,Snowfield,PointSpot1,11,2,-1,2,How?,1212
+2,Main,Pink,PinkKill,PinkKill12,Snowfield,PointSpot1,11,2,-1,2,How?,1212

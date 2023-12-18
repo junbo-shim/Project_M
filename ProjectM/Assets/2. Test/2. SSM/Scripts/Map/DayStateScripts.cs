@@ -10,9 +10,10 @@ public class DayStateScripts : MonoBehaviour
     bool night = true;
     bool dayChk = false;
     bool stateChk = false;
-
+    private WaitForSeconds DaySecond;
     public void Start()
     {
+        DaySecond = new WaitForSeconds(0.1f);
         StartCoroutine(DayRota());
     }
     
@@ -51,7 +52,7 @@ public class DayStateScripts : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return DaySecond;
         }
        
     }
