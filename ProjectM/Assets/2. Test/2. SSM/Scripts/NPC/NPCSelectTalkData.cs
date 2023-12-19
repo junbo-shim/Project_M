@@ -23,7 +23,7 @@ public class NPCSelectTalkData
     private int mbti2_ID; // mbti2 값
     private int mbti3_ID; // mbti3 값
     private int mbti4_ID; // mbti4 값
-    private int talk_Priority;//대화 우선순위 태그
+    private int choice_Bundle_Tag;//대화 우선순위 태그
     // 
 
     public int Id
@@ -117,9 +117,9 @@ public class NPCSelectTalkData
         get { return mbti4_ID; }
         set { mbti4_ID = value; }
     }
-    public int Talk_Priority
+    public int Choice_Bundle_Tag
     {
-        get { return talk_Priority; }
-        set { talk_Priority = value; }
+        get { return choice_Bundle_Tag; }
+        set { choice_Bundle_Tag = value; }
     }
 }

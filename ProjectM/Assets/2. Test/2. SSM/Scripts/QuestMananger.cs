@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuestMananger : MonoBehaviour // 저장할 스크립트
 {
 
-    public Dictionary<string, QuestData> playerQuest;
+    public Dictionary<string, QuestData> playerQuest;  // 플레이어가 수락한 퀘스트 정보
 
     private static QuestMananger Instance;
 
@@ -37,13 +37,23 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
         playerQuest = new Dictionary<string, QuestData>();
     }
     
-    public void AddPlayerQuest(string str)
+    public void AddPlayerQuest(string str) // 퀘스트 수주
     {
         if(!playerQuest.ContainsKey(str))
         {
             playerQuest.Add(str, CSVRead.instance.QuestDatas[str]);
+            playerQuest[str].Situation = "Progress";
+
         }
     }
 
+    public void QuestComplete(string str) // 퀘스트 완료
+    {
+        if (!playerQuest.ContainsKey(str))
+        {
+            playerQuest[str].Situation = "Complete";
+        }
+        
+    }
 
 }

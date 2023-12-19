@@ -108,4 +108,12 @@ public class QuestData
         set { _Reward_ID = value; }
     }
 
+    private string _Situation;
+
+    public string Situation
+    {
+        get { return _Situation; }
+        set { _Situation = value; }
+    }
+
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -31,6 +32,8 @@ public class CSVRead : MonoBehaviour
     public Dictionary<string, NPCSelectTalkData> npcSelectTalkDatas; // npc 선택지 저장용 딕셔너리
 
     public Dictionary<string, QuestData> QuestDatas;
+
+
 
     #endregion   
     public void Awake()
@@ -71,8 +74,8 @@ public class CSVRead : MonoBehaviour
 
         foreach (Dictionary<string, object> data in NPC_Select_Csv_Data) //딕셔너리 읽어옴
         {
-           
-            NpcSelectSetDict(data); //npc 선택지데이터 딕셔너리에 set
+          
+                NpcSelectSetDict(data); //npc 선택지데이터 딕셔너리에 set
 
         }
         List<Dictionary<string, object>> QuestDataCSV = CSVReader.Read("QuestDataCSV");
@@ -125,6 +128,7 @@ public class CSVRead : MonoBehaviour
     {
 
         string id = GetValue<int>(dict, "ID").ToString();
+      
         // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
         if (!npcSelectTalkDatas.ContainsKey(id))
         {
@@ -134,13 +138,14 @@ public class CSVRead : MonoBehaviour
         npcSelectTalkDatas[id].NPCId = GetValue<int>(dict, "NPC_ID");
         npcSelectTalkDatas[id].NextChoice_ID = GetValue<int>(dict, "NextChoice_ID");
         npcSelectTalkDatas[id].Quest_ID = GetValue<int>(dict, "Quest_ID");
-        npcSelectTalkDatas[id].Choice_Before_Dialogue = GetValue<string>(dict, "Choice_Before_Dialogue");
+        npcSelectTalkDatas[id].Choice_Before_Dialogue = GetValue<string>(dict, "Dialogue");   
         npcSelectTalkDatas[id].Choice_Order_Number = GetValue<int>(dict, "Choice_Order_Number");
         npcSelectTalkDatas[id].NextChoice_ID = GetValue<int>(dict, "NextChoice_ID");
         npcSelectTalkDatas[id].Choice_Text1 = GetValue<string>(dict, "Choice_Text1");
         npcSelectTalkDatas[id].Choice_Text2 = GetValue<string>(dict, "Choice_Text2");
         npcSelectTalkDatas[id].Choice_Text3 = GetValue<string>(dict, "Choice_Text3");
         npcSelectTalkDatas[id].Choice_Text4 = GetValue<string>(dict, "Choice_Text4");
+
         npcSelectTalkDatas[id].Choice_Text1_Answer = GetValue<string>(dict, "Choice_Text1_Answer");
         npcSelectTalkDatas[id].Choice_Text2_Answer = GetValue<string>(dict, "Choice_Text2_Answer");
         npcSelectTalkDatas[id].Choice_Text3_Answer = GetValue<string>(dict, "Choice_Text3_Answer");
@@ -149,17 +154,44 @@ public class CSVRead : MonoBehaviour
         npcSelectTalkDatas[id].Mbti2_ID = GetValue<int>(dict, "MBTI2_ID");
         npcSelectTalkDatas[id].Mbti3_ID = GetValue<int>(dict, "MBTI3_ID");
         npcSelectTalkDatas[id].Mbti4_ID = GetValue<int>(dict, "MBTI4_ID");
-        npcSelectTalkDatas[id].Talk_Priority = GetValue<int>(dict, "Talk_Priority");
+        npcSelectTalkDatas[id].Choice_Bundle_Tag = GetValue<int>(dict, "Choice_Bundle_Tag");
     }
     #endregion
     #region 딕션너리 값을 변환할려는 데이터타입이 맞는지 확인용
-    private T GetValue<T>(Dictionary<string, object> dict, string key) // 변환할려는 데이터타입이 맞는지 확인용
+    // 시스템 기본 인코딩 사용
+    private T GetValue<T>(Dictionary<string, object> dict, string key)
     {
-        if (dict.TryGetValue(key, out object value) && value is T)
+        string encodedKey = Encoding.Default.GetBytes(key).ToString();
+        object value;
+        bool isFound = dict.TryGetValue(encodedKey, out value);
+
+        if (!isFound)
         {
+            // 원래 키로도 다시 한 번 시도 (일부 경우 인코딩으로 해결되지 않을 수 있음)
+            if (!dict.TryGetValue(key, out value))
+            {
+                return default(T);
+            }
+        }
+
+        if (value is T)
+        {
+             if (value is string)
+            {
+                return (T)Convert.ChangeType((string)value, typeof(T));
+            }
+           
             return (T)value;
         }
-        return default(T);
+      
+        else
+        {
+            if (value is int && typeof(T) != typeof(bool))
+            {
+                return (T)Convert.ChangeType((int)value, typeof(T));
+            }
+            return default(T);
+        }
     }
     #endregion
 

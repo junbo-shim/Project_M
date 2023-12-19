@@ -30,7 +30,7 @@ public class NpcAction : NpcActionBase
             
             if (playerDis < NPCTalkDis)
             {
-                if (!tackChk && Talki != -2)
+                if (Talki != -2)
                 {
                     npcTack.IconOn(); // 아이콘표시
                 }
@@ -58,6 +58,10 @@ public class NpcAction : NpcActionBase
     {
         Talki = -1;
     }
+    public void TalkiZero()
+    {
+        Talki = 0;
+    }
     public void TalkiEnd()
     {
         Talki = -2;
@@ -81,7 +85,7 @@ public class NpcAction : NpcActionBase
             {
                 if (ClickBool == false)
                 {
-                    Debug.Log("????");
+                  
                     BoolChange();
                     Talki = npcTack.WordChange(Talki);
                     
@@ -103,7 +107,7 @@ public class NpcAction : NpcActionBase
                     BoolChange();
                     if (!npcTack.textimage.gameObject.activeSelf)
                     {
-                        Debug.Log("-2");
+                       
                         npcTack.TalkOn();//대화창on
 
                     }

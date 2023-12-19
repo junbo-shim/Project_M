@@ -10,18 +10,19 @@ using UnityEngine.UI;
 
 public class NPCTack : MonoBehaviour, INPC
 {
-    [SerializeField] private string npcID; // 내가 지정할 현재 npcId
-    private Dictionary<string, List<string>> npcWoadDict; // 50글자씩 자른 npc woard
+    [SerializeField] private string npcID;                      // 내가 지정할 현재 npcId
+    private Dictionary<string, List<string>> npcWoadDict;       // 50글자씩 자른 npc woard
     private List<string> npcWoad;
-    private string dictFirst; //npcWoadDict 첫번째 키값 저장용
-    private StringBuilder dictProgressSb; //npcWoadDict 진행중 키값 저장용
+    private string dictFirst;                                   //npcWoadDict 첫번째 키값 저장용
+    private StringBuilder dictProgressSb;                       //npcWoadDict 진행중 키값 저장용
     [SerializeField] private TextMeshProUGUI npcTextMeshPro; // npctext박스
     public Image textimage; // 대화 박스 이미지
     [SerializeField] private Image textimageReady;// 대화 박스 준비 이미지
     [SerializeField] private Image scrollbar;//스크롤바 위치찾기용
     public int textLV = 0; // 보여주는 대화 선택지 레벨 (이거에 따라 대화 변화함)
     private int dialogueLV = 0;// 퀘스트 Lv
-    
+    private bool NPCEnd= false;// 대화 종료
+    private bool prerequisiteQuest=false;//선행퀘스트 완료 여부
     NPC newNPC; // npc 정보
     private string[] fruits; // 자른문자저장용
     public List<ChoiceScripts> choiceScripts;
@@ -29,15 +30,16 @@ public class NPCTack : MonoBehaviour, INPC
     private NPCChildSet npcChildSet; // 저장 Obj를 캐싱해서 가지고있는 클레스;
     private List<NPCSelectTalkData> dialogueData; // npc 대사,선택지 저장용
     private NpcAction npcAction; //npcAction 스크립터
+
     private void Start()
     {
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
         NpcWord();
         dictFirst = npcWoadDict.First().Key; //첫번쨰 키 저장
-        dictProgressSb.Append(dialogueLV==0? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
+        dictProgressSb.Append(dialogueLV == 0 ? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
         npcTextMeshPro.text = npcWoadDict[dictFirst][0]; // npc 대사 설정  dialogueData[j].Id.ToString() +"_"+ dialogueData[j].Choice_Order_Number .id _ 글등장 순서
- 
+
     }
 
     private void SetComponent() // 시작 컴포넌트및 정보 세팅
@@ -46,7 +48,6 @@ public class NPCTack : MonoBehaviour, INPC
         dictProgressSb = new StringBuilder();
         npcWoadDict = new Dictionary<string, List<string>>();
         choiceScripts = new List<ChoiceScripts>();
-
         choiceObjText = new List<TextMeshProUGUI>();
         npcChildSet = transform.parent.GetComponent<NPCChildSet>(); // npc 아이콘 정보 캐싱해가지고있는 스크립트
         for (int i = 0; i <= 3; i++)
@@ -59,6 +60,7 @@ public class NPCTack : MonoBehaviour, INPC
     #region NPC 데이터 세팅
     private void SetNpcData() // NPC 데이터 세팅
     {
+
         if (CSVRead.instance.nPCDatas.ContainsKey(npcID) && CSVRead.instance.nPCDatas != null)
         {
             var npcData = CSVRead.instance.nPCDatas[npcID];// CSVRead.instance.nPCDatas[npcID]캐싱
@@ -76,38 +78,70 @@ public class NPCTack : MonoBehaviour, INPC
     #endregion
     public void DictLastNumberAdd() // 텍스트 순서 체인지
     {
-        fruits = dictProgressSb.ToString().Split("_");
-
-        if (npcWoadDict.ContainsKey(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()))
+        fruits = dictProgressSb.ToString().Split("_"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
+     
+        if (npcWoadDict.ContainsKey(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString())) // npc mbti대화 textLv상승용
         {
-            textLV++;
-            dictProgressSb.Clear();
-            dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString());
-           
-        }
-        else if(npcWoadDict.ContainsKey((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1"))
-        {
-            dialogueLV++;
-            dialogueData = newNPC.ContinueDialogue(dialogueLV);
-            npcAction.TalkiClear();
-            dictProgressSb.Clear();
-            dictProgressSb.Append((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1");
+            if(dialogueData[0].Quest_ID == -1 || prerequisiteQuest == true)
+            {
+              
+                if (!NPCEnd)
+                {
+                    textLV++;
+                    dictProgressSb.Clear();
+                    npcAction.TalkiZero();// 대화 처음으로
+                    dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()); // 다음 대화로
+                }
+            }
+            
             
         }
-        else
+        else if (npcWoadDict.ContainsKey(fruits[0] + "_" + "99")) // 마지막 대화 존재 여부 체크
         {
+            if (dictProgressSb.Equals(fruits[0] + "_" + "99")) // 마지막 대화 체크
+            {            
+                QuestInput(); 
+                if (npcWoadDict.ContainsKey((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1")) // 다음 퀘스트 대화 여부 체크
+                {
+                    dialogueLV++;
+                    dictProgressSb.Clear();// 스트링 빌드 초기화
+                    npcAction.TalkiZero(); // 대화 처음으로
+                    dialogueData = newNPC.ContinueDialogue(dialogueLV);
+                    textLV = 0;
+                    dictProgressSb.Append((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1"); // 다음 퀘스트 대화 스트링 빌드에 셋
+                    npcAction.TalkiEnd(); // 대화창 닫기
+                }
+                else //없으면 대화 종료 bool true로 변경
+                {
+                    NPCEnd = true; 
+                }
+            }
+            else
+            {
+                textLV++;
+                dictProgressSb.Clear();
+                dictProgressSb.Append(fruits[0].ToString() + "_" + "99"); //다음 대회 id 저장
+                npcAction.TalkiZero();
+              
 
-            //npcTextMeshPro.text = ""; 종료 대화
-            npcAction.TalkiEnd();
+            }
+           //  npcAction.TalkiEnd();
         }
+
+
+
     }
     public void QuestInput() // 플레이어에게 퀘스트 발급
     {
-
-        if (!CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].Equals("-1"))
+        
+        if(CSVRead.instance.QuestDatas.ContainsKey(dialogueData[textLV].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
         {
-            QuestMananger.instance.AddPlayerQuest(CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].ToString());
+            if (!CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].Equals("-1"))
+            {
+                QuestMananger.instance.AddPlayerQuest(CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].ToString());
+            }
         }
+       
     }
 
 
@@ -120,14 +154,23 @@ public class NPCTack : MonoBehaviour, INPC
                 npcChildSet.ChoiceTransform.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-       
-        npcTextMeshPro.text = str;
+
+        if (str.Equals("-1"))
+        {
+            TalkOff();
+        }
+        else
+        {
+            npcTextMeshPro.text = str;
+        }
+
         DictLastNumberAdd(); ;
     }
     //ss
     #region NPC 선택지
     private void SetChoiceText() // npc 선택지 세팅
     {
+
         if (dialogueData.Count == 0)
         {
             return;
@@ -188,8 +231,10 @@ public class NPCTack : MonoBehaviour, INPC
         {
             npcChildSet.ChoiceTransform.transform.GetChild(3).gameObject.SetActive(false);
         }
-
     }
+
+
+
     public void ExitTalk() // 대화종료 시 선택지 비활성화
     {
         textLV = 0;
@@ -205,26 +250,51 @@ public class NPCTack : MonoBehaviour, INPC
     #region npc글세팅
     public int WordChange(int i) // 글 교체 및 npc대화
     {
-    
+
+
+        if (newNPC.NPC_ID.Equals(null))
+        {
+            return 0;
+        }
         if (i == -1)
         {
-            
+
             TalkOff();
             return i + 1;
         }
 
         if (i < npcWoadDict[dictProgressSb.ToString()].Count)
         {
-            if(i == 0)
+            if (i == 0)
             {
                 TalkOn();
             }
-          
+
             npcTextMeshPro.text = npcWoadDict[dictProgressSb.ToString()][i];
-            if (i == npcWoadDict[dictProgressSb.ToString()].Count-1)
+
+            if (i == npcWoadDict[dictProgressSb.ToString()].Count - 1)
             {
                 SetChoiceText();
             }
+        }
+        else
+        {
+            if (!npcChildSet.ChoiceTransform.transform.GetChild(0).gameObject.activeSelf)
+            {
+                Debug.Log(dialogueData[textLV].Quest_ID.ToString());
+                if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[textLV].Quest_ID.ToString()))
+                {
+                    npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
+                }
+                else
+                {
+                    npcAction.TalkiEnd();
+                }
+                  
+
+            }
+
+
         }
 
         return i + 1;
@@ -247,13 +317,13 @@ public class NPCTack : MonoBehaviour, INPC
     }
     public string NpcWord() //csv에서 Description 읽어옴
     {
+
+
         if (npcID.Equals(newNPC.NPC_ID.ToString()))
         {
             for (int i = 0; i <= newNPC.ContinueDialogueCount; i++)
             {
                 dialogueData = newNPC.ContinueDialogue(i);
-              
-         
 
                 for (int j = 0; j < dialogueData.Count; j++)
                 {
@@ -267,11 +337,13 @@ public class NPCTack : MonoBehaviour, INPC
                     }
                     npcWoad = new List<string>(); // npc 대사 세팅 50글자씪 자를리스트 초기화
                     reCutString(dialogueData[j].Choice_Before_Dialogue);
-                    npcWoadDict.Add(dialogueData[j].Talk_Priority.ToString() + "_" + dialogueData[j].Choice_Order_Number.ToString(), npcWoad);
 
-                } 
-              
+                    npcWoadDict.Add(dialogueData[j].Choice_Bundle_Tag.ToString() + "_" + dialogueData[j].Choice_Order_Number.ToString(), npcWoad);
+
+                }
+
             }
+            dialogueData = newNPC.ContinueDialogue(0);
 
         }
 
@@ -294,13 +366,20 @@ public class NPCTack : MonoBehaviour, INPC
     }
     public void TalkOn() // 글보여주기
     {
-
-        Debug.Log("놀러옴");
         if (newNPC.Type == -1)
         {
             Debug.LogError("Npc Text Type :-1"); //npc 텍스트가 널일경우 
             return;
         }
+
+        if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
+        {
+            if (CSVRead.instance.QuestDatas[dialogueData[0].Quest_ID.ToString()].Situation.Equals("Complete"))
+            {
+                prerequisiteQuest = true;
+            }
+        }
+
         if (!npcChildSet.targetOBj[4].gameObject.activeSelf)
         {
             npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
@@ -313,8 +392,8 @@ public class NPCTack : MonoBehaviour, INPC
         if (newNPC.Type == -1)
         {
             return;
-        } 
-      
+        }
+
         npcChildSet.targetOBj[4].gameObject.SetActive(false);
         npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(true);
 

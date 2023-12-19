@@ -31,6 +31,7 @@ public class NPCBase
         
         int dialogueID_ = 1; //  Func<int, List<NPCSelectTalkData>> ContinueDialogue { get; set; } 의 int 값
         int save = 1;
+        
         NPC newNPC = new NPC
         {
             NPC_ID = npcID,
@@ -55,13 +56,14 @@ public class NPCBase
                 // 대화 데이터 초기화 로직을 구현
                 foreach (var kvp in npcSelectTalkDatas)
                 {
-                 
+                  
+
                     if (kvp.Value.NPCId == npcID)
                     {
-                        save = kvp.Value.Talk_Priority >= save ? kvp.Value.Talk_Priority : save;
-                        if (kvp.Value.Talk_Priority == dialogueID)
+                        save = kvp.Value.Choice_Bundle_Tag >= save ? kvp.Value.Choice_Bundle_Tag : save;
+                        if (kvp.Value.Choice_Bundle_Tag == dialogueID)
                         {
-                        
+                         
                             talks.Add(kvp.Value);                         
                         }
                     }
