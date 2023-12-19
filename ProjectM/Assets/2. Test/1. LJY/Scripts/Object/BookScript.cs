@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookScript : MonoBehaviour
+public class BookScript : GrabbableEvents
 {
     private LineRenderer lineRenderer;
     public GameObject magicUi;
 
+    public Vector3 target;
+
+    public GameObject poison;
     private bool isGrabbed;
 
     private Quaternion direction;
@@ -19,30 +22,46 @@ public class BookScript : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        rayDirection = transform.forward;
+        
         if (isGrabbed)
         {
+            rayDirection = transform.forward;
             lineRenderer.SetPosition(0, transform.position);
-            //direction = InputBridge.Instance.GetControllerLocalRotation(ControllerHand.Left);          
             ray = new Ray(transform.position, rayDirection);
-
-            if (Physics.Raycast(ray, out hit, 1000f))
+            int terrainLayerMask = LayerMask.GetMask("Terrain");
+            if (Physics.Raycast(ray, out hit, 500f, terrainLayerMask))
             {
-                //Debug.Log("레이캐스트 들어감");
                 lineRenderer.SetPosition(1, hit.point);
+                target = hit.point;
             }
             else
             {
                 // 일정 거리만큼의 끝점을 설정하거나 다른 방식으로 처리
-                lineRenderer.SetPosition(1, ray.origin + ray.direction * 1000f);
+                lineRenderer.SetPosition(1, ray.origin + ray.direction * 500f);
+                target = lineRenderer.GetPosition(1);
             }
         }
+    }
 
+    public void GrabEvent()
+    {
+        OnLineRenderer();
+        OnMagicUi();
+        //StartCoroutine(ViewRayZone());
+    }
+
+    public override void OnRelease()
+    {
+        base.OnRelease();
+        OffMagicUi();
+        OffLineRenderer();
+        //StopCoroutine(ViewRayZone());
     }
 
     public void OnMagicUi()
@@ -66,5 +85,32 @@ public class BookScript : MonoBehaviour
     {
         isGrabbed = false;
         lineRenderer.enabled = false;
+    }
+
+    private IEnumerator ViewRayZone()
+    {
+        while(isGrabbed)
+        {
+            rayDirection = transform.forward;
+            if (isGrabbed)
+            {
+                lineRenderer.SetPosition(0, transform.position);
+                ray = new Ray(transform.position, rayDirection);
+                int terrainLayerMask = LayerMask.GetMask("Terrain");
+                if (Physics.Raycast(ray, out hit, 500f, terrainLayerMask))
+                {
+                    lineRenderer.SetPosition(1, hit.point);
+                    target = hit.point;
+                }
+                else
+                {
+                    // 일정 거리만큼의 끝점을 설정하거나 다른 방식으로 처리
+                    lineRenderer.SetPosition(1, ray.origin + ray.direction * 500f);
+                    target = lineRenderer.GetPosition(1);
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }      
+        yield return null;
     }
 }

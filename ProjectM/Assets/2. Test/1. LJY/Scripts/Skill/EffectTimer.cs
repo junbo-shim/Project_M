@@ -6,10 +6,16 @@ using static UnityEngine.ParticleSystem;
 public class EffectTimer : MonoBehaviour
 {
     private ParticleSystem particle;
-    public float offTime = 3f;
+    private PowerPoison powerPoison;
+    private float offTime = 3f;
     // Start is called before the first frame update
     void Start()
     {
+        if(GetComponent<PowerPoison>() != null)
+        {
+            powerPoison = GetComponent<PowerPoison>();
+            offTime = powerPoison.duration;
+        }
         particle = GetComponent<ParticleSystem>();
         Invoke("OffParticle", offTime);
     }
