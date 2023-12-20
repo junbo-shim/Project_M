@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7094696954002260882}
   - component: {fileID: 7094696954002260885}
   m_Layer: 5
-  m_Name: Canvas - Copy
+  m_Name: TutorialCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
