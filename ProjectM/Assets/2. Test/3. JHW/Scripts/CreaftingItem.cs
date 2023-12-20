@@ -20,8 +20,7 @@ public class CreaftingItem : MonoBehaviour
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemIndex2 = inventory.items.FindIndex(item => item.itemName == itemName2);
-        Debug.Log(itemIndex);
-        Debug.Log(itemIndex2);
+
 
         if (itemIndex != -1 && itemIndex2 != -1)
         {
@@ -47,8 +46,6 @@ public class CreaftingItem : MonoBehaviour
 
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemIndex2 = inventory.items.FindIndex(item => item.itemName == itemName2);
-        Debug.Log(itemIndex);
-        Debug.Log(itemIndex2);
 
         if (itemIndex != -1 && itemIndex2 != -1)
         {
@@ -85,6 +82,16 @@ public class CreaftingItem : MonoBehaviour
 
         ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
         TrabFindNeedItem("MagicEssence", "Steel", 1);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "ScareCrow")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount + 1;
+            }
+        }
+
+
     }
 
 
@@ -103,6 +110,14 @@ public class CreaftingItem : MonoBehaviour
 
         ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
         TrabFindNeedItem("MagicEssence", "Steel", 1);
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == "Trab")
+            {
+                inventory.items[i].itemCount = inventory.items[i].itemCount + 1;
+            }
+        }
     }
 
     public void CreaftingScareCrowButton()
