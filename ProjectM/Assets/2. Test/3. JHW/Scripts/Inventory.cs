@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-
+    public CreaftingUI creaftingUI;
     public static Inventory Instance;
     public delegate void OnSlotCountChange(int val);  //대리자 정의
     public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
     public Skill skill;
     public CreaftingItem creaftingItem;
     public Text[] countNeedItem;
+    public Text[] text;
 
     private int slotCnt;
 
@@ -101,6 +102,13 @@ public class Inventory : MonoBehaviour
                 creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
                 creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
 
+
+                creaftingUI.UpdateNumberText("FIreBallRecipe", text[0], text[1]);
+                creaftingUI.UpdateNumberText("ProtectRecipe", text[2], text[3]);
+                creaftingUI.UpdateNumberText("IceBallRecipe", text[4], text[5]);
+                creaftingUI.UpdateNumberText("PoisonRecipe", text[6], text[7]);
+                creaftingUI.UpdateNumberText("JumpRecipe", text[8], text[9]);
+                creaftingUI.UpdateNumberText("HillRecipe", text[10], text[11]);
 
                 fIeldItem.DestroyItem();
             }

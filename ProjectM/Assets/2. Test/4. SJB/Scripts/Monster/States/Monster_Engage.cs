@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Monster_Engage : MonsterState
@@ -253,7 +254,10 @@ public class Monster_Engage : MonsterState
 
         isRoutineOn = false;
 
-        monster_.GetComponent<TestBigMonster>().sonarTarget = null;
+        if (monster_.GetComponent<TestBigMonster>() == true) 
+        {
+            monster_.GetComponent<TestBigMonster>().sonarTarget = null;
+        }
     }
     #endregion
 }

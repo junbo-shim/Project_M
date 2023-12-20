@@ -50679,6 +50679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59a1c4e74ac81244898795f6b25ce3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creaftingUI: {fileID: 0}
   skill: {fileID: 0}
   creaftingItem: {fileID: 0}
   countNeedItem:
@@ -50686,6 +50687,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  text: []
   items: []
 --- !u!1 &5319773931503349422
 GameObject:
@@ -60092,11 +60094,13 @@ MonoBehaviour:
   StrafeSpeed: 1.5
   StrafeSprintSpeed: 1.75
   JumpForce: 3
+  magicJumpForce: 25
   JumpInput: 00000000
   JumpAction: {fileID: 3598031526004978682, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
   AirControl: 1
   AirControlSpeed: 1
+  useMagicJump: 0
   Magnitude: 0
   GroundContacts: 0
   SurfaceAngle: 0

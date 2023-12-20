@@ -55,7 +55,6 @@ MonoBehaviour:
   zoomIn: 1
   zoomMax: 30
   zoomOneStep: 1
-  textmapName: {fileID: 0}
 --- !u!1 &3279382583253580246
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +69,7 @@ GameObject:
   - component: {fileID: 3279382583253580256}
   - component: {fileID: 3279382583253580270}
   - component: {fileID: 1254936733808192940}
+  - component: {fileID: 3038994404536857350}
   m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
@@ -188,6 +188,19 @@ MonoBehaviour:
   speed: 0.1
   rawImage: {fileID: 3279382583943354674}
   fadeSpeed: 0.5
+--- !u!65 &3038994404536857350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3279382583253580246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5798329, y: 1.1855077, z: 8.700067}
+  m_Center: {x: 4.908239, y: 0.40724754, z: -0.104043074}
 --- !u!1 &3279382583263393478
 GameObject:
   m_ObjectHideFlags: 0

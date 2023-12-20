@@ -5,6 +5,9 @@ using UnityEngine;
 public class ItemDataBase : MonoBehaviour
 {
     public static ItemDataBase Instance;
+    // 23.12.20 SJB Editted
+    public GameObject player;
+
 
     private void Awake()
     {
@@ -18,10 +21,16 @@ public class ItemDataBase : MonoBehaviour
 
     public void Start()
     {
+        SpreadItem();
+    }
+
+    //23.12.20 SJB Editted
+    private void SpreadItem() 
+    {
         for (int i = 0; i < 32; i++)
         {
             GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 13)]); 
+            go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 13)]);
         }
     }
 }

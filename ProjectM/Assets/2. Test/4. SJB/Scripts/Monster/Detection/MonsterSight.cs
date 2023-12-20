@@ -68,7 +68,6 @@ public class MonsterSight : MonoBehaviour
         {
             if (monster.GetComponent<TestMonster>() == true)
             {
-                Debug.LogWarning("???");
                 // 몬스터의 FSM 에 접근하여 상태를 교전으로 변경
                 monster.GetComponent<TestMonster>().monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
             }

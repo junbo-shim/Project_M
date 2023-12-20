@@ -13,11 +13,11 @@ public class MiniMapController : MonoBehaviour
     public float speed = 0.1f;
 
     public RawImage rawImage;
-    public float fadeSpeed = 0.5f;    //ºÒÅõ¸í ÇØÁö´Â ¼Óµµ
+    public float fadeSpeed = 0.5f;    //ë¶ˆíˆ¬ëª… í•´ì§€ëŠ” ì†ë„
     private bool fadeInStarted = false;
 
 
-    private bool isacting = false;
+    public bool isacting = false;
     void Start()
     {
         m = GetComponent<Renderer>().material;
@@ -44,7 +44,7 @@ public class MiniMapController : MonoBehaviour
         }
     }
 
-    void OpenMap()
+    public void OpenMap()
     {
         m.SetFloat(direction, -1);
 
@@ -77,7 +77,7 @@ public class MiniMapController : MonoBehaviour
 
 
 
-    void CloseMap()
+    public void CloseMap()
     {
         m.SetFloat(direction, -1);
         StartCoroutine(Close());
@@ -86,10 +86,10 @@ public class MiniMapController : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        // RawImageÀÇ ÃÊ±â ºÒÅõ¸íµµ
+        // RawImageì˜ ì´ˆê¸° ë¶ˆíˆ¬ëª…ë„
         float currentAlpha = rawImage.color.a;
 
-        // ºÒÅõ¸íµµ°¡ 1±îÁö ¼­¼­È÷ ¿Ã¶ó°¡µµ·Ï ¹İº¹
+        // ë¶ˆíˆ¬ëª…ë„ê°€ 1ê¹Œì§€ ì„œì„œíˆ ì˜¬ë¼ê°€ë„ë¡ ë°˜ë³µ
         while (rawImage.color.a < 1.0f)
         {
             currentAlpha += fadeSpeed * Time.deltaTime;
@@ -103,24 +103,24 @@ public class MiniMapController : MonoBehaviour
 
     IEnumerator Close()
     {
-        // RawImageÀÇ ÃÊ±â ºÒÅõ¸íµµ
+        // RawImageì˜ ì´ˆê¸° ë¶ˆíˆ¬ëª…ë„
         float currentAlpha = rawImage.color.a;
 
-        // ºÒÅõ¸íµµ°¡ 1±îÁö ¼­¼­È÷ ¿Ã¶ó°¡µµ·Ï ¹İº¹
+        // ë¶ˆíˆ¬ëª…ë„ê°€ 1ê¹Œì§€ ì„œì„œíˆ ì˜¬ë¼ê°€ë„ë¡ ë°˜ë³µ
         while (rawImage.color.a > 0.001f)
         {
             currentAlpha -= fadeSpeed * Time.deltaTime;
             Color newColor = rawImage.color;
             newColor.a = Mathf.Clamp01(currentAlpha);
             rawImage.color = newColor;
-            Debug.Log("³ª¾ÆÁ÷ ¾È³ª°¬´Ù");
+            Debug.Log("ë‚˜ì•„ì§ ì•ˆë‚˜ê°”ë‹¤");
             yield return null;
         }
 
 
         if (rawImage.color.a < 0.1f)
         {
-            Debug.Log("¿©±â±îÁø µé¾î¿È");
+            Debug.Log("ì—¬ê¸°ê¹Œì§„ ë“¤ì–´ì˜´");
             while (testFloat > 0f)
             {
                 testFloat -= speed * 0.1f;

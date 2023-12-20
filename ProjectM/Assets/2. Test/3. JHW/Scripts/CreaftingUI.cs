@@ -10,7 +10,6 @@ public class CreaftingUI : MonoBehaviour
     Skill skill;
 
 
-    public Text[] text;
     public List<string> haveItem;
 
     public Transform slotHolder;
@@ -23,7 +22,7 @@ public class CreaftingUI : MonoBehaviour
 
 
     // Text에 현재 숫자를 업데이트하는 메소드
-    private void UpdateNumberText(string itemName, Text text1, Text text2)
+    public void UpdateNumberText(string itemName, Text text1, Text text2)
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         Item item = inventory.items.Find(i => i.itemName == itemName);
@@ -42,20 +41,4 @@ public class CreaftingUI : MonoBehaviour
 
     }
 
-    private void FindItemName()
-    {
-        UpdateNumberText("FIreBallRecipe", text[0], text[1]);
-        UpdateNumberText("ProtectRecipe", text[2], text[3]);
-        UpdateNumberText("IceBallRecipe", text[4], text[5]);
-        UpdateNumberText("PoisonRecipe", text[6], text[7]);
-        UpdateNumberText("JumpRecipe", text[8], text[9]);
-        UpdateNumberText("HillRecipe", text[10], text[11]);
-    }
-
-
-
-    private void Update()
-    {
-        FindItemName();
-    }
 }
