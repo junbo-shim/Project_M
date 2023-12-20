@@ -7,6 +7,7 @@ public class BookScript : GrabbableEvents
 {
     private LineRenderer lineRenderer;
     public GameObject magicUi;
+    public Transform book;
 
     public Vector3 target;
 
@@ -31,7 +32,7 @@ public class BookScript : GrabbableEvents
         
         if (isGrabbed)
         {
-            rayDirection = transform.forward;
+            rayDirection = -book.forward;
             lineRenderer.SetPosition(0, transform.position);
             ray = new Ray(transform.position, rayDirection);
             int terrainLayerMask = LayerMask.GetMask("Terrain");

@@ -18,13 +18,17 @@ public class MoveTrigger : MagicBase
 
     protected override void CastSkill()
     {
-        Transform player = GameObject.FindGameObjectWithTag("Player").transform;    // 플레이어컨트롤러
-        Transform playerCamTransform = player.GetChild(0);  // 이펙트가 보이는 PC의 카메라 트랜스폼
+        //Transform player = GameObject.FindGameObjectWithTag("Player").transform;    // 플레이어컨트롤러
+        //Transform playerCamTransform = player.GetChild(0);  // 이펙트가 보이는 PC의 카메라 트랜스폼
 
-        // 이펙트 보여주기
-        GameObject eff = Instantiate(magicEffect, player.position, magicEffect.transform.rotation);
-        eff.transform.SetParent(playerCamTransform);
-        eff.transform.localPosition = Vector3.zero;
+        //// 이펙트 보여주기
+        //GameObject eff = Instantiate(magicEffect, player.position, magicEffect.transform.rotation);
+        //eff.transform.SetParent(playerCamTransform);
+        //eff.transform.localPosition = Vector3.zero;
+        if(magicEffect.activeSelf == false)
+        {
+            magicEffect.SetActive(true);
+        }
 
         base.CastSkill();
     }
