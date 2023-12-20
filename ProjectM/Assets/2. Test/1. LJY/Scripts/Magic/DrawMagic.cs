@@ -15,9 +15,6 @@ public class DrawMagic : MonoBehaviour
     public List<int> firePattern = new() { 0, 3, 4, 0 };
     // 23.12.11 SJB Editted for Prototype
 
-    // 형 매직스포너 끌어다 인스펙터 창에 넣었어요 다시 해보시면 될거에요 원격꺼드릴게요
-    // 준보형 사랑해요 준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요준보형 사랑해요ㅋㅋ
-
     public List<int> poisonPattern = new() { 3, 4 };
     public List<int> icePattern = new() { 1, 3, 2, 4, 1 };
     public List<int> flyPattern = new() { 0, 1, 2, 3 };
@@ -116,6 +113,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
             else if (dot_.id != preDotsId)
             {
@@ -125,6 +123,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
         }
     }
@@ -148,6 +147,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
         }
     }
@@ -261,8 +261,9 @@ public class DrawMagic : MonoBehaviour
                 Debug.Log("들어왔다 준보");
 
                 GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
-                magicObject = Instantiate(magicObject, transform.position, Quaternion.identity);
+                magicObject.SetActive(true);
                 magicObject.transform.SetParent(transform.parent);
+                magicObject.transform.localPosition = transform.localPosition;               
                 magicObject.GetComponent<MagicBase>().magicUi = gameObject;
                 stringPattern = default(string);
                 lineRenderer.enabled = false;
