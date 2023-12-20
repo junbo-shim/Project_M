@@ -113,6 +113,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
             else if (dot_.id != preDotsId)
             {
@@ -122,6 +123,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
         }
     }
@@ -145,6 +147,7 @@ public class DrawMagic : MonoBehaviour
                 dotsIndex += 1;
                 myPattern.Add(dot_.id);
                 preDotsId = dot_.id;
+                dot_.enterParticle.Play();
             }
         }
     }

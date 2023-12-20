@@ -5,4 +5,5 @@ using UnityEngine;
 public class Magicdot : MonoBehaviour
 {
     public int id;
+    public ParticleSystem enterParticle;
 }
