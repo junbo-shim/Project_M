@@ -60,6 +60,7 @@ public class NPCBase
 
                     if (kvp.Value.NPCId == npcID)
                     {
+                    
                         save = kvp.Value.Choice_Bundle_Tag >= save ? kvp.Value.Choice_Bundle_Tag : save;
                         if (kvp.Value.Choice_Bundle_Tag == dialogueID)
                         {
