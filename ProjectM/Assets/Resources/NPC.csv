@@ -1,3 +1,4 @@
 NPC_ID,Description,Type,Name,Hp,CatchPossibility,Icon
 200002,hi hellow,Main,나무,100,-1,Main
 200003,where,Main,오크,100,-1,Main
+202004,z,Main,오크,100,-1,Main

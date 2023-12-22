@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 
-public class NPCTack : MonoBehaviour, INPC
+
+public class NPCTack : MonoBehaviour
 {
     [SerializeField] private string npcID;                      // 내가 지정할 현재 npcId
     private Dictionary<string, List<string>> npcWoadDict;       // 50글자씩 자른 npc woard
@@ -30,8 +32,10 @@ public class NPCTack : MonoBehaviour, INPC
     private NPCChildSet npcChildSet; // 저장 Obj를 캐싱해서 가지고있는 클레스;
     private List<NPCSelectTalkData> dialogueData; // npc 대사,선택지 저장용
     private NpcAction npcAction; //npcAction 스크립터
+     
 
-    private void Start()
+
+    public void Start()
     {
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
@@ -82,17 +86,16 @@ public class NPCTack : MonoBehaviour, INPC
      
         if (npcWoadDict.ContainsKey(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString())) // npc mbti대화 textLv상승용
         {
-            if(dialogueData[0].Quest_ID == -1 || prerequisiteQuest == true)
-            {
+            
               
-                if (!NPCEnd)
-                {
-                    textLV++;
-                    dictProgressSb.Clear();
-                    npcAction.TalkiZero();// 대화 처음으로
-                    dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()); // 다음 대화로
-                }
+            if (!NPCEnd)
+            {
+                textLV++;
+                dictProgressSb.Clear();
+                npcAction.TalkiZero();// 대화 처음으로
+                dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()); // 다음 대화로
             }
+            
             
             
         }
@@ -138,13 +141,11 @@ public class NPCTack : MonoBehaviour, INPC
         {
             if (!CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].Equals("-1"))
             {
-                QuestMananger.instance.AddPlayerQuest(CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].ToString());
+                QuestMananger.instance.AddPlayerQuest(dialogueData[textLV].Quest_ID.ToString());
             }
         }
        
-    }
-
-
+    } 
     public void ChoiseClick(int number, string str)
     {
         for (int i = 0; i <= 3; i++)
@@ -250,7 +251,11 @@ public class NPCTack : MonoBehaviour, INPC
     #region npc글세팅
     public int WordChange(int i) // 글 교체 및 npc대화
     {
-
+        PrecedeQuest_IDChk();// 선행 조건 체크
+        if ( prerequisiteQuest == false)
+        {
+            return 0;
+        }
 
         if (newNPC.NPC_ID.Equals(null))
         {
@@ -354,7 +359,7 @@ public class NPCTack : MonoBehaviour, INPC
     public void IconOn()
     {
 
-        if (newNPC.Type == -1)
+        if (newNPC.Type.Equals("-1"))
         {
             return;
         }
@@ -366,18 +371,16 @@ public class NPCTack : MonoBehaviour, INPC
     }
     public void TalkOn() // 글보여주기
     {
-        if (newNPC.Type == -1)
+  
+        if (newNPC.Type.Equals("-1"))
         {
             Debug.LogError("Npc Text Type :-1"); //npc 텍스트가 널일경우 
             return;
         }
-
-        if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
+      
+        if ( prerequisiteQuest == false )
         {
-            if (CSVRead.instance.QuestDatas[dialogueData[0].Quest_ID.ToString()].Situation.Equals("Complete"))
-            {
-                prerequisiteQuest = true;
-            }
+            return;
         }
 
         if (!npcChildSet.targetOBj[4].gameObject.activeSelf)
@@ -387,9 +390,27 @@ public class NPCTack : MonoBehaviour, INPC
         }
 
     }
+    private void PrecedeQuest_IDChk()
+    {
+   
+        if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
+        {
+         
+            prerequisiteQuest = true;
+        }
+        else if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
+        {
+            if (QuestMananger.instance.playerQuest[dialogueData[0].Quest_ID.ToString()].State == QuestState.QuestStatus.Completed)
+            {
+                prerequisiteQuest = true;
+            }
+        }
+    }
+
     public void TalkOff() // 글닫기
     {
-        if (newNPC.Type == -1)
+   
+        if (newNPC.Type.Equals("-1"))
         {
             return;
         }
@@ -402,7 +423,8 @@ public class NPCTack : MonoBehaviour, INPC
 
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
-        if (newNPC.Type == -1)
+    
+        if (newNPC.Type.Equals("-1"))
         {
             return;
         }

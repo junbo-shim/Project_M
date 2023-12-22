@@ -74,7 +74,10 @@ public class DrawMagic : MonoBehaviour
 
     private void OnEnable()
     {
-        lineRenderer.enabled = true;
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = true;
+        }
     }
 
     void Update()

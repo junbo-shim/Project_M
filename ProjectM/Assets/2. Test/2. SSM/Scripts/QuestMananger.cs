@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuestMananger : MonoBehaviour // 저장할 스크립트
 {
 
-    public Dictionary<string, QuestData> playerQuest;  // 플레이어가 수락한 퀘스트 정보
+    public Dictionary<string, BasicQuest> playerQuest;  // 플레이어가 수락한 퀘스트 정보
 
     private static QuestMananger Instance;
 
@@ -34,26 +34,43 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
             Destroy(gameObject);
 
         }
-        playerQuest = new Dictionary<string, QuestData>();
+        playerQuest = new Dictionary<string, BasicQuest>();
     }
     
     public void AddPlayerQuest(string str) // 퀘스트 수주
     {
         if(!playerQuest.ContainsKey(str))
         {
-            playerQuest.Add(str, CSVRead.instance.QuestDatas[str]);
-            playerQuest[str].Situation = "Progress";
-
+            if(CSVRead.instance.QuestDatas.ContainsKey(str))
+            {
+                var questInstance = CSVRead.instance.QuestDatas[str];
+                BasicQuest basicQuest = new BasicQuest(questInstance.Id , questInstance.QuestType, questInstance.QuestNameKey, questInstance.QuestExplainKey,questInstance.CompletionConditionID
+                    ,questInstance.QuestNPCSuccessID ,questInstance.PrecedeQuestID , questInstance.Reward_ID);
+                playerQuest.Add(str, basicQuest);
+                playerQuest[str].Start();
+            }
+            Debug.Log(playerQuest[str].State);
         }
+       // Debug.Log(playerQuest.First().Value.QuestProgressDialogue);
     }
 
     public void QuestComplete(string str) // 퀘스트 완료
     {
         if (!playerQuest.ContainsKey(str))
         {
-            playerQuest[str].Situation = "Complete";
+            playerQuest[str].Complete();
+    
         }
         
+    }
+    public void QuestCompleteChk(string str) // 퀘스트 조건확인
+    {
+        if (!playerQuest.ContainsKey(str))
+        {
+            playerQuest[str].Complete();
+
+        }
+
     }
 
 }

@@ -87,16 +87,16 @@ public class CSVRead : MonoBehaviour
             QuestDict(data); //npc 선택지데이터 딕셔너리에 set
 
         }
-        // ListPrint();
+     //    ListPrint();
     }
     #endregion
     #region 딕션너리 데이터 확인용
     public void ListPrint() // 데이터 확인용
     {
-        foreach (var data in nPCDatas)
+        foreach (var data in QuestDatas)
         {
             Debug.Log(data.Key);
-            Debug.Log(data.Value.Description);
+            Debug.Log(data.Value.QuestProgressDialogue);
         }
     }
     #endregion
@@ -118,7 +118,6 @@ public class CSVRead : MonoBehaviour
         nPCDatas[id].Hp = GetValue<int>(dict, "Hp");
         nPCDatas[id].CatchPossibility = GetValue<bool>(dict,"CatchPossibility");
         nPCDatas[id].Icon = GetValue<string>(dict, "Icon");
-        
 
     }
     #endregion
@@ -155,8 +154,35 @@ public class CSVRead : MonoBehaviour
         npcSelectTalkDatas[id].Mbti3_ID = GetValue<int>(dict, "MBTI3_ID");
         npcSelectTalkDatas[id].Mbti4_ID = GetValue<int>(dict, "MBTI4_ID");
         npcSelectTalkDatas[id].Choice_Bundle_Tag = GetValue<int>(dict, "Choice_Bundle_Tag");
+   
     }
     #endregion
+
+    public void QuestDict(Dictionary<string, object> dict)
+    {
+        string id = GetValue<int>(dict, "ID").ToString();
+        // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
+        if (!QuestDatas.ContainsKey(id))
+        {
+            QuestDatas[id] = new QuestData();
+        }
+      
+        QuestDatas[id].Id = GetValue<int>(dict, "ID");
+ 
+        QuestDatas[id].QuestType = GetValue<string>(dict, "QuestType");
+        QuestDatas[id].QuestNameKey = GetValue<string>(dict, "Quest_Name_Key");
+        QuestDatas[id].QuestGoalKey = GetValue<string>(dict, "Quest_Goal_Key");
+        QuestDatas[id].QuestExplainKey = GetValue<string>(dict, "Quest_Explain_Key");
+        QuestDatas[id].QuestBackgroundType = GetValue<string>(dict, "Quest_Background_Type");
+        QuestDatas[id].QuestAreaType = GetValue<string>(dict, "Quest_Area_Type");
+        QuestDatas[id].CompletionConditionID = GetValue<int>(dict, "CompletionCondition_ID");
+        QuestDatas[id].QuestNPCSuccessID = GetValue<int>(dict, "SuccessNPC_ID");
+        QuestDatas[id].PrecedeQuestID = GetValue<int>(dict, "PrecedeQuest_ID");
+        QuestDatas[id].LinkQuestID = GetValue<int>(dict, "LinkQuest_ID");
+        QuestDatas[id].QuestProgressDialogue = GetValue<string>(dict, "Quest_Progress_Dialogue");
+        QuestDatas[id].Reward_ID = GetValue<int>(dict, "Reward_ID");
+   
+    }
     #region 딕션너리 값을 변환할려는 데이터타입이 맞는지 확인용
     // 시스템 기본 인코딩 사용
     private T GetValue<T>(Dictionary<string, object> dict, string key)
@@ -176,14 +202,14 @@ public class CSVRead : MonoBehaviour
 
         if (value is T)
         {
-             if (value is string)
+            if (value is string)
             {
                 return (T)Convert.ChangeType((string)value, typeof(T));
             }
-           
+
             return (T)value;
         }
-      
+
         else
         {
             if (value is int && typeof(T) != typeof(bool))
@@ -195,28 +221,4 @@ public class CSVRead : MonoBehaviour
     }
     #endregion
 
-    public void QuestDict(Dictionary<string, object> dict)
-    {
-        string id = GetValue<int>(dict, "ID").ToString();
-        // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
-        if (!QuestDatas.ContainsKey(id))
-        {
-            QuestDatas[id] = new QuestData();
-        }
-      
-        QuestDatas[id].Id = GetValue<int>(dict, "ID");
-        QuestDatas[id].QuestType = GetValue<string>(dict, "QuestType");
-        QuestDatas[id].QuestNameKey = GetValue<string>(dict, "QuestNameKey");
-        QuestDatas[id].QuestGoalKey = GetValue<string>(dict, "QuestGoalKey");
-        QuestDatas[id].QuestExplainKey = GetValue<string>(dict, "QuestExplainKey");
-        QuestDatas[id].QuestBackgroundType = GetValue<string>(dict, "QuestBackgroundType");
-        QuestDatas[id].QuestAreaType = GetValue<string>(dict, "QuestAreaType");
-        QuestDatas[id].CompletionConditionID = GetValue<int>(dict, "CompletionConditionID");
-        QuestDatas[id].QuestNPCSuccessID = GetValue<int>(dict, "QuestNPCSuccessID");
-        QuestDatas[id].PrecedeQuestID = GetValue<int>(dict, "PrecedeQuestID");
-        QuestDatas[id].LinkQuestID = GetValue<int>(dict, "LinkQuestID");
-        QuestDatas[id].QuestProgressDialogue = GetValue<string>(dict, "QuestProgressDialogue");
-        QuestDatas[id].Reward_ID = GetValue<int>(dict, "Reward_ID");
-    
-    }
 }
