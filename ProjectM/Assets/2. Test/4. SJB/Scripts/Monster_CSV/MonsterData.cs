@@ -1,57 +1,45 @@
 public class MonsterData
 {
-    public MonsterData(string csvData, int column, int row) 
-    {
-        CreateThisMonster(csvData, column, row);
-    }
+    // 일반 몬스터
+    public virtual int MonsterID { get; protected set; }
+    public virtual string MonsterDescription { get; protected set; }
+    public virtual int MonsterType { get; protected set; }
+    public virtual int MonsterAttackRange { get; protected set; }
+    public virtual int MonsterMoveSpeed { get; protected set; }
+    public virtual int MonsterHP { get; protected set; }
+    public virtual int MonsterDamage { get; protected set; }
+    public virtual int MonsterRunSpeed { get; protected set; }
 
 
-    public int MonsterID { get; private set; }
-
-    public string MonsterName { get; private set; }
-
-    public int MonsterHP { get; private set; }
-
-    public int MonsterDamage { get; private set; }
-
-    public float MonsterAtkCooltime { get; private set; }
-
-    public float MonsterMoveSpeed { get; private set; }
-
-    public float MonsterRunSpeed { get; private set; }
-
-    public float MonsterMoveAngle { get; private set; }
-
-    public float MonsterVisionRange { get; private set; }
-
-    public float MonsterDetectionRange { get; private set; }
-
-    public float MonsterStatusChangeTime { get; private set; }
+    // 보스 몬스터
+    public virtual int Pattern1Range { get; protected set; }
+    public virtual int Pattern2Range { get; protected set; }
+    public virtual int Pattern3Range { get; protected set; }
+    public virtual float Pattern1Cooltime { get; protected set; }
+    public virtual float Pattern2Cooltime { get; protected set; }
+    public virtual int Pattern1Damage { get; protected set; }
+    public virtual int Pattern2Damage { get; protected set; }
+    public virtual int Pattern1PushForce { get; protected set; }
+    public virtual int Pattern2PushForce { get; protected set; }
 
 
-    private MonsterData CreateThisMonster(string csvData, int column, int row) 
-    {
-        string[] splitData = default;
 
-        splitData = csvData.Split(new char[] { '\n', ',' });
 
-        for (int i = 0; i < row - 1; i++)
-        {
-            int idx = (1 + i) * column;
+    //public float MonsterPatrolTimeMin { get; private set; }
 
-            MonsterID = int.Parse(splitData[idx + 0]);
-            MonsterName = splitData[idx + 1];
-            MonsterHP = int.Parse(splitData[idx + 2]);
-            MonsterDamage = int.Parse(splitData[idx + 3]);
-            MonsterAtkCooltime = float.Parse(splitData[idx + 4]);
-            MonsterMoveSpeed = float.Parse(splitData[idx + 5]);
-            MonsterRunSpeed = float.Parse(splitData[idx + 6]);
-            MonsterMoveAngle = float.Parse(splitData[idx + 7]);
-            MonsterVisionRange = float.Parse(splitData[idx + 8]);
-            MonsterDetectionRange = float.Parse(splitData[idx + 9]);
-            MonsterStatusChangeTime = float.Parse(splitData[idx + 10]);
-        }
+    //public float MonsterPatrolTimeMax { get; private set; }
 
-        return new MonsterData(csvData, column, row);
-    }
+    //public float MonsterSightRange { get; private set; }
+
+    //public float MonsterSightAngle { get; private set; }
+
+
+
+    //public float MonsterSonarRange { get; private set; }
+
+    //public float MonsterAtkCooltime { get; private set; }
+
+    //public float MonsterMoveAngle { get; private set; }
+
+    //public float MonsterStatusChangeTime { get; private set; }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8723845559855235450}
   - component: {fileID: 6842555637157246384}
   - component: {fileID: 5274895733465773150}
+  - component: {fileID: 8626584729520580178}
   m_Layer: 0
   m_Name: Tree2_1
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5041032566077199461}
   m_LocalRotation: {x: -0.000000037748947, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -17.095665}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PolyMesh:
-    name: PolybrushMesh30256
+    name: PolybrushMesh68300
     vertices:
     - {x: 0.6835876, y: 4.0297346, z: 1.6992048}
     - {x: 1.6332046, y: 4.0364237, z: 1.3074318}
@@ -1980,3 +1981,17 @@ MonoBehaviour:
   m_OriginalMeshObject: {fileID: -5343239902465810171, guid: 4ab2550cdbc3254498a91698cec75e82,
     type: 3}
   m_Mode: 0
+--- !u!136 &8626584729520580178
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5041032566077199461}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 3.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}

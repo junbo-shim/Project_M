@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 public class MonsterStateMachine : MonoBehaviour
 {
-    // »óÅÂ enum
+    // ìƒíƒœ enum
     public enum State
     {
-        // ÃÊ±â»óÅÂ
+        // ì´ˆê¸°ìƒíƒœ
         Spawn,
-        // Á¤Âû
+        // ì •ì°°
         Patrol,
-        // °¨Áö
+        // ê°ì§€
         Detect,
-        // ÀüÅõµ¹ÀÔ
+        // ì „íˆ¬ëŒì…
         Engage,
-        // µµ¸Á (ÀÏÁ¤ Ã¼·Â ÀÌÇÏ ½Ã µµ¸Á)
+        // ë„ë§ (ì¼ì • ì²´ë ¥ ì´í•˜ ì‹œ ë„ë§)
         Runaway,
-        // Á×À½
+        // ì£½ìŒ
         Die
     }
 
@@ -34,7 +34,7 @@ public class MonsterStateMachine : MonoBehaviour
     public Dictionary<State, MonsterState> enumToStateClass;
 
 
-    // »ı¼ºÀÚ¿¡¼­ ÃÊ±âÈ­¸¦ ÁøÇàÇÑ´Ù
+    // ìƒì„±ìì—ì„œ ì´ˆê¸°í™”ë¥¼ ì§„í–‰í•œë‹¤
     public MonsterStateMachine()
     {
         currentState = State.Spawn;
@@ -48,7 +48,7 @@ public class MonsterStateMachine : MonoBehaviour
 
         enumToStateClass = new Dictionary<State, MonsterState>();
 
-        // µñ¼Å³Ê¸®¸¦ »ç¿ëÇÏ¿© enum À» °¢ MonsterState ¿Í ¿¬°áÇØÁØ´Ù
+        // ë”•ì…”ë„ˆë¦¬ë¥¼ ì‚¬ìš©í•˜ì—¬ enum ì„ ê° MonsterState ì™€ ì—°ê²°í•´ì¤€ë‹¤
         enumToStateClass.Add(State.Spawn, spawnState);
         enumToStateClass.Add(State.Patrol, patrolState);
         enumToStateClass.Add(State.Detect, detectState);
@@ -62,7 +62,7 @@ public class MonsterStateMachine : MonoBehaviour
     {
         if (currentState == null)
         {
-            Debug.LogError("currentState_ °¡ null ÀÔ´Ï´Ù");
+            Debug.LogError("currentState_ ê°€ null ì…ë‹ˆë‹¤");
             return;
         }
         
@@ -71,11 +71,11 @@ public class MonsterStateMachine : MonoBehaviour
             switch (nextState_) 
             {
                 case State.Patrol:
-                    // ÇöÀç »óÅÂ¸¦ Á¾·áÇÑ´Ù
+                    // í˜„ì¬ ìƒíƒœë¥¼ ì¢…ë£Œí•œë‹¤
                     enumToStateClass[currentState].OnStateExit(monster, this);
-                    // ÀüÈ¯ÇÒ »óÅÂ¸¦ ÇöÀç »óÅÂ¿¡ ÀúÀåÇÑ´Ù
+                    // ì „í™˜í•  ìƒíƒœë¥¼ í˜„ì¬ ìƒíƒœì— ì €ì¥í•œë‹¤
                     currentState = nextState_;
-                    // ÀüÈ¯µÈ »óÅÂ¸¦ ½ÇÇàÇÑ´Ù
+                    // ì „í™˜ëœ ìƒíƒœë¥¼ ì‹¤í–‰í•œë‹¤
                     enumToStateClass[currentState].OnStateEnter(monster);
                     enumToStateClass[currentState].OnStateStay(monster, this);
                     break;
