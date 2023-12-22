@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731715, g: 0.13414735, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13532,17 +13532,17 @@ PrefabInstance:
     - target: {fileID: 3352828940802532903, guid: d49996e6a2b528546a24e6541bb5bdc0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 735.03253
+      value: 2521.4
       objectReference: {fileID: 0}
     - target: {fileID: 3352828940802532903, guid: d49996e6a2b528546a24e6541bb5bdc0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 8.400002
       objectReference: {fileID: 0}
     - target: {fileID: 3352828940802532903, guid: d49996e6a2b528546a24e6541bb5bdc0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 276.96564
+      value: 559.44
       objectReference: {fileID: 0}
     - target: {fileID: 3352828940802532903, guid: d49996e6a2b528546a24e6541bb5bdc0,
         type: 3}
@@ -13579,6 +13579,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3685778552640160335, guid: d49996e6a2b528546a24e6541bb5bdc0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 879
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101822295988476371, guid: d49996e6a2b528546a24e6541bb5bdc0,
+        type: 3}
+      propertyPath: npcID
+      value: 200002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101822295988476398, guid: d49996e6a2b528546a24e6541bb5bdc0,
+        type: 3}
+      propertyPath: PlayerUpAction
+      value: 
+      objectReference: {fileID: -5778161490102689449, guid: e39f4b35a6db18348b41eb0262520e69,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49996e6a2b528546a24e6541bb5bdc0, type: 3}
 --- !u!1001 &777046798
@@ -35296,12 +35312,12 @@ PrefabInstance:
     - target: {fileID: 1764956120584484517, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 4.3089396e+36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1764956120584484517, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.02e-43
+      value: 6.77e-43
       objectReference: {fileID: 0}
     - target: {fileID: 1764956120584484517, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
@@ -35316,22 +35332,27 @@ PrefabInstance:
     - target: {fileID: 4610653790601349228, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 4.3089396e+36
+      value: 0.0009286471
       objectReference: {fileID: 0}
     - target: {fileID: 4610653790601349228, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.02e-43
+      value: 6.77e-43
       objectReference: {fileID: 0}
     - target: {fileID: 4610653790601349228, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 1.169341e-19
       objectReference: {fileID: 0}
     - target: {fileID: 4610653790601349228, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: 7.356355e+31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5319773931451641996, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7849495413393858404, guid: 6f9f436d1388ba94f811477ccb1f8f4f,
         type: 3}
@@ -36576,7 +36597,7 @@ PrefabInstance:
     - target: {fileID: 1022922263268791479, guid: 13639f5563ac4a7439fe8f29fe785ed7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1500.0028
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 1938377876446808997, guid: 13639f5563ac4a7439fe8f29fe785ed7,
         type: 3}
@@ -38006,7 +38027,7 @@ PrefabInstance:
     - target: {fileID: 8695714025026689225, guid: 13639f5563ac4a7439fe8f29fe785ed7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0017460207
+      value: 0.0010629911
       objectReference: {fileID: 0}
     - target: {fileID: 8750751936107923954, guid: 13639f5563ac4a7439fe8f29fe785ed7,
         type: 3}

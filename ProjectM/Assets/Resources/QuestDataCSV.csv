@@ -1,3 +1,6 @@
-ID,QuestType,Quest_Name_Key,Quest_Goal_Key,Quest_Explain_Key,Quest_Background_Type,Quest_Area_Type,CompletionCondition_ID,Quest_NPC_Success_ID,PrecedeQuest_ID,LinkQuest_ID,Quest_Progress_Dialogue,Reward_ID
-1,Main,Red,RadKill,RadKill12,Snowfield,PointSpot1,11,2,-1,2,How?,1212
-2,Main,Pink,PinkKill,PinkKill12,Snowfield,PointSpot1,11,2,-1,2,How?,1212
+﻿ID,QuestType,Quest_Name_Key,Quest_Goal_Key,Quest_Explain_Key,Quest_Background_Type,Quest_Area_Type,CompletionCondition_ID,SuccessNPC_ID,PrecedeQuest_ID,LinkQuest_ID,Quest_Progress_Dialogue,Reward_ID
+100001,Main,필리니스에 진입하기,장애물을 피해 나아가기,필리니스에 입장하여 장애물을 건너가자,Snowfield,PointSpot2,50001,200003,-1,100002,널 믿는다.,-1
+100002,Main,오른팔의 동생과 대화하기,오른팔의 동생과 대화하기,고민이 많아 보이는 오른팔의 정보를 동생에게서 들어보자,Snowfield,PointSpot2,50002,200003,100001,100003,형한테 이야기해줘!,-1
+100003,Main,심사관 예티 만나기,심사관 예티와 대화하기,예티의 왕이 사는 궁성에 도달하려면 다리를 건너야한다. /n다리를 지키는 예티와 대화 해보자,Snowfield,PointSpot2,50003,200005,100002,100004,부탁한다.,-1
+100004,Main,예티의 왕 만나기,예티의 왕 만나기,세뇌당한 예티의 왕을 만나자,Snowfield,PointSpot2,50004,200005,100003,100005,행운을 빕니다.,-1
+100005,Main,예티의 왕 제압하기,예티의 왕 제압하기,기계성 문양을 얻기 위해 예티의 왕을 쓰러뜨려야한다.,Snowfield,PointSpot2,50005,200003,100004,-1,-1,30001

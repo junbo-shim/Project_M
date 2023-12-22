@@ -36,9 +36,11 @@ public class NpcAction : NpcActionBase
                 }
                 if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
                 {
+               
 
                     if (hitInfo.collider.CompareTag("Player"))
                     {
+                       
                         NPCTalkStart();// 대화로직
                     }
 
