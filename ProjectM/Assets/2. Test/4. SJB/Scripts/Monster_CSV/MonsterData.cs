@@ -12,34 +12,17 @@ public class MonsterData
 
 
     // 보스 몬스터
-    public virtual int Pattern1Range { get; protected set; }
-    public virtual int Pattern2Range { get; protected set; }
-    public virtual int Pattern3Range { get; protected set; }
-    public virtual float Pattern1Cooltime { get; protected set; }
-    public virtual float Pattern2Cooltime { get; protected set; }
-    public virtual int Pattern1Damage { get; protected set; }
-    public virtual int Pattern2Damage { get; protected set; }
-    public virtual int Pattern1PushForce { get; protected set; }
-    public virtual int Pattern2PushForce { get; protected set; }
+    public virtual int Skill1Priority { get; protected set; }
+    public virtual int Skill2Priority { get; protected set; }
+    public virtual int Skill3Priority { get; protected set; }
+    public virtual float Skill1Cooltime { get; protected set; }
+    public virtual float Skill2Cooltime { get; protected set; }
+    public virtual float Skill3Cooltime { get; protected set; }
 
+    public virtual int Skill1Damage { get; protected set; }
+    public virtual int Skill2Damage { get; protected set; }
+    public virtual int Skill3Damage { get; protected set; }
 
-
-
-    //public float MonsterPatrolTimeMin { get; private set; }
-
-    //public float MonsterPatrolTimeMax { get; private set; }
-
-    //public float MonsterSightRange { get; private set; }
-
-    //public float MonsterSightAngle { get; private set; }
-
-
-
-    //public float MonsterSonarRange { get; private set; }
-
-    //public float MonsterAtkCooltime { get; private set; }
-
-    //public float MonsterMoveAngle { get; private set; }
-
-    //public float MonsterStatusChangeTime { get; private set; }
+    public virtual int Force1 { get; protected set; }
+    public virtual int Force2 { get; protected set; }
 }

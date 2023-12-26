@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
+using System.Collections.Generic;
 
 public class MonsterCSVReader : MonoBehaviour
 {
@@ -23,7 +21,7 @@ public class MonsterCSVReader : MonoBehaviour
 
 
     // 읽어온 TextAsset 파일의 정보를 담을 변수
-    private TextAsset itemDataFile = default;
+    private TextAsset dataFile = default;
     // 데이터 파일을 쪼개서 담을 배열 (csv 한 칸에 해당)
     public string[] ItemDataList { get; private set; }
     // csv 파일 행 크기
@@ -35,10 +33,17 @@ public class MonsterCSVReader : MonoBehaviour
     public Dictionary<Monster.MonsterType, MonsterData> MonsterDataDic { get; private set; }
     public List<string> monsterNameList;
 
+    // 몬스터 디버프를 담아둘 Dictionary
+    public Dictionary<Monster.DebuffState, DebuffData> MonsterDebuffDic { get; private set; }
+
+
     private void Awake()
     {
         MonsterDataDic = new Dictionary<Monster.MonsterType, MonsterData>();
         monsterNameList = new List<string>();
+
+        MonsterDebuffDic = new Dictionary<Monster.DebuffState, DebuffData>();
+
         GetAndReadCSV();
     }
 
@@ -51,17 +56,17 @@ public class MonsterCSVReader : MonoBehaviour
         // Resources/CSVData 폴더 안의 CSV 파일 수만큼 반복한다
         for (int i = 0; i < csvs.Length; i++)
         {
-            // itemDataFile 변수에 특정 배열 요소를 저장한다
+            // dataFile 변수에 특정 배열 요소를 저장한다
             // 반복문을 돌 때마다 csv 파일을 바꿔서 저장한다
-            itemDataFile = csvs[i];
+            dataFile = csvs[i];
             SaveMonsterData();
         }
     }
 
-    private void SaveMonsterData() 
+    private void SaveMonsterData()
     {
-        // { DataList 가로 세로 저장하기
-        string dataTrimNull = itemDataFile.text.TrimEnd();
+        // { dataList 가로 세로 저장하기
+        string dataTrimNull = dataFile.text.TrimEnd();
         string[] tempRow = default;
         string[] tempColumn = default;
         string[] splitdata = default;
@@ -75,20 +80,27 @@ public class MonsterCSVReader : MonoBehaviour
 
 
         // { ID 값의 열만 얻어오기 위해서 \n와 , 로 데이터 한 칸씩만 남기기
-        dataTrimNull = itemDataFile.text.TrimEnd();
+        dataTrimNull = dataFile.text.TrimEnd();
         splitdata = dataTrimNull.Split("\n");
         // } ID 값의 열만 얻어오기
 
 
         // { Monster CSV 의 행(몬스터 개체별 데이터)을 이용하여 MonsterData 생성
-        for (int i = OptionCSVCounts; i < MonsterCSVCounts * OptionCSVCounts; i += OptionCSVCounts) 
+        for (int i = OptionCSVCounts; i < MonsterCSVCounts * OptionCSVCounts; i += OptionCSVCounts)
         {
-            switch (CheckID(dataTrimNull, OptionCSVCounts)) 
+            switch (CheckID(dataTrimNull, OptionCSVCounts))
             {
+                case 5:
+                    // DebuffData 생성
+                    DebuffData debuffData = new DebuffData(splitdata[i], OptionCSVCounts);
+                    int key = debuffData.DebuffID;
+                    // MonsterDebuff Data 저장
+                    MonsterDebuffDic.Add((Monster.DebuffState)key, debuffData);
+                    break;
                 case 7:
                     // MonsterData 생성
                     NormalMonsterData monsterData = new NormalMonsterData(splitdata[i], OptionCSVCounts);
-                    int key = monsterData.MonsterID;
+                    key = monsterData.MonsterID;
                     // MonsterData 저장
                     MonsterDataDic.Add((Monster.MonsterType)key, monsterData);
                     monsterNameList.Add(monsterData.MonsterDescription);
@@ -107,24 +119,30 @@ public class MonsterCSVReader : MonoBehaviour
 
 
     // 뒷 3 자리 없애오는 함수 : ID 의 앞자리로 어떤 요소인지 판단
-    private int DropLastThree(string number)
+    private int DropLastThree(string number_)
     {
-        string dropped = number.Substring(0, number.Length - 3);
+        string dropped = number_.Substring(0, number_.Length - 3);
         return int.Parse(dropped);
     }
 
 
     // ID 값에서 일반몬스터 테이블인지, 보스몬스터 테이블인지 확인할 함수
-    private int CheckID(string data, int columnCount) 
+    private int CheckID(string data_, int columnCount_)
     {
         string[] split = default;
-        split = data.Split(new char[] { '\n', ',' });
+        split = data_.Split(new char[] { '\n', ',' });
+
+        foreach (var s in split)
+        {
+            Debug.LogWarning(s);
+        }
 
         // ID 값에서 뒷 3자리를 없애고 어떤 것에 대한 데이터인지 판별할 변수
         int num = default;
 
-        for (int i = columnCount; i < split.Length; i += columnCount)
+        for (int i = columnCount_; i < split.Length; i += columnCount_)
         {
+            Debug.LogError(split[i]);
             // ID 값에서 뒷 3자리를 없애주는 함수의 결과값을 number 변수에 저장
             num = DropLastThree(split[i]);
         }

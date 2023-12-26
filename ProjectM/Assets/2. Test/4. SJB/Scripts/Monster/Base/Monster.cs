@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Monster : MonoBehaviour
 {
@@ -15,9 +14,19 @@ public class Monster : MonoBehaviour
         Yeti_Melee,
         Yeti_Range,
         Yeti_Large,
-        
+        Spirit_Melee,
+
         YetiPrince_Boss = 801,
         MechKing_Boss
+    }
+
+    public enum DebuffState
+    {
+        Nothing = 500,
+        Toxic,
+        Slow,
+        Freeze,
+        Bind
     }
 
     public MonsterData monsterData;
@@ -26,14 +35,48 @@ public class Monster : MonoBehaviour
     public Animator monsterAnimator;
     public GameObject monsterSight;
 
+    public MonsterType thisMonsterType;
+    public DebuffState debuffState;
 
-    private void Awake()
+    public int monsterHP;
+    public float monsterMoveSpeed;
+
+    protected void InitMonster(MonsterType inputType_)
     {
-
+        monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
+        debuffState = default;
+        monsterHP = monsterData.MonsterHP;
+        monsterMoveSpeed = monsterData.MonsterMoveSpeed;
     }
 
-    private void AddDatas() 
+    protected void SetMonsterStat(MonsterType inputType_)
     {
-        
+        if ((int)inputType_ > 800)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+    protected void GetMonsterHit(int damage_)
+    {
+        monsterHP -= damage_;
+
+        if (monsterHP <= 0f)
+        {
+            DieMonster();
+        }
+        else
+        {
+            /* Do Nothing*/
+        }
+    }
+
+    protected void DieMonster()
+    {
+
     }
 }

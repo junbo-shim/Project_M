@@ -1,0 +1,5 @@
+﻿ID,Description,Type,Duration,Value1
+500,중독,Toxic,5,50
+501,슬로우,Slow,5,50
+502,빙결,Freeze,4,-1
+503,속박,Bind,4,-1
