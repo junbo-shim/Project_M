@@ -5,7 +5,7 @@ public class NpcAction : NpcActionBase
 {
     private NPCTack npcTack; // npc대화 스크립트
     private float playerDis = 0;// 플레이어와 npc거리 저장용
-    public bool tackChk; // 대화창 한번 만사용하도록 쓰는 변수
+  
     private bool retalkChk; // 다시 말걸경우 체크
     [SerializeField] private float NPCTalkDis; // 플레이어와 npc 거리
     public int Talki = 0; // 대화가 몇번째인지 (50글자씩 자른대화)
@@ -14,7 +14,7 @@ public class NpcAction : NpcActionBase
     public InputActionReference PlayerUpAction;
     public void Start()
     {
-        tackChk = false;
+     
         retalkChk = false;
         npcTack = GetComponent<NPCTack>();
     }
@@ -56,15 +56,15 @@ public class NpcAction : NpcActionBase
 
 
     }
-    public void TalkiClear()
+    public void TalkiClear() // 대화 선택지 클릭시
     {
         Talki = -1;
     }
-    public void TalkiZero()
+    public void TalkiZero() // 대화 처음으로
     {
         Talki = 0;
     }
-    public void TalkiEnd()
+    public void TalkiEnd() // 대화 종료
     {
         Talki = -2;
     }
@@ -73,7 +73,7 @@ public class NpcAction : NpcActionBase
         if (other.tag.Equals("Player")) // npc 대기상태로
         {
             playerDis = 0;
-            tackChk = false;
+      
 
             NpcLookClear(); // npc처다보기 종료
         }
@@ -89,6 +89,7 @@ public class NpcAction : NpcActionBase
                 {
                   
                     BoolChange();
+                
                     Talki = npcTack.WordChange(Talki);
                     
                 }
@@ -96,7 +97,7 @@ public class NpcAction : NpcActionBase
             }
             if (!npcTack.textimage.gameObject.activeSelf)
             {
-                tackChk = false;
+                Talki = 0;
             }
         }
         else if(Talki == -2)
@@ -125,11 +126,6 @@ public class NpcAction : NpcActionBase
     }
 
 
-    private void TalkBoolChange()
-    {
-        retalkChk = false;
-        tackChk = false;
-    }
     #region npc처다보는 함수
     private void NpcLook(GameObject gameObject)
     {
@@ -146,7 +142,7 @@ public class NpcAction : NpcActionBase
     {
         Talki = 0; // npc 워드 초기화
         npcTack.ExitTalk();
-        npcTack.WordChange(Talki);// text교체
+       
         npcTack.TalkExit();//대화창off
     }
     #endregion

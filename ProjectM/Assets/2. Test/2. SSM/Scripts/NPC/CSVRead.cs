@@ -33,6 +33,7 @@ public class CSVRead : MonoBehaviour
 
     public Dictionary<string, QuestData> QuestDatas;
 
+    public Dictionary<string, CompletionConditionData> CompletionConditionDatas;
 
 
     #endregion   
@@ -49,6 +50,7 @@ public class CSVRead : MonoBehaviour
         nPCDatas = new Dictionary<string, NPCData>();
         npcSelectTalkDatas = new Dictionary<string, NPCSelectTalkData>();
         QuestDatas = new Dictionary<string, QuestData>();
+        CompletionConditionDatas = new Dictionary<string, CompletionConditionData>();   
         //
         csvRead();
     
@@ -87,16 +89,26 @@ public class CSVRead : MonoBehaviour
             QuestDict(data); //npc 선택지데이터 딕셔너리에 set
 
         }
-     //    ListPrint();
+
+        List<Dictionary<string, object>> CompletionConditionCSV = CSVReader.Read("CompletionCondition");
+        // 로그로 출력
+
+        foreach (Dictionary<string, object> data in CompletionConditionCSV) //딕셔너리 읽어옴
+        {
+
+            CompletionConditionDict(data); //npc 선택지데이터 딕셔너리에 set
+
+        }
+          //  ListPrint();
     }
     #endregion
     #region 딕션너리 데이터 확인용
     public void ListPrint() // 데이터 확인용
     {
-        foreach (var data in QuestDatas)
+        foreach (var data in npcSelectTalkDatas)
         {
             Debug.Log(data.Key);
-            Debug.Log(data.Value.QuestProgressDialogue);
+            Debug.Log(data.Value.Choice_Before_Dialogue);
         }
     }
     #endregion
@@ -221,4 +233,19 @@ public class CSVRead : MonoBehaviour
     }
     #endregion
 
+    public void CompletionConditionDict(Dictionary<string, object> dict)
+    {
+        string id = GetValue<int>(dict, "ID").ToString();
+        // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
+        if (!CompletionConditionDatas.ContainsKey(id))
+        {
+            CompletionConditionDatas[id] = new CompletionConditionData();
+        }
+
+        CompletionConditionDatas[id].Id = GetValue<int>(dict, "ID");
+        CompletionConditionDatas[id].ConditionType = GetValue<string>(dict, "Condition Type");
+        CompletionConditionDatas[id].Value = GetValue<string>(dict, "Value");
+        
+
+    }
 }

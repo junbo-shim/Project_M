@@ -1,4 +1,7 @@
-NPC_ID,Description,Type,Name,Hp,CatchPossibility,Icon
-200002,hi hellow,Main,����,100,-1,Main
-200003,where,Main,��ũ,100,-1,Main
-202004,z,Main,��ũ,100,-1,Main
+﻿NPC_ID,Description,Type,Name,Hp,CatchPossibility,Icon
+200001,마을_난쟁이NPC_001,Main,울먹이는 난쟁이,999999,FALSE,Main
+200002,필리니스_예티NPC_001,Main,도움을 청하는 예티,999999,FALSE,Main
+200003,필리니스_예티NPC_002,Main,예티 왕의 오른팔,999999,FALSE,Main
+202004,필리니스_예티NPC_003,Talk,오른팔의 동생,1,TRUE,Main
+200005,필리니스_예티NPC_004,Main,심사관 예티,999999,FALSE,Main
+200006,필리니스_예티NPC_005,Main,예티의 왕,999999,FALSE,Main

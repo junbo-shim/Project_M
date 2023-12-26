@@ -40,6 +40,7 @@ public class NPCTack : MonoBehaviour
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
         NpcWord();
+        
         dictFirst = npcWoadDict.First().Key; //첫번쨰 키 저장
         dictProgressSb.Append(dialogueLV == 0 ? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
         npcTextMeshPro.text = npcWoadDict[dictFirst][0]; // npc 대사 설정  dialogueData[j].Id.ToString() +"_"+ dialogueData[j].Choice_Order_Number .id _ 글등장 순서
@@ -88,9 +89,9 @@ public class NPCTack : MonoBehaviour
         {
             
               
-            if (!NPCEnd)
+            if (!NPCEnd) // npc 대화완료 여부체크
             {
-                textLV++;
+                textLV++; // 다음 대화 
                 dictProgressSb.Clear();
                 npcAction.TalkiZero();// 대화 처음으로
                 dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()); // 다음 대화로
@@ -104,6 +105,7 @@ public class NPCTack : MonoBehaviour
             if (dictProgressSb.Equals(fruits[0] + "_" + "99")) // 마지막 대화 체크
             {            
                 QuestInput(); 
+
                 if (npcWoadDict.ContainsKey((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1")) // 다음 퀘스트 대화 여부 체크
                 {
                     dialogueLV++;
@@ -171,7 +173,10 @@ public class NPCTack : MonoBehaviour
     #region NPC 선택지
     private void SetChoiceText() // npc 선택지 세팅
     {
-
+        if(NPCEnd == true)
+        {
+            return;
+        }
         if (dialogueData.Count == 0)
         {
             return;
@@ -251,23 +256,33 @@ public class NPCTack : MonoBehaviour
     #region npc글세팅
     public int WordChange(int i) // 글 교체 및 npc대화
     {
-        PrecedeQuest_IDChk();// 선행 조건 체크
-        if ( prerequisiteQuest == false)
+       
+    
+        if (newNPC.NPC_ID.Equals(null)) // npcid 가 널이면 대화안함
         {
             return 0;
+        }
+        PrecedeQuest_IDChk();// 선행퀘스트 조건 체크 여기서 선행퀘가 없거나 달성시 prerequisiteQuest = true 미달성시 prerequisiteQuest = false로 바꿈
+
+        if (prerequisiteQuest == false) // 선행 퀘스트 완료 하지않으면 말안함
+        {
+    
+            Debug.Log("prerequisiteQuest :textLV :" + QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString()));
+            if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString())) // 퀘스트 수락후 대사 출력
+            {
+                npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
+            }
+            
+    
         }
 
-        if (newNPC.NPC_ID.Equals(null))
-        {
-            return 0;
-        }
         if (i == -1)
         {
-
+            Debug.Log(" -1 ");
             TalkOff();
             return i + 1;
         }
-
+        Debug.Log(i);
         if (i < npcWoadDict[dictProgressSb.ToString()].Count)
         {
             if (i == 0)
@@ -282,25 +297,7 @@ public class NPCTack : MonoBehaviour
                 SetChoiceText();
             }
         }
-        else
-        {
-            if (!npcChildSet.ChoiceTransform.transform.GetChild(0).gameObject.activeSelf)
-            {
-                Debug.Log(dialogueData[textLV].Quest_ID.ToString());
-                if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[textLV].Quest_ID.ToString()))
-                {
-                    npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
-                }
-                else
-                {
-                    npcAction.TalkiEnd();
-                }
-                  
-
-            }
-
-
-        }
+      
 
         return i + 1;
     }
@@ -359,7 +356,7 @@ public class NPCTack : MonoBehaviour
     public void IconOn()
     {
 
-        if (newNPC.Type.Equals("-1"))
+        if (newNPC.Type ==-1)
         {
             return;
         }
@@ -392,25 +389,37 @@ public class NPCTack : MonoBehaviour
     }
     private void PrecedeQuest_IDChk()
     {
-   
+
+        if(QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString()))
+        {
+            prerequisiteQuest = false;
+            return;
+        }
+      
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
         {
-         
+           
             prerequisiteQuest = true;
         }
-        else if (CSVRead.instance.QuestDatas.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
+        else if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
         {
+            QuestMananger.instance.QusetCompletionConditionChk(dialogueData[0].Quest_ID.ToString(), newNPC.NPC_ID);// 퀘스트 완료조건 체큰
+           
             if (QuestMananger.instance.playerQuest[dialogueData[0].Quest_ID.ToString()].State == QuestState.QuestStatus.Completed)
             {
+             
                 prerequisiteQuest = true;
             }
         }
+       
     }
+
+
 
     public void TalkOff() // 글닫기
     {
    
-        if (newNPC.Type.Equals("-1"))
+        if (newNPC.Type==-1)
         {
             return;
         }
@@ -424,10 +433,22 @@ public class NPCTack : MonoBehaviour
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
     
-        if (newNPC.Type.Equals("-1"))
+        if (newNPC.Type==-1)
         {
             return;
         }
+        if (!NPCEnd)
+        {
+            fruits = dictProgressSb.ToString().Split("_"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
+            textLV = 0;
+            dictProgressSb.Clear();
+            // npcAction.TalkiZero();// 대화 처음으로
+            dictProgressSb.Append(fruits[0] + "_1"); // 다음 대화로
+        }
+
+
+
+
         npcChildSet.targetOBj[4].gameObject.SetActive(false);
 
         npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
@@ -445,7 +466,7 @@ public class NPCTack : MonoBehaviour
             case "Sub":
                 return 1; //서브
 
-            case "Tack":
+            case "Talk":
                 return 2; // 대화
 
             case "Save":
