@@ -11,17 +11,17 @@ public class Tutorial : MonoBehaviour
     public Image tutorialImg;
     public Text tutorialText;
 
-    public Sprite[] newImage; // »õ ÀÌ¹ÌÁö¸¦ »ç¿ëÇÏ±â À§ÇÑ º¯¼ö
+    public Sprite[] newImage; // ìƒˆ ì´ë¯¸ì§€ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 
 
     private void OnTriggerEnter(Collider other)
     {
-        
 
-        if(other.CompareTag("CheckPoint"))
+
+        if (other.CompareTag("CheckPoint"))
         {
 
-            //if (Á¶°Ç == 0)
+            //if (ì¡°ê±´ == 0)
             //{
             //    tutorialImg.sprite = newImage[0];
             //    tutorialText.text = newText[0];
@@ -44,9 +44,9 @@ public class Tutorial : MonoBehaviour
 
             //}
             tutorialImg.sprite = newImage[0];
-            tutorialText.text = "¿Àºê¸¦ ²¨³» ÁÖº¯À» µÑ·¯º¸¼¼¿ä";
+            tutorialText.text = "ì˜¤ë¸Œë¥¼ êº¼ë‚´ ì£¼ë³€ì„ ë‘˜ëŸ¬ë³´ì„¸ìš”";
 
-            tutorialCanvas.transform.position = new Vector3(other.transform.position.x , other.transform.position.y+4, other.transform.position.z + 18);
+            tutorialCanvas.transform.position = new Vector3(other.transform.position.x, other.transform.position.y + 4, other.transform.position.z + 18);
             tutorialCanvas.SetActive(true);
         }
     }

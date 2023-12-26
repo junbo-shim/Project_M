@@ -13,9 +13,9 @@ public class IllustratedGuide : MonoBehaviour
     #region OnOff
     public void FIreBallOnOff()
     {
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            if(i == 0)
+            if (i == 0)
             {
                 creaftingUIOnOff[i].SetActive(true);
             }
@@ -168,8 +168,8 @@ public class IllustratedGuide : MonoBehaviour
         }
     }
 
-    
-        public void JumpChangeColor()
+
+    public void JumpChangeColor()
     {
         Image image = changeImage[4].GetComponent<Image>();
 

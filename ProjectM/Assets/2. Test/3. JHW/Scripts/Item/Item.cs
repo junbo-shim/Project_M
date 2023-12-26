@@ -19,8 +19,6 @@ public class Item
     public Sprite itemImage;
     public int itemCount;
 
-    //Inventory inventory;
-    //private int[] currentNumbers; // 각 아이템에 대한 개수 배열
 
     public bool Use()
     {

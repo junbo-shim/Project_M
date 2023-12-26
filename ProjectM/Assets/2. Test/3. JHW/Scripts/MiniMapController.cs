@@ -60,7 +60,7 @@ public class MiniMapController : MonoBehaviour
             testFloat += speed * 0.1f;
             if (testFloat > 0.9f)
             {
-                    StartCoroutine(FadeIn());               
+                StartCoroutine(FadeIn());
             }
 
             m.SetFloat(id, testFloat);

@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
 
                 skill.CreafringSkill(fIeldItem.item.itemName);
 
-                creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood" , 0);
+                creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
                 creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
 
                 creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);

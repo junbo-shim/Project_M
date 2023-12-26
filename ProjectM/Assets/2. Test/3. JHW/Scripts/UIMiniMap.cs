@@ -34,11 +34,11 @@ public class UIMiniMap : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 }

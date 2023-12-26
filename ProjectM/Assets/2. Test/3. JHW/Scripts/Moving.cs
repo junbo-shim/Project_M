@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Moving : MonoBehaviour
 {
-    public float speed = 5f; // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ¼Óµµ
+    public float speed = 5f; // í”Œë ˆì´ì–´ ì´ë™ ì†ë„
 
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾î ÀÌµ¿ Ã³¸®
+        // í”Œë ˆì´ì–´ ì´ë™ ì²˜ë¦¬
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 

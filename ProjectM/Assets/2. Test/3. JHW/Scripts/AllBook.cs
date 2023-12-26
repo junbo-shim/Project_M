@@ -9,7 +9,7 @@ public class AllBook : MonoBehaviour
     //public GameObject[] onOffCanvas;
 
     public InputActionReference inputActionReference;
-    
+
     //인벤토리 Onoff
     public GameObject inventoryPanel;
     public CanvasGroup canvasGroup;
@@ -73,7 +73,7 @@ public class AllBook : MonoBehaviour
 
     private void Update()
     {
-        if(inputActionReference.action.ReadValue<float>() > 0.5f)
+        if (inputActionReference.action.ReadValue<float>() > 0.5f)
         {
             activeCanvas = !activeCanvas;
             onOffCanvas.SetActive(activeCanvas);

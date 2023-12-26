@@ -11,6 +11,13 @@ public class Quest : MonoBehaviour
     public OnSlotCountChange onSlotCountChange;   //대리자 인스턴스화
     private int questSlotCnt;
 
+    public delegate void OnChangeItem();
+    public OnChangeItem onChangeItem;
+
+
+    public List<Item> myQuest = new List<Item>();
+
+
     private void Awake()
     {
         if (Instance != null)

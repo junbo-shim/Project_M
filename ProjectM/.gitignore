@@ -100,5 +100,8 @@ crashlytics-build.properties
 /[Aa]ssets/2. Test/2. SSM/Scene/SSMscene/OcclusionCullingData.asset
 /[Aa]ssets/2. Test/2. SSM/Scripts/SSMMap/Rowlan/Terrain/
 
+# JHW Video File Exception (23.12.26)
+/[Aa]ssets/2. Test/3. JHW/Video/
+
 
 # End of https://www.toptal.com/developers/gitignore/api/unity

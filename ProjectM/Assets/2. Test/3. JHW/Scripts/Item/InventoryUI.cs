@@ -9,7 +9,7 @@ public class InventoryUI : MonoBehaviour
     Inventory inventory;
     public Text[] text;
     public Text[] InvItemName;
- 
+
 
     public Slot[] slots;
 
@@ -52,15 +52,15 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < slots.Length; ++i)
         {
-            for(int j = 0; j < inventory.items.Count; j ++)
+            for (int j = 0; j < inventory.items.Count; j++)
             {
                 if (inventory.items[j].itemCount == 0)
                 {
                     inventory.items.Remove(inventory.items[j]);
                 }
             }
-                slots[i].RemoveSlot();
-            
+            slots[i].RemoveSlot();
+
         }
 
         for (int i = 0; i < inventory.items.Count; i++)
@@ -86,7 +86,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void UpdateItemName(int index , string name)
+    private void UpdateItemName(int index, string name)
     {
         if (InvItemName[index] != null)
         {

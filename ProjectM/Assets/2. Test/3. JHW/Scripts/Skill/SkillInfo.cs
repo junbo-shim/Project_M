@@ -7,7 +7,7 @@ using UnityEngine;
 //[Serializable]
 public class Damage : SkillParent
 {
- 
+
     public string skillName;
     public string description;
     public int skillDamage;
@@ -24,7 +24,7 @@ public class Damage : SkillParent
 //[Serializable]
 public class NoDamage : SkillParent
 {
-    
+
     public string skillName;
     public string description;
     public float SkillDuration;

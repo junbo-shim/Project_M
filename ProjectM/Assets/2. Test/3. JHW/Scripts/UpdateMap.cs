@@ -18,7 +18,7 @@ public class UpdateMap : MonoBehaviour
         if (player != null)
         {
             Vector3 playerPosition = player.transform.position;
-            rectTransform.anchoredPosition = new Vector3(playerPosition.x, playerPosition.z , -10);
+            rectTransform.anchoredPosition = new Vector3(playerPosition.x, playerPosition.z, -10);
 
         }
     }

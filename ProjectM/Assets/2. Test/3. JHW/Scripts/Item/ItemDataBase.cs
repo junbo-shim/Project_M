@@ -25,7 +25,7 @@ public class ItemDataBase : MonoBehaviour
     }
 
     //23.12.20 SJB Editted
-    private void SpreadItem() 
+    private void SpreadItem()
     {
         for (int i = 0; i < 32; i++)
         {

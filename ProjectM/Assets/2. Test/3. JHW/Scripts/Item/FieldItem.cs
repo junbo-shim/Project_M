@@ -27,3 +27,4 @@ public class FieldItem : MonoBehaviour
         Destroy(gameObject);
     }
 }
+

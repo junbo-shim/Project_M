@@ -19,14 +19,14 @@ public class AudioManager : MonoBehaviour
 
     public void Start()
     {
-        volumeSlider.onValueChanged.AddListener(delegate { Test(); }) ;
+        volumeSlider.onValueChanged.AddListener(delegate { Test(); });
     }
 
     public void Test()
     {
-        value = volumeSlider.value; 
+        value = volumeSlider.value;
         Debug.Log("value : " + value);
         Debug.Log("audioMixer :" + audioMixer.name);
-        audioMixer.SetFloat(parameterName,Mathf.Log10(value) * 20);
+        audioMixer.SetFloat(parameterName, Mathf.Log10(value) * 20);
     }
 }
