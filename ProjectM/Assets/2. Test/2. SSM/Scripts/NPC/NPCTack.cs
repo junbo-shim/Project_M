@@ -89,9 +89,9 @@ public class NPCTack : MonoBehaviour
         {
             
               
-            if (!NPCEnd)
+            if (!NPCEnd) // npc 대화완료 여부체크
             {
-                textLV++;
+                textLV++; // 다음 대화 
                 dictProgressSb.Clear();
                 npcAction.TalkiZero();// 대화 처음으로
                 dictProgressSb.Append(fruits[0] + "_" + (Convert.ToInt32(fruits[fruits.Length - 1]) + 1).ToString()); // 다음 대화로
@@ -282,7 +282,7 @@ public class NPCTack : MonoBehaviour
             TalkOff();
             return i + 1;
         }
-
+        Debug.Log(i);
         if (i < npcWoadDict[dictProgressSb.ToString()].Count)
         {
             if (i == 0)
@@ -437,6 +437,18 @@ public class NPCTack : MonoBehaviour
         {
             return;
         }
+        if (!NPCEnd)
+        {
+            fruits = dictProgressSb.ToString().Split("_"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
+            textLV = 0;
+            dictProgressSb.Clear();
+            // npcAction.TalkiZero();// 대화 처음으로
+            dictProgressSb.Append(fruits[0] + "_1"); // 다음 대화로
+        }
+
+
+
+
         npcChildSet.targetOBj[4].gameObject.SetActive(false);
 
         npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
