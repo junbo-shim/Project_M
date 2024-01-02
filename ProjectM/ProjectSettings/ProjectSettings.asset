@@ -195,6 +195,7 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 11400000, guid: 36307f2cb1335db4195b50543ff8c80b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -309,8 +310,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/PC/Desktop/ProjectM_VR/Assets/1. Main/AndroidBuildKey/demokey.keystore
-  AndroidKeyaliasName: demo
+  AndroidKeystoreName: '{inproject}: Assets/1. Main/AndroidBuildKey/testbuildkey.keystore'
+  AndroidKeyaliasName: build
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
