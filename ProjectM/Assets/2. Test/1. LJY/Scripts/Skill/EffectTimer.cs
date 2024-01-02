@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class EffectTimer : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class EffectTimer : MonoBehaviour
     {
         if(!particle.isPlaying)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

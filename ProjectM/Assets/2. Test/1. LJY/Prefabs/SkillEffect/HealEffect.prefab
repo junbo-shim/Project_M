@@ -5486,7 +5486,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 15
+    maxNumParticles: 10
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 1
     rotation3D: 1
@@ -9789,7 +9789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031441fec9af3a94e9440abcf2832477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offTime: 3
 --- !u!1 &7560514477880255937
 GameObject:
   m_ObjectHideFlags: 0

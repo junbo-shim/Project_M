@@ -19,9 +19,9 @@ public class MapGrabEvent : GrabbableEvents
         
     }
 
-    public override void OnTrigger(float triggerValue)
+    public override void OnTriggerUp()
     {
-        if(!mc.isacting && triggerValue >= 0.75f)
+        if(!mc.isacting)
         {
             if(!isOpened)
             {
