@@ -11,8 +11,7 @@ public class ChoiceScripts : MonoBehaviour
     public NPCChildSet npcChildSet;
   
     public void OnEnable()
-    {
-      
+    {     
         GameObject parentGameObject = ReParentSerach(gameObject);
         npcChildSet = parentGameObject.GetComponent<NPCChildSet>();
     }

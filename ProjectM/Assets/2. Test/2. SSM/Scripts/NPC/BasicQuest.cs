@@ -28,8 +28,10 @@ public class BasicQuest : QuestState
     {
         // 퀘스트가 완료되었음을 알립니다.
         _state = QuestStatus.Completed;
-      
-    }                          
+
+        
+
+    }
 
     public string CompletionConditionSet(string id)
     {
@@ -67,5 +69,6 @@ public class BasicQuest : QuestState
     public int PrecedeQuest_ID; // 선행퀘스트
 
     public int Reward_ID; //보상
+
 
 }

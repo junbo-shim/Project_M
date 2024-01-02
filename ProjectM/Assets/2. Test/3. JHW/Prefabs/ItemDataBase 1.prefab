@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &660482291035468226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 660482291035468224}
+  - component: {fileID: 660482291035468225}
+  m_Layer: 0
+  m_Name: ItemDataBase 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &660482291035468224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660482291035468226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &660482291035468225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660482291035468226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0dfd91708ebb24a8097991692e7fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  itemDB:
+  - itemType: 1
+    itemName: FIreBallRecipe
+    itemImage: {fileID: 21300000, guid: ed6bc2e50f30b72488ff92eb8b97e9c8, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: 1b587fe9c31050d4596a912eaea32bfd,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: ProtectRecipe
+    itemImage: {fileID: 21300000, guid: 9fb0c5896066d4d42a810d88f9c750c5, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: 7acbf65b23bd27b48aa9ccadbf55c0bf,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: IceBallRecipe
+    itemImage: {fileID: 21300000, guid: cbbbf4d6b31b2e04c9b84d667d8a1d4f, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: 356e18e89e600b24398ca93ddd324ae1,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: PoisonRecipe
+    itemImage: {fileID: 21300000, guid: dfbb9dc296db59346b4bfd431bff36fb, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: 16fe8363036b0cc4bbcd796b97e8f8f0,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: JumpRecipe
+    itemImage: {fileID: 21300000, guid: 9aa6830c43e5ab543bb058e7693d2dd3, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: b6b8ad0d7db7fdc40892e280e05bd120,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: HillRecipe
+    itemImage: {fileID: 21300000, guid: b52d97540d4191d4a9e24fc0a9887e7b, type: 3}
+    dropItem: {fileID: 6101652949435477172, guid: 2bceb064a0e97c74e9ec123ba0d48c59,
+      type: 3}
+    itemCount: 0
+  - itemType: 1
+    itemName: SymbolStone_A
+    itemImage: {fileID: 21300000, guid: 3acf9f7ada991904f8fc48d7918de939, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: SymbolStone_B
+    itemImage: {fileID: 21300000, guid: 6cf2673c17b6ac443885de0e6560b482, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: MedicinalHerb
+    itemImage: {fileID: 21300000, guid: ddb239bd89aa9764fb7a9c59891260c7, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: Steel
+    itemImage: {fileID: 21300000, guid: 812df6bea2725ad41b0e08702aaa0bca, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: Wood
+    itemImage: {fileID: 21300000, guid: dce4ec69e13558b419481bf50cd8923e, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: MagicEssence
+    itemImage: {fileID: 21300000, guid: 7dbd9af3c0e51984a9413dad2f2be8bb, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: ScareCrow
+    itemImage: {fileID: 21300000, guid: e7e351e48e1b5b84098b67c5aef8379f, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  - itemType: 1
+    itemName: Trap
+    itemImage: {fileID: 21300000, guid: b736bd66bddb234468a04b4cdb3805c1, type: 3}
+    dropItem: {fileID: 0}
+    itemCount: 0
+  fieldItemPrefab: {fileID: 5842721987353189140, guid: 3d6a5210c961382449250ce32570edcc,
+    type: 3}
+  pos:
+  - {x: -2, y: -11, z: 1}
+  - {x: -1, y: -11, z: 1}
+  - {x: 1, y: -11, z: 1}
+  - {x: 2, y: -11, z: 2}
+  - {x: 3, y: -11, z: 2}
+  - {x: 1, y: -11, z: 1}
+  - {x: 2, y: -11, z: 2}
+  - {x: 3, y: -11, z: 2}
+  - {x: 2, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}
+  - {x: 3, y: -11, z: 3}
+  - {x: 2, y: -11, z: 1}
+  - {x: 1, y: -11, z: 2}
+  - {x: 4, y: -11, z: 2}
+  - {x: 2, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}
+  - {x: 4, y: -11, z: 1}
+  - {x: 2, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}
+  - {x: 2, y: -11, z: 1}
+  - {x: 1, y: -11, z: 2}
+  - {x: 3, y: -11, z: 1}
+  - {x: 3, y: -11, z: 1}
+  - {x: 3, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}
+  - {x: 3, y: -11, z: 2}
+  - {x: 1, y: -11, z: 1}
+  - {x: 2, y: -11, z: 2}
+  - {x: 1, y: -11, z: 1}
+  - {x: 2, y: -11, z: 2}
+  - {x: 1, y: -11, z: 2}

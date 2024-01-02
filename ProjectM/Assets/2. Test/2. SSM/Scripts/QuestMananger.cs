@@ -77,6 +77,8 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                 if (QusetCompletionCondition( str, npcId))
                 {
                     playerQuest[str].Complete();
+
+                    
                 }
                 
             }         
@@ -105,7 +107,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
             
                 break;
         }
-        return false;
+        return false; //지안 누나가 나에게 꺼지라고 했다
     }
 
 }

@@ -16,6 +16,14 @@ public class CreaftingItem : MonoBehaviour
     public Text[] countNeedItem;
 
 
+    private void Start()
+    {
+        Debug.Log(countNeedItem[0].text);
+        Debug.Log(countNeedItem[1].text);
+        Debug.Log(countNeedItem[2].text);
+        Debug.Log(countNeedItem[3].text);
+    }
+
     public void ScareCrowFindNeedItem(string itemName, string itemName2, int buttonIndex)
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
@@ -74,7 +82,7 @@ public class CreaftingItem : MonoBehaviour
         inventory.items[itemIndex].itemCount = inventory.items[itemIndex].itemCount - 2;
         inventory.items[itemIndex2].itemCount = inventory.items[itemIndex2].itemCount - 4;
 
-        UpdateNumberText("MagicEssence", countNeedItem[0]);
+        //UpdateNumberText("MagicEssence", countNeedItem[0]);
         UpdateNumberText("Wood", countNeedItem[1]);
         UpdateNumberText("MagicEssence", countNeedItem[2]);
         UpdateNumberText("Steel", countNeedItem[3]);
@@ -144,14 +152,24 @@ public class CreaftingItem : MonoBehaviour
             return;
         }
 
+        if (text1 == null)
+        {
+            Debug.Log("Text가 Null");
+            Debug.Log(text1.text);
+        }
+
         else
         {
             if (inventory.items[itemIndex].itemName != "MagicEssence")
             {
+                Debug.Log("매직에센스 아님");
                 text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 4;
             }
             else if (inventory.items[itemIndex].itemName == "MagicEssence")
             {
+               
+
+                Debug.Log("매직에센스");
                 text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 2;
             }
         }

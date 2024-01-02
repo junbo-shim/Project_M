@@ -276,6 +276,7 @@ public class NPCTack : MonoBehaviour
     
         }
 
+        Debug.Log(prerequisiteQuest);
         if (i == -1)
         {
             Debug.Log(" -1 ");
@@ -390,11 +391,6 @@ public class NPCTack : MonoBehaviour
     private void PrecedeQuest_IDChk()
     {
 
-        if(QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString()))
-        {
-            prerequisiteQuest = false;
-            return;
-        }
       
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
         {
