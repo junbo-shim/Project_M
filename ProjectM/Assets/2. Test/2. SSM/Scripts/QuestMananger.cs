@@ -48,11 +48,12 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
             if(CSVRead.instance.QuestDatas.ContainsKey(str))
             {
                 var questInstance = CSVRead.instance.QuestDatas[str];
-                BasicQuest basicQuest = new BasicQuest(questInstance.Id , questInstance.QuestType, questInstance.QuestNameKey, questInstance.QuestExplainKey,questInstance.CompletionConditionID
+                BasicQuest basicQuest = new BasicQuest(questInstance.Id , questInstance.QuestType, questInstance.QuestNameKey, questInstance.QuestExplainKey, questInstance.QuestGoalKey, questInstance.CompletionConditionID
                     ,questInstance.QuestNPCSuccessID ,questInstance.PrecedeQuestID , questInstance.Reward_ID); // CompletionConditionID는 타입 : vlaue(코드 id)로 구성되어서 string임
                 playerQuest.Add(str, basicQuest);
                 playerQuest[str].Start(); // 상태를 퀘스트 수락상태로 변경
             }
+            Debug.Log(playerQuest[str].QuestNameKey);
             Debug.Log(playerQuest[str].State);
         }
        // Debug.Log(playerQuest.First().Value.QuestProgressDialogue);
@@ -62,6 +63,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     {
         if (!playerQuest.ContainsKey(str))
         {
+
             playerQuest[str].Complete();
 
     
@@ -87,23 +89,17 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     {
         fruitsSb.Clear();
         fruitsSb.Append(playerQuest[str].CompletionCondition_ID);
-        Debug.Log(fruitsSb.ToString());
+  
         fruits = fruitsSb.ToString().Split(":"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
         switch(fruits[0])
         {
-            case "Item_Give":
-                
-                break;
             case "NPC_Talk":
                 if (fruits[1].Equals(npcId.ToString()))
                 {
-                    Debug.Log("조건 성립"+ fruits[1]+ " || "+ npcId.ToString());
+                   
                     return true;
                 }
-                break;
-            case "Level":
-            
-                break;
+                break;     
         }
         return false;
     }
