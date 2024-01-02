@@ -388,7 +388,12 @@ public class NPCTack : MonoBehaviour
     }
     private void PrecedeQuest_IDChk() // 퀘스트 선행여부체크
     {
+<<<<<<< HEAD
      
+=======
+
+      
+>>>>>>> origin/NewJHW
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
         {          
             prerequisiteQuest = true;
