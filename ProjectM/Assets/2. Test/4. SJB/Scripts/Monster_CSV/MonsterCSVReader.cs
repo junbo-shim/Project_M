@@ -35,6 +35,7 @@ public class MonsterCSVReader : MonoBehaviour
 
     // 몬스터 디버프를 담아둘 Dictionary
     public Dictionary<Monster.DebuffState, DebuffData> MonsterDebuffDic { get; private set; }
+    public List<string> debuffList;
 
 
     private void Awake()
@@ -43,6 +44,7 @@ public class MonsterCSVReader : MonoBehaviour
         monsterNameList = new List<string>();
 
         MonsterDebuffDic = new Dictionary<Monster.DebuffState, DebuffData>();
+        debuffList = new List<string>();
 
         GetAndReadCSV();
     }
@@ -86,20 +88,21 @@ public class MonsterCSVReader : MonoBehaviour
 
 
         // { Monster CSV 의 행(몬스터 개체별 데이터)을 이용하여 MonsterData 생성
-        for (int i = OptionCSVCounts; i < MonsterCSVCounts * OptionCSVCounts; i += OptionCSVCounts)
+        for (int i = 1; i < MonsterCSVCounts; i++)
         {
             switch (CheckID(dataTrimNull, OptionCSVCounts))
             {
                 case 5:
                     // DebuffData 생성
-                    DebuffData debuffData = new DebuffData(splitdata[i], OptionCSVCounts);
+                    DebuffData debuffData = new DebuffData(splitdata[i]);
                     int key = debuffData.DebuffID;
                     // MonsterDebuff Data 저장
                     MonsterDebuffDic.Add((Monster.DebuffState)key, debuffData);
+                    debuffList.Add(debuffData.Description);
                     break;
                 case 7:
                     // MonsterData 생성
-                    NormalMonsterData monsterData = new NormalMonsterData(splitdata[i], OptionCSVCounts);
+                    NormalMonsterData monsterData = new NormalMonsterData(splitdata[i]);
                     key = monsterData.MonsterID;
                     // MonsterData 저장
                     MonsterDataDic.Add((Monster.MonsterType)key, monsterData);
@@ -107,7 +110,7 @@ public class MonsterCSVReader : MonoBehaviour
                     break;
                 case 8:
                     // BossData 생성
-                    BossMonsterData bossData = new BossMonsterData(splitdata[i], OptionCSVCounts);
+                    BossMonsterData bossData = new BossMonsterData(splitdata[i]);
                     key = bossData.MonsterID;
                     // BossData 저장
                     MonsterDataDic.Add((Monster.MonsterType)key, bossData);
@@ -121,7 +124,7 @@ public class MonsterCSVReader : MonoBehaviour
     // 뒷 3 자리 없애오는 함수 : ID 의 앞자리로 어떤 요소인지 판단
     private int DropLastThree(string number_)
     {
-        string dropped = number_.Substring(0, number_.Length - 3);
+        string dropped = number_.Substring(0, number_.Length - 2);
         return int.Parse(dropped);
     }
 
@@ -132,17 +135,11 @@ public class MonsterCSVReader : MonoBehaviour
         string[] split = default;
         split = data_.Split(new char[] { '\n', ',' });
 
-        foreach (var s in split)
-        {
-            Debug.LogWarning(s);
-        }
-
         // ID 값에서 뒷 3자리를 없애고 어떤 것에 대한 데이터인지 판별할 변수
         int num = default;
 
         for (int i = columnCount_; i < split.Length; i += columnCount_)
         {
-            Debug.LogError(split[i]);
             // ID 값에서 뒷 3자리를 없애주는 함수의 결과값을 number 변수에 저장
             num = DropLastThree(split[i]);
         }

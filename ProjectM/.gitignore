@@ -103,5 +103,8 @@ crashlytics-build.properties
 # JHW Video File Exception (23.12.26)
 /[Aa]ssets/2. Test/3. JHW/Video/
 
+# SJB Yeti Material Exception (24.1.2)
+/[Aa]ssets/2. Test/4. SJB/Prefabs/Animator/Sasquatch.fbx
+/[Aa]ssets/2. Test/4. SJB/Prefabs/Source/Sasquatch_decimated.fbx
 
 # End of https://www.toptal.com/developers/gitignore/api/unity

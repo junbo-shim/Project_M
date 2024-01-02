@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Monster_Detect : MonsterState
 {
-    private CharacterController monsterControl;
     private float radius;
 
     public GameObject target;
-    public WaitForSecondsRealtime waitTime;
+    public WaitForSeconds waitTime;
     public int waitTimer;
-
 
     public bool isRoutineOn;
 
@@ -27,12 +25,12 @@ public class Monster_Detect : MonsterState
 
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
-        // ¸¸¾à ÄÚ·çÆ¾ÀÌ »ì¾ÆÀÖÀ» °æ¿ì¸¦ ´ëºñÇÑ ¾ÈÀüÀåÄ¡
+        // ë§Œì•½ ì½”ë£¨í‹´ì´ ì‚´ì•„ìˆì„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•œ ì•ˆì „ì¥ì¹˜
         if (isRoutineOn == true)
         {
             msm_.StopCoroutine(DoDetect(monster_, msm_));
-            Debug.LogError("Wrong");
         }
+        // ë³€ìˆ˜ ë¹„ìš°ê¸°
         CleanVariables(monster_);
     }
 
@@ -40,52 +38,51 @@ public class Monster_Detect : MonsterState
 
 
 
-    #region ÃÊ±âÈ­
+    #region ì´ˆê¸°í™”
     private void Init(GameObject monster_)
     {
-        monsterControl = monster_.GetComponent<CharacterController>();
-        radius = monster_.GetComponent<TestBigMonster>().sonarRange * 2f;
-        waitTime = new WaitForSecondsRealtime(1f);
+        radius = monster_.GetComponent<Monster>().monsterSonarRange;
+        waitTime = new WaitForSeconds(1f);
         waitTimer = 5;
 
         isRoutineOn = false;
 
-        monster_.GetComponent<TestBigMonster>().detectUI.SetActive(true);
+        monster_.GetComponent<Monster>().detectUI.SetActive(true);
     }
     #endregion
 
 
-    #region °¨Áö
-    // °¨Áö »óÅÂÀÏ ¶§ ½ÇÇàÇÒ Çàµ¿
+    #region ê°ì§€
+    // ê°ì§€ ìƒíƒœì¼ ë•Œ ì‹¤í–‰í•  í–‰ë™
     private IEnumerator DoDetect(GameObject monster_, MonsterStateMachine msm_) 
     {
         int i = 0;
 
-        // Å¸ÀÌ¸Ó ¼³Á¤ÇÑ ºÎºĞ±îÁö ¹İº¹
+        // íƒ€ì´ë¨¸ ì„¤ì •í•œ ë¶€ë¶„ê¹Œì§€ ë°˜ë³µ
         while (i < waitTimer)
         {
             yield return waitTime;
             i++;
         }
 
-        // Å¸°Ù Á¸Àç ¿©ºÎ¸¦ Ã¼Å©ÇÏ±â À§ÇÑ CheckTarget
+        // íƒ€ê²Ÿ ì¡´ì¬ ì—¬ë¶€ë¥¼ ì²´í¬í•˜ê¸° ìœ„í•œ CheckTarget
         CheckTarget(monster_);
 
         if (target != null) 
         {
-            monster_.GetComponent<TestBigMonster>().detectUI.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "!";
+            monster_.GetComponent<Monster>().detectUI.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "!";
         }
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSeconds(2f);
 
-        // Å¸°ÙÀÌ ¾ø´Ù¸é
+        // íƒ€ê²Ÿì´ ì—†ë‹¤ë©´
         if (target == null)
         {
-            // »óÅÂ¸¦ Á¤Âû·Î º¯È¯ÇÑ´Ù
+            // ìƒíƒœë¥¼ ì •ì°°ë¡œ ë³€í™˜í•œë‹¤
             msm_.ChangeState(MonsterStateMachine.State.Patrol);
         }
         else if (target != null) 
         {
-            // »óÅÂ¸¦ ±³ÀüÀ¸·Î º¯È¯ÇÑ´Ù
+            // ìƒíƒœë¥¼ êµì „ìœ¼ë¡œ ë³€í™˜í•œë‹¤
             msm_.ChangeState(MonsterStateMachine.State.Engage);
         }
 
@@ -94,34 +91,34 @@ public class Monster_Detect : MonsterState
     #endregion
 
 
-    #region Å¸°Ù È®ÀÎ ¸Ş¼­µå
+    #region íƒ€ê²Ÿ í™•ì¸ ë©”ì„œë“œ
     private void CheckTarget(GameObject monster_)
     {
-        // OverlapSphere À» »ç¿ëÇÏ¿© Player Layer ¸¦ °ËÃâ½ÃµµÇÑ´Ù
+        // OverlapSphere ì„ ì‚¬ìš©í•˜ì—¬ Player Layer ë¥¼ ê²€ì¶œì‹œë„í•œë‹¤
         Collider[] colliders = Physics.OverlapSphere(monster_.transform.position, radius, LayerMask.GetMask("PlayerFoot"));
 
         //Debug.LogError(colliders.Length);
 
-        // ¸¸¾à °ËÃâµÈ °ÍÀÌ ¾ø´Ù¸é 
+        // ë§Œì•½ ê²€ì¶œëœ ê²ƒì´ ì—†ë‹¤ë©´ 
         if (colliders.Length <= 0)
         {
-            // Å¸°Ù º¯¼ö´Â null ÀÌ´Ù
+            // íƒ€ê²Ÿ ë³€ìˆ˜ëŠ” null ì´ë‹¤
             target = null;
-            monster_.GetComponent<TestBigMonster>().sonarTarget = null;
-            Debug.LogWarning("Å¸°Ù ¾øÀ½");
+            monster_.GetComponent<Monster>().sonarTarget = null;
+            Debug.LogWarning("íƒ€ê²Ÿ ì—†ìŒ");
         }
-        // ¸¸¾à °ËÃâµÈ °ÍÀÌ ÀÖ´Ù¸é
+        // ë§Œì•½ ê²€ì¶œëœ ê²ƒì´ ìˆë‹¤ë©´
         else if (colliders.Length > 0)
         {
-            // foreach ¹İº¹À» ÅëÇØ colliders ¸¦ ¸ğµÎ °Ë»çÇÑ´Ù
+            // foreach ë°˜ë³µì„ í†µí•´ colliders ë¥¼ ëª¨ë‘ ê²€ì‚¬í•œë‹¤
             foreach (var collider in colliders)
             {
-                // ÇÁ·ÎÅäÅ¸ÀÔ
+                // í”„ë¡œí† íƒ€ì…
                 if (collider.GetComponent<Rigidbody>() == true)
                 {
-                    monster_.GetComponent<TestBigMonster>().sonarTarget = collider.transform.parent.gameObject;
-                    target = monster_.GetComponent<TestBigMonster>().sonarTarget;
-                    Debug.LogWarning("Å¸°Ù Ã£À½");
+                    monster_.GetComponent<Monster>().sonarTarget = collider.transform.parent.gameObject;
+                    target = monster_.GetComponent<Monster>().sonarTarget;
+                    Debug.LogWarning("íƒ€ê²Ÿ ì°¾ìŒ");
                 }
             }
         }
@@ -129,10 +126,9 @@ public class Monster_Detect : MonsterState
     #endregion
 
 
-    #region º¯¼ö ºñ¿ì´Â ¸Ş¼­µå
+    #region ë³€ìˆ˜ ë¹„ìš°ëŠ” ë©”ì„œë“œ
     private void CleanVariables(GameObject monster_)
     {
-        monsterControl = default;
         radius = default;
         target = null;
         waitTime = default;
@@ -140,9 +136,8 @@ public class Monster_Detect : MonsterState
 
         isRoutineOn = false;
 
-        //monster_.GetComponent<TestBigMonster>().sonarTarget = null;
-        monster_.GetComponent<TestBigMonster>().detectUI.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "?";
-        monster_.GetComponent<TestBigMonster>().detectUI.SetActive(false);
+        monster_.GetComponent<Monster>().detectUI.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "?";
+        monster_.GetComponent<Monster>().detectUI.SetActive(false);
     }
     #endregion
 }

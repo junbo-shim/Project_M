@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Yeti_Melee : MonoBehaviour
+public class Yeti_Melee : Monster
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
+        thisMonsterType = MonsterType.Yeti_Melee;
+        InitMonster(thisMonsterType);
+        debuffState = DebuffState.Nothing;
+        monsterPatrolRange = 10f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        monsterSightRange = 14f;
+
+        monsterATKspeed = 2.2f;
     }
 }

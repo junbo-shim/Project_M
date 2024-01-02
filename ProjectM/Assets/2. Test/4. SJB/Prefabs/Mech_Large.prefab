@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376636280270429955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376636280872583608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -306,9 +306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 3376636282026059503}
   listenRange: 0
-  viewAngle: 0
-  viewRange: 0
-  isInAngle: 0
 --- !u!1 &3376636281774648272
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,9 +451,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3376636282026059507}
   - component: {fileID: 3376636282026059506}
-  - component: {fileID: 3376636282026059509}
+  - component: {fileID: 8251939116922926821}
   m_Layer: 0
-  m_Name: TestBigMonster
+  m_Name: Mech_Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +497,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3376636282026059509
+--- !u!114 &8251939116922926821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -509,7 +506,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3376636282026059503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1971012f6d068854ba2842c688b4488e, type: 3}
+  m_Script: {fileID: 11500000, guid: 469ae24077fe85e4b82c045855085307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monsterFSM: {fileID: 3376636280658328077}
@@ -517,14 +514,16 @@ MonoBehaviour:
   monsterAnimator: {fileID: 7333139842015035564}
   monsterSight: {fileID: 3376636280270429955}
   monsterSonar: {fileID: 3376636280872583608}
-  detectUI: {fileID: 3376636282180159304}
-  hp: 0
-  patrolRange: 0
-  moveSpeed: 0
-  sightRange: 0
-  sightAngle: 0
-  sonarRange: 0
   sonarTarget: {fileID: 0}
+  hpGaugeUI: {fileID: 0}
+  detectUI: {fileID: 3376636282180159304}
+  thisMonsterType: 0
+  debuffState: 0
+  monsterHP: 0
+  monsterMoveSpeed: 0
+  monsterPatrolRange: 0
+  monsterSightRange: 0
+  monsterSonarRange: 0
 --- !u!1 &3376636282180159304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,6 +3709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7333139842005790540}
   - component: {fileID: 7333139842015035564}
+  - component: {fileID: 8445995092537340952}
   m_Layer: 31
   m_Name: MonsterRigid
   m_TagString: Untagged
@@ -3745,7 +3745,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: afaece9e99adcba4a9deecc593930db0, type: 2}
   m_Controller: {fileID: 9100000, guid: 06be4cc10c04961478cc212ea95fa09b, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -3755,6 +3755,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &8445995092537340952
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7333139842005693292}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7333139842005693294
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster_Die : MonsterState
 {
-    public override void OnStateEnter()
+    private CharacterController monsterControl;
+    private Monster monsterComponent;
+
+
+
+
+    public override void OnStateEnter(GameObject monster_)
     {
-        Debug.LogWarning("Á×À½ ½ÃÀÛ");
+        Init(monster_);
     }
 
-    public override void OnStateStay()
+    public override void OnStateStay(GameObject monster_, MonsterStateMachine msm_)
     {
-        Debug.Log("Á×À½ Áß");
+        Debug.Log("ì£½ìŒ ì¤‘");
     }
 
-    public override void OnStateExit()
+    public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
-        Debug.LogError("Á×À½ Å»Ãâ");
+        CleanVariables();
     }
+
+
+
+
+    #region ì´ˆê¸°í™”
+    private void Init(GameObject monster_)
+    {
+        // ëª¬ìŠ¤í„° ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬
+        monsterControl = monster_.GetComponent<CharacterController>();
+        monsterComponent = monster_.GetComponent<Monster>();
+    }
+    #endregion
+
+    #region ë³€ìˆ˜ ë¹„ìš°ëŠ” ë©”ì„œë“œ
+    private void CleanVariables()
+    {
+        monsterControl = default;
+        monsterComponent = default;
+    }
+    #endregion
 }

@@ -13,40 +13,34 @@ public class MonsterSight : MonoBehaviour
         InitSight();
     }
 
-    // 몬스터 시야 초기화
+
+    #region 몬스터 시야 초기화
     private void InitSight() 
     {
-        // 몬스터의 키(transform.position.y)만큼 아래로 낮춘다
-        transform.position = monster.transform.position - new Vector3(0f, monster.transform.position.y, 0f);
-
-        if (monster.GetComponent<TestMonster>() == true) 
-        {
-            // 몬스터에서 변수를 가져온다
-            viewAngle = monster.GetComponent<TestMonster>().sightAngle * 0.5f;
-            viewRange = monster.GetComponent<TestMonster>().sightRange;
-        }
-        else if (monster.GetComponent<TestBigMonster>() == true) 
-        {
-            viewAngle = monster.GetComponent<TestBigMonster>().sightAngle * 0.5f;
-            viewRange = monster.GetComponent<TestBigMonster>().sightRange;
-        }
+        // 몬스터의 시야 각도
+        viewAngle = 90f;
+        // 몬스터의 시야 범위
+        viewRange = monster.GetComponent<Monster>().monsterSightRange;
+        transform.localScale = Vector3.one * viewRange;
 
         // 시야 내에 들어왔는가를 체크할 bool
         isInAngle = false;
     }
+    #endregion
 
 
     private void OnTriggerStay(Collider other_)
     {
-        // 프로토타입
+        // 충돌한 물체를 계속 감지해야한다(뒷통수)
+        // 만약 충돌 물체가 Player 레이어를 가졌다면
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("Player")))
         {
             CalcAngle(other_);
         }
     }
-    
 
-    // 몬스터의 정면으로부터 내적하는 각도 구하는 메서드
+
+    #region 몬스터의 정면으로부터 내적하는 각도 구하는 메서드
     private void CalcAngle(Collider other_) 
     {
         // 몬스터의 시선 정면을 향하는 벡터를 구한다
@@ -66,20 +60,14 @@ public class MonsterSight : MonoBehaviour
         // 그 각도를 체크해서 만약 true 값이 반환된다면
         if (Check(angle) == true)
         {
-            if (monster.GetComponent<TestMonster>() == true)
-            {
-                // 몬스터의 FSM 에 접근하여 상태를 교전으로 변경
-                monster.GetComponent<TestMonster>().monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
-            }
-            else if (monster.GetComponent<TestBigMonster>() == true)
-            {
-                monster.GetComponent<TestBigMonster>().monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
-            }
+            // 몬스터의 FSM 에 접근하여 상태를 교전으로 변경
+            monster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Engage);
         }
     }
+    #endregion
 
 
-    // 각도 검사
+    #region 각도 검사
     private bool Check(float angle_)
     {
         if (angle_ <= viewAngle)
@@ -92,4 +80,5 @@ public class MonsterSight : MonoBehaviour
         }
         return isInAngle;
     }
+    #endregion
 }

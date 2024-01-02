@@ -1,23 +1,22 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Monster_Engage : MonsterState
 {
     private CharacterController monsterControl;
+    private Monster monsterComponent;
     private Animator monsterAni;
     private float speed;
     private float radius;
+    private float atkRange;
     private float gravity;
-
-    //private bool isAttacking;
 
     public GameObject target;
 
-    public WaitForSecondsRealtime waitTime;
+    public WaitForSeconds waitTime;
     public int waitTimer;
 
-    public bool isRoutineOn;
+    public WaitForSeconds atkAnimatorTime;
 
 
 
@@ -34,11 +33,9 @@ public class Monster_Engage : MonsterState
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
         // 만약 코루틴이 살아있을 경우를 대비한 안전장치
-        if (isRoutineOn == true)
-        {
-            msm_.StopCoroutine(DoEngage(monster_, msm_));
-        }
-        CleanVariables(monster_);
+        msm_.StopCoroutine(DoEngage(monster_, msm_));
+        // 변수 비우기
+        CleanVariables();
     }
 
 
@@ -48,30 +45,49 @@ public class Monster_Engage : MonsterState
     #region 초기화
     private void Init(GameObject monster_)
     {
+        // 몬스터 캐릭터 컨트롤러
         monsterControl = monster_.GetComponent<CharacterController>();
+        monsterComponent = monster_.GetComponent<Monster>();
+        // 몬스터 애니메이터
         monsterAni = monster_.transform.Find("MonsterRigid").GetComponent<Animator>();
-        speed = 3f;
-
-        if (monster_.GetComponent<TestMonster>() == true)
-        {
-            radius = monster_.GetComponent<TestMonster>().sightRange * 2f;
-        }
-        else if (monster_.GetComponent<TestBigMonster>() == true)
-        {
-            radius = monster_.GetComponent<TestBigMonster>().sightRange * 2f;
-
-            if (monster_.GetComponent<TestBigMonster>().sonarTarget != null) 
-            {
-                target = monster_.GetComponent<TestBigMonster>().sonarTarget;
-            }
-        }
-
+        // Engage 속도, 범위, 타겟설정
+        SetSpeedRadiusRangeTarget(monsterComponent.monsterData.MonsterType);
+        // 중력 값
         gravity = -9.81f;
-        //isAttacking = false;
-        waitTime = new WaitForSecondsRealtime(1f);
+        // 교전 상대 놓칠 시 기다릴 타이머
+        waitTime = new WaitForSeconds(1f);
         waitTimer = 5;
+        // 공격 애니메이션 재생속도
+        atkAnimatorTime = new WaitForSeconds(monsterComponent.monsterATKspeed);
+    }
+    #endregion
 
-        isRoutineOn = false;
+
+    #region 낮밤 몬스터 구분하여 speed, radius, range, target 설정하는 함수
+    private void SetSpeedRadiusRangeTarget(int type_)
+    {
+        if (monsterComponent == null) 
+        {
+            Debug.LogError("monsterComponent 가 null");
+            return;
+        }
+
+        speed = monsterComponent.monsterData.MonsterMoveSpeed;
+        radius = monsterComponent.monsterSightRange * 0.5f;
+        Debug.LogWarning(radius);
+        atkRange = monsterComponent.monsterData.MonsterAttackRange;
+
+        switch (type_)
+        {
+            case 1:
+                break;
+            case 2:
+                if (monsterComponent.sonarTarget != null)
+                {
+                    target = monsterComponent.sonarTarget;
+                }
+                break;
+        }
     }
     #endregion
 
@@ -107,9 +123,6 @@ public class Monster_Engage : MonsterState
                 yield return msm_.StartCoroutine(Attack(monster_));
             }
         }
-
-        // 코루틴 작동 중 여부 체크용
-        isRoutineOn = true;
     }
     #endregion
 
@@ -119,7 +132,7 @@ public class Monster_Engage : MonsterState
     {
         // 목표 좌표와의 거리가 3f 이하가 될 때까지만 while 문 지속
         // 몬스터의 애니메이션 공격 범위와 맞출 것
-        while (Vector3.Distance(target.transform.position, monster_.transform.position) > 3f)
+        while (Vector3.Distance(target.transform.position, monster_.transform.position) > atkRange)
         {
             yield return null;
 
@@ -162,14 +175,13 @@ public class Monster_Engage : MonsterState
             monsterAni.SetBool("isAttacking", true);
 
             // 애니메이션을 위한 대기 시간
-            yield return new WaitForSecondsRealtime(3f);
+            yield return atkAnimatorTime;
 
             // 공격을 마치면 타겟 변수를 초기화한다 (플레이어가 투명이나 이동마법으로 도망칠 수 있음)
             target = null;
         }
 
         monsterAni.SetBool("isAttacking", false);
-        //monsterAni.SetBool("isMoving", false);
     }
     #endregion
 
@@ -210,6 +222,7 @@ public class Monster_Engage : MonsterState
         // OverlapSphere 을 사용하여 Player Layer 를 검출시도한다
         Collider[] colliders = Physics.OverlapSphere(monster_.transform.position, radius, LayerMask.GetMask("Player"));
 
+        // DEBUG
         //Debug.LogError(colliders.Length);
 
         // 만약 검출된 것이 없다면 
@@ -238,26 +251,25 @@ public class Monster_Engage : MonsterState
 
 
     #region 변수 비우는 메서드
-    private void CleanVariables(GameObject monster_) 
+    private void CleanVariables() 
     {
         monsterAni.SetBool("isMoving", false); 
         monsterAni.SetBool("isAttacking", false);
 
+        // 밤 몬스터일 경우 sonarTarget 변수 초기화
+        if (monsterComponent.monsterData.MonsterType == 2) 
+        {
+            monsterComponent.sonarTarget = null;
+        }
+
         monsterControl = default;
+        monsterComponent = default;
         monsterAni = default;
         speed = default;
         radius = default;
-        //isAttacking = false;
         target = null;
         waitTime = default;
         waitTimer = default;
-
-        isRoutineOn = false;
-
-        if (monster_.GetComponent<TestBigMonster>() == true) 
-        {
-            monster_.GetComponent<TestBigMonster>().sonarTarget = null;
-        }
     }
     #endregion
 }

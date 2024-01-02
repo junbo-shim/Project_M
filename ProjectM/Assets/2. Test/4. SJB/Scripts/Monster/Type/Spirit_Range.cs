@@ -1,18 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Spirit_Range : MonoBehaviour
+public class Spirit_Range : Monster
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        thisMonsterType = MonsterType.Spirit_Range;
+        InitMonster(thisMonsterType);
+        debuffState = DebuffState.Nothing;
+        monsterPatrolRange = 6f;
+
+        monsterSightRange = 12f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
     }
 }

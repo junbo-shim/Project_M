@@ -65,12 +65,55 @@ public class MonsterStateMachine : MonoBehaviour
             Debug.LogError("currentState_ 가 null 입니다");
             return;
         }
-        
+
+        #region LEGACY
+        //if (nextState_ != null)
+        //{
+        //    switch (nextState_) 
+        //    {
+        //        case State.Patrol:
+        //            // 현재 상태를 종료한다
+        //            enumToStateClass[currentState].OnStateExit(monster, this);
+        //            // 전환할 상태를 현재 상태에 저장한다
+        //            currentState = nextState_;
+        //            // 전환된 상태를 실행한다
+        //            enumToStateClass[currentState].OnStateEnter(monster);
+        //            enumToStateClass[currentState].OnStateStay(monster, this);
+        //            break;
+        //        case State.Detect:
+        //            enumToStateClass[currentState].OnStateExit(monster, this);
+        //            currentState = nextState_;
+        //            enumToStateClass[currentState].OnStateEnter(monster);
+        //            enumToStateClass[currentState].OnStateStay(monster, this);
+        //            break;
+        //        case State.Engage:
+        //            enumToStateClass[currentState].OnStateExit(monster, this);
+        //            currentState = nextState_;
+        //            enumToStateClass[currentState].OnStateEnter(monster);
+        //            enumToStateClass[currentState].OnStateStay(monster, this);
+        //            break;
+        //        case State.Runaway:
+        //            enumToStateClass[currentState].OnStateExit();
+        //            currentState = nextState_;
+        //            enumToStateClass[currentState].OnStateEnter();
+        //            break;
+        //        case State.Die:
+        //            enumToStateClass[currentState].OnStateExit();
+        //            currentState = nextState_;
+        //            enumToStateClass[currentState].OnStateEnter();
+        //            break;
+        //    }
+        //}
+        #endregion
+
         if (nextState_ != null)
         {
-            switch (nextState_) 
+            switch (nextState_)
             {
+                case State.Spawn:
                 case State.Patrol:
+                case State.Detect:
+                case State.Engage:
                     // 현재 상태를 종료한다
                     enumToStateClass[currentState].OnStateExit(monster, this);
                     // 전환할 상태를 현재 상태에 저장한다
@@ -79,29 +122,14 @@ public class MonsterStateMachine : MonoBehaviour
                     enumToStateClass[currentState].OnStateEnter(monster);
                     enumToStateClass[currentState].OnStateStay(monster, this);
                     break;
-                case State.Detect:
-                    enumToStateClass[currentState].OnStateExit(monster, this);
-                    currentState = nextState_;
-                    enumToStateClass[currentState].OnStateEnter(monster);
-                    enumToStateClass[currentState].OnStateStay(monster, this);
-                    break;
-                case State.Engage:
-                    enumToStateClass[currentState].OnStateExit(monster, this);
-                    currentState = nextState_;
-                    enumToStateClass[currentState].OnStateEnter(monster);
-                    enumToStateClass[currentState].OnStateStay(monster, this);
-                    break;
+
                 case State.Runaway:
-                    enumToStateClass[currentState].OnStateExit();
-                    currentState = nextState_;
-                    enumToStateClass[currentState].OnStateEnter();
-                    break;
                 case State.Die:
                     enumToStateClass[currentState].OnStateExit();
                     currentState = nextState_;
                     enumToStateClass[currentState].OnStateEnter();
                     break;
             }
-        }
+        }       // if: 다음 State가 존재하는 경우
     }
 }

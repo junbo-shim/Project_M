@@ -1,18 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Mech_Large : MonoBehaviour
+public class Mech_Large : Monster
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        thisMonsterType = MonsterType.Mech_Large;
+        InitMonster(thisMonsterType);
+        debuffState = DebuffState.Nothing;
+        monsterPatrolRange = 14f;
+
+        monsterSightRange = 9f;
+        monsterSonarRange = 11f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
+        StartCoroutine(SpawnAndStartPatrol());
+    }
+
+    public IEnumerator SpawnAndStartPatrol()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
 }

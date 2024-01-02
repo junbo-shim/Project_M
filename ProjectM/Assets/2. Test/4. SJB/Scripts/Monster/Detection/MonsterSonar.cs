@@ -5,36 +5,26 @@ public class MonsterSonar : MonoBehaviour
     public GameObject monster;
     public float listenRange;
 
-    public float viewAngle;
-    public float viewRange;
-    public bool isInAngle;
-
-
     private void Start()
     {
         InitSonar();
     }
 
-    // ºò¸ó½ºÅÍ Ã»°¢ ÃÊ±âÈ­
+    // ë°¤ëª¬ìŠ¤í„° ì²­ê° ì´ˆê¸°í™”
     private void InitSonar()
     {
-        // ºò¸ó½ºÅÍÀÇ Å°(transform.position.y)¸¸Å­ ¾Æ·¡·Î ³·Ãá´Ù
-        transform.position = monster.transform.position - new Vector3(0f, monster.transform.position.y, 0f);
-
-        // ºò¸ó½ºÅÍ¿¡¼­ º¯¼ö¸¦ °¡Á®¿Â´Ù
-        listenRange = monster.GetComponent<TestBigMonster>().sonarRange;
-
-        viewAngle = monster.GetComponent<TestBigMonster>().sightAngle * 0.5f;
-        viewRange = monster.GetComponent<TestBigMonster>().sightRange;
-
-        isInAngle = false;
+        // ëª¬ìŠ¤í„°ì˜ ì²­ê° ë²”ìœ„
+        listenRange = monster.GetComponent<Monster>().monsterSonarRange;
+        transform.localScale = Vector3.one * listenRange;
     }
 
     private void OnTriggerEnter(Collider other_) 
     {
+        // ë§Œì•½ ì¶©ëŒ ë¬¼ì²´ê°€ PlayerFoot ë ˆì´ì–´ë¥¼ ê°€ì¡Œë‹¤ë©´
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerFoot"))) 
         {
-            monster.GetComponent<TestBigMonster>().monsterFSM.ChangeState(MonsterStateMachine.State.Detect);
+            // ëª¬ìŠ¤í„°ì˜ FSM ì— ì ‘ê·¼í•˜ì—¬ ìƒíƒœë¥¼ ê°ì§€ë¡œ ë³€ê²½
+            monster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Detect);
         }
     }
 }

@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class Test2 : Test1
+public class Test2 : MonoBehaviour
 {
-    public void TestFunc() 
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning("된다");
+        if (other.gameObject.layer.Equals(LayerMask.NameToLayer("MonsterATK"))) 
+        {
+            Debug.Log(other.GetComponent<MonsterATK>().damage);
+        }
     }
 }

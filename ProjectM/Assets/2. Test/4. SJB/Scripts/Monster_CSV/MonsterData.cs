@@ -4,8 +4,8 @@ public class MonsterData
     public virtual int MonsterID { get; protected set; }
     public virtual string MonsterDescription { get; protected set; }
     public virtual int MonsterType { get; protected set; }
-    public virtual int MonsterAttackRange { get; protected set; }
-    public virtual int MonsterMoveSpeed { get; protected set; }
+    public virtual float MonsterAttackRange { get; protected set; }
+    public virtual float MonsterMoveSpeed { get; protected set; }
     public virtual int MonsterHP { get; protected set; }
     public virtual int MonsterDamage { get; protected set; }
     public virtual int MonsterRunSpeed { get; protected set; }

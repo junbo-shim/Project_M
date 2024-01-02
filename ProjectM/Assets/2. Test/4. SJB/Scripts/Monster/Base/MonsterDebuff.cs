@@ -9,25 +9,22 @@ public class DebuffData
     public int Duration { get; private set; }
     public int Value1 { get; private set; }
 
-    public DebuffData(string csvData_, int optionCount_)
+    public DebuffData(string csvData_)
     {
-        CreateDebuffData(csvData_, optionCount_);
+        CreateDebuffData(csvData_);
     }
 
-    private DebuffData CreateDebuffData(string csvData_, int optionCount_)
+    private DebuffData CreateDebuffData(string csvData_)
     {
         string[] splitData = default;
 
         splitData = csvData_.Split(",");
 
-        for (int i = 0; i < optionCount_; i++)
-        {
-            DebuffID = int.Parse(splitData[i]);
-            Description = splitData[i + 1];
-            Type = splitData[i + 2];
-            Duration = int.Parse(splitData[i + 3]);
-            Value1 = int.Parse(splitData[i + 4]);
-        }
+        DebuffID = int.Parse(splitData[0]);
+        Description = splitData[1];
+        Type = splitData[2];
+        Duration = int.Parse(splitData[3]);
+        Value1 = int.Parse(splitData[4]);
 
         return this;
     }
@@ -35,6 +32,22 @@ public class DebuffData
 
 public class MonsterDebuff : MonoBehaviour
 {
+    #region Singleton
+    private static MonsterDebuff instance;
+    // 싱글턴으로 만들기
+    public static MonsterDebuff Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<MonsterDebuff>();
+            }
+            return instance;
+        }
+    }
+    #endregion
+
     private float delayTime = 0.5f;
     private WaitForSecondsRealtime repeatTime;
 
@@ -50,20 +63,26 @@ public class MonsterDebuff : MonoBehaviour
         StartCoroutine(ToxicEffect(monster_));
     }
 
+    // 중독 코루틴
     public IEnumerator ToxicEffect(GameObject monster_)
     {
-        int duration = default;
+        float duration = default;
+        // MonsterDebuffDic 에 있는 중독 지속시간
         int maxDuration = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Toxic].Duration;
+        // MonsterDebuffDic 에 있는 중독 데미지
         int damage = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Toxic].Value1;
+       
 
-        while (duration < maxDuration)
+        // 타이머 값이 지속시간 이하일 경우 && 몬스터의 HP 가 0 초과일 경우만 코루틴 반복
+        while (duration < maxDuration 
+            && monster_.GetComponent<Monster>().monsterHP > 0)
         {
             yield return repeatTime;
 
-            // 체력 감소 로직
+            // 체력 감소
             monster_.GetComponent<Monster>().monsterHP -= damage;
-
-            duration += (int)delayTime;
+            // 타이머 증가
+            duration += delayTime;
         }
     }
     #endregion
@@ -74,65 +93,99 @@ public class MonsterDebuff : MonoBehaviour
         StartCoroutine(SlowEffect(monster_));
     }
 
+    // 슬로우 코루틴
     public IEnumerator SlowEffect(GameObject monster_)
     {
-        int duration = default;
+        float duration = default;
+        // MonsterDebuffDic 에 있는 슬로우 지속시간
         int maxDuration = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Slow].Duration;
+        // MonsterDebuffDic 에 있는 이동속도 감소 값
         int slowValue = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Slow].Value1;
 
-        while (duration < maxDuration)
+
+        // 슬로우 시작
+        monster_.GetComponent<Monster>().monsterMoveSpeed -= slowValue;
+
+        // 타이머 값이 지속시간 이하일 경우 && 몬스터의 HP 가 0 초과일 경우만 코루틴 반복
+        while (duration < maxDuration
+            && monster_.GetComponent<Monster>().monsterHP > 0)
         {
             yield return repeatTime;
 
-            // 이동속도 감소 로직
-            //monster_.GetComponent<Monster>().monsterData.MonsterMoveSpeed -= 
-
-            duration += (int)delayTime;
+            // 타이머 증가
+            duration += delayTime;
         }
+
+        // 슬로우 끝
+        monster_.GetComponent<Monster>().monsterMoveSpeed += slowValue;
     }
     #endregion
 
     #region 빙결상태
-    public void GetFrozen()
+    public void GetFrozen(GameObject monster_)
     {
-        StartCoroutine(FrozenEffect());
+        StartCoroutine(FrozenEffect(monster_));
     }
 
-    public IEnumerator FrozenEffect()
+    // 빙결 코루틴
+    public IEnumerator FrozenEffect(GameObject monster_)
     {
-        int duration = default;
+        float duration = default;
+        // MonsterDebuffDic 에 있는 빙결 지속시간
         int maxDuration = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Freeze].Duration;
+        // 몬스터 이동속도 캐싱
+        float monsterSpeed = monster_.GetComponent<Monster>().monsterMoveSpeed;
 
-        while (duration < maxDuration)
+
+        // 빙결 시작
+        monster_.GetComponent<Monster>().monsterMoveSpeed = 0f;
+
+        // 타이머 값이 지속시간 이하일 경우 && 몬스터의 HP 가 0 초과일 경우만 코루틴 반복
+        while (duration < maxDuration
+            && monster_.GetComponent<Monster>().monsterHP > 0)
         {
             yield return repeatTime;
 
-            // 정지 로직
-
-            duration += (int)delayTime;
+            // 타이머 증가
+            duration += delayTime;
         }
+
+        // 빙결 끝
+        monster_.GetComponent<Monster>().monsterMoveSpeed = monsterSpeed;
     }
     #endregion
 
     #region 속박상태
-    public void GetBind()
+    public void GetBind(GameObject monster_)
     {
-        StartCoroutine(BindEffect());
+        StartCoroutine(BindEffect(monster_));
     }
 
-    public IEnumerator BindEffect()
+    // 속박 코루틴
+    public IEnumerator BindEffect(GameObject monster_)
     {
-        int duration = default;
+        float duration = default;
+        // MonsterDebuffDic 에 있는 속박 지속시간
         int maxDuration = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Bind].Duration;
+        // 몬스터 이동속도 캐싱
+        float monsterSpeed = monster_.GetComponent<Monster>().monsterMoveSpeed;
 
-        while (duration < maxDuration)
+
+        // 속박 시작
+        monster_.GetComponent<Monster>().monsterMoveSpeed = 0f;
+
+        // 타이머 값이 지속시간 이하일 경우 && 몬스터의 HP 가 0 초과일 경우만 코루틴 반복
+        while (duration < maxDuration
+            && monster_.GetComponent<Monster>().monsterHP > 0)
         {
             yield return repeatTime;
 
-            // 정지 로직
-
-            duration += (int)delayTime;
+            // 타이머 증가
+            duration += delayTime;
         }
+
+        // 속박 끝
+        monster_.GetComponent<Monster>().monsterMoveSpeed = monsterSpeed;
     }
     #endregion
 }

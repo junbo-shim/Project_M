@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class MonsterState
 {
-    // »óÅÂ ÁøÀÔ ½Ã È£ÃâµÇ´Â ¸Ş¼­µå
+    // ìƒíƒœ ì§„ì… ì‹œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
     public virtual void OnStateEnter() { }
 
-    // »óÅÂ Áß È£ÃâµÇ´Â ¸Ş¼­µå
+    // ìƒíƒœ ì¤‘ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
     public virtual void OnStateStay() { }
 
-    // »óÅÂ Å»Ãâ ½Ã È£ÃâµÇ´Â ¸Ş¼­µå
+    // ìƒíƒœ íƒˆì¶œ ì‹œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
     public virtual void OnStateExit() { }
 
-    // »óÅÂ ÁøÀÔ ½Ã È£ÃâµÇ´Â ¸Ş¼­µå - ¿À¹ö·Îµå
+    // ìƒíƒœ ì§„ì… ì‹œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ - ì˜¤ë²„ë¡œë“œ
     public virtual void OnStateEnter(GameObject monster_) { }
 
-    // »óÅÂ Áß È£ÃâµÇ´Â ¸Ş¼­µå - ¿À¹ö·Îµå
+    // ìƒíƒœ ì¤‘ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ - ì˜¤ë²„ë¡œë“œ
     public virtual void OnStateStay(GameObject monster_, MonsterStateMachine msm_) { }
 
-    // »óÅÂ Å»Ãâ ½Ã È£ÃâµÇ´Â ¸Ş¼­µå - ¿À¹ö·Îµå
+    // ìƒíƒœ íƒˆì¶œ ì‹œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ - ì˜¤ë²„ë¡œë“œ
     public virtual void OnStateExit(GameObject monster_, MonsterStateMachine msm_) { }
 }

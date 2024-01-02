@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 
 public class Monster_Patrol : MonsterState
 {
     private CharacterController monsterControl;
+    private Monster monsterComponent;
     private Animator monsterAni;
     private Vector3 patrolCenterPoint;
     private Vector3 destination;
@@ -12,25 +12,21 @@ public class Monster_Patrol : MonsterState
     private float speed;
     private float gravity;
 
-    private WaitForSecondsRealtime returnPatrol;
+    private float minWaitTime;
+    private float maxWaitTime;
 
-    public bool isRoutineOn;
 
 
     public override void OnStateEnter(GameObject monster_) 
     {
+        int monsterType = monster_.GetComponent<Monster>().monsterData.MonsterType;
+
+        // ì´ˆê¸°í™”
         Init(monster_);
         SetCenterPoint(monster_.transform.position);
-        // ÇÁ·ÎÅäÅ¸ÀÔ
-        if (monster_.GetComponent<TestMonster>() == true)
-        {
-            monster_.GetComponent<TestMonster>().monsterSight.SetActive(true);
-        }
-        else if (monster_.GetComponent<TestBigMonster>() == true) 
-        {
-            monster_.GetComponent<TestBigMonster>().monsterSight.SetActive(true);
-            monster_.GetComponent<TestBigMonster>().monsterSonar.SetActive(true);
-        }
+
+        // ê°ì§€ì„¼ì„œ On
+        TurnSightSonarOnOff(true, monsterType);
     }
 
     public override void OnStateStay(GameObject monster_, MonsterStateMachine msm_) 
@@ -40,22 +36,15 @@ public class Monster_Patrol : MonsterState
 
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_) 
     {
-        // ¸¸¾à ÄÚ·çÆ¾ÀÌ »ì¾ÆÀÖÀ» °æ¿ì¸¦ ´ëºñÇÑ ¾ÈÀüÀåÄ¡
-        if (isRoutineOn == true) 
-        {
-            Debug.LogError("?");
-            msm_.StopCoroutine(DoPatrol(monster_, msm_));
-        }
-        // ÇÁ·ÎÅäÅ¸ÀÔ
-        if (monster_.GetComponent<TestMonster>() == true)
-        {
-            monster_.GetComponent<TestMonster>().monsterSight.SetActive(false);
-        }
-        else if (monster_.GetComponent<TestBigMonster>() == true)
-        {
-            monster_.GetComponent<TestBigMonster>().monsterSight.SetActive(false);
-            monster_.GetComponent<TestBigMonster>().monsterSonar.SetActive(false);
-        }
+        int monsterType = monster_.GetComponent<Monster>().monsterData.MonsterType;
+
+        // ë§Œì•½ ì½”ë£¨í‹´ì´ ì‚´ì•„ìˆì„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•œ ì•ˆì „ì¥ì¹˜
+        msm_.StopCoroutine(DoPatrol(monster_, msm_));
+
+        // ê°ì§€ì„¼ì„œ Off
+        TurnSightSonarOnOff(false, monsterType);
+
+        // ë³€ìˆ˜ ë¹„ìš°ê¸°
         CleanVariables();
     }
 
@@ -63,63 +52,84 @@ public class Monster_Patrol : MonsterState
 
 
 
-    #region ÃÊ±âÈ­
+    #region ì´ˆê¸°í™”
     private void Init(GameObject monster_) 
     {
+        // ëª¬ìŠ¤í„° ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬
         monsterControl = monster_.GetComponent<CharacterController>();
+        monsterComponent = monster_.GetComponent<Monster>();
+        // ëª¬ìŠ¤í„° ì• ë‹ˆë©”ì´í„°
         monsterAni = monster_.transform.Find("MonsterRigid").GetComponent<Animator>();
-
-        if (monster_.GetComponent<TestMonster>() == true)
-        {
-            range = monster_.GetComponent<TestMonster>().patrolRange;
-            speed = monster_.GetComponent<TestMonster>().moveSpeed;
-        }
-        else if (monster_.GetComponent<TestBigMonster>() == true)
-        {
-            range = monster_.GetComponent<TestBigMonster>().patrolRange;
-            speed = monster_.GetComponent<TestBigMonster>().moveSpeed;
-        }
-
+        // Patrol ì†ë„
+        speed = monsterComponent.monsterMoveSpeed;
+        // Patrol ë²”ìœ„
+        range = monsterComponent.monsterPatrolRange;
+        // ì¤‘ë ¥ ê°’
         gravity = -9.81f;
-
-        returnPatrol = new WaitForSecondsRealtime(4f);
-        isRoutineOn = false;
+        // ìµœëŒ€ìµœì†Œ ëŒ€ê¸°ì‹œê°„ ê°’
+        minWaitTime = 2f;
+        maxWaitTime = 6f;
     }
     #endregion
 
 
-    #region Á¤Âû ¹üÀ§ÀÇ ±âÁØÁ¡À» ¼³Á¤
-    // Á¤Âû ¹üÀ§ÀÇ Áß½ÉÁ¡À» ¼³Á¤ÇÏ´Â ¸Ş¼­µå
+    #region ë‚®ë°¤ ëª¬ìŠ¤í„° êµ¬ë¶„í•˜ì—¬ ê°ì§€ì„¼ì„œ OnOff í•˜ëŠ” í•¨ìˆ˜
+    private void TurnSightSonarOnOff(bool bool_, int type_) 
+    {
+        if (monsterComponent == null) 
+        {
+            Debug.LogError("monsterComponent ê°€ null");
+            return;
+        }
+
+        monsterComponent.monsterSight.SetActive(bool_);
+
+        switch (type_)
+        {
+            case 1:
+                break;
+            case 2:
+                monsterComponent.monsterSonar.SetActive(bool_);
+                break;
+        }
+    }
+    #endregion
+
+
+    #region ì •ì°° ë²”ìœ„ì˜ ê¸°ì¤€ì ì„ ì„¤ì •
+    // ì •ì°° ë²”ìœ„ì˜ ì¤‘ì‹¬ì ì„ ì„¤ì •í•˜ëŠ” ë©”ì„œë“œ
     private void SetCenterPoint(Vector3 position_) 
     {
-        // ¸¸¾à ½ºÆùÀÌ ÀÌ»óÇÑ °÷¿¡ µÉ °æ¿ì¿¡ ´ëºñÇÏ¿© À§ ¾Æ·¡ terrain Ã¼Å© ¸Ş¼­µå ÇÊ¿ä
+        // ë§Œì•½ ìŠ¤í°ì´ ì´ìƒí•œ ê³³ì— ë  ê²½ìš°ì— ëŒ€ë¹„í•˜ì—¬ ìœ„ ì•„ë˜ terrain ì²´í¬ ë©”ì„œë“œ í•„ìš”
         patrolCenterPoint = position_;
     }
     #endregion
 
 
-    #region Á¤Âû ¹üÀ§¿¡¼­ Æ¯Á¤ ÁÂÇ¥¸¦ ÃßÃâ
-    // ±âÁØÁ¡À» Áß½ÉÀ¸·Î Á¤Âû ¹üÀ§¸¦ ¼³Á¤ÇÏ°í ±× ¹üÀ§ ³»ÀÇ ·£´ı Æ÷ÀÎÆ®¸¦ ÃßÃâÇÏ°í destination ¿¡ ¼³Á¤ÇÏ´Â ¸Ş¼­µå
+    #region ì •ì°° ë²”ìœ„ì—ì„œ íŠ¹ì • ì¢Œí‘œë¥¼ ì¶”ì¶œ
+    // ê¸°ì¤€ì ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì •ì°° ë²”ìœ„ë¥¼ ì„¤ì •í•˜ê³  ê·¸ ë²”ìœ„ ë‚´ì˜ ëœë¤ í¬ì¸íŠ¸ë¥¼ ì¶”ì¶œí•˜ê³  destination ì— ì„¤ì •í•˜ëŠ” ë©”ì„œë“œ
     private void SetDestination(Vector3 centerPoint_, float patrolRange_) 
     {
-        // ¹İÁö¸§ÀÌ patrolRange_ ÀÎ ·£´ıÇÑ ±¸¸¦ centerPoint_ À» Áß½ÉÀ¸·Î ¸¸µé°í, ±× ¾ÈÀÇ ·£´ıÇÑ ÁÂÇ¥¸¦ »Ì¾Æ temp ¿¡ ÀúÀåÇÑ´Ù
+        // ë°˜ì§€ë¦„ì´ patrolRange_ ì¸ ëœë¤í•œ êµ¬ë¥¼ centerPoint_ ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë§Œë“¤ê³ , ê·¸ ì•ˆì˜ ëœë¤í•œ ì¢Œí‘œë¥¼ ë½‘ì•„ temp ì— ì €ì¥í•œë‹¤
         Vector3 temp = centerPoint_ + (Random.insideUnitSphere * patrolRange_);
 
-        // ·¹ÀÌ¸¦ Ä³½ºÆÃÇÑ °á°ú¸¦ ÀúÀåÇÒ Áö¿ªº¯¼ö »ı¼º
+        // ë ˆì´ë¥¼ ìºìŠ¤íŒ…í•œ ê²°ê³¼ë¥¼ ì €ì¥í•  ì§€ì—­ë³€ìˆ˜ ìƒì„±
         RaycastHit hit;
 
-        // temp °¡ terrain ¾Æ·¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ´Â raycasthit
-        // Á¤Âû Æ÷ÀÎÆ®¸¦ °ËÁõÇÏ´Â °úÁ¤ : Ray ¸¦ À§ÂÊÀ¸·Î ½î°Ô µÇ´Â °æ¿ì, Terrain ÀÇ ÃÖÀú ³ôÀÌ¿¡ °¡·Î¸·Çô¼­ Á¦´ë·Î µÈ y °ªÀÌ ³ª¿ÀÁö ¾ÊÀ½
-        bool isAboveTerrain = Physics.Raycast(temp, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain"));
+        // temp ê°€ terrain ì•„ë˜ ìˆëŠ”ì§€ ì²´í¬í•˜ëŠ” raycasthit
+        // ì •ì°° í¬ì¸íŠ¸ë¥¼ ê²€ì¦í•˜ëŠ” ê³¼ì • : Ray ë¥¼ ìœ„ìª½ìœ¼ë¡œ ì˜ê²Œ ë˜ëŠ” ê²½ìš°, Terrain ì˜ ìµœì € ë†’ì´ì— ê°€ë¡œë§‰í˜€ì„œ ì œëŒ€ë¡œ ëœ y ê°’ì´ ë‚˜ì˜¤ì§€ ì•ŠìŒ
+        bool isAboveTerrain = 
+            Physics.Raycast(temp, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain"));
 
-        // temp °¡ terrain ÀÇ À§ÂÊ¿¡¼­ ³ª¿Ã ¶§ ±îÁö ·çÇÁ¸¦ µ·´Ù
-        // while ¹® Á¾·áÁ¶°Ç -> isAboveTerrain ÀÌ true
+        // temp ê°€ terrain ì˜ ìœ„ìª½ì—ì„œ ë‚˜ì˜¬ ë•Œ ê¹Œì§€ ë£¨í”„ë¥¼ ëˆë‹¤
+        // while ë¬¸ ì¢…ë£Œì¡°ê±´ -> isAboveTerrain ì´ true
         while (isAboveTerrain == false)
         {
-            // ´Ù½Ã temp ¸¦ »Ì´Â´Ù
+            // ë‹¤ì‹œ temp ë¥¼ ë½‘ëŠ”ë‹¤
             temp = centerPoint_ + (Random.insideUnitSphere * patrolRange_);
-            // ´Ù½Ã isAboveTerrain °ªÀ» Ã¼Å©ÇÑ´Ù
-            isAboveTerrain = Physics.Raycast(temp, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain"));
+            // ë‹¤ì‹œ isAboveTerrain ê°’ì„ ì²´í¬í•œë‹¤
+            isAboveTerrain = 
+                Physics.Raycast(temp, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Terrain"));
         }
 
         #region DebugCode : Random Vector
@@ -131,7 +141,7 @@ public class Monster_Patrol : MonsterState
         #endregion
 
 
-        // hit point ÀÇ y ÁÂÇ¥¸¦ Àû¿ëÇÏ¿© ¸ñÇ¥ ÁÂÇ¥¸¦ ÀúÀåÇÑ´Ù
+        // hit point ì˜ y ì¢Œí‘œë¥¼ ì ìš©í•˜ì—¬ ëª©í‘œ ì¢Œí‘œë¥¼ ì €ì¥í•œë‹¤
         destination = new Vector3(temp.x, hit.point.y, temp.z);
 
 
@@ -146,36 +156,33 @@ public class Monster_Patrol : MonsterState
     #endregion
 
 
-    #region Á¤Âû
-    // Patrol »óÅÂÀÏ ¶§ ½ÇÇàÇÒ Á¤Âû Çàµ¿
+    #region ì •ì°°
+    // Patrol ìƒíƒœì¼ ë•Œ ì‹¤í–‰í•  ì •ì°° í–‰ë™
     public IEnumerator DoPatrol(GameObject monster_, MonsterStateMachine msm_)
     {
-        // MonsterStateMachine »óÅÂ°¡ Patrol ÀÏ ¶§¸¸ Coroutine Áö¼Ó
+        // MonsterStateMachine ìƒíƒœê°€ Patrol ì¼ ë•Œë§Œ Coroutine ì§€ì†
         while (msm_.currentState == MonsterStateMachine.State.Patrol)
         {
-            // PatrolMove ¿Ï·áÇÒ ¶§±îÁö ±× ´ÙÀ½ Çàµ¿ÀÌ ´ë±âÇÑ´Ù
+            // PatrolMove ì™„ë£Œí•  ë•Œê¹Œì§€ ê·¸ ë‹¤ìŒ í–‰ë™ì´ ëŒ€ê¸°í•œë‹¤
             yield return msm_.StartCoroutine(PatrolMove(monster_));
-            // Wait ¿Ï·áÇÒ ¶§±îÁö ±× ´ÙÀ½ Çàµ¿ÀÌ ´ë±âÇÑ´Ù
+            // Wait ì™„ë£Œí•  ë•Œê¹Œì§€ ê·¸ ë‹¤ìŒ í–‰ë™ì´ ëŒ€ê¸°í•œë‹¤
             yield return msm_.StartCoroutine(Wait());
         }
-
-        // ÄÚ·çÆ¾ ÀÛµ¿ Áß ¿©ºÎ Ã¼Å©¿ë
-        isRoutineOn = true;
     }
     #endregion
 
 
-    #region ÀÌµ¿ ¹× ´ë±â
-    // ÀÌµ¿ ÄÚ·çÆ¾
+    #region ì´ë™ ë° ëŒ€ê¸°
+    // ì´ë™ ì½”ë£¨í‹´
     public IEnumerator PatrolMove(GameObject monster_) 
     {
-        // ¸ñÇ¥ ÁÂÇ¥ ÁöÁ¤
+        // ëª©í‘œ ì¢Œí‘œ ì§€ì •
         SetDestination(patrolCenterPoint, range);
 
-        // ¸ñÇ¥ ÁÂÇ¥¿ÍÀÇ °Å¸®°¡ 2f ÀÌÇÏ°¡ µÉ ¶§±îÁö¸¸ while ¹® Áö¼Ó
+        // ëª©í‘œ ì¢Œí‘œì™€ì˜ ê±°ë¦¬ê°€ 2f ì´í•˜ê°€ ë  ë•Œê¹Œì§€ë§Œ while ë¬¸ ì§€ì†
         while (Vector3.Distance(destination, monster_.transform.position) > 2f) 
         {
-            // ¸Å ÇÁ·¹ÀÓ ´ÜÀ§·Î ·çÇÁ ÀÛµ¿ : Update º¸´Ù ¼º´É¿¡ ¾Ç¿µÇâÀ» ÁÙ ¼ö ÀÖÁö¸¸ Æ¯Á¤ Á¶°Ç¿¡¼­¸¸ ÀÛµ¿ÇÏµµ·Ï ÇÔ
+            // ë§¤ í”„ë ˆì„ ë‹¨ìœ„ë¡œ ë£¨í”„ ì‘ë™ : Update ë³´ë‹¤ ì„±ëŠ¥ì— ì•…ì˜í–¥ì„ ì¤„ ìˆ˜ ìˆì§€ë§Œ íŠ¹ì • ì¡°ê±´ì—ì„œë§Œ ì‘ë™í•˜ë„ë¡ í•¨
             yield return null;
 
             Vector3 tempLook = new Vector3(destination.x, monster_.transform.position.y, destination.z);
@@ -193,28 +200,30 @@ public class Monster_Patrol : MonsterState
         monsterAni.SetBool("isMoving", false);
     }
 
-    // ´ë±â ÄÚ·çÆ¾
+    // ëŒ€ê¸° ì½”ë£¨í‹´
     public IEnumerator Wait() 
     {
-        yield return returnPatrol;
+        float random = Random.Range(minWaitTime, maxWaitTime);
+
+        yield return new WaitForSeconds(random);
     }
     #endregion
 
 
-    #region º¯¼ö ºñ¿ì´Â ¸Ş¼­µå
+    #region ë³€ìˆ˜ ë¹„ìš°ëŠ” ë©”ì„œë“œ
     private void CleanVariables() 
     {
         monsterAni.SetBool("isMoving", false);
 
         monsterControl = default;
+        monsterComponent = default;
         monsterAni = default;
         patrolCenterPoint = default;
         destination = default;
         range = default;
         speed = default;
-        returnPatrol = default;
-
-        isRoutineOn = false;
+        minWaitTime = default;
+        maxWaitTime = default;
     }
     #endregion
 }
