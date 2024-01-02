@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicPoison : MonoBehaviour
+public class BasicPoison : SkillAction
 {
     private Ray ray;
     private RaycastHit hit;
@@ -10,8 +10,7 @@ public class BasicPoison : MonoBehaviour
     private Quaternion targetRotation;
 
 
-    private float duration;         // 스킬 지속시간
-    private float statusEffectID;           // 스킬 상태이상 ID
+    private float duration;         // 스킬 지속시간   
     public LayerMask collideLayer;  // 충돌검사를 할 레이어
 
     private Damage poisonInfo;
@@ -19,16 +18,17 @@ public class BasicPoison : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        poisonInfo = CSVConverter_JHW.Instance.skillDic["Poison"] as Damage;
+        poisonInfo = ReturnInfo("Poison") as Damage;
         duration = poisonInfo.Value1;
-        statusEffectID = poisonInfo.Value2;
+        statusEffId = poisonInfo.Value2;
+        CheckSkill();      // 스킬 분류 확인
         StartCoroutine(DestroyPoison());
     }
 
     // Update is called once per frame
     void Update()
     {       
-        var ray = new Ray(transform.position, Vector3.down);
+        ray = new Ray(transform.position, Vector3.down);
         if (Physics.Raycast(ray, out hit, 1000f))
         {
             transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;

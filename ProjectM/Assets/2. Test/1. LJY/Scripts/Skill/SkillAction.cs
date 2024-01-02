@@ -5,9 +5,10 @@ using UnityEngine;
 public class SkillAction : MonoBehaviour
 {
     public float damage = default;    // 데미지 스킬이 사용할 변수 
-    public bool isDamage;  // 데미지 스킬인지 구별할 bool변수
-    public bool isStatusEff;    // 상태이상 스킬인지 구별할 bool변수
+    public bool isDamage = false;  // 데미지 스킬인지 구별할 bool변수
+    public bool isStatusEff = false;    // 상태이상 스킬인지 구별할 bool변수
     public float statusEffId = default;     // 상태이상 ID
+    public bool isEnhanced = false;
 
     public void CheckSkill()
     {

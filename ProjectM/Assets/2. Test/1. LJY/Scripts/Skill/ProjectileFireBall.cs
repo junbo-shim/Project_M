@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileFireBall : MonoBehaviour
+public class ProjectileFireBall : SkillAction
 {
     public LayerMask collideLayer;  // 충돌체크할 레이어    
     public GameObject impactParticle;   // 충돌 시 발생할 이펙트
     public BookScript book;         // 방향에 사용할 마법수첩 스크립트
     private Vector3 direction;      // 탄환이 나아갈 방향
     public float speed = 5f;        // 탄환 속도
+
+    public Damage fireInfo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,16 +20,14 @@ public class ProjectileFireBall : MonoBehaviour
         direction = (book.target - transform.position).normalized;      
         transform.LookAt(book.target);
 
+        fireInfo = ReturnInfo("FireBall") as Damage;    // 파이어인포에 스킬정보 가져오기
+        speed = fireInfo.Value1;
+        damage = fireInfo.skillDamage;
+
         // Rigidbody를 사용하여 Projectile에 속도 부여
         GetComponent<Rigidbody>().velocity = direction * speed;
 
         StartCoroutine(DestroyBall());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void DestroyObject(Vector3 hitNor)
