@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NpcActionBase : MonoBehaviour
 {
+ 
+
     protected bool ClickBool = false;// 클릭용 불 
     protected void BoolChange()
     {
@@ -14,4 +16,7 @@ public class NpcActionBase : MonoBehaviour
     {
         ClickBool = false;
     }
+
+ 
+
 }

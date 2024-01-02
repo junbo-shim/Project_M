@@ -148,7 +148,7 @@ public class NPCTack : MonoBehaviour
         }
        
     } 
-    public void ChoiseClick(int number, string str)
+    public void ChoiseClick(int number, string str )
     {
         for (int i = 0; i <= 3; i++)
         {
@@ -160,6 +160,7 @@ public class NPCTack : MonoBehaviour
 
         if (str.Equals("-1"))
         {
+            npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
             TalkOff();
         }
         else
@@ -264,39 +265,45 @@ public class NPCTack : MonoBehaviour
         }
         PrecedeQuest_IDChk();// 선행퀘스트 조건 체크 여기서 선행퀘가 없거나 달성시 prerequisiteQuest = true 미달성시 prerequisiteQuest = false로 바꿈
 
-        if (prerequisiteQuest == false) // 선행 퀘스트 완료 하지않으면 말안함
-        {
-    
-            Debug.Log("prerequisiteQuest :textLV :" + QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString()));
-            if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString())) // 퀘스트 수락후 대사 출력
-            {
-                npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
-            }
-            
-    
-        }
+       
+       
 
         if (i == -1)
         {
-            Debug.Log(" -1 ");
+   
             TalkOff();
             return i + 1;
         }
-        Debug.Log(i);
+     
         if (i < npcWoadDict[dictProgressSb.ToString()].Count)
         {
             if (i == 0)
             {
                 TalkOn();
             }
+            if (NPCEnd) // 선행 퀘스트 완료 하지않으면 말안함
+            {
 
-            npcTextMeshPro.text = npcWoadDict[dictProgressSb.ToString()][i];
+                if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString())) // 퀘스트 수락후 대사 출력
+                {
+                    npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
+                }
+
+
+            }
+            else
+            {
+                npcTextMeshPro.text = npcWoadDict[dictProgressSb.ToString()][i];
+            }
+
 
             if (i == npcWoadDict[dictProgressSb.ToString()].Count - 1)
             {
                 SetChoiceText();
             }
         }
+     
+     
       
 
         return i + 1;
@@ -311,7 +318,7 @@ public class NPCTack : MonoBehaviour
         }
         else
         {
-
+          
             npcWoad.Add(str);
         }
 
@@ -319,8 +326,6 @@ public class NPCTack : MonoBehaviour
     }
     public string NpcWord() //csv에서 Description 읽어옴
     {
-
-
         if (npcID.Equals(newNPC.NPC_ID.ToString()))
         {
             for (int i = 0; i <= newNPC.ContinueDialogueCount; i++)
@@ -329,14 +334,7 @@ public class NPCTack : MonoBehaviour
 
                 for (int j = 0; j < dialogueData.Count; j++)
                 {
-                    if (dialogueData.Count == 0)
-                    {
-                        break;
-                    }
-                    if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[j].Quest_ID.ToString()))
-                    {
-                        dialogueLV++;
-                    }
+                   
                     npcWoad = new List<string>(); // npc 대사 세팅 50글자씪 자를리스트 초기화
                     reCutString(dialogueData[j].Choice_Before_Dialogue);
 
@@ -387,27 +385,20 @@ public class NPCTack : MonoBehaviour
         }
 
     }
-    private void PrecedeQuest_IDChk()
+    private void PrecedeQuest_IDChk() // 퀘스트 선행여부체크
     {
-
-        if(QuestMananger.instance.playerQuest.ContainsKey(dialogueData[textLV].Quest_ID.ToString()))
-        {
-            prerequisiteQuest = false;
-            return;
-        }
-      
+     
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
-        {
-           
+        {          
             prerequisiteQuest = true;
         }
         else if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
         {
+           
             QuestMananger.instance.QusetCompletionConditionChk(dialogueData[0].Quest_ID.ToString(), newNPC.NPC_ID);// 퀘스트 완료조건 체큰
            
             if (QuestMananger.instance.playerQuest[dialogueData[0].Quest_ID.ToString()].State == QuestState.QuestStatus.Completed)
-            {
-             
+            {            
                 prerequisiteQuest = true;
             }
         }

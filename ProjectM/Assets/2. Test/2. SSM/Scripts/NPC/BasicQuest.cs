@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
+
 using System.Text;
 
 public class BasicQuest : QuestState
 {
     private StringBuilder sb = new StringBuilder();
-    public BasicQuest(int id, string questType , string quest_Name_Key, string quest_Explain_Key, int completionCondition_ID, int successNPC_ID, int precedeQuest_ID, int reward_ID)
+    public BasicQuest(int id, string questType , string quest_Name_Key, string quest_Explain_Key, string quest_Goal_Key, int completionCondition_ID, 
+       int successNPC_ID, int precedeQuest_ID, int reward_ID)
     {
         ID = id;
         QuestType = questType;
-        QuestNameKey = quest_Name_Key;
-        QuestExplainKey = quest_Explain_Key;
+        QuestNameKey = CSVRead.instance.QuestTitleDatas[quest_Name_Key].Detail;       
+        QuestExplainKey = CSVRead.instance.QuestTitleDatas[quest_Explain_Key].Detail;
+        Quest_Goal_Key = CSVRead.instance.QuestTitleDatas[quest_Goal_Key].Detail;
         CompletionCondition_ID = CompletionConditionSet(completionCondition_ID.ToString());
         SuccessNPC_ID = successNPC_ID;
         PrecedeQuest_ID = precedeQuest_ID;
@@ -57,6 +60,8 @@ public class BasicQuest : QuestState
     public string QuestType; //퀘스트 타입
 
     public string QuestNameKey;//퀘스트 이름
+
+    public string Quest_Goal_Key;//퀘스트 목표
 
     public string QuestExplainKey; // 퀘스트 목표 상세
 
