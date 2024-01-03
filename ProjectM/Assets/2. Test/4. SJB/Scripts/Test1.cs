@@ -13,35 +13,38 @@ public class Test1 : MonoBehaviour
     void Start()
     {
         speed = 50;
-        hp = 100;
+        hp = 1;
         delayTime = 0.5f;
         repeatTime = new WaitForSecondsRealtime(delayTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerATK")))
+        if (other.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerATK")) && hp > 0)
         {
-            if (other.GetComponent<SkillAction>().isDamage == true
-                && other.GetComponent<SkillAction>().isStatusEff == false)
-            {
-                hp -= (int)other.GetComponent<SkillAction>().damage;
-            }
-            else if (other.GetComponent<SkillAction>().isDamage == true
-                && other.GetComponent<SkillAction>().isStatusEff == true)
-            {
-                hp -= (int)other.GetComponent<SkillAction>().damage;
-                //MonsterDebuff.Instance.GetToxic(gameObject);
+            hp -= (int)other.GetComponent<SkillAction>().damage;
 
-                GetToxic(gameObject);
-            }
-            else if (other.GetComponent<SkillAction>().isDamage == false
-                && other.GetComponent<SkillAction>().isStatusEff == true)
-            {
-                //MonsterDebuff.Instance.GetToxic(gameObject);
 
-                GetSlow(gameObject);
-            }
+            //if (other.GetComponent<SkillAction>().isDamage == true
+            //    && other.GetComponent<SkillAction>().isStatusEff == false)
+            //{
+            //    hp -= (int)other.GetComponent<SkillAction>().damage;
+            //}
+            //else if (other.GetComponent<SkillAction>().isDamage == true
+            //    && other.GetComponent<SkillAction>().isStatusEff == true)
+            //{
+            //    hp -= (int)other.GetComponent<SkillAction>().damage;
+            //    //MonsterDebuff.Instance.GetToxic(gameObject);
+
+            //    GetToxic(gameObject);
+            //}
+            //else if (other.GetComponent<SkillAction>().isDamage == false
+            //    && other.GetComponent<SkillAction>().isStatusEff == true)
+            //{
+            //    //MonsterDebuff.Instance.GetToxic(gameObject);
+
+            //    GetSlow(gameObject);
+            //}
         }
     }
 

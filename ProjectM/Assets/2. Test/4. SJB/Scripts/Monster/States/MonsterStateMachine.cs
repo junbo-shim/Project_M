@@ -6,8 +6,8 @@ public class MonsterStateMachine : MonoBehaviour
     // 상태 enum
     public enum State
     {
-        // 초기상태
-        Spawn,
+        // 오브젝트 풀 보관상태
+        Ready,
         // 정찰
         Patrol,
         // 감지
@@ -24,7 +24,7 @@ public class MonsterStateMachine : MonoBehaviour
 
     public State currentState;
 
-    private Monster_Spawn spawnState;
+    private Monster_Ready readyState;
     private Monster_Patrol patrolState;
     private Monster_Detect detectState;
     private Monster_Engage engageState;
@@ -37,9 +37,7 @@ public class MonsterStateMachine : MonoBehaviour
     // 생성자에서 초기화를 진행한다
     public MonsterStateMachine()
     {
-        currentState = State.Spawn;
-
-        spawnState = new Monster_Spawn();
+        readyState = new Monster_Ready();
         patrolState = new Monster_Patrol();
         detectState = new Monster_Detect();
         engageState = new Monster_Engage();
@@ -49,7 +47,7 @@ public class MonsterStateMachine : MonoBehaviour
         enumToStateClass = new Dictionary<State, MonsterState>();
 
         // 딕셔너리를 사용하여 enum 을 각 MonsterState 와 연결해준다
-        enumToStateClass.Add(State.Spawn, spawnState);
+        enumToStateClass.Add(State.Ready, readyState);
         enumToStateClass.Add(State.Patrol, patrolState);
         enumToStateClass.Add(State.Detect, detectState);
         enumToStateClass.Add(State.Engage, engageState);
@@ -110,10 +108,16 @@ public class MonsterStateMachine : MonoBehaviour
         {
             switch (nextState_)
             {
-                case State.Spawn:
+                case State.Ready:
+                    enumToStateClass[currentState].OnStateExit();
+                    currentState = nextState_;
+                    enumToStateClass[currentState].OnStateEnter(monster);
+                    break;
+
                 case State.Patrol:
                 case State.Detect:
                 case State.Engage:
+                case State.Die:
                     // 현재 상태를 종료한다
                     enumToStateClass[currentState].OnStateExit(monster, this);
                     // 전환할 상태를 현재 상태에 저장한다
@@ -124,7 +128,6 @@ public class MonsterStateMachine : MonoBehaviour
                     break;
 
                 case State.Runaway:
-                case State.Die:
                     enumToStateClass[currentState].OnStateExit();
                     currentState = nextState_;
                     enumToStateClass[currentState].OnStateEnter();

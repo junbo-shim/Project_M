@@ -38,7 +38,7 @@ public class TestBigMonster : MonoBehaviour
 
     private void Start()
     {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
         StartCoroutine(SpawnAndStartPatrol());
     }
 

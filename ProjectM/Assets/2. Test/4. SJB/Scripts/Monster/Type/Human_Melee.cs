@@ -21,16 +21,4 @@ public class Human_Melee : Monster
         monsterSight.transform.localScale = Vector3.one * sightRange * 2f;
         sightAngle = 90f;
     }
-
-    private void Start()
-    {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
-        StartCoroutine(SpawnAndStartPatrol());
-    }
-
-    public IEnumerator SpawnAndStartPatrol()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
-    }
 }

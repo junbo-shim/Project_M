@@ -17,6 +17,7 @@ public class Monster_Patrol : MonsterState
 
 
 
+
     public override void OnStateEnter(GameObject monster_) 
     {
         int monsterType = monster_.GetComponent<Monster>().monsterData.MonsterType;
@@ -39,6 +40,8 @@ public class Monster_Patrol : MonsterState
         int monsterType = monster_.GetComponent<Monster>().monsterData.MonsterType;
 
         // 만약 코루틴이 살아있을 경우를 대비한 안전장치
+        msm_.StopCoroutine(PatrolMove(monster_));
+        msm_.StopCoroutine(Wait());
         msm_.StopCoroutine(DoPatrol(monster_, msm_));
 
         // 감지센서 Off
@@ -195,9 +198,9 @@ public class Monster_Patrol : MonsterState
 
             monsterControl.Move(tempMove * speed * Time.deltaTime);
 
-            monsterAni.SetBool("isMoving", true);
+            monsterAni.SetBool(monsterComponent.isMovingID, true);
         }
-        monsterAni.SetBool("isMoving", false);
+        monsterAni.SetBool(monsterComponent.isMovingID, false);
     }
 
     // 대기 코루틴
@@ -213,7 +216,7 @@ public class Monster_Patrol : MonsterState
     #region 변수 비우는 메서드
     private void CleanVariables() 
     {
-        monsterAni.SetBool("isMoving", false);
+        monsterAni.SetBool(monsterComponent.isMovingID, false);
 
         monsterControl = default;
         monsterComponent = default;

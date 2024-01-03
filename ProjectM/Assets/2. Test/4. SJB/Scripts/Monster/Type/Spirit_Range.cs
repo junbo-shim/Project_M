@@ -15,6 +15,6 @@ public class Spirit_Range : Monster
 
     private void OnEnable()
     {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
 }
