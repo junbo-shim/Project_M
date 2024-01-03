@@ -9,6 +9,6 @@ public class Orc_Melee : Monster
 
         monsterSightRange = 8f;
 
-        monsterATKspeed = 3f;
+        monsterATKSpeed = 3f;
     }
 }

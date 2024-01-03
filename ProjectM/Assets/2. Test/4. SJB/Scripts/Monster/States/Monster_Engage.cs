@@ -13,10 +13,10 @@ public class Monster_Engage : MonsterState
 
     public GameObject target;
 
-    public WaitForSeconds waitTime;
-    public int waitTimer;
+    private WaitForSeconds waitTime;
+    private int waitTimer;
 
-    public WaitForSeconds atkAnimatorTime;
+    private WaitForSeconds atkAnimatorTime;
 
 
 
@@ -33,7 +33,11 @@ public class Monster_Engage : MonsterState
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
         // 만약 코루틴이 살아있을 경우를 대비한 안전장치
+        msm_.StopCoroutine(EngageMove(monster_));
+        msm_.StopCoroutine(Attack(monster_));
+        msm_.StopCoroutine(WaitForTarget(monster_, msm_));
         msm_.StopCoroutine(DoEngage(monster_, msm_));
+        
         // 변수 비우기
         CleanVariables();
     }
@@ -57,8 +61,8 @@ public class Monster_Engage : MonsterState
         // 교전 상대 놓칠 시 기다릴 타이머
         waitTime = new WaitForSeconds(1f);
         waitTimer = 5;
-        // 공격 애니메이션 재생속도
-        atkAnimatorTime = new WaitForSeconds(monsterComponent.monsterATKspeed);
+        // 공격 애니메이션 재생길이
+        atkAnimatorTime = new WaitForSeconds(monsterComponent.monsterATKSpeed);
     }
     #endregion
 
@@ -134,6 +138,14 @@ public class Monster_Engage : MonsterState
         // 몬스터의 애니메이션 공격 범위와 맞출 것
         while (Vector3.Distance(target.transform.position, monster_.transform.position) > atkRange)
         {
+            // target 의 layer 가 Invisible 일 경우
+            if(target.gameObject.layer.Equals(LayerMask.NameToLayer("Invisible")))
+            {
+                // target 해제 및 반복문 탈출
+                target = null;
+                yield break;
+            }
+
             yield return null;
 
             Vector3 tempLook = new Vector3(target.transform.position.x,
@@ -149,9 +161,9 @@ public class Monster_Engage : MonsterState
             // 타겟의 위치로 움직인다
             monsterControl.Move(tempMove * speed * Time.deltaTime);
 
-            monsterAni.SetBool("isMoving", true);
+            monsterAni.SetBool(monsterComponent.isMovingID, true);
         }
-        monsterAni.SetBool("isMoving", false);
+        monsterAni.SetBool(monsterComponent.isMovingID, false);
 
         // 이동을 마치면 타겟 변수를 초기화한다 (플레이어가 투명이나 이동마법으로 도망칠 수 있음)
         target = null;
@@ -167,21 +179,20 @@ public class Monster_Engage : MonsterState
         // 만약 타겟이 없다면
         if (target == null) 
         { 
-            /* Do Nothing */
+            yield break;
         }
         // 타겟이 존재한다면
         else if (target != null) 
         {
-            monsterAni.SetBool("isAttacking", true);
+            monsterAni.SetBool(monsterComponent.isAttackingID, true);
 
             // 애니메이션을 위한 대기 시간
             yield return atkAnimatorTime;
 
             // 공격을 마치면 타겟 변수를 초기화한다 (플레이어가 투명이나 이동마법으로 도망칠 수 있음)
             target = null;
+            monsterAni.SetBool(monsterComponent.isAttackingID, false);
         }
-
-        monsterAni.SetBool("isAttacking", false);
     }
     #endregion
 
@@ -253,8 +264,8 @@ public class Monster_Engage : MonsterState
     #region 변수 비우는 메서드
     private void CleanVariables() 
     {
-        monsterAni.SetBool("isMoving", false); 
-        monsterAni.SetBool("isAttacking", false);
+        monsterAni.SetBool(monsterComponent.isMovingID, false); 
+        monsterAni.SetBool(monsterComponent.isAttackingID, false);
 
         // 밤 몬스터일 경우 sonarTarget 변수 초기화
         if (monsterComponent.monsterData.MonsterType == 2) 

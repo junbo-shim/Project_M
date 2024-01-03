@@ -61,20 +61,32 @@ public class Monster : MonoBehaviour
     public float monsterSightRange;
     // 몬스터 청각범위
     public float monsterSonarRange;
-    // 몬스터 공격속도 (애니메이션과 싱크 맞출 속도)
-    public float monsterATKspeed;
+
+    // 몬스터 애니메이터 파라미터 ID : isMoving
+    public int isMovingID;
+    // 몬스터 애니메이터 파라미터 ID : isWalkng
+    public int isAttackingID;
+    // 몬스터 애니메이터 파라미터 ID : Dead
+    public int deadID;
+
+    // 몬스터 공격속도, 애니메이션 길이 (애니메이션과 싱크 맞출 속도)
+    public float monsterATKSpeed;
+    // 몬스터 죽는속도, 애니메이션 길이 (애니메이션과 싱크 맞출 속도)
+    public float monsterDeathSpeed;
+
+
 
 
 
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Die);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
     }
 
 
@@ -85,19 +97,10 @@ public class Monster : MonoBehaviour
         debuffState = DebuffState.Nothing;
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;
-    }
-    // 공격 당할때 MonsterRigid 에서 호출할 메서드
-    public virtual void GetMonsterHit(int damage_)
-    {
-        monsterHP -= damage_;
 
-        if (monsterHP <= 0f)
-        {
-            monsterFSM.ChangeState(MonsterStateMachine.State.Die);
-        }
-        else
-        {
-            /* Do Nothing*/
-        }
+        // 애니메이터 파라미터 ID 캐싱
+        isMovingID = Animator.StringToHash("isMoving");
+        isAttackingID = Animator.StringToHash("isAttacking");
+        deadID = Animator.StringToHash("Dead");
     }
 }

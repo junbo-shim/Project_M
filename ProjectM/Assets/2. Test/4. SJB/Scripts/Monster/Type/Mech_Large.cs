@@ -16,13 +16,6 @@ public class Mech_Large : Monster
 
     private void Start()
     {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Spawn);
-        StartCoroutine(SpawnAndStartPatrol());
-    }
-
-    public IEnumerator SpawnAndStartPatrol()
-    {
-        yield return new WaitForSecondsRealtime(1f);
         monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
 }

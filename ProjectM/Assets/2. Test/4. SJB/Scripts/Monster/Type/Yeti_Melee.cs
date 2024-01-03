@@ -9,6 +9,6 @@ public class Yeti_Melee : Monster
 
         monsterSightRange = 14f;
 
-        monsterATKspeed = 2.2f;
+        monsterATKSpeed = 2.2f;
     }
 }

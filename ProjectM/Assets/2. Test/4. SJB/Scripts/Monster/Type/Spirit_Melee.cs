@@ -9,6 +9,6 @@ public class Spirit_Melee : Monster
 
         monsterSightRange = 10f;
 
-        monsterATKspeed = 3f;
+        monsterATKSpeed = 3f;
     }
 }
