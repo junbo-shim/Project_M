@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class ChoiceScripts : MonoBehaviour
 {
     public int id; // 대사 id
@@ -10,11 +12,17 @@ public class ChoiceScripts : MonoBehaviour
     public NPCChildSet npcChildSet;
     public int[] scores; // 전역 변수 선언
     private Button button;
+    private Slider slider;
+    //public int Num => _num;
+    // private int _num;
+    // public System.Collections.Generic.Dictionary<string, BasicQuest> PlayerQuest => QuestMananger.instance.playerQuest;
 
     public void Awake()
     {
+
         
     }
+
     public void OnEnable()
     {
 

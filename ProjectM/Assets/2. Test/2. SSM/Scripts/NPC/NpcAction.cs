@@ -101,9 +101,10 @@ public class NpcAction : NpcActionBase
         {
             if (PlayerUpAction.action.ReadValue<float>() == 1)
             {
+
                 if (ClickBool == false)
                 {
-
+                    MapGameManager.instance.BedChange();
                     BoolChange();
 
                     Talki = npcTack.WordChange(Talki);

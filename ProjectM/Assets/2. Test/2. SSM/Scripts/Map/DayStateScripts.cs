@@ -19,25 +19,45 @@ public class DayStateScripts : MonoBehaviour
     
     IEnumerator DayRota()
     {
+        var mapGameManager = MapGameManager.instance;
+        float XRotate;
+        Quaternion objRotate;
+        Vector3 diagonal = new Vector3(1, 0, 0);
+  
         while (true)
         {
-          
-            Vector3 diagonal = new Vector3(1, 0, 0);
+            if(mapGameManager.BedAct)
+            {
+
+                dayChk = false;
+                mapGameManager.BedChange();       
+                transform.rotation = mapGameManager.LightRotate(transform.rotation.eulerAngles);
+                
+        
+            }
+            else
+            {
+             
+                transform.Rotate(diagonal * rotationSpeed * Time.deltaTime);
+            }
+            
             //오브젝트 회전
-            transform.Rotate(diagonal * rotationSpeed * Time.deltaTime);
+         
 
             //각도에 따라 값 변경
-            Quaternion objRotate = transform.rotation;
-            float XRotate = Mathf.Abs(objRotate.x);
+            objRotate = transform.rotation;
+
+            XRotate = Mathf.Abs(objRotate.x);
             if (XRotate > 0.985f && !dayChk || XRotate < 0.1f && !dayChk)
             {
                 dayChk = true;
                 night = !night;
                 stateChk = true;
-                MapGameManager.instance.DayStateChange(DayState.SUNSET);
+                mapGameManager.DayStateChange(DayState.SUNSET);
             }
             else if (XRotate < 0.985f && dayChk || XRotate > 0.1f && dayChk)
             {
+             
                 if (XRotate > 0.5f && XRotate < 0.6f)
                 {
                     dayChk = false;
@@ -47,7 +67,7 @@ public class DayStateScripts : MonoBehaviour
                 {
                     stateChk = false;
                     DayState dayState = night ? DayState.NIGHT : DayState.MORNING;
-                    MapGameManager.instance.DayStateChange(dayState);
+                    mapGameManager.DayStateChange(dayState);
                 }
 
             }
@@ -56,5 +76,7 @@ public class DayStateScripts : MonoBehaviour
         }
        
     }
+
+
   
 }
