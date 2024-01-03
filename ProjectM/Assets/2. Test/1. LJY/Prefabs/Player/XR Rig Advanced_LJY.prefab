@@ -99360,7 +99360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControllerType: 0
-  MovementSpeed: 1.75
+  MovementSpeed: 4
   MovementForce: 500
   MaxHorizontalVelocity: 5
   MaxVerticalVelocity: 10
