@@ -46,7 +46,7 @@ public class NPCHitScripts : MonoBehaviour
     }
     public void GrapChange()// isGrap 의 false true 전환
     {
-        Debug.Log("s");
+     
         isGrap = isGrap == false ? true : false; // isGrap 의 false true 전환
         if (!isGrap)
         {
@@ -75,7 +75,6 @@ public class NPCHitScripts : MonoBehaviour
     {
         if (!isGround || isGrap)
         {
-            Debug.Log("dddddd");
             Invoke("ragdollOff", 5f);
             return;
         }

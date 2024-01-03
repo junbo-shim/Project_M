@@ -268,7 +268,7 @@ public class NPCTack : MonoBehaviour
        
        
 
-        Debug.Log(prerequisiteQuest);
+     
         if (i == -1)
         {
    
