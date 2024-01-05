@@ -33,9 +33,9 @@ public class MonsterRigid : MonoBehaviour
         }
     }
 
-    private void GetItemFromClientDB() 
+    private void GetItemFromClientDB()
     {
-        GameObject testItem = Instantiate(ItemDataBase.Instance.fieldItemPrefab, 
+        GameObject testItem = Instantiate(ItemDataBase.Instance.fieldItemPrefab,
             transform.parent.position, Quaternion.identity);
 
         testItem.GetComponent<FieldItem>().SetItem(ItemDataBase.Instance.itemDB[Random.Range(0, 13)]);

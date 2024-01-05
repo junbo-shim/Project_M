@@ -92,6 +92,8 @@ public class Inventory : MonoBehaviour
             if (AddItem(fIeldItem.GetItem()))
             {
 
+                Debug.Log("준보형 이거 이상해");
+
                 skill.CreafringSkill(fIeldItem.item.itemName);
 
                 creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
