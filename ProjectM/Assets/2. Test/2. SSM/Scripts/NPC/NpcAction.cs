@@ -77,7 +77,7 @@ public class NpcAction : NpcActionBase
 
                                     if (ClickBool == false)
                                     {
-                                        Debug.Log("들어옴");
+                                      
                                         BoolChange();
                                         saveNpc.TalkChange();
                                     }

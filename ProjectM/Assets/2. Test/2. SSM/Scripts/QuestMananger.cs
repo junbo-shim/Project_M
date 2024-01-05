@@ -52,8 +52,8 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                 playerQuest.Add(str, basicQuest);
                 playerQuest[str].Start(); // 상태를 퀘스트 수락상태로 변경
             }
-            Debug.Log(playerQuest[str].QuestNameKey);
-            Debug.Log(playerQuest[str].State);
+           // Debug.Log(playerQuest[str].QuestNameKey);
+           // Debug.Log(playerQuest[str].State);
         }
        // Debug.Log(playerQuest.First().Value.QuestProgressDialogue);
     }
