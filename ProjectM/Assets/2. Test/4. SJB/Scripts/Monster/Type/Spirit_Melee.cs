@@ -4,11 +4,5 @@ public class Spirit_Melee : Monster
     {
         thisMonsterType = MonsterType.Spirit_Melee;
         InitMonster(thisMonsterType);
-        debuffState = DebuffState.Nothing;
-        monsterPatrolRange = 8f;
-
-        monsterSightRange = 10f;
-
-        monsterATKSpeed = 3f;
     }
 }

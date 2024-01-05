@@ -8,7 +8,7 @@ public class MonsterData
     public virtual float MonsterMoveSpeed { get; protected set; }
     public virtual int MonsterHP { get; protected set; }
     public virtual int MonsterDamage { get; protected set; }
-    public virtual int MonsterRunSpeed { get; protected set; }
+    public virtual float MonsterRunSpeed { get; protected set; }
 
 
     // 보스 몬스터

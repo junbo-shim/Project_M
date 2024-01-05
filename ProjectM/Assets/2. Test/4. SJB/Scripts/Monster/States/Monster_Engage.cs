@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Monster_Engage : MonsterState
@@ -16,7 +17,6 @@ public class Monster_Engage : MonsterState
     private WaitForSeconds waitTime;
     private int waitTimer;
 
-    private WaitForSeconds atkAnimatorTime;
 
 
 
@@ -61,8 +61,6 @@ public class Monster_Engage : MonsterState
         // 교전 상대 놓칠 시 기다릴 타이머
         waitTime = new WaitForSeconds(1f);
         waitTimer = 5;
-        // 공격 애니메이션 재생길이
-        atkAnimatorTime = new WaitForSeconds(monsterComponent.monsterATKSpeed);
     }
     #endregion
 
@@ -81,17 +79,7 @@ public class Monster_Engage : MonsterState
         Debug.LogWarning(radius);
         atkRange = monsterComponent.monsterData.MonsterAttackRange;
 
-        switch (type_)
-        {
-            case 1:
-                break;
-            case 2:
-                if (monsterComponent.sonarTarget != null)
-                {
-                    target = monsterComponent.sonarTarget;
-                }
-                break;
-        }
+        target = monsterComponent.target;
     }
     #endregion
 
@@ -100,12 +88,14 @@ public class Monster_Engage : MonsterState
     // Engage 상태일 때 실행할 행동
     private IEnumerator DoEngage(GameObject monster_, MonsterStateMachine msm_)
     {
+        if (Vector3.Distance(target.transform.position, monster_.transform.position) > monsterComponent.monsterSightRange)
+        {
+            target = null;
+        }
+
         // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
         while (msm_.currentState == MonsterStateMachine.State.Engage)
         {
-            // 목표를 탐색하고 target 변수에 할당한다
-            CheckTarget(monster_);
-
             // 타겟이 없다면
             if (target == null) 
             {
@@ -186,8 +176,8 @@ public class Monster_Engage : MonsterState
         {
             monsterAni.SetBool(monsterComponent.isAttackingID, true);
 
-            // 애니메이션을 위한 대기 시간
-            yield return atkAnimatorTime;
+            // 애니메이션이 모두 끝난 후까지 대기
+            yield return new WaitUntil(() => monsterAni.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
 
             // 공격을 마치면 타겟 변수를 초기화한다 (플레이어가 투명이나 이동마법으로 도망칠 수 있음)
             target = null;
@@ -270,7 +260,7 @@ public class Monster_Engage : MonsterState
         // 밤 몬스터일 경우 sonarTarget 변수 초기화
         if (monsterComponent.monsterData.MonsterType == 2) 
         {
-            monsterComponent.sonarTarget = null;
+            monsterComponent.target = null;
         }
 
         monsterControl = default;

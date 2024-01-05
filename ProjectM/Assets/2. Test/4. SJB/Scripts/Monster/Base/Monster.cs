@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -10,9 +11,8 @@ public class Monster : MonoBehaviour
         Mech_Large,
         Orc_Melee,
         Spirit_Range,
-        Orc_Large,
-        Yeti_Melee,
-        Yeti_Large,
+        Yeti_Melee_Big,
+        Yeti_Melee_Small,
         Spirit_Melee,
 
         YetiPrince_Boss = 801,
@@ -25,7 +25,7 @@ public class Monster : MonoBehaviour
         Nothing = 499,
         Toxic,
         Slow,
-        Freeze,
+        Frozen,
         Bind
     }
 
@@ -41,25 +41,32 @@ public class Monster : MonoBehaviour
     public GameObject monsterSight;
     // 몬스터 Sonar (밤 몬스터)
     public GameObject monsterSonar;
-    // 몬스터 Target (sonar 로 감지한 Target, 밤 몬스터)
-    public GameObject sonarTarget;
+    // 몬스터 Target
+    public GameObject target;
     // 몬스터 HP 게이지
-    public GameObject hpGaugeUI;
+    public MonsterHPGauge hpGaugeUI;
     // 몬스터 UI (밤 몬스터)
     public GameObject detectUI;
 
+    // 몬스터 데이터 타입을 분류해서 가져올 enum
     public MonsterType thisMonsterType;
-    public DebuffState debuffState;
+    public int toxicCount;
+    public int slowCount;
+    public int frozenCount;
+    public int bindCount;
 
     // 몬스터 HP (외부에서 접근가능하게끔 public 으로 열어둠)
     public int monsterHP;
     // 몬스터 이동속도 (외부에서 접근가능하게끔 public 으로 열어둠)
     public float monsterMoveSpeed;
     // 몬스터 정찰범위
+    [SerializeField]
     public float monsterPatrolRange;
     // 몬스터 시야범위
+    [SerializeField]
     public float monsterSightRange;
     // 몬스터 청각범위
+    [SerializeField]
     public float monsterSonarRange;
 
     // 몬스터 애니메이터 파라미터 ID : isMoving
@@ -70,9 +77,8 @@ public class Monster : MonoBehaviour
     public int deadID;
 
     // 몬스터 공격속도, 애니메이션 길이 (애니메이션과 싱크 맞출 속도)
+    [SerializeField]
     public float monsterATKSpeed;
-    // 몬스터 죽는속도, 애니메이션 길이 (애니메이션과 싱크 맞출 속도)
-    public float monsterDeathSpeed;
 
 
 
@@ -81,11 +87,23 @@ public class Monster : MonoBehaviour
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
+        toxicCount = default;
+        slowCount = default;
+        frozenCount = default;
+        bindCount = default;
+
         monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
+        toxicCount = default;
+        slowCount = default;
+        frozenCount = default;
+        bindCount = default;
+
+        // Die 상태 이후 작아진 크기 돌려놓기
+        transform.localScale = Vector3.one;
         monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
     }
 
@@ -94,7 +112,6 @@ public class Monster : MonoBehaviour
     protected virtual void InitMonster(MonsterType inputType_)
     {
         monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
-        debuffState = DebuffState.Nothing;
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;
 

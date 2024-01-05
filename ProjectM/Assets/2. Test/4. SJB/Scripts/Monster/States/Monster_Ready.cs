@@ -23,7 +23,6 @@ public class Monster_Ready : MonsterState
     private void ResetHPSpeed(GameObject monster_) 
     {
         monsterComponent = monster_.GetComponent<Monster>();
-        monsterComponent.debuffState = Monster.DebuffState.Nothing;
         monsterComponent.monsterHP = monsterComponent.monsterData.MonsterHP;
         monsterComponent.monsterMoveSpeed = monsterComponent.monsterData.MonsterMoveSpeed;
     }

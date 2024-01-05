@@ -9,7 +9,6 @@ public class Monster_Patrol : MonsterState
     private Vector3 patrolCenterPoint;
     private Vector3 destination;
     private float range;
-    private float speed;
     private float gravity;
 
     private float minWaitTime;
@@ -60,11 +59,10 @@ public class Monster_Patrol : MonsterState
     {
         // 몬스터 캐릭터 컨트롤러
         monsterControl = monster_.GetComponent<CharacterController>();
+        // 몬스터 초기화
         monsterComponent = monster_.GetComponent<Monster>();
         // 몬스터 애니메이터
         monsterAni = monster_.transform.Find("MonsterRigid").GetComponent<Animator>();
-        // Patrol 속도
-        speed = monsterComponent.monsterMoveSpeed;
         // Patrol 범위
         range = monsterComponent.monsterPatrolRange;
         // 중력 값
@@ -196,7 +194,7 @@ public class Monster_Patrol : MonsterState
                 new Vector3(destination.x - monster_.transform.position.x,
                 gravity, destination.z - monster_.transform.position.z).normalized;
 
-            monsterControl.Move(tempMove * speed * Time.deltaTime);
+            monsterControl.Move(tempMove * monsterComponent.monsterMoveSpeed * Time.deltaTime);
 
             monsterAni.SetBool(monsterComponent.isMovingID, true);
         }
@@ -224,7 +222,6 @@ public class Monster_Patrol : MonsterState
         patrolCenterPoint = default;
         destination = default;
         range = default;
-        speed = default;
         minWaitTime = default;
         maxWaitTime = default;
     }

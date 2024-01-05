@@ -7,14 +7,5 @@ public class Spirit_Range : Monster
     {
         thisMonsterType = MonsterType.Spirit_Range;
         InitMonster(thisMonsterType);
-        debuffState = DebuffState.Nothing;
-        monsterPatrolRange = 6f;
-
-        monsterSightRange = 12f;
-    }
-
-    private void OnEnable()
-    {
-        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
 }

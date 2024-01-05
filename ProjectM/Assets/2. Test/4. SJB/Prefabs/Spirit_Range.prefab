@@ -21524,9 +21524,14 @@ MonoBehaviour:
   debuffState: 0
   monsterHP: 0
   monsterMoveSpeed: 0
-  monsterPatrolRange: 0
-  monsterSightRange: 0
+  monsterPatrolRange: 6
+  monsterSightRange: 12
   monsterSonarRange: 0
+  isMovingID: 0
+  isAttackingID: 0
+  deadID: 0
+  monsterATKSpeed: 0
+  monsterDeathSpeed: 0
 --- !u!1 &7839770941632400038
 GameObject:
   m_ObjectHideFlags: 0

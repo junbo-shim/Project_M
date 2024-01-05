@@ -104,7 +104,7 @@ public class Monster_Detect : MonsterState
         {
             // 타겟 변수는 null 이다
             target = null;
-            monster_.GetComponent<Monster>().sonarTarget = null;
+            monster_.GetComponent<Monster>().target = null;
             Debug.LogWarning("타겟 없음");
         }
         // 만약 검출된 것이 있다면
@@ -116,8 +116,8 @@ public class Monster_Detect : MonsterState
                 // 프로토타입
                 if (collider.GetComponent<Rigidbody>() == true)
                 {
-                    monster_.GetComponent<Monster>().sonarTarget = collider.transform.parent.gameObject;
-                    target = monster_.GetComponent<Monster>().sonarTarget;
+                    monster_.GetComponent<Monster>().target = collider.transform.parent.gameObject;
+                    target = monster_.GetComponent<Monster>().target;
                     Debug.LogWarning("타겟 찾음");
                 }
             }
