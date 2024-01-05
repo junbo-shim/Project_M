@@ -32,11 +32,12 @@ public class NPCTack : MonoBehaviour
     private NPCChildSet npcChildSet; // 저장 Obj를 캐싱해서 가지고있는 클레스;
     private List<NPCSelectTalkData> dialogueData; // npc 대사,선택지 저장용
     private NpcAction npcAction; //npcAction 스크립터
-     
-
+    private List<int> mbtis;
+    private int[] scores; // 전역 변수 선언
 
     public void Start()
     {
+        mbtis = new List<int>();
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
         NpcWord();
@@ -103,9 +104,15 @@ public class NPCTack : MonoBehaviour
         else if (npcWoadDict.ContainsKey(fruits[0] + "_" + "99")) // 마지막 대화 존재 여부 체크
         {
             if (dictProgressSb.Equals(fruits[0] + "_" + "99")) // 마지막 대화 체크
-            {            
-                QuestInput(); 
-
+            {
+                for (int i = 0; i < mbtis.Count-1; i++)
+                {
+           
+                    GetMBTIDatas(mbtis[i]);
+                }
+               
+                QuestInput();
+                mbtis.Clear();
                 if (npcWoadDict.ContainsKey((Convert.ToInt32(fruits[0]) + 1).ToString() + "_" + "1")) // 다음 퀘스트 대화 여부 체크
                 {
                     dialogueLV++;
@@ -167,9 +174,63 @@ public class NPCTack : MonoBehaviour
         {
             npcTextMeshPro.text = str;
         }
-        
+        mbtis.Add(mbtiID);
         DictLastNumberAdd(); 
     }
+
+    public void GetMBTIDatas(int mbti_ID) // mbti 에 점수 추가
+    {
+      
+        var mbtiDatas = CSVRead.instance.MBTIDatas[mbti_ID.ToString()];
+        var playerMBTI = MBTIScripts.Instance;
+        scores = new[] { mbtiDatas.MBTiScore_I, mbtiDatas.MBTiScore_N,
+                         mbtiDatas.MBTiScore_S, mbtiDatas.MBTiScore_J,
+                         mbtiDatas.MBTiScore_P, mbtiDatas.MBTiScore_E,
+                         mbtiDatas.MBTiScore_T, mbtiDatas.MBTiScore_F };
+
+        for (int i = 0; i < scores.Length; i++)
+        {
+
+            if (scores[i] > 0)
+            {
+
+                switch (i)
+                {
+                    case 0:
+                        playerMBTI.MBTI_I_Add(scores[i]);
+                        break;
+                    case 1:
+                        playerMBTI.MBTI_N_Add(scores[i]);
+                        break;
+                    case 2:
+                        playerMBTI.MBTI_S_Add(scores[i]);
+                        break;
+                    case 3:
+                        playerMBTI.MBTI_J_Add(scores[i]);
+                        break;
+                    case 4:
+                        playerMBTI.MBTI_P_Add(scores[i]);
+                        break;
+                    case 5:
+                        playerMBTI.MBTI_E_Add(scores[i]);
+                        break;
+                    case 6:
+                        playerMBTI.MBTI_T_Add(scores[i]);
+                        break;
+                    case 7:
+                        playerMBTI.MBTI_F_Add(scores[i]);
+                        break;
+                    default:
+                        Debug.LogError(i + "MBTI Value Error");
+                        break;
+                }
+
+
+            }
+        }
+    }
+
+
     //ss
     #region NPC 선택지
     private void SetChoiceText() // npc 선택지 세팅
@@ -431,13 +492,14 @@ public class NPCTack : MonoBehaviour
         }
         if (!NPCEnd)
         {
+          
             fruits = dictProgressSb.ToString().Split("_"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
             textLV = 0;
             dictProgressSb.Clear();
             // npcAction.TalkiZero();// 대화 처음으로
             dictProgressSb.Append(fruits[0] + "_1"); // 다음 대화로
         }
-
+        mbtis.Clear();
 
 
 

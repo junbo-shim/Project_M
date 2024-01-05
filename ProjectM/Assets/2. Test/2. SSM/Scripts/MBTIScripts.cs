@@ -88,7 +88,6 @@ public class MBTIScripts : MonoBehaviour
     {
        
         mbtiScore_E += value;
-      
     }
     public void MBTI_I_Add(int value)
     {
