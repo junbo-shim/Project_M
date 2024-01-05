@@ -15,7 +15,7 @@ public class NPCHitScripts : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         npcObj = ReParntOBJ(gameObject);
         animator = npcObj.GetComponent<Animator>();
-        npcAction = npcObj.transform.GetChild(3).GetComponent<NpcAction>();
+        npcAction = npcObj.transform.Find("NpcAction").GetComponent<NpcAction>();
 
     }
 
@@ -50,7 +50,7 @@ public class NPCHitScripts : MonoBehaviour
         isGrap = isGrap == false ? true : false; // isGrap 의 false true 전환
         if (!isGrap)
         {
-
+            isGround = true;
             Invoke("ragdollOff", 5f);
         }
         else

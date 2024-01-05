@@ -7,9 +7,13 @@ public class NpcAction : NpcActionBase
     private float playerDis = 0;// 플레이어와 npc거리 저장용
     private bool retalkChk; // 다시 말걸경우 체크
     [SerializeField] private float NPCTalkDis; // 플레이어와 npc 거리
+    [SerializeField] private GameObject TalkCanvas; // 대화 캔버스
+    [SerializeField] private GameObject ChoicsObj; // 선택지 
+    [SerializeField] private GameObject icon; // npc아이콘;
     public int Talki = 0; // 대화가 몇번째인지 (50글자씩 자른대화)
-
-    public bool ragdoll = false;
+    [SerializeField] private bool isSave; // save npc 여부
+    private SaveNpc saveNpc; 
+    public bool ragdoll = false; // 레그돌 상태 여부
 
     [Tooltip("Unity Input Action used to move the player up")]
     public InputActionReference PlayerUpAction;
@@ -17,9 +21,8 @@ public class NpcAction : NpcActionBase
 
     public void Start()
     {
-       
-
-        retalkChk = false;
+        saveNpc = GetComponent<SaveNpc>();
+         retalkChk = false;
         npcTack = GetComponent<NPCTack>();
 
     }
@@ -40,26 +43,68 @@ public class NpcAction : NpcActionBase
 
                 if (playerDis < NPCTalkDis)
                 {
-                    if (Talki != -2)
+                    if(!isSave)
                     {
-                        npcTack.IconOn(); // 아이콘표시
-                    }
-                    if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
-                    {
-                        //animator.enabled = false;
-
-                        if (hitInfo.collider.CompareTag("Player"))
+                        if (Talki != -2)
                         {
-
-                            NPCTalkStart();// 대화로직
+                            npcTack.IconOn(); // 아이콘표시
                         }
+                        if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
+                        {
+                            //animator.enabled = false;
+
+                            if (hitInfo.collider.CompareTag("Player"))
+                            {
+
+                                NPCTalkStart();// 대화로직
+                            }
 
 
+                        }
+                    }else if(isSave)
+                    {
+                        if (!icon.activeSelf)
+                        {
+                            icon.SetActive(true);
+                        }
+                      
+                        if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
+                        {
+                            if (hitInfo.collider.CompareTag("Player"))
+                            {
+                                if (PlayerUpAction.action.ReadValue<float>() == 1)
+                                {
+
+                                    if (ClickBool == false)
+                                    {
+                                        Debug.Log("들어옴");
+                                        BoolChange();
+                                        saveNpc.TalkChange();
+                                    }
+                                }
+                            }
+                        }
                     }
+
                 }
                 else if (playerDis > NPCTalkDis) //거리 멀어지면 종료
                 {
-                    npcTack.TalkExit();//대화창off
+                    if (!isSave)
+                    {
+                        npcTack.TalkExit();//대화창off
+                    }
+                    else
+                    {
+                        if(TalkCanvas.activeSelf)
+                        {
+                            TalkCanvas.SetActive(false);
+                        }                     
+                        if(!ChoicsObj.activeSelf)
+                        {
+                            ChoicsObj.SetActive(true);
+                        }
+                    }
+                   
 
                 }
                 NpcLook(other.gameObject);//플레이어 처다보기
@@ -104,7 +149,7 @@ public class NpcAction : NpcActionBase
 
                 if (ClickBool == false)
                 {
-                    MapGameManager.instance.BedChange();
+                   
                     BoolChange();
 
                     Talki = npcTack.WordChange(Talki);
@@ -157,10 +202,22 @@ public class NpcAction : NpcActionBase
     #region npc처다보기 종료 함수
     private void NpcLookClear()
     {
-        Talki = 0; // npc 워드 초기화
-        npcTack.ExitTalk();
+        if (!isSave)
+        {
+            Talki = 0; // npc 워드 초기화
+            npcTack.ExitTalk();
 
-        npcTack.TalkExit();//대화창off
+            npcTack.TalkExit();//대화창off
+        }
+        if(icon != null)
+        {
+            if(icon.activeSelf)
+            {
+                icon.SetActive(false);
+                saveNpc.ExitTalk();
+            }
+          
+        }
     }
     #endregion
 }
