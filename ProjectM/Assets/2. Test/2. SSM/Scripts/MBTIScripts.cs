@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class MBTIScripts : MonoBehaviour
@@ -19,7 +20,7 @@ public class MBTIScripts : MonoBehaviour
     public int maxValue;
     public string minKey;
     public int minValue;
-
+    public StringBuilder finalMBTI;
     public Dictionary<string, int> MBTiScore_;
     public static MBTIScripts Instance
     {
@@ -123,5 +124,41 @@ public class MBTIScripts : MonoBehaviour
     {
         mbtiScore_P += value;
         
+    }
+    public string FinalMBTIDerive()
+    {
+        if(mbtiScore_E > mbtiScore_I)
+        {
+            finalMBTI.Append("E");
+        }
+        else
+        {
+            finalMBTI.Append("I");
+        }
+        if (mbtiScore_S > mbtiScore_N)
+        {
+            finalMBTI.Append("S");
+        }
+        else
+        {
+            finalMBTI.Append("N");
+        }
+        if (mbtiScore_F > mbtiScore_T)
+        {
+            finalMBTI.Append("F");
+        }
+        else
+        {
+            finalMBTI.Append("T");
+        }
+        if (mbtiScore_P > mbtiScore_J)
+        {
+            finalMBTI.Append("P");
+        }
+        else
+        {
+            finalMBTI.Append("J");
+        }
+        return finalMBTI.ToString();
     }
 }
