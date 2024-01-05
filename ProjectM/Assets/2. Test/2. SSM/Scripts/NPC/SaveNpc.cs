@@ -66,16 +66,16 @@ public class SaveNpc : MonoBehaviour
 
     private void MBTIMaxKeySearch()
     {
-        var mbtiScripts = MBTIScripts.Instance;
+       
         var MbtTitle = CSVRead.instance;
 
-        maxKey = mbtiScripts.MaxMbti();
-        maxValue = mbtiScripts.MBTiScore_[maxKey];
-        minKey = mbtiScripts.minKey;
-        minValue = mbtiScripts.minValue;
+        maxKey = MBTIScripts.Instance.MaxMbti();
+        maxValue = MBTIScripts.Instance.MBTiScore_[maxKey];
+        minKey = MBTIScripts.Instance.minKey;
+        minValue = MBTIScripts.Instance.minValue;
 
         int Lv = 0;
-
+        Debug.Log(maxKey);
         if(maxValue + minValue < 7)
         {
             Lv = 0;

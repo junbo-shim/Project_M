@@ -148,7 +148,7 @@ public class NPCTack : MonoBehaviour
         }
        
     } 
-    public void ChoiseClick(int number, string str )
+    public void ChoiseClick(int number, string str ,int mbtiID)
     {
         for (int i = 0; i <= 3; i++)
         {
@@ -167,8 +167,8 @@ public class NPCTack : MonoBehaviour
         {
             npcTextMeshPro.text = str;
         }
-
-        DictLastNumberAdd(); ;
+        
+        DictLastNumberAdd(); 
     }
     //ss
     #region NPC 선택지

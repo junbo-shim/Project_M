@@ -6,14 +6,14 @@ public class MBTIScripts : MonoBehaviour
 {
     private static MBTIScripts _instance;
 
-    public int mbtiScore_E =0;
-    public int mbtiScore_I = 0;
-    public int mbtiScore_S = 0;
-    public int mbtiScore_N = 0;
-    public int mbtiScore_F = 0;
-    public int mbtiScore_T = 0;
-    public int mbtiScore_J = 0;
-    public int mbtiScore_P = 0;
+    public int mbtiScore_E;
+    public int mbtiScore_I;
+    public int mbtiScore_S;
+    public int mbtiScore_N;
+    public int mbtiScore_F;
+    public int mbtiScore_T;
+    public int mbtiScore_J;
+    public int mbtiScore_P;
 
     public string maxKey;
     public int maxValue;
@@ -27,19 +27,23 @@ public class MBTIScripts : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new MBTIScripts();
+                _instance = new GameObject("MBTIScripts").AddComponent<MBTIScripts>();
+                DontDestroyOnLoad(_instance.gameObject);
             }
 
             return _instance;
         }
     }
+
     public void Awake()
     {
         
-        if (this != Instance)
-        {
-            Destroy(this);
-        }
+         MBTiScore_ = new Dictionary<string, int>();
+    }
+    void Start()
+    {
+        maxValue = int.MinValue;
+        minValue = int.MaxValue;
     }
     public string MaxMbti() // 저장시 최대값 뽑기
     {
@@ -54,9 +58,12 @@ public class MBTIScripts : MonoBehaviour
             { "J", mbtiScore_J },
             { "P", mbtiScore_P }
         };
-
-        foreach(var dic in MBTiScore_)
+      
+   
+        
+        foreach (var dic in MBTiScore_)
         {
+ 
             if(maxValue < dic.Value)
             {
                 maxKey = dic.Key;
@@ -68,6 +75,7 @@ public class MBTIScripts : MonoBehaviour
                 minValue = dic.Value;
             }
         }
+      
         if (maxValue == 0)
         {
             maxKey = "I";
@@ -78,13 +86,14 @@ public class MBTIScripts : MonoBehaviour
 
     public void MBTI_E_Add(int value)
     {
+       
         mbtiScore_E += value;
-        
+      
     }
     public void MBTI_I_Add(int value)
     {
         mbtiScore_I += value;
-        
+       
     }
     public void MBTI_S_Add(int value)
     {

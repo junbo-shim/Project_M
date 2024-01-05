@@ -11,17 +11,12 @@ public class ChoiceScripts : MonoBehaviour
     public int mbti_ID; // mbti1 값
     public NPCChildSet npcChildSet;
     public int[] scores; // 전역 변수 선언
-    private Button button;
-    private Slider slider;
+
     //public int Num => _num;
     // private int _num;
     // public System.Collections.Generic.Dictionary<string, BasicQuest> PlayerQuest => QuestMananger.instance.playerQuest;
 
-    public void Awake()
-    {
 
-        
-    }
 
     public void OnEnable()
     {
@@ -32,13 +27,13 @@ public class ChoiceScripts : MonoBehaviour
     }
     public void ChoiceClick()
     {
-        npcChildSet.npcAction.ChoiseClick(number, Choice_Text_Answer);
-        GetZeroMBTIDatas();// mbti 에 점수 추가
+        npcChildSet.npcAction.ChoiseClick(number, Choice_Text_Answer ,mbti_ID);
+        GetMBTIDatas();// mbti 에 점수 추가
 
      
     }
 
-    public void GetZeroMBTIDatas() // mbti 에 점수 추가
+    public void GetMBTIDatas() // mbti 에 점수 추가
     {
         if(mbti_ID == -1)
         {
@@ -57,6 +52,7 @@ public class ChoiceScripts : MonoBehaviour
             
             if (scores[i] > 0)
             {
+            
                 switch (i)
                 {
                     case 0:
