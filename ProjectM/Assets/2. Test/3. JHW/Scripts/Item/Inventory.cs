@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -91,6 +90,8 @@ public class Inventory : MonoBehaviour
 
             if (AddItem(fIeldItem.GetItem()))
             {
+
+                Debug.Log("준보형 이거 이상해");
 
                 skill.CreafringSkill(fIeldItem.item.itemName);
 

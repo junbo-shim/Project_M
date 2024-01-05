@@ -84,43 +84,50 @@ MonoBehaviour:
     itemCount: 0
   - itemType: 1
     itemName: SymbolStone_A
-    itemImage: {fileID: 21300000, guid: 3acf9f7ada991904f8fc48d7918de939, type: 3}
-    dropItem: {fileID: 0}
+    itemImage: {fileID: 21300000, guid: 537e8c462e982164fa30f1c71685d57d, type: 3}
+    dropItem: {fileID: 279308442181748017, guid: 5383a7560bb3792469e3c28e8a10091a,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: SymbolStone_B
-    itemImage: {fileID: 21300000, guid: 6cf2673c17b6ac443885de0e6560b482, type: 3}
-    dropItem: {fileID: 0}
+    itemImage: {fileID: 21300000, guid: fe159e3cd69b69f4f83623d8ae77fc71, type: 3}
+    dropItem: {fileID: 279308442181748017, guid: 61fcecbb13383bd44bc0f9cc4f98fc66,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: MedicinalHerb
     itemImage: {fileID: 21300000, guid: ddb239bd89aa9764fb7a9c59891260c7, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 1574824151274537129, guid: 1fea9419ecea9a04fa76a6617c0264bc,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: Steel
     itemImage: {fileID: 21300000, guid: 812df6bea2725ad41b0e08702aaa0bca, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 7032466549439613822, guid: 33bc0ae6bc139ba42bb56c9bd5acff77,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: Wood
     itemImage: {fileID: 21300000, guid: dce4ec69e13558b419481bf50cd8923e, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 1032865248193412020, guid: fde164a28cdbbfa45aa219910ab448c2,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: MagicEssence
     itemImage: {fileID: 21300000, guid: 7dbd9af3c0e51984a9413dad2f2be8bb, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 1280056767771472, guid: e53cd9b7f6ac44f3ebe9af3f0f302b4f, type: 3}
     itemCount: 0
   - itemType: 1
     itemName: ScareCrow
     itemImage: {fileID: 21300000, guid: e7e351e48e1b5b84098b67c5aef8379f, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 8045810702686802794, guid: 6466f21c32f0b664d8f3c4d04a087c49,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: Trap
     itemImage: {fileID: 21300000, guid: b736bd66bddb234468a04b4cdb3805c1, type: 3}
-    dropItem: {fileID: 0}
+    dropItem: {fileID: 7450214475060116183, guid: b27e820fac959b740bd1bb376e4a8b59,
+      type: 3}
     itemCount: 0
   fieldItemPrefab: {fileID: 5842721987353189140, guid: 3d6a5210c961382449250ce32570edcc,
     type: 3}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +7,7 @@ public class AllBook : MonoBehaviour
     //public GameObject[] onOffCanvas;
 
     public InputActionReference inputActionReference;
+    public InputActionReference inputActionReferenceSystemSetting;
 
     //인벤토리 Onoff
     public GameObject inventoryPanel;
@@ -17,17 +16,17 @@ public class AllBook : MonoBehaviour
 
     public GameObject[] uiControl;
 
-    ////스킬창 OnOff
-    //public GameObject skillPanel;
-    //bool activeSkill = false;
 
-
-    ////제작창 OnOff
-    //public GameObject creaftingPanel;
-    //bool activeCreafting = false;
 
     public GameObject onOffCanvas;
     bool activeCanvas = false;
+
+    public GameObject onOffSystemSetting;
+    bool activeSystemSetting = false;
+
+
+    public GameObject helperOnOff;
+
 
 
     public void QuestUI()
@@ -73,11 +72,41 @@ public class AllBook : MonoBehaviour
 
     private void Update()
     {
-        if (inputActionReference.action.ReadValue<float>() > 0.5f)
+        if (activeSystemSetting == false)
         {
-            activeCanvas = !activeCanvas;
-            onOffCanvas.SetActive(activeCanvas);
+
+            if (inputActionReference.action.triggered)
+            {
+                activeCanvas = !activeCanvas;
+                onOffCanvas.SetActive(activeCanvas);
+                Debug.Log(activeCanvas);
+                
+            }
         }
+
+        if (activeCanvas == false)
+        {
+            if (inputActionReferenceSystemSetting.action.triggered)
+            {
+                activeSystemSetting = !activeSystemSetting;
+                onOffSystemSetting.SetActive(activeSystemSetting);
+                Debug.Log(activeSystemSetting);
+
+            }
+        }
+    }
+
+
+
+    public void HelperOn()
+    {
+        helperOnOff.SetActive(true);
+        activeSystemSetting = false;
+    }
+
+    public void HelperOff()
+    {
+        helperOnOff.SetActive(false);
     }
 
 

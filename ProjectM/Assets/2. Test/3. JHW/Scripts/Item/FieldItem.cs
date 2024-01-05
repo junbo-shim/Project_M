@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FieldItem : MonoBehaviour
 {
     public Item item;
-    public SpriteRenderer image;
+    public GameObject itemObject;
 
     public void SetItem(Item _item)
     {
         item.itemName = _item.itemName;
         item.itemImage = _item.itemImage;
         item.itemType = _item.itemType;
+        itemObject = _item.dropItem;
 
-        image.sprite = _item.itemImage;
-
+        Instantiate(itemObject , transform.localPosition , Quaternion.identity, transform);
     }
+
+
+
 
     public Item GetItem()
     {
@@ -26,5 +27,9 @@ public class FieldItem : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+
+
+
 }
 

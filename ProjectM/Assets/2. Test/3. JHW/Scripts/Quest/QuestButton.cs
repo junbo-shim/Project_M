@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +23,8 @@ public class QuestButton : MonoBehaviour
     {
 
         questGoal.text = QuestMananger.instance.playerQuest[questID].QuestExplainKey;
-        questInfo.text = QuestMananger.instance.playerQuest[questID].QuestType;
-        questContents.text = QuestMananger.instance.playerQuest[questID].CompletionCondition_ID;
+        questInfo.text = QuestMananger.instance.playerQuest[questID].QuestNameKey;
+        questContents.text = QuestMananger.instance.playerQuest[questID].Quest_Goal_Key;
     }
 
 }
