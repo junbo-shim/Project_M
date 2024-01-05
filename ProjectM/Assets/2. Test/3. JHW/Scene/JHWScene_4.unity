@@ -19313,6 +19313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e884c4d23164c43804527ee17895b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BedAct: 0
   itemSpObj: {fileID: 1667431235339122488}
   currentState: 0
 --- !u!4 &1257807913
@@ -25700,6 +25701,12 @@ PrefabInstance:
       propertyPath: newRendererCamera
       value: 
       objectReference: {fileID: 153567111}
+    - target: {fileID: 8981628741478325800, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
+        type: 3}
+      propertyPath: inputActionReferenceSystemSetting
+      value: 
+      objectReference: {fileID: -2250174730308268060, guid: e39f4b35a6db18348b41eb0262520e69,
+        type: 3}
     - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
         type: 3}
       propertyPath: m_Pivot.x
@@ -25743,6 +25750,21 @@ PrefabInstance:
     - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
+        type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8981628741478325807, guid: 6dd4647495e8b224fa7d0ae5d5cd8b17,
