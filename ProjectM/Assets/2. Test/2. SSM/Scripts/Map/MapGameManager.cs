@@ -54,7 +54,7 @@ public class MapGameManager : MonoBehaviour
     public void DayStateChange(DayState state) 
     {
         currentState = state;
-        Debug.Log(currentState);
+       
         if (currentState == DayState.NIGHT )
         {
             itemSpObj.SetActive(true);
@@ -71,7 +71,7 @@ public class MapGameManager : MonoBehaviour
     {
    
         float xRotation = vector.x;
-        Debug.Log(xRotation);
+        
         if (currentState == DayState.MORNING)
         {
             xRotation = 160f;

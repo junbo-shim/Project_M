@@ -39,6 +39,7 @@ public class CSVRead : MonoBehaviour
 
     public Dictionary<string, QuestTitleData> QuestTitleDatas; //퀘스트 제목
 
+    public Dictionary<string, MbtTitleData> MbtTitleDatas;// mbti 결과 제목
     #endregion   
     public void Awake()
     {
@@ -56,6 +57,8 @@ public class CSVRead : MonoBehaviour
         CompletionConditionDatas = new Dictionary<string, CompletionConditionData>();
         MBTIDatas = new Dictionary<string, MBTIData>();
         QuestTitleDatas = new Dictionary<string, QuestTitleData>();
+        MbtTitleDatas = new Dictionary<string, MbtTitleData>();
+      //  MbtiText = new Dictionary<string,>
         //
         csvRead();
     
@@ -122,6 +125,16 @@ public class CSVRead : MonoBehaviour
         {
 
             QuestTileDict(data); //npc 퀘스트 딕셔너리에 set
+
+        }
+
+        List<Dictionary<string, object>> MBTITitleCsv = CSVReader.Read("MBTITitleData");
+        // 로그로 출력
+
+        foreach (Dictionary<string, object> data in MBTITitleCsv) //딕셔너리 읽어옴
+        {
+
+            MBTITitle(data); //npc 퀘스트 딕셔너리에 set
 
         }
         //  ListPrint();
@@ -306,5 +319,20 @@ public class CSVRead : MonoBehaviour
         }
         QuestTitleDatas[id].Detail = GetValue<string>(dict, "Detail");
    
+    }
+
+    public void MBTITitle(Dictionary<string,object> dict)
+    {
+        string id = GetValue<int>(dict, "ID").ToString();
+        // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
+        if (!MbtTitleDatas.ContainsKey(id))
+        {
+            MbtTitleDatas[id] = new MbtTitleData();
+        }
+        MbtTitleDatas[id].Id = GetValue<int>(dict, "ID");
+        MbtTitleDatas[id].MBtiStep = GetValue<int>(dict, "MBtiStep");
+        MbtTitleDatas[id].Category1 = GetValue<string>(dict, "Category1");
+        MbtTitleDatas[id].Script = GetValue<string>(dict, "Script");
+
     }
 }
