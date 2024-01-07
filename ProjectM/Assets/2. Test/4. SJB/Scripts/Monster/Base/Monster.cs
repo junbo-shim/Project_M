@@ -50,10 +50,10 @@ public class Monster : MonoBehaviour
 
     // 몬스터 데이터 타입을 분류해서 가져올 enum
     public MonsterType thisMonsterType;
-    public int toxicCount;
-    public int slowCount;
-    public int frozenCount;
-    public int bindCount;
+    public float toxicDuration;
+    public float slowDuration;
+    public float frozenDuration;
+    public float bindDuration;
 
     // 몬스터 HP (외부에서 접근가능하게끔 public 으로 열어둠)
     public int monsterHP;
@@ -87,20 +87,20 @@ public class Monster : MonoBehaviour
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
-        toxicCount = default;
-        slowCount = default;
-        frozenCount = default;
-        bindCount = default;
+        toxicDuration = default;
+        slowDuration = default;
+        frozenDuration = default;
+        bindDuration = default;
 
         monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
-        toxicCount = default;
-        slowCount = default;
-        frozenCount = default;
-        bindCount = default;
+        toxicDuration = default;
+        slowDuration = default;
+        frozenDuration = default;
+        bindDuration = default;
 
         // Die 상태 이후 작아진 크기 돌려놓기
         transform.localScale = Vector3.one;

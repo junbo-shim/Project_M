@@ -76,7 +76,7 @@ public class Monster_Engage : MonsterState
 
         speed = monsterComponent.monsterData.MonsterMoveSpeed;
         radius = monsterComponent.monsterSightRange * 0.5f;
-        Debug.LogWarning(radius);
+        //Debug.LogWarning(radius);
         atkRange = monsterComponent.monsterData.MonsterAttackRange;
 
         target = monsterComponent.target;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class DebuffData
 {
@@ -51,8 +52,8 @@ public class MonsterDebuff : MonoBehaviour
     // 각종 디버프 value
     private int toxicVal;
     private int slowVal;
-    private int frozenVal;
-    private int bindVal;
+    //private int frozenVal;
+    //private int bindVal;
 
 
     // 각종 디버프의 지속시간
@@ -60,6 +61,24 @@ public class MonsterDebuff : MonoBehaviour
     private float slowMaxTime;
     private float frozenMaxTime;
     private float bindMaxTime;
+
+
+    // 각종 디버프 이펙트 풀
+    private ObjectPool toxicPool;
+    private ObjectPool slowPool;
+    private ObjectPool frozenPool;
+
+
+    // 이펙트 회전값
+    private Vector3 slowEffectRot;
+    private Vector3 frozenEffectRot;
+
+    // 빙결 이펙트 일시정지값
+    private float frozenPauseTime = 1.8f;
+    private WaitForSeconds frozenPause;
+    // 빙결 이펙트 다시재생값
+    private float frozenPlayBackTime = 1f;
+    private WaitForSeconds frozenPlayBack;
 
     // 디버프 간격
     private float delayTime = 0.5f;
@@ -71,8 +90,8 @@ public class MonsterDebuff : MonoBehaviour
         // 각종 수치 캐싱
         toxicVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Toxic].Value1;
         slowVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Slow].Value1;
-        frozenVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Frozen].Value1;
-        bindVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Bind].Value1;
+        //frozenVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Frozen].Value1;
+        //bindVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Bind].Value1;
 
         // 디버프 지속시간 설정
         toxicMaxTime = 10f;
@@ -80,7 +99,17 @@ public class MonsterDebuff : MonoBehaviour
         frozenMaxTime = 10f;
         bindMaxTime = 10f;
 
+        // 디버프 이펙트 풀 캐싱
+        toxicPool = GameObject.Find("Pool_Toxic").GetComponent<ObjectPool>();
+        slowPool = GameObject.Find("Pool_Slow").GetComponent<ObjectPool>();
+        frozenPool = GameObject.Find("Pool_Frozen").GetComponent<ObjectPool>();
+
+        slowEffectRot = new Vector3(-74, 0, 0);
+        frozenEffectRot = new Vector3(-90, 0, 0);
+
         repeatTime = new WaitForSeconds(delayTime);
+        frozenPause = new WaitForSeconds(frozenPauseTime);
+        frozenPlayBack = new WaitForSeconds(frozenPlayBackTime);
     }
     
 
@@ -91,19 +120,58 @@ public class MonsterDebuff : MonoBehaviour
         switch (debuffID_)
         {
             case (int)Monster.DebuffState.Toxic:
-                StartCoroutine(ToxicRoutine(monster_));
+
+                // 처음 맞았을 때만 코루틴 실행
+                if (monster_.toxicDuration <= 0) 
+                {
+                    // 지속시간을 더해준다
+                    monster_.toxicDuration += toxicMaxTime;
+                    StartCoroutine(ToxicRoutine(monster_));
+                }
+                else 
+                {
+                    // 지속시간을 더해준다
+                    monster_.toxicDuration += toxicMaxTime;
+                }
                 break;
 
             case (int)Monster.DebuffState.Slow:
-                StartCoroutine(SlowRoutine(monster_));
+
+                if (monster_.slowDuration <= 0) 
+                {
+                    monster_.slowDuration += slowMaxTime;
+                    StartCoroutine(SlowRoutine(monster_));
+                }
+                else 
+                {
+                    monster_.slowDuration += slowMaxTime;
+                }
                 break;
 
             case (int)Monster.DebuffState.Frozen:
-                StartCoroutine(FrozenRoutine(monster_));
+
+                if (monster_.frozenDuration <= 0) 
+                {
+                    monster_.frozenDuration += frozenMaxTime;
+                    StartCoroutine(FrozenRoutine(monster_));
+                }
+                else 
+                {
+                    monster_.frozenDuration += frozenMaxTime;
+                }
                 break;
 
             case (int)Monster.DebuffState.Bind:
-                StartCoroutine(BindRoutine(monster_));
+
+                if (monster_.bindDuration <= 0) 
+                {
+                    monster_.bindDuration += bindMaxTime;
+                    StartCoroutine(BindRoutine(monster_));
+                }
+                else 
+                {
+                    monster_.bindDuration += bindMaxTime;
+                }
                 break;
         }
     }
@@ -113,7 +181,33 @@ public class MonsterDebuff : MonoBehaviour
     #region Toxic 루틴
     private IEnumerator ToxicRoutine(Monster monster_) 
     {
-        yield return repeatTime;
+        // 이펙트 풀에서 이펙트를 가져온다
+        ParticleSystem particle = toxicPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        // 이펙트의 위치를 몬스터 위치로 지정한다
+        particle.GetComponent<DebuffEffectMove>().monster = monster_.monsterControl;
+        // 이펙트 크기 설정
+        particle.transform.localScale = Vector3.one * monster_.monsterControl.height;
+        // 이펙트 실행
+        particle.Play();
+
+        // 디버프 시간 동안 && 몬스터 체력이 0 보다 클 동안만 루프
+        while (monster_.toxicDuration > 0 && monster_.monsterHP > 0)
+        {
+            // 디버프 간격 (0,5초)
+            yield return repeatTime;
+            // 독으로 인한 체력 감소
+            monster_.monsterHP -= (int)(toxicVal * 0.2f);
+            // 체력 체크
+            CheckMonsterHP(monster_);
+            // 지속시간 감소
+            monster_.toxicDuration -= delayTime;
+        }
+        // 루프 끝나고 나갈 때 타이머 초기화
+        monster_.toxicDuration = default;
+        // 이펙트 반납
+        particle.Stop();
+        particle.GetComponent<DebuffEffectMove>().monster = default;
+        toxicPool.ReturnObjToPool(particle.gameObject);
     }
     #endregion
     
@@ -121,51 +215,45 @@ public class MonsterDebuff : MonoBehaviour
     #region Slow 루틴
     private IEnumerator SlowRoutine(Monster monster_) 
     {
-        // 디버프 타이머 생성
-        float debuffTime = default;
-
         // 몬스터 본래 속도 캐싱
         float originalSpeed = GetMonsterSpeedValue(monster_);
+        // 속도 값을 줄인다
+        monster_.monsterMoveSpeed -= slowVal * 0.02f;
+        // 애니메이션 속도도 줄인다
+        monster_.monsterAnimator.speed -= slowVal * 0.01f;
 
         // 이펙트 풀에서 이펙트를 가져온다
+        ParticleSystem particle = slowPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        // 이펙트의 위치를 몬스터 위치로 지정한다
+        particle.GetComponent<DebuffEffectMove>().monster = monster_.monsterControl;
+        // 이펙트 크기 설정 (몬스터 컨트롤러 height)
+        particle.transform.localScale = Vector3.one * monster_.monsterControl.height;
+        // 이펙트 돌리기
+        particle.transform.rotation = Quaternion.Euler(slowEffectRot);
+        // 이펙트 실행
+        particle.Play();
 
-        // 만약 처음 슬로우 걸리는 경우
-        if (monster_.slowCount == 0) 
+        // 디버프 시간 동안 && 몬스터 체력이 0 보다 클 동안만 루프
+        while (monster_.slowDuration > 0 && monster_.monsterHP > 0)
         {
-            // 속도 값을 줄인다
-            monster_.monsterMoveSpeed -= slowVal * 0.02f;
-            // 애니메이션 속도도 줄인다
-            monster_.monsterAnimator.speed -= slowVal * 0.01f;
-            // 이펙트 실행
-        }
-
-        // 슬로우 카운트를 올려준다
-        monster_.slowCount += 1;
-
-        // 본격적인 반복문 : 슬로우 카운트가 0 이상 && 지속시간 동안 상태를 지속
-        while (monster_.slowCount > 0 && debuffTime < slowMaxTime) 
-        {
+            // 디버프 간격 (0,5초)
             yield return repeatTime;
-
             // 중간에 데미지로 인해 몬스터 죽을 경우 체크
             CheckMonsterHP(monster_);
-
-            // 이펙트를 이동시킨다
-
-            // 타이머 증가
-            debuffTime += delayTime;
+            // 타이머 감소
+            monster_.slowDuration -= delayTime;
         }
-        // 반복문 끝난 후에는 슬로우 카운트 감소
-        monster_.slowCount -= 1;
+        // 속도 값 복구
+        monster_.monsterMoveSpeed = originalSpeed;
+        // 애니메이션 속도도 복구
+        monster_.monsterAnimator.speed = 1;
+        // 루프 끝나고 나갈 때 타이머 초기화
+        monster_.slowDuration = default;
 
-        // 만약 슬로우 카운트가 0 이 될 경우 -> 슬로우 상태가 완전히 끝
-        if (monster_.slowCount == 0) 
-        {
-            // 속도 값 복구
-            monster_.monsterMoveSpeed = originalSpeed;
-            // 애니메이션 속도도 복구
-            monster_.monsterAnimator.speed = 1;
-        }
+        // 이펙트 반납
+        particle.Stop();
+        particle.GetComponent<DebuffEffectMove>().monster = default;
+        slowPool.ReturnObjToPool(particle.gameObject);
     }
     #endregion
 
@@ -173,47 +261,59 @@ public class MonsterDebuff : MonoBehaviour
     #region Frozen 루틴
     private IEnumerator FrozenRoutine(Monster monster_)
     {
-        // 디버프 타이머 생성
-        float debuffTime = default;
-
         // 몬스터 본래 속도 캐싱
         float originalSpeed = GetMonsterSpeedValue(monster_);
+        // 속도 값 = 0
+        monster_.monsterMoveSpeed = 0;
+        // 애니메이션 속도 = 0
+        monster_.monsterAnimator.speed = 0;
 
-        // 만약 처음 빙결 걸리는 경우
-        if (monster_.frozenCount == 0)
+        // 이펙트 풀에서 이펙트를 가져온다
+        ParticleSystem particle = frozenPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        // 이펙트의 위치를 몬스터 위치로 지정한다
+        particle.transform.position = monster_.transform.position;
+        // 이펙트 크기 설정 (몬스터 컨트롤러 height 절반)
+        particle.transform.localScale = Vector3.one * monster_.monsterControl.height * 0.5f;
+        // 이펙트 돌리기
+        particle.transform.rotation = Quaternion.Euler(frozenEffectRot);
+        // 이펙트 실행
+        particle.Play();
+
+        // 얼음기둥 솟는 시간까지 대기
+        yield return frozenPause;
+
+        // 이펙트 일시정지
+        particle.Pause();
+        // 지속시간에서 얼음기둥 솟는 대기시간 제외
+        monster_.frozenDuration -= frozenPauseTime;
+
+        // 디버프 시간 동안 && 몬스터 체력이 0 보다 클 동안만 루프
+        while (monster_.frozenDuration > 0 && monster_.monsterHP > 0)
         {
-            // 속도 값 = 0
-            monster_.monsterMoveSpeed = 0;
-            // 애니메이션 속도 = 0
-            monster_.monsterAnimator.speed = 0;
-        }
-
-        // 빙결 카운트를 올려준다
-        monster_.frozenCount += 1;
-
-        // 본격적인 반복문 : 빙결 카운트가 0 이상 && 지속시간 동안 상태를 지속
-        while (monster_.frozenCount > 0 && debuffTime < frozenMaxTime)
-        {
+            // 디버프 간격 (0,5초)
             yield return repeatTime;
-
             // 중간에 데미지로 인해 몬스터 죽을 경우 체크
             CheckMonsterHP(monster_);
-
-            // 타이머 증가
-            debuffTime += delayTime;
+            // 타이머 감소
+            monster_.frozenDuration -= delayTime;
         }
 
-        // 반복문 끝난 후에는 빙결 카운트 감소
-        monster_.frozenCount -= 1;
+        // 이펙트 다시 재생
+        particle.Play();
+        // 이펙트 재생이 완료될 때까지 대기
+        yield return frozenPlayBack;
 
-        // 만약 빙결 카운트가 0 이 될 경우 -> 빙결 상태가 완전히 끝
-        if (monster_.frozenCount == 0)
-        {
-            // 속도 값 복구
-            monster_.monsterMoveSpeed = originalSpeed;
-            // 애니메이션 속도도 복구
-            monster_.monsterAnimator.speed = 1;
-        }
+        // 속도 값 복구
+        monster_.monsterMoveSpeed = originalSpeed;
+        // 애니메이션 속도도 복구
+        monster_.monsterAnimator.speed = 1;
+        // 루프 끝나고 나갈 때 타이머 초기화
+        monster_.frozenDuration = default;
+
+        // 이펙트 반납
+        particle.Stop();
+        particle.GetComponent<DebuffEffectMove>().monster = default;
+        frozenPool.ReturnObjToPool(particle.gameObject);
     }
     #endregion
 
@@ -221,43 +321,26 @@ public class MonsterDebuff : MonoBehaviour
     #region Bind 루틴
     private IEnumerator BindRoutine(Monster monster_)
     {
-        // 디버프 타이머 생성
-        float debuffTime = default;
-
         // 몬스터 본래 속도 캐싱
         float originalSpeed = GetMonsterSpeedValue(monster_);
+        // 속도 값을 줄인다
+        monster_.monsterMoveSpeed = 0;
 
-        // 만약 처음 속박 걸리는 경우
-        if (monster_.bindCount == 0)
+
+        // 디버프 시간 동안 && 몬스터 체력이 0 보다 클 동안만 루프
+        while (monster_.bindDuration > 0 && monster_.monsterHP > 0)
         {
-            // 속도 값을 줄인다
-            monster_.monsterMoveSpeed = 0;
-        }
-
-        // 속박 카운트를 올려준다
-        monster_.bindCount += 1;
-
-        // 본격적인 반복문 : 속박 카운트가 0 이상 && 지속시간 동안 상태를 지속
-        while (monster_.bindCount > 0 && debuffTime < bindMaxTime)
-        {
+            // 디버프 간격 (0,5초)
             yield return repeatTime;
-
             // 중간에 데미지로 인해 몬스터 죽을 경우 체크
             CheckMonsterHP(monster_);
-
-            // 타이머 증가
-            debuffTime += delayTime;
+            // 타이머 감소
+            monster_.bindDuration -= delayTime;
         }
-
-        // 반복문 끝난 후에는 속박 카운트 감소
-        monster_.bindCount -= 1;
-
-        // 만약 속박 카운트가 0 이 될 경우 -> 속박 상태가 완전히 끝
-        if (monster_.bindCount == 0)
-        {
-            // 속도 값 복구
-            monster_.monsterMoveSpeed = originalSpeed;
-        }
+        // 속도 값 복구
+        monster_.monsterMoveSpeed = originalSpeed;
+        // 루프 끝나고 나갈 때 타이머 초기화
+        monster_.bindDuration = default;
     }
     #endregion
 

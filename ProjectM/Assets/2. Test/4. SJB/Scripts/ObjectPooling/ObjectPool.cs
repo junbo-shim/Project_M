@@ -7,8 +7,6 @@ public class ObjectPool : MonoBehaviour
     public GameObject prefab;
     // 오브젝트 풀(스택)
     private Stack<GameObject> thisObjectPool;
-    // 인스펙터에서 확인할 테스트용 리스트
-    public List<GameObject> objPoolTestList;
     // 풀의 크기
     [SerializeField]
     public int poolCount;
@@ -23,7 +21,6 @@ public class ObjectPool : MonoBehaviour
     private void InitPool()
     {
         thisObjectPool = new Stack<GameObject>();
-        objPoolTestList = new List<GameObject>();
 
         // 반복문을 통해 세팅한 크기만큼 풀에 오브젝트를 넣어둠
         for (int i = 0; i < poolCount; i++)
@@ -33,7 +30,6 @@ public class ObjectPool : MonoBehaviour
             GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
             // 풀(스택)에 넣기
             thisObjectPool.Push(obj);
-            objPoolTestList.Add(obj);
             // 오브젝트 꺼두기
             obj.SetActive(false);
         }
@@ -50,7 +46,6 @@ public class ObjectPool : MonoBehaviour
             obj.transform.position = startPoint_.position;
             // 풀에서 제거
             thisObjectPool.Push(obj);
-            objPoolTestList.Add(obj);
             obj.SetActive(true);
 
             return obj;
@@ -62,8 +57,6 @@ public class ObjectPool : MonoBehaviour
             GameObject obj = thisObjectPool.Pop();
             // 포지션 조정
             obj.transform.position = startPoint_.position;
-            // 풀에서 제거
-            objPoolTestList.Remove(obj);
             obj.SetActive(true);
 
             return obj;
@@ -75,7 +68,6 @@ public class ObjectPool : MonoBehaviour
         // 오브젝트 반납
         obj_.transform.SetParent(transform);
         thisObjectPool.Push(obj_);
-        objPoolTestList.Add(obj_);
         obj_.SetActive(false);
     }
 }

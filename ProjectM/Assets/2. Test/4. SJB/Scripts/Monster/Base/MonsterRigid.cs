@@ -18,7 +18,7 @@ public class MonsterRigid : MonoBehaviour
     {
         monsterComponent = monster.GetComponent<Monster>();
         playerRigid = 
-            GameObject.Find("Player_LJY").transform.Find("PlayerController").transform.Find("PlayerRigid").gameObject;
+            GameObject.Find("XR Rig Advanced_LJY").transform.Find("PlayerController").transform.Find("PlayerRigid").gameObject;
     }
 
     private void OnTriggerEnter(Collider other_)
