@@ -13,7 +13,8 @@ public class JumpMagic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
+        Debug.Log(player.name);
     }
 
     private void OnEnable()

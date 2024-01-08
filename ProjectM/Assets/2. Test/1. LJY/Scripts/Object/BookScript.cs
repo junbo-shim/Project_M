@@ -8,7 +8,6 @@ public class BookScript : GrabbableEvents
     private LineRenderer lineRenderer;
     public GameObject magicUi;
     public Transform book;
-    public GameObject closeBook;
 
     public Vector3 target;
 
@@ -55,8 +54,6 @@ public class BookScript : GrabbableEvents
     {
         OnLineRenderer();
         OnMagicUi();
-        book.gameObject.SetActive(true);
-        closeBook.SetActive(false);
         //StartCoroutine(ViewRayZone());
     }
 
@@ -65,18 +62,7 @@ public class BookScript : GrabbableEvents
         base.OnRelease();
         OffMagicUi();
         OffLineRenderer();
-        closeBook.SetActive(true);
-        book.gameObject.SetActive(false);
         //StopCoroutine(ViewRayZone());
-    }
-
-    public override void OnSnapZoneEnter()
-    {
-        base.OnSnapZoneEnter();
-        OffMagicUi();
-        OffLineRenderer();
-        closeBook.SetActive(true);
-        book.gameObject.SetActive(false);
     }
 
     public void OnMagicUi()

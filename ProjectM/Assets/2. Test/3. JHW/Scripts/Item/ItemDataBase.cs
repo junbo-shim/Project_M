@@ -5,7 +5,7 @@ public class ItemDataBase : MonoBehaviour
 {
     public static ItemDataBase Instance;
     // 23.12.20 SJB Editted
-    public GameObject player;
+    public Transform player;
 
 
     private void Awake()
@@ -18,7 +18,6 @@ public class ItemDataBase : MonoBehaviour
 
     [Space(32)]
     public GameObject fieldItemPrefab;
-    public Vector3[] pos;
 
     public void Start()
     {
@@ -31,7 +30,9 @@ public class ItemDataBase : MonoBehaviour
     {
         for (int i = 0; i < 32; i++)
         {
-            GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
+            Vector3 pos = new Vector3(player.position.x + Random.Range(-3, 4), player.position.y, player.position.z + Random.Range(-3, 4));
+
+            GameObject go = Instantiate(fieldItemPrefab, pos, Quaternion.identity);
             go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 13)]);
         }
     }

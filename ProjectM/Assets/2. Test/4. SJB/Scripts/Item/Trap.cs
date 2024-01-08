@@ -37,8 +37,12 @@ public class Trap : MonoBehaviour
         }
     }
 
-    private void CheckTrapTime() 
+    private void CheckTrapTime()
     {
+        if (hitMonster == null) 
+        {
+            return;
+        }
         if (hitMonster.bindDuration <= 0) 
         {
             trapPool.ReturnObjToPool(gameObject);

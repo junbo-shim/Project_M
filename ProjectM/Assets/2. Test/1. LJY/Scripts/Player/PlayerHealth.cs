@@ -21,9 +21,6 @@ public class PlayerHealth : MonoBehaviour
     public GameObject shield;
     private ShieldMagic shieldMagic;
 
-    public GameObject getHitEff;
-    private ParticleSystem hitParticle;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +31,6 @@ public class PlayerHealth : MonoBehaviour
             maxEShield = shieldMagic.enhanceInfo.Value1;
         }
         playerHp = maxPlayerHp;
-        // 피격 이펙트 오브젝트에서 파티클 시스템 받아오기
-        hitParticle = getHitEff.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -50,62 +45,35 @@ public class PlayerHealth : MonoBehaviour
     public void GetHit(float damage)
     {
 
-        if(shield.activeSelf)
+        if(playerHp > 100f)//;(shield.activeSelf)
         {
             // 방어도에서 데미지 감산
             shieldMagic.shieldGauge -= damage;
-            if(shieldMagic.shieldGauge <= 0)
+            if(shieldMagic.isEnhanced == false)
             {
-                shieldMagic.gameObject.SetActive(false);
+                // 바로 줄어들 게이지
+                playerShieldSlider.value = shieldMagic.shieldGauge / maxShield;
+                // 천천히 줄어들 게이지
+                playerShieldImg.DOFillAmount(shieldMagic.shieldGauge / maxShield, 1.0f);
             }
-            hitParticle.Play(); // 피격 이펙트 재생
-            ChangeShieldGauge();// 실드 게이지 변경 함수
+            else
+            {
+                // 바로 줄어들 게이지
+                playerShieldSlider.value = shieldMagic.shieldGauge / maxEShield;
+                // 천천히 줄어들 게이지
+                playerShieldImg.DOFillAmount(shieldMagic.shieldGauge / maxEShield, 1.0f);
+            }
+            
         }
         else
         {
             // 체력에서 데미지 감산
             playerHp -= damage;
-            hitParticle.Play(); // 피격 이펙트 재생
-            ChangeHpGauge();    // 체력 게이지 변경 함수
+            // 바로 줄어들 체력게이지
+            playerHpSlider.value = playerHp / maxPlayerHp;
+            // 천천히 줄어들 체력게이지
+            playerHpImg.DOFillAmount(playerHp / maxPlayerHp, 1.0f);
         }
 
-    }
-
-    public void ChangeHpGauge()
-    {
-        // 바로 줄어들 체력게이지
-        playerHpSlider.value = playerHp / maxPlayerHp;
-        // 천천히 줄어들 체력게이지
-        playerHpImg.DOFillAmount(playerHp / maxPlayerHp, 1.0f);
-    }
-
-    public void ChangeShieldGauge()
-    {
-        if (shieldMagic.isEnhanced == false)
-        {
-            // 바로 줄어들 게이지
-            playerShieldSlider.value = shieldMagic.shieldGauge / maxShield;
-            // 천천히 줄어들 게이지
-            playerShieldImg.DOFillAmount(shieldMagic.shieldGauge / maxShield, 1.0f);
-        }
-        else
-        {
-            // 바로 줄어들 게이지
-            playerShieldSlider.value = shieldMagic.shieldGauge / maxEShield;
-            // 천천히 줄어들 게이지
-            playerShieldImg.DOFillAmount(shieldMagic.shieldGauge / maxEShield, 1.0f);
-        }
-    }
-
-
-
-    // 몬스터에게 피격당할 때 적용할 함수
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer.Equals(LayerMask.NameToLayer("MonsterATK")))
-        {
-            // 몬스터의 데미지 값을 불러와 GetHit에 적용
-            GetHit(other.gameObject.GetComponent<MonsterATK>().damage);
-        }
     }
 }

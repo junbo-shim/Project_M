@@ -7,7 +7,7 @@ public class MagicSpawner : MonoBehaviour
     public GameObject[] MagicObjects;
     public GameObject ReturnMagic(int id)
     {
-        switch (id)
+        switch(id)
         {
             case 1000:  // 파이어볼
                 return MagicObjects[0];
@@ -19,10 +19,6 @@ public class MagicSpawner : MonoBehaviour
                 return MagicObjects[3];
             case 1107: // 힐
                 return MagicObjects[4];
-            case 1106: // 투명화
-                return MagicObjects[5];
-            case 1102: // 실드
-                return MagicObjects[6];
             default:
                 return null;
         }

@@ -118,7 +118,7 @@ public class CSVConverter_JHW : MonoBehaviour
             skillDic.Add(damageSkill.skillName, damageSkill);
             if (damageSkill.skillName[0] != '_')
             {
-                Debug.Log("들어왔다 데미지");
+                //Debug.Log("들어왔다 데미지");
                 patternDic.Add((splitdata[i + 9]).Trim(), damageSkill);
                 tempString = splitdata[i + 9];
             }
@@ -204,7 +204,7 @@ public class CSVConverter_JHW : MonoBehaviour
 
             if (NodamageSkill.skillName[0] != '_')
             {
-                Debug.Log("들어왔다 수민");
+                //Debug.Log("들어왔다 수민");
                 patternDic.Add((splitdata[i + 9]).Trim(), NodamageSkill);
                 tempString = splitdata[i + 9];
             }

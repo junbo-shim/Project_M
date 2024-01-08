@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum DayState
 {
@@ -15,13 +13,20 @@ public class MapGameManager : MonoBehaviour
     private static MapGameManager Instance;
     public bool BedAct = false;
     public GameObject itemSpObj;
+
+
+    //23.01.05 LJY
+    public event Action dayStart;
+    public event Action nightStart;
+
+
+
     public static MapGameManager instance
     {
         get 
         { 
             if (Instance == null)
             {
-
                 GameObject singletonObject = new GameObject("MapGameManager");
                 Instance = singletonObject.AddComponent<MapGameManager>();
             }
@@ -57,14 +62,19 @@ public class MapGameManager : MonoBehaviour
        
         if (currentState == DayState.NIGHT )
         {
+            // 23.01.05 LJY
+            nightStart?.Invoke();   
             itemSpObj.SetActive(true);
-       
-        }else if (currentState == DayState.SUNSET)
+        }
+        else if (currentState == DayState.SUNSET)
         {
             itemSpObj.SetActive(false);
-       
         }
-      
+        // 23.01.05 LJY
+        else if (currentState == DayState.MORNING)
+        {
+            dayStart?.Invoke();
+        }
     }
 
     public Quaternion LightRotate(Vector3 vector)

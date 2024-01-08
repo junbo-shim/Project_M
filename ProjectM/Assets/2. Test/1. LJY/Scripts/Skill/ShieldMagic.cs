@@ -9,7 +9,7 @@ public class ShieldMagic : SkillAction
     public NoDamage enhanceInfo;
     private float duration;
 
-    private void Start()
+    private void Awake()
     {
         if (basicInfo == null)
         {
@@ -22,22 +22,7 @@ public class ShieldMagic : SkillAction
         gameObject.SetActive(false);
     }
     private void OnEnable()
-    {
-        if (basicInfo == null)
-        { return; }
-
-        StartCoroutine(StartDuration());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    // 시간이 모두 지나고 꺼지지 않았을 경우
-    private IEnumerator StartDuration()
-    {
+    {       
         if (isEnhanced == false)
         {
             InputValue(basicInfo);
@@ -46,9 +31,21 @@ public class ShieldMagic : SkillAction
         {
             InputValue(enhanceInfo);
         }
+        StartCoroutine(StartDuration());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    // 시간이 모두 지나고 꺼지지 않았을 경우
+    private IEnumerator StartDuration()
+    {
         yield return new WaitForSeconds(duration);
 
-        if (gameObject.activeSelf)
+        if(gameObject.activeSelf)
         {
             gameObject.SetActive(false);
         }
