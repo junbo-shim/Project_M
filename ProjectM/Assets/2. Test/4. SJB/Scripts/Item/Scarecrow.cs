@@ -6,7 +6,7 @@ public class Scarecrow : MonoBehaviour
 
     private void Awake()
     {
-        scarecrowPool = GameObject.Find("Pool_Scarecrow").GetComponent<ObjectPool>();
+        //scarecrowPool = GameObject.Find("Pool_Scarecrow").GetComponent<ObjectPool>();
     }
 
     private void OnTriggerEnter(Collider other_)
