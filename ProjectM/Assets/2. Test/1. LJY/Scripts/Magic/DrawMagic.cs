@@ -104,8 +104,10 @@ public class DrawMagic : MonoBehaviour
 
     public void OnMouseEnterDot(Magicdot dot_)
     {
+        Debug.Log("Enter 찍힘");
         if (isPressing)
         {
+            Debug.Log("누른상태로 들어감");
             if (lineRenderer.positionCount == 0)
             {
                 lineRenderer.positionCount += 2;
@@ -136,8 +138,10 @@ public class DrawMagic : MonoBehaviour
 
     public void OnMouseDownDot(Magicdot dot_)
     {
+        Debug.Log("Enter 찍힘");
         if (isPressing)
         {
+            Debug.Log("누른상태로 들어감");
             if (lineRenderer.positionCount == 0)
             {
                 lineRenderer.positionCount += 2;
@@ -257,6 +261,8 @@ public class DrawMagic : MonoBehaviour
         {
             if (CSVConverter_JHW.Instance.patternDic[stringPattern] != null)
             {
+                Debug.Log("들어왔다 준보");
+
                 GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
                 magicObject.SetActive(true);
                 magicObject.transform.SetParent(transform.parent);

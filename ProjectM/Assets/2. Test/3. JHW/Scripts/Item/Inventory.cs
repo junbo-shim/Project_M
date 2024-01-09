@@ -103,7 +103,7 @@ public class Inventory : MonoBehaviour
                 creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
                 creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
 
-                Debug.Log(text.Length);
+
                 creaftingUI.UpdateNumberText("FIreBallRecipe", text[0], text[1]);
                 creaftingUI.UpdateNumberText("ProtectRecipe", text[2], text[3]);
                 creaftingUI.UpdateNumberText("IceBallRecipe", text[4], text[5]);
