@@ -2083,7 +2083,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ed7216073ffea3a47bb34301536cd5e4, type: 2}
   m_Controller: {fileID: 9100000, guid: 27f5610f934566c499fcb227687a120a, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -2132,8 +2132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7541395684128808324}
-  - component: {fileID: 7541395684128808325}
-  - component: {fileID: 7541395684128808326}
   - component: {fileID: 7541395684128808327}
   - component: {fileID: 7541395684128808320}
   - component: {fileID: 7541395684128808321}
@@ -2159,56 +2157,6 @@ Transform:
   m_Father: {fileID: 7541395684514745446}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7541395684128808325
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541395684128808322}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7541395684128808326
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541395684128808322}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: f2cacc77976798544b030fd928f50d6b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &7541395684128808327
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2326,11 +2274,14 @@ MonoBehaviour:
   monsterAnimator: {fileID: 7235317278347874371}
   monsterSight: {fileID: 7541395684128808322}
   monsterSonar: {fileID: 0}
-  sonarTarget: {fileID: 0}
+  target: {fileID: 0}
   hpGaugeUI: {fileID: 1038427529459514431}
   detectUI: {fileID: 0}
   thisMonsterType: 0
-  currentDebuff: 0
+  toxicDuration: 0
+  slowDuration: 0
+  frozenDuration: 0
+  bindDuration: 0
   monsterHP: 0
   monsterMoveSpeed: 0
   monsterPatrolRange: 8
@@ -2339,8 +2290,6 @@ MonoBehaviour:
   isMovingID: 0
   isAttackingID: 0
   deadID: 0
-  monsterATKSpeed: 3
-  monsterDeathSpeed: 5
 --- !u!1 &7541395684649845532
 GameObject:
   m_ObjectHideFlags: 0

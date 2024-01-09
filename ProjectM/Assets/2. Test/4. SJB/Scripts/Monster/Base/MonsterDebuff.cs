@@ -85,7 +85,7 @@ public class MonsterDebuff : MonoBehaviour
     private WaitForSeconds repeatTime;
 
 
-    private void Awake()
+    private void Start()
     {
         // 각종 수치 캐싱
         toxicVal = MonsterCSVReader.Instance.MonsterDebuffDic[Monster.DebuffState.Toxic].Value1;
@@ -182,7 +182,7 @@ public class MonsterDebuff : MonoBehaviour
     private IEnumerator ToxicRoutine(Monster monster_) 
     {
         // 이펙트 풀에서 이펙트를 가져온다
-        ParticleSystem particle = toxicPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        ParticleSystem particle = toxicPool.ActiveObjFromPool(monster_.transform.position).GetComponent<ParticleSystem>();
         // 이펙트의 위치를 몬스터 위치로 지정한다
         particle.GetComponent<DebuffEffectMove>().monster = monster_.monsterControl;
         // 이펙트 크기 설정
@@ -223,7 +223,7 @@ public class MonsterDebuff : MonoBehaviour
         monster_.monsterAnimator.speed -= slowVal * 0.01f;
 
         // 이펙트 풀에서 이펙트를 가져온다
-        ParticleSystem particle = slowPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        ParticleSystem particle = slowPool.ActiveObjFromPool(monster_.transform.position).GetComponent<ParticleSystem>();
         // 이펙트의 위치를 몬스터 위치로 지정한다
         particle.GetComponent<DebuffEffectMove>().monster = monster_.monsterControl;
         // 이펙트 크기 설정 (몬스터 컨트롤러 height)
@@ -269,7 +269,7 @@ public class MonsterDebuff : MonoBehaviour
         monster_.monsterAnimator.speed = 0;
 
         // 이펙트 풀에서 이펙트를 가져온다
-        ParticleSystem particle = frozenPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        ParticleSystem particle = frozenPool.ActiveObjFromPool(monster_.transform.position).GetComponent<ParticleSystem>();
         // 이펙트의 위치를 몬스터 위치로 지정한다
         particle.transform.position = monster_.transform.position;
         // 이펙트 크기 설정 (몬스터 컨트롤러 height 절반)

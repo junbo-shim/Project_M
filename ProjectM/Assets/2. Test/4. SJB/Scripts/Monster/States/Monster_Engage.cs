@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Monster_Engage : MonsterState
@@ -94,7 +93,7 @@ public class Monster_Engage : MonsterState
         }
 
         // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
-        while (msm_.currentState == MonsterStateMachine.State.Engage)
+        while (msm_.currentState.Equals(MonsterStateMachine.State.Engage))
         {
             // 타겟이 없다면
             if (target == null) 
@@ -202,7 +201,8 @@ public class Monster_Engage : MonsterState
         }
 
         // 루프를 다 돌아도 타겟이 없다면
-        if (target == null) 
+        // !!! 현재 상태를 체크하지 않으면 문제발생
+        if (target == null && msm_.currentState.Equals(MonsterStateMachine.State.Engage))
         {
             // 상태를 정찰로 변환한다
             msm_.ChangeState(MonsterStateMachine.State.Patrol);

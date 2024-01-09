@@ -46,7 +46,7 @@ public class Monster_Die : MonsterState
         // 몬스터 풀
         monsterPool = monster_.transform.root.GetComponent<ObjectPool>();
         // 죽음 애니메이션 풀
-        dieEffectPool = GameObject.Find("Pool_Effect_Die").GetComponent<ObjectPool>();
+        dieEffectPool = GameObject.Find("Pool_Die").GetComponent<ObjectPool>();
     }
     #endregion
 
@@ -66,10 +66,10 @@ public class Monster_Die : MonsterState
     #endregion
 
     #region 죽고서 이펙트 재생 + 오브젝트 풀로 복귀하는 코루틴
-    private IEnumerator PlayEffect(GameObject monster_) 
+    private IEnumerator PlayEffect(GameObject monster_)
     {
         // 죽음 이펙트를 가져오기
-        dieEffect = dieEffectPool.ActiveObjFromPool(monster_.transform).GetComponent<ParticleSystem>();
+        dieEffect = dieEffectPool.ActiveObjFromPool(monster_.transform.position).GetComponent<ParticleSystem>();
         dieEffect.Play();
 
         // 몬스터 스케일 축소

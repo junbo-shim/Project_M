@@ -3521,8 +3521,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8647714276567397417}
-  - component: {fileID: 8647714276567397420}
-  - component: {fileID: 8647714276567397419}
   - component: {fileID: 8647714276567397418}
   - component: {fileID: 8647714276567397422}
   - component: {fileID: 8647714276567397423}
@@ -3548,56 +3546,6 @@ Transform:
   m_Father: {fileID: 8647714277966966850}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8647714276567397420
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8647714276567397416}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8647714276567397419
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8647714276567397416}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: f2cacc77976798544b030fd928f50d6b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &8647714276567397418
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3813,14 +3761,14 @@ MonoBehaviour:
   monsterAnimator: {fileID: 3995416348637640661}
   monsterSight: {fileID: 8647714276567397416}
   monsterSonar: {fileID: 0}
-  sonarTarget: {fileID: 0}
+  target: {fileID: 0}
   hpGaugeUI: {fileID: 4490905056180306414}
   detectUI: {fileID: 0}
   thisMonsterType: 0
-  toxicCount: 0
-  slowCount: 0
-  frozenCount: 0
-  bindCount: 0
+  toxicDuration: 0
+  slowDuration: 0
+  frozenDuration: 0
+  bindDuration: 0
   monsterHP: 0
   monsterMoveSpeed: 0
   monsterPatrolRange: 10
@@ -3829,7 +3777,6 @@ MonoBehaviour:
   isMovingID: 0
   isAttackingID: 0
   deadID: 0
-  monsterATKSpeed: 2.2
 --- !u!1 &8673533989990561514
 GameObject:
   m_ObjectHideFlags: 0

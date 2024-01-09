@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
@@ -15,15 +14,16 @@ public class Monster : MonoBehaviour
         Yeti_Melee_Small,
         Spirit_Melee,
 
-        YetiPrince_Boss = 801,
-        MechKing_Boss
+        YetiKing_Boss = 801,
+        MechKing_Boss,
+        MechKing_RightArm,
+        MechKing_LeftArm
     }
 
     // Debuff CSV 파일에서 읽어온 데이터를 알맞게 설정할 enum
     public enum DebuffState
     {
-        Nothing = 499,
-        Toxic,
+        Toxic = 500,
         Slow,
         Frozen,
         Bind
@@ -76,31 +76,20 @@ public class Monster : MonoBehaviour
     // 몬스터 애니메이터 파라미터 ID : Dead
     public int deadID;
 
-    // 몬스터 공격속도, 애니메이션 길이 (애니메이션과 싱크 맞출 속도)
-    [SerializeField]
-    public float monsterATKSpeed;
-
-
 
 
 
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
-        toxicDuration = default;
-        slowDuration = default;
-        frozenDuration = default;
-        bindDuration = default;
+        InitDebuffTimer();
 
-        monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
+        monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
     }
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
-        toxicDuration = default;
-        slowDuration = default;
-        frozenDuration = default;
-        bindDuration = default;
+        InitDebuffTimer();
 
         // Die 상태 이후 작아진 크기 돌려놓기
         transform.localScale = Vector3.one;
@@ -111,10 +100,28 @@ public class Monster : MonoBehaviour
     // 몬스터 오브젝트 초기화 메서드
     protected virtual void InitMonster(MonsterType inputType_)
     {
+        // LEGACY: 
         monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;
 
+        CheckAnimatorParameter(inputType_);
+    }
+
+
+    // 몬스터 상태이상 타이머 초기화 메서드
+    protected virtual void InitDebuffTimer() 
+    {
+        toxicDuration = default;
+        slowDuration = default;
+        frozenDuration = default;
+        bindDuration = default;
+    }
+
+
+    // 몬스터 애니메이터 파라미터 할당 메서드
+    protected virtual void CheckAnimatorParameter(MonsterType inputType_) 
+    {
         // 애니메이터 파라미터 ID 캐싱
         isMovingID = Animator.StringToHash("isMoving");
         isAttackingID = Animator.StringToHash("isAttacking");

@@ -44,6 +44,7 @@ public class TestBigMonster : MonoBehaviour
 
     private IEnumerator SpawnAndStartPatrol()
     {
+        Debug.Log("5555");
         yield return new WaitForSecondsRealtime(1f);
         monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }

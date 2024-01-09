@@ -39,7 +39,7 @@ public class Heal : MagicBase
 
         if (playerHealth.playerHp + healValue > playerHealth.maxPlayerHp)
         {
-            playerHealth.playerHp = playerHealth.maxPlayerHp;
+            playerHealth.playerHp = playerHealth.maxPlayerHp;           
             //Debug.Log("풀피");
         }
         else
@@ -47,6 +47,7 @@ public class Heal : MagicBase
             playerHealth.playerHp = playerHealth.playerHp + healValue;
             //Debug.LogFormat("힐하고난 체력 -> {0} ",playerHealth.playerHp);
         }
+        playerHealth.ChangeHpGauge();
         //Transform playerCamTransform = player.GetChild(0);  // 이펙트가 보이는 PC의 카메라 트랜스폼
 
         //// 이펙트 보여주기

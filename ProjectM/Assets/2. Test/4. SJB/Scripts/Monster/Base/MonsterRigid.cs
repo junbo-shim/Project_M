@@ -27,7 +27,7 @@ public class MonsterRigid : MonoBehaviour
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerATK")) 
             && monsterComponent.monsterHP > 0) 
         {
-            // 처음 맞았을 경우 
+            // 교전 상태가 아니거나 죽음 상태가 아닐 때
             if (!monsterFSM.currentState.Equals(MonsterStateMachine.State.Engage) 
                 && !monsterFSM.currentState.Equals(MonsterStateMachine.State.Die)) 
             {
@@ -67,7 +67,7 @@ public class MonsterRigid : MonoBehaviour
     {
         // 데미지 감소 적용
         monsterComponent.monsterHP -= damage_;
-
+        
         // 체력이 0 이하일 경우 Die 상태로 전환
         if (monsterComponent.monsterHP <= 0f)
         {

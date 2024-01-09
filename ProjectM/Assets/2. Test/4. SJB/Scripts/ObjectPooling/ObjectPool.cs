@@ -35,15 +35,16 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public GameObject ActiveObjFromPool(Transform startPoint_) 
+    // 풀에서 오브젝트 꺼내기
+    public GameObject ActiveObjFromPool(Vector3 startPoint_) 
     {
         // 만약 풀(스택)의 크기가 0 이라면, (가용할 수 있는 오브젝트가 없다면 == 풀에 있는 오브젝트가 모두 On 상태라면)
         if (thisObjectPool.Count == 0) 
         {
             // 새로 생성하기
-            GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
             // 포지션 조정
-            obj.transform.position = startPoint_.position;
+            obj.transform.position = startPoint_;
             // 풀에서 제거
             thisObjectPool.Push(obj);
             obj.SetActive(true);
@@ -56,18 +57,34 @@ public class ObjectPool : MonoBehaviour
             // 남아있는 오브젝트를 꺼내준다
             GameObject obj = thisObjectPool.Pop();
             // 포지션 조정
-            obj.transform.position = startPoint_.position;
+            obj.transform.position = startPoint_;
             obj.SetActive(true);
 
             return obj;
         }
     }
 
+    // 오브젝트 반납
     public void ReturnObjToPool(GameObject obj_) 
     {
         // 오브젝트 반납
         obj_.transform.SetParent(transform);
         thisObjectPool.Push(obj_);
         obj_.SetActive(false);
+    }
+
+    // 모든 하위 오브젝트 찾아서 비활성화 후 풀로 되돌리는 메서드
+    public void GetAllActivePoolObjects()
+    {
+        GameObject[] objects = gameObject.GetComponentsInChildren<GameObject>();
+
+        foreach (var monster in objects)
+        {
+            // 오브젝트 풀이 아니고, 몬스터 오브젝트가 켜져있을 경우에만 작동
+            if (!monster.GetComponent<ObjectPool>() && monster.gameObject.activeSelf.Equals(true))
+            {
+                ReturnObjToPool(monster);
+            }
+        }
     }
 }

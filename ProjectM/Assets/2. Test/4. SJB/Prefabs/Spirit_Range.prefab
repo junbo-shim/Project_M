@@ -21195,7 +21195,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ed7216073ffea3a47bb34301536cd5e4, type: 2}
   m_Controller: {fileID: 9100000, guid: 246917b8ba3a21a4d953c304852f0690, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -21517,11 +21517,14 @@ MonoBehaviour:
   monsterAnimator: {fileID: 7839770940898755811}
   monsterSight: {fileID: 7839770940785735088}
   monsterSonar: {fileID: 0}
-  sonarTarget: {fileID: 0}
+  target: {fileID: 0}
   hpGaugeUI: {fileID: 0}
   detectUI: {fileID: 0}
   thisMonsterType: 0
-  debuffState: 0
+  toxicDuration: 0
+  slowDuration: 0
+  frozenDuration: 0
+  bindDuration: 0
   monsterHP: 0
   monsterMoveSpeed: 0
   monsterPatrolRange: 6
@@ -21530,8 +21533,6 @@ MonoBehaviour:
   isMovingID: 0
   isAttackingID: 0
   deadID: 0
-  monsterATKSpeed: 0
-  monsterDeathSpeed: 0
 --- !u!1 &7839770941632400038
 GameObject:
   m_ObjectHideFlags: 0
