@@ -8,6 +8,7 @@ public class AllBook : MonoBehaviour
 
     public InputActionReference inputActionReference;
     public InputActionReference inputActionReferenceSystemSetting;
+    ShowDrawPattern showDrawPattern;
 
     //인벤토리 Onoff
     public GameObject inventoryPanel;
@@ -26,6 +27,11 @@ public class AllBook : MonoBehaviour
 
 
     public GameObject helperOnOff;
+
+    public void Start()
+    {
+        showDrawPattern = GetComponent<ShowDrawPattern>();
+    }
 
 
 
@@ -80,6 +86,15 @@ public class AllBook : MonoBehaviour
                 activeCanvas = !activeCanvas;
                 onOffCanvas.SetActive(activeCanvas);
                 Debug.Log(activeCanvas);
+                if(!activeCanvas)
+                {
+                    showDrawPattern.CloseFireballPattern();
+                    showDrawPattern.CloseProtectPattern();
+                    showDrawPattern.CloseIceBallPattern();
+                    showDrawPattern.ClosePoisonPattern();
+                    showDrawPattern.CloseJumpPattern();
+                    showDrawPattern.CloseHealPattern();
+                }
                 
             }
         }

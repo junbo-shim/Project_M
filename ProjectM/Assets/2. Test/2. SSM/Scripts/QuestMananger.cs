@@ -10,6 +10,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
 
     private StringBuilder fruitsSb;                       // 자른문자 합치는용도 스트링 빌드
     private static QuestMananger Instance;
+    Quest quest;
 
     public static QuestMananger instance
     {
@@ -38,6 +39,10 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
         }
         playerQuest = new Dictionary<string, BasicQuest>();
         fruitsSb = new StringBuilder();
+
+
+
+        quest = FindAnyObjectByType<Quest>();
     }
     
     public void AddPlayerQuest(string str) // 퀘스트 수주
@@ -51,9 +56,11 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                     ,questInstance.QuestNPCSuccessID ,questInstance.PrecedeQuestID , questInstance.Reward_ID); // CompletionConditionID는 타입 : vlaue(코드 id)로 구성되어서 string임
                 playerQuest.Add(str, basicQuest);
                 playerQuest[str].Start(); // 상태를 퀘스트 수락상태로 변경
+                quest.UpdateSlotUI(QuestMananger.instance.playerQuest.Keys);
+
             }
-           // Debug.Log(playerQuest[str].QuestNameKey);
-           // Debug.Log(playerQuest[str].State);
+            // Debug.Log(playerQuest[str].QuestNameKey);
+            // Debug.Log(playerQuest[str].State);
         }
        // Debug.Log(playerQuest.First().Value.QuestProgressDialogue);
     }
@@ -65,7 +72,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
 
             playerQuest[str].Complete();
 
-    
+   
         }
         
     }
@@ -78,10 +85,11 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                 if (QusetCompletionCondition( str, npcId))
                 {
                     playerQuest[str].Complete();
+                    quest.UpdateSlotUI(QuestMananger.instance.playerQuest.Keys);
 
-                    
+
                 }
-                
+
             }         
         }
     }

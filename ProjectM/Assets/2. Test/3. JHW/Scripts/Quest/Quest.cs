@@ -22,7 +22,6 @@ public class Quest : MonoBehaviour
 
     public void Update()
     {
-        UpdateSlotUI(QuestMananger.instance.playerQuest.Keys);
     }
 
     public void UpdateSlotUI(IEnumerable<string> questKeys)

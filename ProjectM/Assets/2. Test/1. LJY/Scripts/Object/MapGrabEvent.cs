@@ -1,7 +1,4 @@
 using BNG;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class MapGrabEvent : GrabbableEvents
 {
@@ -10,20 +7,20 @@ public class MapGrabEvent : GrabbableEvents
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void OnTriggerUp()
     {
-        if(!mc.isacting)
+        if (!mc.isacting)
         {
-            if(!isOpened)
+            if (!isOpened)
             {
                 isOpened = true;
                 mc.OpenMap();
@@ -32,7 +29,7 @@ public class MapGrabEvent : GrabbableEvents
             {
                 isOpened = false;
                 mc.CloseMap();
-            }        
+            }
         }
     }
 
