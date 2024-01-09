@@ -104,10 +104,8 @@ public class DrawMagic : MonoBehaviour
 
     public void OnMouseEnterDot(Magicdot dot_)
     {
-        Debug.Log("Enter 찍힘");
         if (isPressing)
         {
-            Debug.Log("누른상태로 들어감");
             if (lineRenderer.positionCount == 0)
             {
                 lineRenderer.positionCount += 2;
@@ -138,10 +136,8 @@ public class DrawMagic : MonoBehaviour
 
     public void OnMouseDownDot(Magicdot dot_)
     {
-        Debug.Log("Enter 찍힘");
         if (isPressing)
         {
-            Debug.Log("누른상태로 들어감");
             if (lineRenderer.positionCount == 0)
             {
                 lineRenderer.positionCount += 2;

@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 6251872058376834048}
   - component: {fileID: 6251872058376834050}
   - component: {fileID: 9170507729738766546}
+  - component: {fileID: -6594159000567579379}
   m_Layer: 10
   m_Name: SkillBook_Old
   m_TagString: Untagged
@@ -102,6 +103,7 @@ Transform:
   - {fileID: 6479377515319723848}
   - {fileID: 5565650038095159859}
   - {fileID: 754770896818203213}
+  - {fileID: 2595389061621408486}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -212,7 +214,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1.0282288
+  MinDistance: 3.0025635
   MaxDistance: 300
   Pan2D: 0
   rolloffMode: 0
@@ -385,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicUi: {fileID: 6479377515319723840}
   book: {fileID: 5856456909110077529}
+  closeBook: {fileID: 3409080010643912796}
   target: {x: 0, y: 0, z: 0}
   poison: {fileID: 0}
   rayDirection: {x: 0, y: 0, z: 0}
@@ -565,6 +568,22 @@ MonoBehaviour:
   onSnapZoneExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-6594159000567579379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6251872058376834055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7fc31b3b1411d4e8e8b77b687c7bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReturnTo: {fileID: 0}
+  LerpSpeed: 15
+  ReturnDelay: 2
+  SnapDistance: 1000
 --- !u!1 &6359853928059881737
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +827,87 @@ Transform:
   m_Father: {fileID: 6251872058376834297}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1375829618
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6251872058376834297}
+    m_Modifications:
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409080012019713582, guid: 6939083602d6a52419abc8f4a2460115,
+        type: 3}
+      propertyPath: m_Name
+      value: BookClosed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6939083602d6a52419abc8f4a2460115, type: 3}
+--- !u!4 &2595389061621408486 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2595389062393207956, guid: 6939083602d6a52419abc8f4a2460115,
+    type: 3}
+  m_PrefabInstance: {fileID: 1375829618}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3409080010643912796 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3409080012019713582, guid: 6939083602d6a52419abc8f4a2460115,
+    type: 3}
+  m_PrefabInstance: {fileID: 1375829618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1935381812610199999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1225,6 +1325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MagicUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485495065019633802, guid: b5dcaf3e5dcb9d74086d79ddaba1f92f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8548909663683698402, guid: b5dcaf3e5dcb9d74086d79ddaba1f92f,
         type: 3}
@@ -2028,6 +2133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Book1Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686872278472404468, guid: 3f89177254277414cb197d3cc5a86efd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315318613073819470, guid: 3f89177254277414cb197d3cc5a86efd,
         type: 3}
