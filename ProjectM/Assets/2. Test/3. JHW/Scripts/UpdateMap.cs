@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UpdateMap : MonoBehaviour
@@ -16,7 +18,7 @@ public class UpdateMap : MonoBehaviour
         if (player != null)
         {
             Vector3 playerPosition = player.transform.position;
-            rectTransform.anchoredPosition = new Vector3(playerPosition.x, playerPosition.z, -10);
+            rectTransform.anchoredPosition = new Vector3(playerPosition.x + 750, playerPosition.z + 750, -10);
 
         }
     }

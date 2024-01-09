@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3279382584714479983}
-  - component: {fileID: 3635372990764510609}
+  - component: {fileID: 6882503747846291637}
   m_Layer: 5
   m_Name: MapPanel
   m_TagString: Untagged
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3635372990764510609
+--- !u!114 &6882503747846291637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3279382582798648571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109e8488a2648d04990fbc0d587d9cf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9aa769ff4799528439b4c8b80b92fa7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minimapCamera: {fileID: 0}
@@ -68,8 +68,8 @@ GameObject:
   - component: {fileID: 3279382583253580259}
   - component: {fileID: 3279382583253580256}
   - component: {fileID: 3279382583253580270}
-  - component: {fileID: 1254936733808192940}
   - component: {fileID: 3038994404536857350}
+  - component: {fileID: 3755112529923282320}
   m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
@@ -173,21 +173,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1254936733808192940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3279382583253580246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46550b55d85e37c408c0218615cb15de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  rawImage: {fileID: 3279382583943354674}
-  fadeSpeed: 0.5
 --- !u!65 &3038994404536857350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -201,6 +186,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5798329, y: 1.1855077, z: 8.700067}
   m_Center: {x: 4.908239, y: 0.40724754, z: -0.104043074}
+--- !u!114 &3755112529923282320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3279382583253580246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af96745730c7def4eada70a8824da590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.1
+  rawImage: {fileID: 3279382583943354674}
+  fadeSpeed: 0.5
+  isacting: 0
 --- !u!1 &3279382583263393478
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 49e16b4b50c92694f961677f0c2c06c4, type: 3}
+  m_Texture: {fileID: 2800000, guid: 6d1f39ceb2f50794eaf3c112f7f84746, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -478,7 +479,7 @@ GameObject:
   - component: {fileID: 4742508460047547045}
   - component: {fileID: 8787046244990172421}
   - component: {fileID: 9057921957346108116}
-  - component: {fileID: 9057921957346108115}
+  - component: {fileID: 2429595248558813683}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -534,14 +535,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: c646104b668e34f46bca09cf147124ce, type: 3}
+  m_Texture: {fileID: 2800000, guid: b1c32e0bd36743540a8953cea2705786, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
---- !u!114 &9057921957346108115
+--- !u!114 &2429595248558813683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -550,7 +551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8362888692137953577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d3534ee3206964999f3eea18f16977, type: 3}
+  m_Script: {fileID: 11500000, guid: 13edf08eff3fe7840b0eb0786470a993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 8362888692137953577}

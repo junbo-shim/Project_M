@@ -13,11 +13,16 @@ public class MiniMapController : MonoBehaviour
     public float speed = 0.1f;
 
     public RawImage rawImage;
+    public RawImage rawImage2;
+
     public float fadeSpeed = 0.5f;    //불투명 해지는 속도
     private bool fadeInStarted = false;
 
+    
+
 
     public bool isacting = false;
+
     void Start()
     {
         m = GetComponent<Renderer>().material;
@@ -88,14 +93,24 @@ public class MiniMapController : MonoBehaviour
     {
         // RawImage의 초기 불투명도
         float currentAlpha = rawImage.color.a;
+        float currentAlpha2 = rawImage2.color.a;
+
 
         // 불투명도가 1까지 서서히 올라가도록 반복
-        while (rawImage.color.a < 1.0f)
+        while (rawImage.color.a < 1.0f && rawImage2.color.a < 1.0f)
         {
             currentAlpha += fadeSpeed * Time.deltaTime;
+            currentAlpha2 += fadeSpeed * Time.deltaTime;
+
             Color newColor = rawImage.color;
+            Color newColor2 = rawImage2.color;
+
             newColor.a = Mathf.Clamp01(currentAlpha);
+            newColor2.a = Mathf.Clamp01(currentAlpha2);
+
             rawImage.color = newColor;
+            rawImage2.color = newColor;
+
             yield return null;
         }
     }
@@ -105,22 +120,30 @@ public class MiniMapController : MonoBehaviour
     {
         // RawImage의 초기 불투명도
         float currentAlpha = rawImage.color.a;
+        float currentAlpha2 = rawImage2.color.a;
+
 
         // 불투명도가 1까지 서서히 올라가도록 반복
-        while (rawImage.color.a > 0.001f)
+        while (rawImage.color.a > 0.001f && rawImage2.color.a > 0.001f)
         {
             currentAlpha -= fadeSpeed * Time.deltaTime;
+            currentAlpha2 -= fadeSpeed * Time.deltaTime;
+
             Color newColor = rawImage.color;
+            Color newColor2 = rawImage2.color;
+
             newColor.a = Mathf.Clamp01(currentAlpha);
+            newColor2.a = Mathf.Clamp01(currentAlpha2);
+
             rawImage.color = newColor;
-            Debug.Log("나아직 안나갔다");
+            rawImage2.color = newColor;
+
             yield return null;
         }
 
 
-        if (rawImage.color.a < 0.1f)
+        if (rawImage.color.a < 0.1f && rawImage2.color.a < 0.1f)
         {
-            Debug.Log("여기까진 들어옴");
             while (testFloat > 0f)
             {
                 testFloat -= speed * 0.1f;

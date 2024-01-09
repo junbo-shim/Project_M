@@ -143,6 +143,7 @@ public class Skill : MonoBehaviour
             if (inventory.items[i].itemName == "IceBallRecipe")
             {
                 inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+
             }
         }
         mySkill.Add("E_IceBall", 1101);
@@ -262,7 +263,6 @@ public class Skill : MonoBehaviour
 
     public void CreafringSkill(string itemName)
     {
-
 
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
         int itemDBIndex = itemData.itemDB.FindIndex(item => item.itemName == itemName);
