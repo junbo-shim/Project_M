@@ -10,7 +10,6 @@ public class SpawnPoint : MonoBehaviour
     {
         MapGameManager.instance.dayStart += TurnOnDetection;
         MapGameManager.instance.nightStart += TurnOffDetection;
-        MapGameManager.instance.nightStart += ReturnAllObject;
     }
 
 
@@ -29,15 +28,6 @@ public class SpawnPoint : MonoBehaviour
         if (!MapGameManager.instance.currentState.Equals(DayState.NIGHT)) 
         {
             detectArea.SetActive(true);
-        }
-    }
-
-    // 모든 오브젝트 회수
-    private void ReturnAllObject() 
-    {
-        if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
-        {
-            monsterPool.GetAllActivePoolObjects();
         }
     }
 }

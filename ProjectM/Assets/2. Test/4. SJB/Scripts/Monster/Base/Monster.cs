@@ -47,6 +47,8 @@ public class Monster : MonoBehaviour
     public MonsterHPGauge hpGaugeUI;
     // 몬스터 UI (밤 몬스터)
     public GameObject detectUI;
+    // 몬스터 오브젝트 풀
+    public ObjectPool monsterPool;
 
     // 몬스터 데이터 타입을 분류해서 가져올 enum
     public MonsterType thisMonsterType;
@@ -82,6 +84,7 @@ public class Monster : MonoBehaviour
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
+        monsterPool = transform.parent.gameObject.GetComponent<ObjectPool>();
         InitDebuffTimer();
 
         monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
@@ -89,6 +92,7 @@ public class Monster : MonoBehaviour
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
+        monsterPool = default;
         InitDebuffTimer();
 
         // Die 상태 이후 작아진 크기 돌려놓기

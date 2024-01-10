@@ -72,19 +72,4 @@ public class ObjectPool : MonoBehaviour
         thisObjectPool.Push(obj_);
         obj_.SetActive(false);
     }
-
-    // 모든 하위 오브젝트 찾아서 비활성화 후 풀로 되돌리는 메서드
-    public void GetAllActivePoolObjects()
-    {
-        GameObject[] objects = gameObject.GetComponentsInChildren<GameObject>();
-
-        foreach (var monster in objects)
-        {
-            // 오브젝트 풀이 아니고, 몬스터 오브젝트가 켜져있을 경우에만 작동
-            if (!monster.GetComponent<ObjectPool>() && monster.gameObject.activeSelf.Equals(true))
-            {
-                ReturnObjToPool(monster);
-            }
-        }
-    }
 }

@@ -162,12 +162,18 @@ public class Monster_Patrol : MonsterState
     public IEnumerator DoPatrol(GameObject monster_, MonsterStateMachine msm_)
     {
         // MonsterStateMachine 상태가 Patrol 일 때만 Coroutine 지속
-        while (msm_.currentState.Equals(MonsterStateMachine.State.Patrol))
+        while (msm_.currentState.Equals(MonsterStateMachine.State.Patrol) 
+            && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
         {
             // PatrolMove 완료할 때까지 그 다음 행동이 대기한다
             yield return msm_.StartCoroutine(PatrolMove(monster_));
             // Wait 완료할 때까지 그 다음 행동이 대기한다
             yield return msm_.StartCoroutine(Wait());
+        }
+
+        if (MapGameManager.instance.currentState.Equals(DayState.NIGHT)) 
+        {
+            monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
         }
     }
     #endregion

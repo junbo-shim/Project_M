@@ -3764,6 +3764,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hpGaugeUI: {fileID: 4490905056180306414}
   detectUI: {fileID: 0}
+  monsterPool: {fileID: 0}
   thisMonsterType: 0
   toxicDuration: 0
   slowDuration: 0
@@ -3771,8 +3772,8 @@ MonoBehaviour:
   bindDuration: 0
   monsterHP: 0
   monsterMoveSpeed: 0
-  monsterPatrolRange: 10
-  monsterSightRange: 14
+  monsterPatrolRange: 18
+  monsterSightRange: 20
   monsterSonarRange: 0
   isMovingID: 0
   isAttackingID: 0

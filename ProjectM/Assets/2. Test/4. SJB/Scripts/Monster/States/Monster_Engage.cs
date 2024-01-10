@@ -93,7 +93,8 @@ public class Monster_Engage : MonsterState
         }
 
         // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
-        while (msm_.currentState.Equals(MonsterStateMachine.State.Engage))
+        while (msm_.currentState.Equals(MonsterStateMachine.State.Engage)
+            && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
         {
             // 타겟이 없다면
             if (target == null) 
@@ -115,6 +116,11 @@ public class Monster_Engage : MonsterState
                 yield return msm_.StartCoroutine(EngageMove(monster_));
                 yield return msm_.StartCoroutine(Attack(monster_));
             }
+        }
+
+        if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+        {
+            monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
         }
     }
     #endregion
