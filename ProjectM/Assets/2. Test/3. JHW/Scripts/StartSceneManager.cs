@@ -14,6 +14,7 @@ public class StartSceneManager : MonoBehaviour
 
     public void GoToLoading()
     {
+        Debug.Log("호출");
         SceneManager.LoadSceneAsync("LoadingScene");
     }
 }
