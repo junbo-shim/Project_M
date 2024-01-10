@@ -186,7 +186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &392562452670725340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -731,6 +731,7 @@ GameObject:
   - component: {fileID: 1056994668361090003}
   - component: {fileID: 1056994668361090002}
   - component: {fileID: 1056994668361089997}
+  - component: {fileID: 8432196397767226160}
   m_Layer: 5
   m_Name: QuestList (5)
   m_TagString: Untagged
@@ -884,6 +885,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &8432196397767226160
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056994668361089999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1237588539670279278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,6 +1412,7 @@ GameObject:
   - component: {fileID: 2422623651467363443}
   - component: {fileID: 2422623651467363442}
   - component: {fileID: 2422623651467363437}
+  - component: {fileID: 7166251926738592389}
   m_Layer: 5
   m_Name: QuestList (2)
   m_TagString: Untagged
@@ -1551,6 +1566,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &7166251926738592389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422623651467363439}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2422623653002489850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1671,8 @@ GameObject:
   - component: {fileID: 8183467193391556308}
   - component: {fileID: 848035736038792367}
   - component: {fileID: 4513039087671546917}
+  - component: {fileID: 7129703712630021573}
+  - component: {fileID: 3734652523825895495}
   m_Layer: 5
   m_Name: JumpPatternButton (4)
   m_TagString: Untagged
@@ -1667,7 +1697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 320, y: 5.04657}
+  m_AnchoredPosition: {x: 320, y: 5}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8183467193391556308
@@ -1764,6 +1794,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &7129703712630021573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423795769659409256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &3734652523825895495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423795769659409256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2492325033407011675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,6 +2320,7 @@ GameObject:
   - component: {fileID: 2973568963835049745}
   - component: {fileID: 2973568963835049744}
   - component: {fileID: 2973568963835049743}
+  - component: {fileID: 8785601069494357718}
   m_Layer: 5
   m_Name: QuestList (9)
   m_TagString: Untagged
@@ -2417,6 +2474,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &8785601069494357718
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973568963835049741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3148701581565911517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,6 +2619,7 @@ GameObject:
   - component: {fileID: 3164101970033011180}
   - component: {fileID: 3164101970033011181}
   - component: {fileID: 3164101970033011186}
+  - component: {fileID: 1384653955357401647}
   m_Layer: 5
   m_Name: QuestList (8)
   m_TagString: Untagged
@@ -2702,6 +2773,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &1384653955357401647
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164101970033011184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3722401957283664008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,6 +2879,7 @@ GameObject:
   - component: {fileID: 8938523748841271766}
   - component: {fileID: 4385423348725296492}
   - component: {fileID: 7419199028592958012}
+  - component: {fileID: 8336791039665668054}
   m_Layer: 5
   m_Name: InvisiblePatternButton (5)
   m_TagString: Untagged
@@ -2916,6 +3001,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &8336791039665668054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784318581978741798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4272270156315885531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,6 +3290,7 @@ GameObject:
   - component: {fileID: 4707288727112247425}
   - component: {fileID: 4707288727112247424}
   - component: {fileID: 4707288727112247455}
+  - component: {fileID: 3552579697913901711}
   m_Layer: 5
   m_Name: QuestList (4)
   m_TagString: Untagged
@@ -3345,6 +3444,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &3552579697913901711
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4707288727112247453}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4707288727825269512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3513,6 +3625,7 @@ GameObject:
   - component: {fileID: 694370344419581858}
   - component: {fileID: 8369799111025968371}
   - component: {fileID: 6383863200347292095}
+  - component: {fileID: 3268848062832761417}
   m_Layer: 5
   m_Name: ProtectPatternButton (1)
   m_TagString: Untagged
@@ -3634,6 +3747,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &3268848062832761417
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103160443627520939}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5221894559174978113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3850,7 @@ GameObject:
   - component: {fileID: 5336973302249175597}
   - component: {fileID: 5336973302249175596}
   - component: {fileID: 5336973302249175603}
+  - component: {fileID: 8347033881851065177}
   m_Layer: 5
   m_Name: QuestList (3)
   m_TagString: Untagged
@@ -3877,6 +4004,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &8347033881851065177
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5336973302249175601}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5336973303046082980
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,6 +4111,7 @@ GameObject:
   - component: {fileID: 5403760560907995623}
   - component: {fileID: 5403760560907995622}
   - component: {fileID: 5403760560907995641}
+  - component: {fileID: 7990978779101368781}
   m_Layer: 5
   m_Name: QuestList (1)
   m_TagString: Untagged
@@ -4124,6 +4265,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &7990978779101368781
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403760560907995643}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5403760562376008302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4467,6 +4621,7 @@ GameObject:
   - component: {fileID: 3374341518674576623}
   - component: {fileID: 7971300110018143502}
   - component: {fileID: 5872270095174274165}
+  - component: {fileID: 295981844891149103}
   m_Layer: 5
   m_Name: FireBallPatternButton
   m_TagString: Untagged
@@ -4588,6 +4743,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &295981844891149103
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944506153683471076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5969841732612875021
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,6 +5443,7 @@ GameObject:
   - component: {fileID: 2249306818686848149}
   - component: {fileID: 7241767657925206409}
   - component: {fileID: 6503013756140298872}
+  - component: {fileID: 2437098621893682566}
   m_Layer: 5
   m_Name: IceBallPatternButton (2)
   m_TagString: Untagged
@@ -5396,6 +5565,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &2437098621893682566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566998515919258813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6681936115435837024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5409,7 +5591,7 @@ GameObject:
   - component: {fileID: 5664968268538281976}
   - component: {fileID: 7560960186487283895}
   - component: {fileID: 7081825322000771988}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Invisible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5639,6 +5821,7 @@ GameObject:
   - component: {fileID: 6922023678315289918}
   - component: {fileID: 6922023678315289919}
   - component: {fileID: 6922023678315289888}
+  - component: {fileID: 7013846337094904060}
   m_Layer: 5
   m_Name: QuestList (7)
   m_TagString: Untagged
@@ -5792,6 +5975,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &7013846337094904060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922023678315289890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7086000624474954283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,6 +6111,7 @@ GameObject:
   - component: {fileID: 245638763251760294}
   - component: {fileID: 4246025144427805928}
   - component: {fileID: 2209421642961450232}
+  - component: {fileID: 6555690601659072663}
   m_Layer: 5
   m_Name: HealPatternButton (5)
   m_TagString: Untagged
@@ -6036,6 +6233,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &6555690601659072663
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243082372834903329}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7334482258938757756
 GameObject:
   m_ObjectHideFlags: 0
@@ -6130,6 +6340,7 @@ GameObject:
   - component: {fileID: 7334482259500804597}
   - component: {fileID: 7334482259500804596}
   - component: {fileID: 7334482259500804587}
+  - component: {fileID: 7983562702790389990}
   m_Layer: 5
   m_Name: QuestList (6)
   m_TagString: Untagged
@@ -6283,6 +6494,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &7983562702790389990
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334482259500804585}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7755060646596987057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6453,6 +6677,7 @@ GameObject:
   - component: {fileID: 2349247281440288964}
   - component: {fileID: 5971993686731198657}
   - component: {fileID: 795336036548285084}
+  - component: {fileID: 1131786541777512176}
   m_Layer: 5
   m_Name: PoisonPatternButton (3)
   m_TagString: Untagged
@@ -6574,6 +6799,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &1131786541777512176
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890980577963182753}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 90, y: 90, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7981305611543667751
 GameObject:
   m_ObjectHideFlags: 0
@@ -8343,7 +8581,7 @@ GameObject:
   - component: {fileID: 8981628739647453312}
   - component: {fileID: 8981628739647453343}
   - component: {fileID: 8981628739647453342}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9152,7 +9390,7 @@ GameObject:
   - component: {fileID: 8981628739713414649}
   - component: {fileID: 8981628739713414648}
   - component: {fileID: 8981628739713414647}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_EI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9549,6 +9787,7 @@ GameObject:
   - component: {fileID: 8981628739731170367}
   - component: {fileID: 8981628739731170366}
   - component: {fileID: 8981628739731170365}
+  - component: {fileID: 3124715222119247747}
   m_Layer: 5
   m_Name: Trab
   m_TagString: Untagged
@@ -9706,6 +9945,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &3124715222119247747
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739731170363}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 600, y: 250, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739731930426
 GameObject:
   m_ObjectHideFlags: 0
@@ -10211,6 +10463,7 @@ GameObject:
   - component: {fileID: 8981628739771534562}
   - component: {fileID: 8981628739771534561}
   - component: {fileID: 8981628739771534560}
+  - component: {fileID: 5222571205233711968}
   m_Layer: 5
   m_Name: SlotBuutton (14)
   m_TagString: Untagged
@@ -10355,6 +10608,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &5222571205233711968
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739771534590}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739773019077
 GameObject:
   m_ObjectHideFlags: 0
@@ -10618,6 +10884,7 @@ GameObject:
   - component: {fileID: 8981628739789735276}
   - component: {fileID: 8981628739789735275}
   - component: {fileID: 8981628739789735274}
+  - component: {fileID: 2624333213602379407}
   m_Layer: 5
   m_Name: SlotBuutton (21)
   m_TagString: Untagged
@@ -10762,6 +11029,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &2624333213602379407
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739789735272}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739796971904
 GameObject:
   m_ObjectHideFlags: 0
@@ -10853,6 +11133,7 @@ GameObject:
   - component: {fileID: 8981628739807928399}
   - component: {fileID: 8981628739807928398}
   - component: {fileID: 8981628739807928397}
+  - component: {fileID: 7151214426916830043}
   m_Layer: 5
   m_Name: SlotBuutton (11)
   m_TagString: Untagged
@@ -10997,6 +11278,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &7151214426916830043
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739807928395}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739815163529
 GameObject:
   m_ObjectHideFlags: 0
@@ -11210,6 +11504,7 @@ GameObject:
   - component: {fileID: 8981628739832592767}
   - component: {fileID: 8981628739832592766}
   - component: {fileID: 8981628739832592765}
+  - component: {fileID: 1454300040896643785}
   m_Layer: 5
   m_Name: SlotBuutton (1)
   m_TagString: Untagged
@@ -11354,6 +11649,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &1454300040896643785
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739832592763}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739833609169
 GameObject:
   m_ObjectHideFlags: 0
@@ -11578,7 +11886,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 430}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8981628739868380656
 MonoBehaviour:
@@ -11711,7 +12019,7 @@ GameObject:
   - component: {fileID: 8981628739875034834}
   - component: {fileID: 8981628739875034833}
   - component: {fileID: 8981628739875034832}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_J
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11860,6 +12168,7 @@ GameObject:
   - component: {fileID: 8981628739887290927}
   - component: {fileID: 8981628739887290926}
   - component: {fileID: 8981628739887290925}
+  - component: {fileID: 6883654708911241421}
   m_Layer: 5
   m_Name: SlotBuutton (18)
   m_TagString: Untagged
@@ -12004,6 +12313,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &6883654708911241421
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739887290923}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739889979336
 GameObject:
   m_ObjectHideFlags: 0
@@ -12332,6 +12654,7 @@ GameObject:
   - component: {fileID: 8981628739900478048}
   - component: {fileID: 8981628739900478079}
   - component: {fileID: 8981628739900478078}
+  - component: {fileID: 1313699717705059031}
   m_Layer: 5
   m_Name: SlotBuutton (19)
   m_TagString: Untagged
@@ -12476,6 +12799,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &1313699717705059031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628739900478076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628739901484173
 GameObject:
   m_ObjectHideFlags: 0
@@ -13598,7 +13934,7 @@ GameObject:
   - component: {fileID: 8981628739961653280}
   - component: {fileID: 8981628739961653311}
   - component: {fileID: 8981628739961653310}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15612,6 +15948,7 @@ GameObject:
   - component: {fileID: 8981628740102554342}
   - component: {fileID: 8981628740102554341}
   - component: {fileID: 8981628740102554340}
+  - component: {fileID: 2033583526328514889}
   m_Layer: 5
   m_Name: SlotBuutton (12)
   m_TagString: Untagged
@@ -15756,6 +16093,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &2033583526328514889
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740102554338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740104210078
 GameObject:
   m_ObjectHideFlags: 0
@@ -16372,6 +16722,7 @@ GameObject:
   - component: {fileID: 8981628740129095642}
   - component: {fileID: 8981628740129095641}
   - component: {fileID: 8981628740129095640}
+  - component: {fileID: 2018103959371287256}
   m_Layer: 5
   m_Name: SlotBuutton (3)
   m_TagString: Untagged
@@ -16516,6 +16867,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &2018103959371287256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740129095638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740129580255
 GameObject:
   m_ObjectHideFlags: 0
@@ -16994,7 +17358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00045127468}
+  m_AnchoredPosition: {x: 0, y: 0.00014895429}
   m_SizeDelta: {x: 0, y: 840}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8981628740157763946
@@ -17739,7 +18103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8981628740239637008}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkillCreating
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17854,7 +18218,7 @@ GameObject:
   - component: {fileID: 8981628740251935694}
   - component: {fileID: 8981628740251935693}
   - component: {fileID: 8981628740251935692}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_EP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19343,7 +19707,7 @@ GameObject:
   - component: {fileID: 8981628740363189399}
   - component: {fileID: 8981628740363189398}
   - component: {fileID: 8981628740363189397}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: IceBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20098,7 +20462,7 @@ GameObject:
   - component: {fileID: 8981628740410118999}
   - component: {fileID: 8981628740410118998}
   - component: {fileID: 8981628740410118997}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_ER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21021,7 +21385,7 @@ GameObject:
   - component: {fileID: 8981628740480869344}
   - component: {fileID: 8981628740480869375}
   - component: {fileID: 8981628740480869374}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Protect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21171,6 +21535,7 @@ GameObject:
   - component: {fileID: 8981628740483679894}
   - component: {fileID: 8981628740483679893}
   - component: {fileID: 8981628740483679892}
+  - component: {fileID: 3857802602088264298}
   m_Layer: 5
   m_Name: SlotBuutton (20)
   m_TagString: Untagged
@@ -21315,6 +21680,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &3857802602088264298
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740483679890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740484437092
 GameObject:
   m_ObjectHideFlags: 0
@@ -21580,6 +21958,7 @@ GameObject:
   - component: {fileID: 8981628740510015900}
   - component: {fileID: 8981628740510015899}
   - component: {fileID: 8981628740510015898}
+  - component: {fileID: 5388140709444184032}
   m_Layer: 5
   m_Name: SlotBuutton
   m_TagString: Untagged
@@ -21724,6 +22103,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &5388140709444184032
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740510015896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740510347154
 GameObject:
   m_ObjectHideFlags: 0
@@ -22080,7 +22472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 710.0932}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8981628740534305930
@@ -22482,7 +22874,7 @@ GameObject:
   - component: {fileID: 8981628740555094378}
   - component: {fileID: 8981628740555094377}
   - component: {fileID: 8981628740555094376}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22711,7 +23103,7 @@ GameObject:
   - component: {fileID: 8981628740571476919}
   - component: {fileID: 8981628740571476918}
   - component: {fileID: 8981628740571476917}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23408,6 +23800,7 @@ GameObject:
   - component: {fileID: 8981628740604307232}
   - component: {fileID: 8981628740604307263}
   - component: {fileID: 8981628740604307262}
+  - component: {fileID: 9054987753689916559}
   m_Layer: 5
   m_Name: Scarecrow
   m_TagString: Untagged
@@ -23565,6 +23958,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &9054987753689916559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740604307260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 600, y: 250, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740604955917
 GameObject:
   m_ObjectHideFlags: 0
@@ -24482,6 +24888,7 @@ GameObject:
   - component: {fileID: 8981628740696719609}
   - component: {fileID: 8981628740696719608}
   - component: {fileID: 8981628740696719607}
+  - component: {fileID: 6479769483110427845}
   m_Layer: 5
   m_Name: SlotBuutton (16)
   m_TagString: Untagged
@@ -24626,6 +25033,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &6479769483110427845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740696719605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740700083721
 GameObject:
   m_ObjectHideFlags: 0
@@ -24917,6 +25337,7 @@ GameObject:
   - component: {fileID: 8981628740710250087}
   - component: {fileID: 8981628740710250086}
   - component: {fileID: 8981628740710250085}
+  - component: {fileID: 5971750043225544582}
   m_Layer: 5
   m_Name: SlotBuutton (8)
   m_TagString: Untagged
@@ -25061,6 +25482,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &5971750043225544582
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740710250083}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740716006061
 GameObject:
   m_ObjectHideFlags: 0
@@ -27378,6 +27812,7 @@ GameObject:
   - component: {fileID: 8981628740866581619}
   - component: {fileID: 8981628740866581618}
   - component: {fileID: 8981628740866581617}
+  - component: {fileID: 8227568516387355565}
   m_Layer: 5
   m_Name: SlotBuutton (17)
   m_TagString: Untagged
@@ -27522,6 +27957,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &8227568516387355565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628740866581519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628740876401746
 GameObject:
   m_ObjectHideFlags: 0
@@ -27873,7 +28321,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8981628740899655163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 300}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28959,7 +29407,7 @@ GameObject:
   - component: {fileID: 8981628741014555670}
   - component: {fileID: 8981628741014555669}
   - component: {fileID: 8981628741014555668}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29743,6 +30191,7 @@ GameObject:
   - component: {fileID: 8981628741035830161}
   - component: {fileID: 8981628741035830160}
   - component: {fileID: 8981628741035830191}
+  - component: {fileID: 7187818908326262732}
   m_Layer: 5
   m_Name: SlotBuutton (6)
   m_TagString: Untagged
@@ -29887,6 +30336,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &7187818908326262732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741035830189}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741037272992
 GameObject:
   m_ObjectHideFlags: 0
@@ -30967,7 +31429,7 @@ GameObject:
   - component: {fileID: 8981628741096305143}
   - component: {fileID: 8981628741096305142}
   - component: {fileID: 8981628741096305141}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_H
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31583,6 +32045,7 @@ GameObject:
   - component: {fileID: 8981628741130028794}
   - component: {fileID: 8981628741130028793}
   - component: {fileID: 8981628741130028792}
+  - component: {fileID: 8856007863103906034}
   m_Layer: 5
   m_Name: SlotBuutton (4)
   m_TagString: Untagged
@@ -31727,6 +32190,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &8856007863103906034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741130028790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741133949808
 GameObject:
   m_ObjectHideFlags: 0
@@ -32255,6 +32731,7 @@ GameObject:
   - component: {fileID: 8981628741173154590}
   - component: {fileID: 8981628741173154589}
   - component: {fileID: 8981628741173154588}
+  - component: {fileID: 341911185793047490}
   m_Layer: 5
   m_Name: CreaftingButton
   m_TagString: Untagged
@@ -32377,6 +32854,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &341911185793047490
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741173154586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 280, y: 60, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741175308660
 GameObject:
   m_ObjectHideFlags: 0
@@ -32482,6 +32972,7 @@ GameObject:
   - component: {fileID: 8981628741175655411}
   - component: {fileID: 8981628741175655410}
   - component: {fileID: 8981628741175655409}
+  - component: {fileID: 5292871592109455549}
   m_Layer: 5
   m_Name: SlotBuutton (13)
   m_TagString: Untagged
@@ -32626,6 +33117,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &5292871592109455549
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741175655311}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741178970387
 GameObject:
   m_ObjectHideFlags: 0
@@ -32736,7 +33240,7 @@ GameObject:
   - component: {fileID: 8981628741183462487}
   - component: {fileID: 8981628741183462486}
   - component: {fileID: 8981628741183462485}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33042,6 +33546,7 @@ GameObject:
   - component: {fileID: 8981628741208505643}
   - component: {fileID: 8981628741208505642}
   - component: {fileID: 8981628741208505641}
+  - component: {fileID: 6326373687963038797}
   m_Layer: 5
   m_Name: SlotBuutton (15)
   m_TagString: Untagged
@@ -33186,6 +33691,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &6326373687963038797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741208505639}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741217620250
 GameObject:
   m_ObjectHideFlags: 0
@@ -33199,7 +33717,7 @@ GameObject:
   - component: {fileID: 8981628741217620254}
   - component: {fileID: 8981628741217620253}
   - component: {fileID: 8981628741217620252}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_EF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33584,6 +34102,7 @@ GameObject:
   - component: {fileID: 8981628741240261743}
   - component: {fileID: 8981628741240261742}
   - component: {fileID: 8981628741240261741}
+  - component: {fileID: 5077366944276404159}
   m_Layer: 5
   m_Name: SlotBuutton (7)
   m_TagString: Untagged
@@ -33728,6 +34247,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &5077366944276404159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741240261739}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741245672350
 GameObject:
   m_ObjectHideFlags: 0
@@ -34574,6 +35106,7 @@ GameObject:
   - component: {fileID: 8981628741300018121}
   - component: {fileID: 8981628741300018120}
   - component: {fileID: 8981628741300018119}
+  - component: {fileID: 4039760378828652091}
   m_Layer: 5
   m_Name: SlotBuutton (9)
   m_TagString: Untagged
@@ -34718,6 +35251,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &4039760378828652091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741300018117}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741307017754
 GameObject:
   m_ObjectHideFlags: 0
@@ -34730,6 +35276,7 @@ GameObject:
   - component: {fileID: 8981628741307017758}
   - component: {fileID: 8981628741307017757}
   - component: {fileID: 8981628741307017756}
+  - component: {fileID: 1779953228155517537}
   m_Layer: 5
   m_Name: CreaftingButton
   m_TagString: Untagged
@@ -34852,6 +35399,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!65 &1779953228155517537
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741307017754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 280, y: 60, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741310181996
 GameObject:
   m_ObjectHideFlags: 0
@@ -35333,6 +35893,7 @@ GameObject:
   - component: {fileID: 8981628741365318186}
   - component: {fileID: 8981628741365318185}
   - component: {fileID: 8981628741365318184}
+  - component: {fileID: 7582212688936918513}
   m_Layer: 5
   m_Name: SlotBuutton (5)
   m_TagString: Untagged
@@ -35477,6 +36038,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &7582212688936918513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741365318182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741389843712
 GameObject:
   m_ObjectHideFlags: 0
@@ -35523,7 +36097,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8981628741389843715
 MonoBehaviour:
@@ -35889,7 +36463,7 @@ GameObject:
   - component: {fileID: 8981628741422603627}
   - component: {fileID: 8981628741422603626}
   - component: {fileID: 8981628741422603625}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_EJ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36461,10 +37035,10 @@ RectTransform:
   m_Father: {fileID: 8981628739868380558}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 399.935, y: -215}
-  m_SizeDelta: {x: 600, y: 390}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8981628741447954371
 CanvasRenderer:
@@ -36517,7 +37091,7 @@ GameObject:
   - component: {fileID: 8981628741450868692}
   - component: {fileID: 8981628741450868691}
   - component: {fileID: 8981628741450868690}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: CreaftingButton_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36962,6 +37536,7 @@ GameObject:
   - component: {fileID: 8981628741475425746}
   - component: {fileID: 8981628741475425745}
   - component: {fileID: 8981628741475425744}
+  - component: {fileID: 3543828446679244383}
   m_Layer: 5
   m_Name: SlotBuutton (22)
   m_TagString: Untagged
@@ -37106,6 +37681,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &3543828446679244383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741475425774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741477002479
 GameObject:
   m_ObjectHideFlags: 0
@@ -37491,7 +38079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputActionReference: {fileID: -3546979891184191637, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
-  inputActionReferenceSystemSetting: {fileID: 8956454918445129094, guid: e39f4b35a6db18348b41eb0262520e69,
+  inputActionReferenceSystemSetting: {fileID: -2250174730308268060, guid: e39f4b35a6db18348b41eb0262520e69,
     type: 3}
   inventoryPanel: {fileID: 8981628740595680794}
   canvasGroup: {fileID: 0}
@@ -38961,7 +39549,7 @@ GameObject:
   - component: {fileID: 8981628741563866387}
   - component: {fileID: 8981628741563866386}
   - component: {fileID: 8981628741563866385}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39808,6 +40396,7 @@ GameObject:
   - component: {fileID: 8981628741635017725}
   - component: {fileID: 8981628741635017724}
   - component: {fileID: 8981628741635017723}
+  - component: {fileID: 4983024519500724035}
   m_Layer: 5
   m_Name: SlotBuutton (23)
   m_TagString: Untagged
@@ -39952,6 +40541,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &4983024519500724035
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741635017721}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741637675972
 GameObject:
   m_ObjectHideFlags: 0
@@ -40042,6 +40644,7 @@ GameObject:
   - component: {fileID: 8981628741648048216}
   - component: {fileID: 8981628741648048215}
   - component: {fileID: 8981628741648048214}
+  - component: {fileID: 7559310144358574236}
   m_Layer: 5
   m_Name: SlotBuutton (2)
   m_TagString: Untagged
@@ -40186,6 +40789,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &7559310144358574236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741648048212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741654401467
 GameObject:
   m_ObjectHideFlags: 0
@@ -41366,6 +41982,7 @@ GameObject:
   - component: {fileID: 8981628741710312513}
   - component: {fileID: 8981628741710312512}
   - component: {fileID: 8981628741710312543}
+  - component: {fileID: 5717207882889602207}
   m_Layer: 5
   m_Name: QuestList
   m_TagString: Untagged
@@ -41519,6 +42136,19 @@ MonoBehaviour:
   questGoal: {fileID: 8981628739990795238}
   questInfo: {fileID: 8981628740068960184}
   questID: 
+--- !u!65 &5717207882889602207
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741710312541}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 550, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741713387143
 GameObject:
   m_ObjectHideFlags: 0
@@ -41610,6 +42240,7 @@ GameObject:
   - component: {fileID: 8981628741713715434}
   - component: {fileID: 8981628741713715433}
   - component: {fileID: 8981628741713715432}
+  - component: {fileID: 1796131816226393378}
   m_Layer: 5
   m_Name: SlotBuutton (10)
   m_TagString: Untagged
@@ -41754,6 +42385,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 6, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!65 &1796131816226393378
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981628741713715430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981628741716374549
 GameObject:
   m_ObjectHideFlags: 0

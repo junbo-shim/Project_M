@@ -42,7 +42,6 @@ public class AllBook : MonoBehaviour
         uiControl[2].SetActive(false);
         inventoryPanel.GetComponent<CanvasGroup>().alpha = 0;
         openIvUI = true;
-
     }
 
 
@@ -53,7 +52,6 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(false);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(false);
-
     }
 
     public void SkillUIOnOff()
@@ -63,7 +61,6 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(true);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(false);
-
     }
 
     public void CreaftingItem()
@@ -73,6 +70,7 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(false);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(true);
+
     }
 
 
