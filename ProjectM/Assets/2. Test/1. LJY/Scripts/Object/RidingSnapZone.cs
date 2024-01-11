@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using TMPro;
+using DG.Tweening;
 
 namespace BNG
 {
@@ -100,7 +102,7 @@ namespace BNG
         // Closest Grabbable in our trigger
         [HideInInspector]
         public Grabbable ClosestGrabbable;
-
+        
         SnapZoneOffset offset;
 
 
@@ -113,6 +115,7 @@ namespace BNG
         public float JetForce;        // 이동 속도
         private Vector3 moveDirection;      // 이동 방향
         public Transform rightController;   // 이동 방향을 받아올 오브젝트
+        public GameObject leftHand;         // 왼손 컨트롤러 ON/OFF용
 
         public UnityEngine.UI.Slider timeSlider;           // 지속 시간을 보여줄 UI
         public float ridingTime;      // 비행 지속 시간
@@ -123,6 +126,13 @@ namespace BNG
 
         private bool isCoolTime = false;       // 쿨타임 확인용 bool값
         private bool isCanRide = true;        // 비행중인지 확인할 bool값
+
+        public TextMeshProUGUI ridingText;      // 라이딩 UI 텍스트
+        private float fadeDuration = 1.0f;      // 텍스트 투명해지는 시간
+        private float elapsedTime;              // 코루틴에 사용할 시간변수
+        private Coroutine fadeCoroutine;        // 텍스트 페이드 코루틴
+        private Color textColor;                // 텍스트 컬러 변경할때 사용할 변수
+
 
         CharacterController characterController;
         SmoothLocomotion smoothLocomotion;
@@ -208,14 +218,31 @@ namespace BNG
             }
 
             // 비행 관련 비행 시작/종료
-            if(InputBridge.Instance.YButtonUp)
+            if(InputBridge.Instance.YButtonUp || Input.GetKeyUp(KeyCode.J))
             {
                 if (!isCanRide)
                 {
+                    ridingText.text = string.Format("날기가 불가능합니다.");
+
+                    if(fadeCoroutine != null)
+                    {
+                        StopCoroutine(fadeCoroutine);
+                    }
+
+                    fadeCoroutine = StartCoroutine(FadeOutText());
                     // 비행 불가능 표시
                 }
                 else if (isCoolTime)
                 {
+                    ridingText.text = string.Format("날기 쿨타임이 {0:0}초 남았습니다.",currentCoolTime);
+                    
+                    if (fadeCoroutine != null)
+                    {
+                        StopCoroutine(fadeCoroutine);
+                    }
+
+                    fadeCoroutine = StartCoroutine(FadeOutText());
+
                     // 쿨타임 표시
                 }
                 else    // 비행 불가능도 아니고 쿨타임도 아니라면
@@ -224,14 +251,17 @@ namespace BNG
                     {
                         HeldItem.gameObject.SetActive(true);    // 시각적인 라이딩 오브젝트 On
                         timeSlider.gameObject.SetActive(true);  // 지속시간 UI On                   
+                        leftHand.gameObject.SetActive(false);
 
                         if (DisableGravityWhileHeld)
                         {
                             ChangeGravity(false);
                         }
+                        StartCoroutine(RidingTimer());
                     }       // if : 비행 오브젝트가 꺼져있을경우
                     else
                     {
+                        leftHand.gameObject.SetActive(true);
                         EndRiding();
                     }
                 }
@@ -303,8 +333,6 @@ namespace BNG
                 ChangeGravity(true);
             }
 
-            StopCoroutine(RidingTimer());
-
             //addRigidForce = Vector3.zero;
         }
 
@@ -354,12 +382,18 @@ namespace BNG
         public void EndRiding()
         {
             HeldItem.gameObject.SetActive(false);
+            timeSlider.gameObject.SetActive(false);
+            leftHand.gameObject.SetActive(true);
+
             // re-enforce gravity
             if (DisableGravityWhileHeld)
             {
                 ChangeGravity(true);
             }
             stopJet();
+
+            // 비행 끝난 후 쿨타임 코루틴 실행
+            StartCoroutine(RidingCoolTimer());
         }
 
         // 중력 변환 함수
@@ -381,6 +415,33 @@ namespace BNG
                 timeSlider.value = currentTime / ridingTime;
                 yield return null;
             }
+            EndRiding();
+        }
+
+        // 날기 알림 텍스트 페이드 코루틴
+        private IEnumerator FadeOutText()
+        {
+            elapsedTime = 0f;
+            ridingText.color = Color.white;
+
+            while (elapsedTime < fadeDuration)
+            {
+                float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+                SetTextAlpha(alpha);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            SetTextAlpha(0f);
+        }
+
+        // 알파값 변경하는 함수
+        private void SetTextAlpha(float alpha_)
+        {
+            textColor = Color.white;
+            textColor.a = alpha_;
+            ridingText.color = textColor;
         }
 
         Grabbable getClosestGrabbable()

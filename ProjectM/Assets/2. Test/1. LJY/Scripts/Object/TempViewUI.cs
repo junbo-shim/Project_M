@@ -23,6 +23,10 @@ public class TempViewUI : MonoBehaviour
         bGColor = Color.white;
         viewHpColor = new Color(viewHP.color.r, viewHP.color.g, viewHP.color.b, 1);
         hpColor = Color.white;
+
+        backGround.DOFade(0f, 0.01f);
+        viewHP.DOFade(0f, 0.01f);
+        hp.DOFade(0f, 0.01f);
     }
 
     public void ChangeColorToZero()

@@ -23,6 +23,7 @@ public class ProjectileFireBall : SkillAction
         fireInfo = ReturnInfo("FireBall") as Damage;    // 파이어인포에 스킬정보 가져오기
         speed = fireInfo.Value1;
         damage = fireInfo.skillDamage;
+        CheckSkill();
 
         // Rigidbody를 사용하여 Projectile에 속도 부여
         GetComponent<Rigidbody>().velocity = direction * speed;
