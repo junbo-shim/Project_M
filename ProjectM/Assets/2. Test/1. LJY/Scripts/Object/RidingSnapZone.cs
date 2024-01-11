@@ -116,6 +116,7 @@ namespace BNG
         private Vector3 moveDirection;      // 이동 방향
         public Transform rightController;   // 이동 방향을 받아올 오브젝트
         public GameObject leftHand;         // 왼손 컨트롤러 ON/OFF용
+        public ParticleSystem ridingParticle;    // 라이딩 등장 파티클
 
         public UnityEngine.UI.Slider timeSlider;           // 지속 시간을 보여줄 UI
         public float ridingTime;      // 비행 지속 시간
@@ -252,6 +253,8 @@ namespace BNG
                         HeldItem.gameObject.SetActive(true);    // 시각적인 라이딩 오브젝트 On
                         timeSlider.gameObject.SetActive(true);  // 지속시간 UI On                   
                         leftHand.gameObject.SetActive(false);
+
+                        ridingParticle.Play();
 
                         if (DisableGravityWhileHeld)
                         {
