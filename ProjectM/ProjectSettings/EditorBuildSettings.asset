@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/2. Test/3. JHW/Scene/LoadingScene.unity
     guid: 5df45c09fd48ad54d8d4f848899d66dc
   - enabled: 0
-    path: Assets/1. Main/Scene/Release_Main.unity
+    path: Assets/1. Main/Scene/Release_Main_PlayerChanged.unity
     guid: ec3f38883f6154e4186cb177e2f03df2
   - enabled: 1
     path: Assets/2. Test/2. SSM/Scene/Demo 24.1.8.unity
