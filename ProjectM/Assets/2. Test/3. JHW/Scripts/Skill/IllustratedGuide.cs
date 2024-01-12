@@ -11,7 +11,7 @@ public class IllustratedGuide : MonoBehaviour
     #region OnOff
     public void FIreBallOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 0)
             {
@@ -27,7 +27,7 @@ public class IllustratedGuide : MonoBehaviour
 
     public void RazerOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 1)
             {
@@ -43,7 +43,7 @@ public class IllustratedGuide : MonoBehaviour
 
     public void IceBulletOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 2)
             {
@@ -58,7 +58,7 @@ public class IllustratedGuide : MonoBehaviour
 
     public void PoisonOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 3)
             {
@@ -73,7 +73,7 @@ public class IllustratedGuide : MonoBehaviour
 
     public void JumpOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 4)
             {
@@ -88,9 +88,26 @@ public class IllustratedGuide : MonoBehaviour
 
     public void HillOnOff()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (i == 5)
+            {
+                creaftingUIOnOff[i].SetActive(true);
+            }
+            else
+            {
+                creaftingUIOnOff[i].SetActive(false);
+            }
+        }
+    }
+
+
+
+    public void InvisibleOnOff()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            if (i == 6)
             {
                 creaftingUIOnOff[i].SetActive(true);
             }
@@ -108,8 +125,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[0].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경
@@ -124,8 +140,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[1].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경
@@ -140,8 +155,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[2].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경
@@ -155,8 +169,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[3].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경
@@ -171,8 +184,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[4].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경
@@ -188,8 +200,7 @@ public class IllustratedGuide : MonoBehaviour
     {
         Image image = changeImage[5].GetComponent<Image>();
 
-        // 여기에 이미지를 변경할 소스를 추가하세요
-        // 예시: Resources 폴더에 있는 "new_image" 스프라이트를 사용
+
         Sprite newSprite = Resources.Load<Sprite>("Bookmark_Blue");
 
         // 이미지 컴포넌트의 소스 변경

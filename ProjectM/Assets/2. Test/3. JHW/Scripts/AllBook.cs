@@ -103,8 +103,6 @@ public class AllBook : MonoBehaviour
             {
                 activeSystemSetting = !activeSystemSetting;
                 onOffSystemSetting.SetActive(activeSystemSetting);
-                Debug.Log(activeSystemSetting);
-
             }
         }
     }
