@@ -40,8 +40,7 @@ public class NPCTack : MonoBehaviour
         mbtis = new List<int>();
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
-        NpcWord();
-        
+        NpcWord();       
         dictFirst = npcWoadDict.First().Key; //첫번쨰 키 저장
         dictProgressSb.Append(dialogueLV == 0 ? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
         npcTextMeshPro.text = npcWoadDict[dictFirst][0]; // npc 대사 설정  dialogueData[j].Id.ToString() +"_"+ dialogueData[j].Choice_Order_Number .id _ 글등장 순서
@@ -107,7 +106,7 @@ public class NPCTack : MonoBehaviour
             {
                 for (int i = 0; i < mbtis.Count-1; i++)
                 {
-           
+                
                     GetMBTIDatas(mbtis[i]);
                 }
                
@@ -174,23 +173,25 @@ public class NPCTack : MonoBehaviour
         {
             npcTextMeshPro.text = str;
         }
-        mbtis.Add(mbtiID);
+        if(mbtiID != -1)
+        {
+            mbtis.Add(mbtiID);
+        }
+       
         DictLastNumberAdd(); 
     }
 
     public void GetMBTIDatas(int mbti_ID) // mbti 에 점수 추가
     {
-      
+        Debug.Log(mbti_ID);
         var mbtiDatas = CSVRead.instance.MBTIDatas[mbti_ID.ToString()];
         var playerMBTI = MBTIScripts.Instance;
         scores = new[] { mbtiDatas.MBTiScore_I, mbtiDatas.MBTiScore_N,
                          mbtiDatas.MBTiScore_S, mbtiDatas.MBTiScore_J,
                          mbtiDatas.MBTiScore_P, mbtiDatas.MBTiScore_E,
                          mbtiDatas.MBTiScore_T, mbtiDatas.MBTiScore_F };
-
         for (int i = 0; i < scores.Length; i++)
         {
-
             if (scores[i] > 0)
             {
 
@@ -317,22 +318,15 @@ public class NPCTack : MonoBehaviour
     #endregion
     #region npc글세팅
     public int WordChange(int i) // 글 교체 및 npc대화
-    {
-       
-    
+    {       
         if (newNPC.NPC_ID.Equals(null)) // npcid 가 널이면 대화안함
         {
             return 0;
         }
         PrecedeQuest_IDChk();// 선행퀘스트 조건 체크 여기서 선행퀘가 없거나 달성시 prerequisiteQuest = true 미달성시 prerequisiteQuest = false로 바꿈
-
-       
-       
-
      
         if (i == -1)
         {
-   
             TalkOff();
             return i + 1;
         }
@@ -388,6 +382,7 @@ public class NPCTack : MonoBehaviour
     }
     public string NpcWord() //csv에서 Description 읽어옴
     {
+        
         if (npcID.Equals(newNPC.NPC_ID.ToString()))
         {
             for (int i = 0; i <= newNPC.ContinueDialogueCount; i++)
@@ -399,7 +394,7 @@ public class NPCTack : MonoBehaviour
                    
                     npcWoad = new List<string>(); // npc 대사 세팅 50글자씪 자를리스트 초기화
                     reCutString(dialogueData[j].Choice_Before_Dialogue);
-
+                 
                     npcWoadDict.Add(dialogueData[j].Choice_Bundle_Tag.ToString() + "_" + dialogueData[j].Choice_Order_Number.ToString(), npcWoad);
 
                 }
@@ -449,7 +444,8 @@ public class NPCTack : MonoBehaviour
     }
     private void PrecedeQuest_IDChk() // 퀘스트 선행여부체크
     {
-     
+
+        Debug.Log(QuestMananger.instance.playerQuest.ContainsKey(dialogueData[0].Quest_ID.ToString()));
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
         {          
             prerequisiteQuest = true;
@@ -485,7 +481,6 @@ public class NPCTack : MonoBehaviour
 
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
-    
         if (newNPC.Type==-1)
         {
             return;

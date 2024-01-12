@@ -13,9 +13,11 @@ public class NPCChildSet : MonoBehaviour
     public void Awake()
     {
 
+
         Caching();
     }
 
+  
     private void Caching()
     {
         //npcTackUI 내부 Transform 저장용 {
