@@ -107,5 +107,9 @@ crashlytics-build.properties
 /[Aa]ssets/2. Test/4. SJB/Prefabs/Animator/Sasquatch.fbx
 /[Aa]ssets/2. Test/4. SJB/Prefabs/Source/Sasquatch_decimated.fbx
 
+# WorldMap Prefabs, Scene Folder Ignore (24.1.12)
+/[Aa]ssets/1. Main/Prefabs/
+/[Aa]ssets/1. Main/Scene/
+/[Aa]ssets/4. LevelDesign/
 
 # End of https://www.toptal.com/developers/gitignore/api/unity

@@ -63,6 +63,6 @@ Material:
     - _Smoothness: 1
     - _Strength: 0.33
     m_Colors:
-    - _Depp_Water: {r: 0.3424261, g: 0.42452827, b: 0.42452827, a: 0.25490198}
-    - _Shallw_Water: {r: 0.4696066, g: 0.5754717, b: 0.5709668, a: 0.14901961}
+    - _Depp_Water: {r: 0.21404412, g: 0.28812578, b: 0.6981132, a: 0.36862746}
+    - _Shallw_Water: {r: 0.46960652, g: 0.57547164, b: 0.5709668, a: 0.47058824}
   m_BuildTextureStacks: []
