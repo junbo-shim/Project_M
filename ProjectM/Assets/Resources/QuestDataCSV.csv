@@ -1,11 +1,24 @@
-﻿Quest_ID,QuestType,Quest_Name_Key,Quest_Goal_Key,Quest_Explain_Key,Quest_Background_Type,Quest_Area_Type,CompletionCondition_ID,SuccessNPC_ID,PrecedeQuest_ID,Quest_Progress_Dialogue,Reward_ID
-100001,Main,Quest_Main_Name_001,Quest_Goal_Goal_001,Quest_Goal_Explain_001,Snowfield,PointSpot2,50001,200003,-1,널 믿는다.,-1
-100002,Main,Quest_Main_Name_002,Quest_Goal_Goal_002,Quest_Goal_Explain_002,Snowfield,PointSpot2,50002,200003,100001,형한테 이야기해줘!,-1
-100003,Main,Quest_Main_Name_003,Quest_Goal_Goal_003,Quest_Goal_Explain_003,Snowfield,PointSpot2,50003,200005,100006,부탁한다.,-1
-100004,Main,Quest_Main_Name_004,Quest_Goal_Goal_004,Quest_Goal_Explain_004,Snowfield,PointSpot2,50004,200005,100003,행운을 빕니다.,-1
-100005,Main,Quest_Main_Name_005,Quest_Goal_Goal_005,Quest_Goal_Explain_005,Snowfield,PointSpot2,50005,200003,100004,-1,30001
-100006,Main,Quest_Main_Name_006,Quest_Goal_Goal_006,Quest_Goal_Explain_006,Snowfield,PointSpot2,50006,200005,100002,형과 이야기해봐!,-1
-100007,Main,Quest_Main_Name_007,Quest_Goal_Goal_007,Quest_Goal_Explain_007,Forest,PointSpot1,50007,200008,-1,게이트를 열려면 화로라는 것이 있다고 들었다,-1
-100008,Main,Quest_Main_Name_008,Quest_Goal_Goal_008,Quest_Goal_Explain_008,Forest,PointSpot1,50008,200008,100007,멋진 친구에게 어서 가!!!,-1
-100009,Main,Quest_Main_Name_009,Quest_Goal_Goal_009,Quest_Goal_Explain_009,Forest,PointSpot1,50009,200008,100008,훌륭한 친구에게 어서 가!!!,-1
-100010,Main,Quest_Main_Name_010,Quest_Goal_Goal_010,Quest_Goal_Explain_010,Forest,PointSpot1,50010,200010,100009,너만이 해낼 수 있어!!!,-1
+﻿Quest_ID,QuestType,Quest_Name_Key,Quest_Goal_Key,Quest_Explain_Key,Quest_Background_Type,Quest_Area_Type,CompletionCondition_ID,SuccessNPC_ID,PrecedeQuest_ID,Quest_Progress_Dialogue,,,Reward_ID
+100001,Main,Quest_Main_Name_001,Quest_Goal_Goal_001,Quest_Goal_Explain_001,Snowfield,PointSpot2,50001,200003,-1,널 믿는다.,,,-1
+100002,Main,Quest_Main_Name_002,Quest_Goal_Goal_002,Quest_Goal_Explain_002,Snowfield,PointSpot2,50002,200003,100001,내 눈앞에서 사라져라.,,,-1
+100003,Main,Quest_Main_Name_003,Quest_Goal_Goal_003,Quest_Goal_Explain_003,Snowfield,PointSpot2,50003,200005,100006,부탁한다.,,,-1
+100004,Main,Quest_Main_Name_004,Quest_Goal_Goal_004,Quest_Goal_Explain_004,Snowfield,PointSpot2,50004,200005,100003,행운을 빕니다.,,,-1
+100005,Main,Quest_Main_Name_005,Quest_Goal_Goal_005,Quest_Goal_Explain_005,Snowfield,PointSpot2,50005,200003,100004,-1,,,30001
+100006,Main,Quest_Main_Name_006,Quest_Goal_Goal_006,Quest_Goal_Explain_006,Snowfield,PointSpot2,50006,200005,100002,형과 이야기해봐!,,,-1
+100007,Main,Quest_Main_Name_007,Quest_Goal_Goal_007,Quest_Goal_Explain_007,Forest,PointSpot1,50007,200008,-1,게이트를 열려면 화로라는 것이 있다고 들었다,,,-1
+100008,Main,Quest_Main_Name_008,Quest_Goal_Goal_008,Quest_Goal_Explain_008,Forest,PointSpot1,50008,200008,100007,멋진 친구에게 어서 가!!!,,,-1
+100009,Main,Quest_Main_Name_009,Quest_Goal_Goal_009,Quest_Goal_Explain_009,Forest,PointSpot1,50009,200008,100008,훌륭한 친구에게 어서 가!!!,,,-1
+100010,Main,Quest_Main_Name_010,Quest_Goal_Goal_010,Quest_Goal_Explain_010,Forest,PointSpot1,50010,200010,100009,너만이 해낼 수 있어!!!,,,-1
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,

@@ -1,7 +1,12 @@
-﻿NPC_ID,Description,Type,Name,Hp,CatchPossibility,Icon
-200001,마을_난쟁이NPC_001,Main,울먹이는 난쟁이,999999,FALSE,Main
-200002,필리니스_예티NPC_001,Main,도움을 청하는 예티,999999,FALSE,Main
-200003,필리니스_예티NPC_002,Main,예티 왕의 오른팔,999999,FALSE,Main
-202004,필리니스_예티NPC_003,Talk,오른팔의 동생,1,TRUE,Main
-200005,필리니스_예티NPC_004,Main,심사관 예티,999999,FALSE,Main
-200006,필리니스_예티NPC_005,Main,예티의 왕,999999,FALSE,Main
+﻿ID,Description,Type1,Name,HP,CatchPossibility
+200001,마을_난쟁이NPC_001,Main,울먹이는 난쟁이,1,TRUE
+200002,필리니스_예티NPC_001,Main,도움을 청하는 예티,1,TRUE
+200003,필리니스_예티NPC_002,Main,예티 왕의 오른팔,1,TRUE
+202004,필리니스_예티NPC_003,Talk,오른팔의 동생,1,TRUE
+200005,필리니스_예티NPC_004,Main,심사관 예티,1,TRUE
+200006,필리니스_예티NPC_005,Main,예티의 왕,1,TRUE
+200007,실바니아_정령NPC_001,Main,신중하게 고민하는 정령,1,TRUE
+200008,실바니아_오크NPC_001,Main,걱정하는 오크,1,TRUE
+200009,실바니아_오크NPC_002,Main,조금 똑똑한 오크,1,TRUE
+200010,실바니아_정령NPC_002,Main,위그드라실 전달자,1,TRUE
+200011,세이브_세이브NPC_001,-1,세이브NPC,1,TRUE

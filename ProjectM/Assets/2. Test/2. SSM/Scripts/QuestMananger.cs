@@ -49,6 +49,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     {
         if(!playerQuest.ContainsKey(str))
         {
+            Debug.Log("수락함");
             if(CSVRead.instance.QuestDatas.ContainsKey(str))
             {
                 var questInstance = CSVRead.instance.QuestDatas[str];

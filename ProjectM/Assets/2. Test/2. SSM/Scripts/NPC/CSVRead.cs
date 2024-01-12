@@ -155,15 +155,16 @@ public class CSVRead : MonoBehaviour
     {
 
     
-        string id = GetValue<int>(dict, "NPC_ID").ToString();
+        string id = GetValue<int>(dict, "ID").ToString();
+       
         // 딕셔너리에 해당 키에 대응하는 NPCData 객체가 없으면 생성
         if (!nPCDatas.ContainsKey(id))
         {
             nPCDatas[id] = new NPCData();
         } 
-        nPCDatas[id].NPC_ID = GetValue<int>(dict, "NPC_ID");
+        nPCDatas[id].NPC_ID = GetValue<int>(dict, "ID");
         nPCDatas[id].Description = GetValue<string>(dict, "Description");
-        nPCDatas[id].Type = GetValue<string>(dict, "Type");
+        nPCDatas[id].Type = GetValue<string>(dict, "Type1");
         nPCDatas[id].Name = GetValue<string>(dict, "Name");
         nPCDatas[id].Hp = GetValue<int>(dict, "Hp");
         nPCDatas[id].CatchPossibility = GetValue<bool>(dict,"CatchPossibility");
@@ -177,7 +178,7 @@ public class CSVRead : MonoBehaviour
     {
 
         string id = GetValue<int>(dict, "ID").ToString();
-      
+    
         // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
         if (!npcSelectTalkDatas.ContainsKey(id))
         {
@@ -194,7 +195,6 @@ public class CSVRead : MonoBehaviour
         npcSelectTalkDatas[id].Choice_Text2 = GetValue<string>(dict, "Choice_Text2");
         npcSelectTalkDatas[id].Choice_Text3 = GetValue<string>(dict, "Choice_Text3");
         npcSelectTalkDatas[id].Choice_Text4 = GetValue<string>(dict, "Choice_Text4");
-
         npcSelectTalkDatas[id].Choice_Text1_Answer = GetValue<string>(dict, "Choice_Text1_Answer");
         npcSelectTalkDatas[id].Choice_Text2_Answer = GetValue<string>(dict, "Choice_Text2_Answer");
         npcSelectTalkDatas[id].Choice_Text3_Answer = GetValue<string>(dict, "Choice_Text3_Answer");
@@ -275,6 +275,7 @@ public class CSVRead : MonoBehaviour
     public void CompletionConditionDict(Dictionary<string, object> dict)
     {
         string id = GetValue<int>(dict, "ID").ToString();
+
         // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
         if (!CompletionConditionDatas.ContainsKey(id))
         {
@@ -283,7 +284,7 @@ public class CSVRead : MonoBehaviour
 
         CompletionConditionDatas[id].Id = GetValue<int>(dict, "ID");
         CompletionConditionDatas[id].ConditionType = GetValue<string>(dict, "Condition Type");
-        CompletionConditionDatas[id].Value = GetValue<string>(dict, "Value");
+        CompletionConditionDatas[id].Value = GetValue<string>(dict, "Value1");
         
 
     }

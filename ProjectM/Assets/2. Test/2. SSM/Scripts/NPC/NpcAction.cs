@@ -1,3 +1,4 @@
+using BNG;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,14 @@ public class NpcAction : NpcActionBase
 
     public void Start()
     {
+        Collider[] colliders =transform.parent.GetComponentsInChildren<Collider>();
+       
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), colliders[i]);
+            // Physics.IgnoreCollision(colliders[i], trigger);
+        }
+
         saveNpc = GetComponent<SaveNpc>();
          retalkChk = false;
         npcTack = GetComponent<NPCTack>();
@@ -30,6 +39,7 @@ public class NpcAction : NpcActionBase
 
     public void OnTriggerStay(Collider other)
     {
+        Debug.Log(other.name);
         if (other.tag.Equals("Player")) // 플레이어에게 대사 보여주기 바라보기
         {
             // 조건 추가 
