@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPCHitScripts : MonoBehaviour
@@ -9,11 +10,19 @@ public class NPCHitScripts : MonoBehaviour
     private Animator animator; // 최상위 부모Animator
     public bool isGround = true; // 땅접촉여부 판단
     public bool isGrap = false;  // 잡혔는지 여부
+    Rigidbody[] parntRb;
 
     public void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         npcObj = ReParntOBJ(gameObject);
+        parntRb = npcObj.transform.GetComponentsInChildren<Rigidbody>();
+        for (int i = 0; i < parntRb.Length; i++)
+        {
+            parntRb[i].isKinematic = true;
+        }
+
         animator = npcObj.GetComponent<Animator>();
         npcAction = npcObj.transform.Find("NpcAction").GetComponent<NpcAction>();
 
@@ -62,6 +71,12 @@ public class NPCHitScripts : MonoBehaviour
 
     public void ragdollOn() // 렉돌상태on
     {
+        for (int i = 0; i < parntRb.Length; i++)
+        {
+            parntRb[i].isKinematic = false;
+        }
+
+
         animator.enabled = false;
         npcAction.ragdoll = true;
         npcAction.npcTack.TalkOff();
@@ -78,6 +93,12 @@ public class NPCHitScripts : MonoBehaviour
             Invoke("ragdollOff", 5f);
             return;
         }
+        for (int i = 0; i < parntRb.Length; i++)
+        {
+            parntRb[i].isKinematic = true;
+        }
+
+       
         animator.enabled = true;
         npcAction.ragdoll = false;
         return;

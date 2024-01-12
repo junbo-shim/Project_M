@@ -481,7 +481,6 @@ public class NPCTack : MonoBehaviour
 
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
-    
         if (newNPC.Type==-1)
         {
             return;

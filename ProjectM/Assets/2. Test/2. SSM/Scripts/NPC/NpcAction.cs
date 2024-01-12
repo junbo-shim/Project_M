@@ -39,13 +39,14 @@ public class NpcAction : NpcActionBase
 
     public void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.name);
+        
         if (other.tag.Equals("Player")) // 플레이어에게 대사 보여주기 바라보기
         {
             // 조건 추가 
 
             if (!ragdoll)
             {
+         
                 transform.LookAt(other.transform);
                 Ray ray = new Ray(transform.position, transform.forward);
                 RaycastHit hitInfo; // 레이캐스트에 의한 충돌 정보를 저장할 변수
