@@ -22,6 +22,7 @@ public class ProjectileIceBall : SkillAction
         iceInfo = ReturnInfo("IceBall") as NoDamage;    // 아이스인포에 스킬정보 담기
         speed = iceInfo.Value2;
         statusEffId = iceInfo.Value1;
+        CheckSkill();
 
         // Rigidbody를 사용하여 Projectile에 속도 부여
         GetComponent<Rigidbody>().velocity = direction * speed;
