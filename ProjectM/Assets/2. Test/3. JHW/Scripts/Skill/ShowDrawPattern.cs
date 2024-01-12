@@ -84,4 +84,17 @@ public class ShowDrawPattern : MonoBehaviour
         drawPattern[5].SetActive(false);
     }
     #endregion
+
+
+    #region InvisiblePattern
+    public void ShowInvisiblePattern()
+    {
+        drawPattern[6].SetActive(true);
+    }
+
+    public void CloseInvisiblePattern()
+    {
+        drawPattern[6].SetActive(false);
+    }
+    #endregion
 }
