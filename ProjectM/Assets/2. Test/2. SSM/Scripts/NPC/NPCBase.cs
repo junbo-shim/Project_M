@@ -35,6 +35,7 @@ public class NPCBase
         NPC newNPC = new NPC
         {
             NPC_ID = npcID,
+            
             Type = type,
             Name = name,
             Hp = hp,
@@ -43,8 +44,8 @@ public class NPCBase
             // 대화 데이터 초기화
 
             // 다른 속성들도 필요에 따라 초기화
-        };   
-
+        };
+      
         for (; dialogueID_ <= save; dialogueID_++)
         {
             newNPC.ContinueDialogue = (int dialogueID) =>

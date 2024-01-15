@@ -38,8 +38,10 @@ public class MBTIScripts : MonoBehaviour
 
     public void Awake()
     {
-        
-         MBTiScore_ = new Dictionary<string, int>();
+
+        MBTiScore_ = new Dictionary<string, int>();
+
+
     }
     void Start()
     {
@@ -48,19 +50,7 @@ public class MBTIScripts : MonoBehaviour
     }
     public string MaxMbti() // 저장시 최대값 뽑기
     {
-        MBTiScore_ = new Dictionary<string, int>
-        {
-            { "E", mbtiScore_E },
-            { "I", mbtiScore_I },
-            { "S", mbtiScore_S },
-            { "N", mbtiScore_N },
-            { "F", mbtiScore_F },
-            { "T", mbtiScore_T },
-            { "J", mbtiScore_J },
-            { "P", mbtiScore_P }
-        };
-      
-   
+     
         
         foreach (var dic in MBTiScore_)
         {
@@ -87,43 +77,100 @@ public class MBTIScripts : MonoBehaviour
 
     public void MBTI_E_Add(int value)
     {
+        if (MBTiScore_.ContainsKey("E"))
+        {
+            MBTiScore_["E"] += value; 
+        }
+        else
+        {
+            MBTiScore_.Add("E", value); 
+        }
+   
        
-        mbtiScore_E += value;
     }
     public void MBTI_I_Add(int value)
     {
-        mbtiScore_I += value;
-       
+   
+        if (MBTiScore_.ContainsKey("I"))
+        {
+            MBTiScore_["I"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("I", value);
+        }
     }
     public void MBTI_S_Add(int value)
     {
-        mbtiScore_S += value;
-     
+        if (MBTiScore_.ContainsKey("S"))
+        {
+            MBTiScore_["S"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("S", value);
+        }
+
     }
     public void MBTI_N_Add(int value)
     {
-        mbtiScore_N += value;
-     
+        if (MBTiScore_.ContainsKey("N"))
+        {
+            MBTiScore_["N"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("N", value);
+        }
+
     }
     public void MBTI_F_Add(int value)
     {
-        mbtiScore_F += value;
+        if (MBTiScore_.ContainsKey("F"))
+        {
+            MBTiScore_["F"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("F", value);
+        }
 
     }
     public void MBTI_T_Add(int value)
     {
-        mbtiScore_T += value;
+        if (MBTiScore_.ContainsKey("T"))
+        {
+            MBTiScore_["T"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("T", value);
+        }
 
     }
     public void MBTI_J_Add(int value)
     {
-        mbtiScore_J += value;
+        if (MBTiScore_.ContainsKey("J"))
+        {
+            MBTiScore_["J"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("J", value);
+        }
 
     }
     public void MBTI_P_Add(int value)
     {
-        mbtiScore_P += value;
-        
+        if (MBTiScore_.ContainsKey("P"))
+        {
+            MBTiScore_["P"] += value;
+        }
+        else
+        {
+            MBTiScore_.Add("P", value);
+        }
+
     }
     public string FinalMBTIDerive()
     {

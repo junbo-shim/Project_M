@@ -1,3 +1,4 @@
+using BNG;
 using System;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ public class MapGameManager : MonoBehaviour
 {
     private static MapGameManager Instance;
     public bool BedAct = false;
+    public bool StopDayProgression = false;
     public GameObject itemSpObj;
-
+    public RidingSnapZone ridingSnapZone;
+    public GameObject playerGameObject;
 
     //23.01.05 LJY
     public event Action dayStart;
@@ -38,6 +41,7 @@ public class MapGameManager : MonoBehaviour
 
     public void Awake()
     {
+        ridingSnapZone = playerGameObject.GetComponent<RidingSnapZone>();
         if (Instance == null)
         {
             Instance = this;
@@ -104,6 +108,12 @@ public class MapGameManager : MonoBehaviour
        BedAct = !BedAct;
 
     }
+
+    public void ChangeDayState()
+    {
+        StopDayProgression = !StopDayProgression;
+    }
+
     public void OnObj(GameObject obj)
     {
         obj.SetActive(true);

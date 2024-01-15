@@ -156,19 +156,20 @@ public class CSVRead : MonoBehaviour
 
     
         string id = GetValue<int>(dict, "ID").ToString();
-       
+     
         // 딕셔너리에 해당 키에 대응하는 NPCData 객체가 없으면 생성
         if (!nPCDatas.ContainsKey(id))
         {
+        
             nPCDatas[id] = new NPCData();
         } 
         nPCDatas[id].NPC_ID = GetValue<int>(dict, "ID");
         nPCDatas[id].Description = GetValue<string>(dict, "Description");
         nPCDatas[id].Type = GetValue<string>(dict, "Type1");
         nPCDatas[id].Name = GetValue<string>(dict, "Name");
-        nPCDatas[id].Hp = GetValue<int>(dict, "Hp");
+        nPCDatas[id].Hp = GetValue<int>(dict, "HP");
         nPCDatas[id].CatchPossibility = GetValue<bool>(dict,"CatchPossibility");
-        nPCDatas[id].Icon = GetValue<string>(dict, "Icon");
+
 
     }
     #endregion
@@ -178,7 +179,7 @@ public class CSVRead : MonoBehaviour
     {
 
         string id = GetValue<int>(dict, "ID").ToString();
-    
+
         // 딕셔너리에 해당 키에 대응하는 NPCSelectTalkData 객체가 없으면 생성
         if (!npcSelectTalkDatas.ContainsKey(id))
         {
@@ -186,6 +187,7 @@ public class CSVRead : MonoBehaviour
         }
         npcSelectTalkDatas[id].Id = GetValue<int>(dict, "ID");
         npcSelectTalkDatas[id].NPCId = GetValue<int>(dict, "NPC_ID");
+     //   Debug.Log(GetValue<int>(dict, "NPC_ID"));
         npcSelectTalkDatas[id].NextChoice_ID = GetValue<int>(dict, "NextChoice_ID");
         npcSelectTalkDatas[id].Quest_ID = GetValue<int>(dict, "Quest_ID");
         npcSelectTalkDatas[id].Choice_Before_Dialogue = GetValue<string>(dict, "Dialogue");   
