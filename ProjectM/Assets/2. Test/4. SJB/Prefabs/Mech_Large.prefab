@@ -468,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 3376636282026059503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.74, y: 1, z: -24.59}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7333139842005790540}
@@ -490,13 +490,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
+  m_Height: 14
+  m_Radius: 3
   m_SlopeLimit: 60
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 6.2, z: 0.5}
 --- !u!114 &8251939116922926821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,16 +514,23 @@ MonoBehaviour:
   monsterAnimator: {fileID: 7333139842015035564}
   monsterSight: {fileID: 3376636280270429955}
   monsterSonar: {fileID: 3376636280872583608}
-  sonarTarget: {fileID: 0}
+  target: {fileID: 0}
   hpGaugeUI: {fileID: 0}
   detectUI: {fileID: 3376636282180159304}
+  monsterPool: {fileID: 0}
   thisMonsterType: 0
-  debuffState: 0
+  toxicDuration: 0
+  slowDuration: 0
+  frozenDuration: 0
+  bindDuration: 0
   monsterHP: 0
   monsterMoveSpeed: 0
   monsterPatrolRange: 0
   monsterSightRange: 0
   monsterSonarRange: 0
+  isMovingID: 0
+  isAttackingID: 0
+  deadID: 0
 --- !u!1 &3376636282180159304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,7 +3733,7 @@ Transform:
   m_GameObject: {fileID: 7333139842005693292}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7333139842005790542}

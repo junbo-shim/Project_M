@@ -30,13 +30,12 @@ public class MonsterWeakPoint : MonoBehaviour
             // 데미지만 가하는 스킬인 경우
             if (skillAction.isDamage == true && skillAction.isStatusEff == false)
             {
-                GetMonsterHit((int)skillAction.damage);
+                GetMonsterHit();
             }
             // 데미지 + 상태이상 스킬인 경우
             else if (skillAction.isDamage == true && skillAction.isStatusEff == true)
             {
-                GetMonsterHit((int)skillAction.damage);
-
+                GetMonsterHit();
                 MonsterDebuff.Instance.DoDebuff(monsterComponent, (int)skillAction.statusEffId);
             }
             // 상태이상만 가하는 스킬인 경우
@@ -49,16 +48,12 @@ public class MonsterWeakPoint : MonoBehaviour
 
 
     #region 데미지 받는 메서드
-    private void GetMonsterHit(int damage_)
+    private void GetMonsterHit()
     {
         // 데미지 감소 적용
-        monsterComponent.monsterHP -= (int)(damage_ * 1.5f);
-
-        // 체력이 0 이하일 경우 Die 상태로 전환
-        if (monsterComponent.monsterHP <= 0f)
-        {
-            monsterFSM.ChangeState(MonsterStateMachine.State.Die);
-        }
+        monsterComponent.monsterHP = 0;
+        //Die 상태로 전환
+        monsterFSM.ChangeState(MonsterStateMachine.State.Die);
     }
     #endregion
 }

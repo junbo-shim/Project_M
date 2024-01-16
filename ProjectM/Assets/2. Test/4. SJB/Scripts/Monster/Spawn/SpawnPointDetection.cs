@@ -45,6 +45,7 @@ public class SpawnPointDetection : MonoBehaviour
                     monster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
                 }
             }
+            gameObject.SetActive(false);
         }
     }
 }
