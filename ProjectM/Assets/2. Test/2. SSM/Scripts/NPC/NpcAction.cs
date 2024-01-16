@@ -13,17 +13,17 @@ public class NpcAction : NpcActionBase
     [SerializeField] private GameObject icon; // npc아이콘;
     public int Talki = 0; // 대화가 몇번째인지 (50글자씩 자른대화)
     [SerializeField] private bool isSave; // save npc 여부
-    private SaveNpc saveNpc; 
+    private SaveNpc saveNpc;
     public bool ragdoll = false; // 레그돌 상태 여부
 
     [Tooltip("Unity Input Action used to move the player up")]
     public InputActionReference PlayerUpAction;
- 
+
 
     public void Start()
     {
-        Collider[] colliders =transform.parent.GetComponentsInChildren<Collider>();
-       
+        Collider[] colliders = transform.parent.GetComponentsInChildren<Collider>();
+
         for (int i = 0; i < colliders.Length; i++)
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), colliders[i]);
@@ -31,22 +31,22 @@ public class NpcAction : NpcActionBase
         }
 
         saveNpc = GetComponent<SaveNpc>();
-         retalkChk = false;
+        retalkChk = false;
         npcTack = GetComponent<NPCTack>();
 
     }
-    
+
 
     public void OnTriggerStay(Collider other)
     {
-        
+
         if (other.tag.Equals("Player")) // 플레이어에게 대사 보여주기 바라보기
         {
             // 조건 추가 
 
             if (!ragdoll)
             {
-         
+
                 transform.LookAt(other.transform);
                 Ray ray = new Ray(transform.position, transform.forward);
                 RaycastHit hitInfo; // 레이캐스트에 의한 충돌 정보를 저장할 변수
@@ -54,7 +54,7 @@ public class NpcAction : NpcActionBase
 
                 if (playerDis < NPCTalkDis)
                 {
-                    if(!isSave)
+                    if (!isSave)
                     {
                         if (Talki != -2)
                         {
@@ -72,13 +72,14 @@ public class NpcAction : NpcActionBase
 
 
                         }
-                    }else if(isSave)
+                    }
+                    else if (isSave)
                     {
                         if (!icon.activeSelf)
                         {
                             icon.SetActive(true);
                         }
-                      
+
                         if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
                         {
                             if (hitInfo.collider.CompareTag("Player"))
@@ -88,7 +89,7 @@ public class NpcAction : NpcActionBase
 
                                     if (ClickBool == false)
                                     {
-                                      
+
                                         BoolChange();
                                         saveNpc.TalkChange();
                                     }
@@ -102,20 +103,22 @@ public class NpcAction : NpcActionBase
                 {
                     if (!isSave)
                     {
+
                         npcTack.TalkExit();//대화창off
                     }
                     else
                     {
-                        if(TalkCanvas.activeSelf)
+                        if (TalkCanvas.activeSelf)
                         {
+
                             TalkCanvas.SetActive(false);
-                        }                     
-                        if(!ChoicsObj.activeSelf)
+                        }
+                        if (!ChoicsObj.activeSelf)
                         {
                             ChoicsObj.SetActive(true);
                         }
                     }
-                   
+
 
                 }
                 NpcLook(other.gameObject);//플레이어 처다보기
@@ -126,8 +129,8 @@ public class NpcAction : NpcActionBase
 
 
     }
-   
-   
+
+
     public void TalkiClear() // 대화 선택지 클릭시
     {
         Talki = -1;
@@ -160,7 +163,7 @@ public class NpcAction : NpcActionBase
 
                 if (ClickBool == false)
                 {
-                   
+
                     BoolChange();
 
                     Talki = npcTack.WordChange(Talki);
@@ -220,14 +223,14 @@ public class NpcAction : NpcActionBase
 
             npcTack.TalkExit();//대화창off
         }
-        if(icon != null)
+        if (icon != null)
         {
-            if(icon.activeSelf)
+            if (icon.activeSelf)
             {
                 icon.SetActive(false);
                 saveNpc.ExitTalk();
             }
-          
+
         }
     }
     #endregion

@@ -30,8 +30,8 @@ TagManager:
   - 
   - Interactible
   - UnMovable
-  - 
-  - 
+  - Interaction
+  - InteractionDelete
   - 
   - 
   - 

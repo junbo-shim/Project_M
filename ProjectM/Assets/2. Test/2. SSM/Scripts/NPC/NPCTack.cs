@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -40,6 +41,7 @@ public class NPCTack : MonoBehaviour
         mbtis = new List<int>();
         SetComponent(); // Component 및 기타 정보 초기화및 세팅
         SetNpcData(); // npc데이터 세팅
+    
         NpcWord();       
         dictFirst = npcWoadDict.First().Key; //첫번쨰 키 저장
         dictProgressSb.Append(dialogueLV == 0 ? npcWoadDict.First().Key : npcWoadDict.Keys.ElementAt(dialogueLV)); // 진행중 키값 저장용
@@ -65,10 +67,11 @@ public class NPCTack : MonoBehaviour
     #region NPC 데이터 세팅
     private void SetNpcData() // NPC 데이터 세팅
     {
-
+        
         if (CSVRead.instance.nPCDatas.ContainsKey(npcID) && CSVRead.instance.nPCDatas != null)
         {
             var npcData = CSVRead.instance.nPCDatas[npcID];// CSVRead.instance.nPCDatas[npcID]캐싱
+           
             if (npcData != null)
             {
                 NPCBase npcBase = new NPCBase();
@@ -166,8 +169,13 @@ public class NPCTack : MonoBehaviour
 
         if (str.Equals("-1"))
         {
-            npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
-            TalkOff();
+            if(dialogueData[textLV].Quest_ID != -1)
+            {
+                npcTextMeshPro.text = CSVRead.instance.QuestDatas[dialogueData[textLV].Quest_ID.ToString()].QuestProgressDialogue;
+                TalkOff();
+            }
+
+           
         }
         else
         {
@@ -324,7 +332,7 @@ public class NPCTack : MonoBehaviour
             return 0;
         }
         PrecedeQuest_IDChk();// 선행퀘스트 조건 체크 여기서 선행퀘가 없거나 달성시 prerequisiteQuest = true 미달성시 prerequisiteQuest = false로 바꿈
-     
+        
         if (i == -1)
         {
             TalkOff();
@@ -382,7 +390,7 @@ public class NPCTack : MonoBehaviour
     }
     public string NpcWord() //csv에서 Description 읽어옴
     {
-        
+      
         if (npcID.Equals(newNPC.NPC_ID.ToString()))
         {
             for (int i = 0; i <= newNPC.ContinueDialogueCount; i++)
@@ -423,7 +431,8 @@ public class NPCTack : MonoBehaviour
     }
     public void TalkOn() // 글보여주기
     {
-  
+
+     
         if (newNPC.Type.Equals("-1"))
         {
             Debug.LogError("Npc Text Type :-1"); //npc 텍스트가 널일경우 
@@ -432,6 +441,7 @@ public class NPCTack : MonoBehaviour
       
         if ( prerequisiteQuest == false )
         {
+     
             return;
         }
 
@@ -445,22 +455,23 @@ public class NPCTack : MonoBehaviour
     private void PrecedeQuest_IDChk() // 퀘스트 선행여부체크
     {
 
-        Debug.Log(QuestMananger.instance.playerQuest.ContainsKey(dialogueData[0].Quest_ID.ToString()));
+       
         if (dialogueData[0].Quest_ID.ToString().Equals("-1"))
-        {          
+        {
+         
             prerequisiteQuest = true;
         }
         else if (QuestMananger.instance.playerQuest.ContainsKey(dialogueData[0].Quest_ID.ToString())) // 퀘스트 id 존재여부체크 
         {
            
-            QuestMananger.instance.QusetCompletionConditionChk(dialogueData[0].Quest_ID.ToString(), newNPC.NPC_ID);// 퀘스트 완료조건 체큰
+            QuestMananger.instance.QusetCompletionConditionChk(dialogueData[0].Quest_ID.ToString(), newNPC.NPC_ID );// 퀘스트 완료조건 체크
            
             if (QuestMananger.instance.playerQuest[dialogueData[0].Quest_ID.ToString()].State == QuestState.QuestStatus.Completed)
             {            
                 prerequisiteQuest = true;
             }
         }
-       
+  
     }
 
 
@@ -481,6 +492,7 @@ public class NPCTack : MonoBehaviour
 
     public void TalkExit() // 범위 밖으로 나가 대화종료
     {
+      
         if (newNPC.Type==-1)
         {
             return;

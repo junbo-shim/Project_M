@@ -1,8 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
 public enum Type
 {
     SLICEOBJ,
@@ -11,27 +12,38 @@ public enum Type
     SPINOBJ,
     HIT,
     ROTATELOOPS,
-    LOOK
-        
+    TELEPORT,
+    OBJACT
+
 }
 
 public class InteractionObjScripts : MonoBehaviour
 {
-
+    [HideInInspector] public bool startEvent;
     [HideInInspector] public Type objType; //오브젝트 타입 
     [HideInInspector] public int intValue1; // 인트 값1
     [HideInInspector] public int intValue2; // 인트 값2
     [HideInInspector] public int intValue3; // 인트 값3  
+    [HideInInspector] public int intValue4; // 인트 값3  
+    [HideInInspector] public int intValue5; // 인트 값3  
+    [HideInInspector] public int intValue6; // 인트 값3  
     [HideInInspector] public float floatValue1; //실수 값 
     [HideInInspector] public float floatValue2; //실수 값 
     [HideInInspector] public float floatValue3; //실수 값 
     [HideInInspector] public string strValue; // 문자열 값    
     [HideInInspector] public bool movement; // 동작여부
+    [HideInInspector] public bool isEnable; // 활성화 여부
+    [HideInInspector] public bool isDisable; // 비활성화 여부
     [HideInInspector] public bool isHit; // 충돌여부
+    [HideInInspector] public bool isInteraction; // 상호작용체크 
+   
     [HideInInspector] public List<Mesh> Objmeshes; // 동작여부
     [HideInInspector] public bool isHitEventEnabled; // 히트 이벤트 사용여부
     [HideInInspector] public bool onMoving; // 이동 변수이름
     [HideInInspector] public LayerMask layerMask; // 레이어 선택용
+    [HideInInspector] public LayerMask layerMask2; // 레이어 선택용2
+    [HideInInspector] public GameObject gameObject1; // 게임오브젝트
+  
     private WaitForSeconds setSeconds; // 반복 속도용    
     private WaitForSeconds defultSeconds; // 기본시간초
     private int OrgValue1; // intValue1원래 값 저장용
@@ -39,29 +51,49 @@ public class InteractionObjScripts : MonoBehaviour
     private int OrgValue3; // intValue3원래 값 저장용
     private Rigidbody rb;// rigidbody 용
     private Sequence sequence; // DoTeewing
+    private bool act; //활성화 on off
+    private Vector3 orgPos; // 원래 위치 저장용
     [HideInInspector] public Vector3 planeNormal = Vector3.up; // 평면의 법선 벡터
     [HideInInspector] public Vector3 pointOnPlane = Vector3.zero; // 평면 위의 한 점
 
+    [System.Serializable] public class DisableEventList : UnityEvent<bool> { } //isColliding 작동시 이벤트
+    public DisableEventList onDisable; 
 
+    [System.Serializable] public class EnableEventList : UnityEvent<bool> { } // 작동시 이벤트
+    public EnableEventList onEnable;
     [System.Serializable] public class BoolEvent : UnityEvent<bool> { } // onMoving 변경 이벤트
     public BoolEvent onMovementChanged;
     [System.Serializable] public class HitEvent : UnityEvent<bool> { } //isColliding 작동시 이벤트
     public HitEvent onHitEvent;
-
+    [System.Serializable] public class HitEvent2 : UnityEvent<bool> { } //isColliding 작동시 이벤트
+    public HitEvent2 onHitEvent2;
     [System.Serializable] public class CompletedEvent : UnityEvent<bool> { } //isColliding 작동시 이벤트
     public CompletedEvent onCompleted;
+
+  
+
+    [System.Serializable] public class OBjACt : UnityEvent<bool> { }
+    public OBjACt objAct;
+
     private void Start()
     {
+      
+        orgPos = transform.position;
+   
         rb = GetComponent<Rigidbody>();
-        Objmeshes = new List<Mesh> ();
+        Objmeshes = new List<Mesh>();
         OrgValue1 = intValue1;
         OrgValue2 = intValue2;
         OrgValue3 = intValue3;
         defultSeconds = new WaitForSeconds(0.1f);
         setSeconds = new WaitForSeconds(floatValue1);
-        ObjEvent();
-       
-   
+        if (startEvent)
+        {
+            ObjEvent();
+        }
+
+
+
     }
 
     public void ObjEvent()
@@ -87,30 +119,34 @@ public class InteractionObjScripts : MonoBehaviour
             case Type.HIT:
                 break;
             case Type.ROTATELOOPS:
-           
+
                 RotateLoops();
                 break;
-            case Type.LOOK:
 
+            case Type.OBJACT:
+
+                break;
+            case Type.TELEPORT:
                 break;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnEnable()
     {
-        if (objType == Type.LOOK)
+        if (isEnable)
         {
-            Debug.Log(other.name);
-            Debug.Log((1 << layerMask.value) == (1 << other.gameObject.layer));
-            if ((1 << layerMask.value) == (1 << other.gameObject.layer))
-            {
-                transform.LookAt(other.transform.position);
-            }
+            onEnable?.Invoke(act);
 
         }
-    
     }
+    private void OnDisable()
+    {
+        if(isDisable)
+        {
+            onDisable?.Invoke(act);
 
+        }
+    }
     private void RotateLoops()
     {
         sequence = DOTween.Sequence();
@@ -123,14 +159,14 @@ public class InteractionObjScripts : MonoBehaviour
                 RotateLoopsStopLoop();
             });
         }));
-;
+        ;
     }
     private void RotateLoopsStopLoop()
     {
-     
-   
+
+
         RotateLoops();
-        Debug.Log("작동");
+
 
     }
     private void SplitObject()
@@ -151,7 +187,7 @@ public class InteractionObjScripts : MonoBehaviour
             Vector3[] vertices = originalMesh.vertices;
             int[] triangles = originalMesh.triangles;
             int splitIndex = triangles.Length / intValue1;
-          
+
             List<Mesh> Objmeshes = new List<Mesh>();
 
             // 분할을 위해 Mesh를 두 개로 나누기
@@ -164,10 +200,10 @@ public class InteractionObjScripts : MonoBehaviour
             // Mesh를 분할
             for (int i = 0; i < intValue1; i++)
             {
-              
-                int[] trianglesList = new int[splitIndex *3]; // 예상 크기로 배열 초기화
-            
-             
+
+                int[] trianglesList = new int[splitIndex * 3]; // 예상 크기로 배열 초기화
+
+
                 System.Array.Copy(triangles, i * splitIndex, trianglesList, 0, splitIndex);
 
                 // 정점과 삼각형 설정
@@ -186,8 +222,8 @@ public class InteractionObjScripts : MonoBehaviour
                 GameObject Splitobject = new GameObject("SplitObject1");
                 Splitobject.AddComponent<MeshFilter>().mesh = Objmeshes[i];
                 Splitobject.AddComponent<MeshRenderer>().sharedMaterial = meshFilter.GetComponent<MeshRenderer>().sharedMaterial;
-            //    Splitobject.AddComponent<Rigidbody>().useGravity =true;
-    
+                //    Splitobject.AddComponent<Rigidbody>().useGravity =true;
+
                 Splitobject.transform.position = transform.position;
             }
 
@@ -199,12 +235,12 @@ public class InteractionObjScripts : MonoBehaviour
         while (movement)
         {
             transform.Rotate(intValue1, intValue2, intValue3);
-            if(onMoving)
+            if (onMoving)
             {
-                if(rb != null)
+                if (rb != null)
                 {
-                    rb.AddForce(Vector3.forward * floatValue1, ForceMode.Impulse);
-                }              
+                    rb.AddForce(Vector3.left * floatValue1, ForceMode.Impulse);
+                }
             }
             yield return setSeconds;
         }
@@ -212,12 +248,16 @@ public class InteractionObjScripts : MonoBehaviour
 
     }
 
+    public void EventMove() // 외부 작동용 
+    {
+        StartCoroutine(MoveObj());
+    }
     private IEnumerator MoveObj() // 오브젝트 회전
     {
 
-        while (movement)
+        while (floatValue2 > floatValue3)
         {
-
+            floatValue3 += 0.1f;
             Vector3 diagonalDirection = new Vector3(intValue1, intValue2, intValue3).normalized;// 대각선방향의 정규화 백터
             transform.Translate(diagonalDirection * floatValue1 * Time.deltaTime);
             yield return defultSeconds;
@@ -256,6 +296,9 @@ public class InteractionObjScripts : MonoBehaviour
 
 
     }
+
+  
+
     public void ChangeMovement() //movement 값 변경시 작동함수
     {
         onMovementChanged?.Invoke(movement);
@@ -266,46 +309,121 @@ public class InteractionObjScripts : MonoBehaviour
         onHitEvent?.Invoke(isHit);
     }
 
-    public void OnDisable()// 종료시 켜짐
+    public void ChangeHit2() // hit 값 변경시 작동함수
     {
-        if (movement)// 동작 off시 작동안함
-        {
-            if (objType == Type.SPAWNOBJ)// 스폰오브젝트 시 켜짐
-            {
-                Invoke("SpObjActTrue", OrgValue1);
-            }
-        }
-  
+        onHitEvent2?.Invoke(isHit);
+    }
+    public void ReturnToOriginalPosition() // 원래 위치로 돌아가는 함수
+    {
+        
+        transform.position = orgPos;
     }
 
-    void SpObjActTrue() // 오브젝트 리스폰
+    public void RespawnObject()
     {
+     
+        Invoke("SpObjActTrue", intValue4);
+    }
+
+    public void ObjActOn()//gameObject1 활성화
+    {
+        gameObject1.SetActive(true);
+        if(intValue1 != 0)
+        {
+            QuestMananger.instance.intetactionQuestAdd(intValue1.ToString()); //상호작용 id 상호작용퀘스트에 추가
+            ParticleSystem particleSystem = gameObject1.GetComponent<ParticleSystem>();
+            if(particleSystem != null)
+            {
+                particleSystem.Play();
+            }
+        }
+      
+
+    }
+    public void ObjActOff()//gameObject1 비활성화
+    {
+        if(Type.OBJACT == objType)
+        {
+            gameObject1.SetActive(false);
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            gameObject.SetActive(false);
+        }
+     
+    }
+
+    private void SpObjActTrue() // 오브젝트 리스폰
+    {
+        
         gameObject.SetActive(true);
     }
 
     public void SpObjActFalse() // 오브젝트 비활성화
     {
+ 
         gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)// 충돌
     {
-        if (objType == Type.HIT)
+        if (isHitEventEnabled) // 히트 이벤트 사용여부 체크
         {
+
             if ((1 << layerMask.value) == (1 << other.gameObject.layer))
             {
-                if (isHitEventEnabled) // 히트 이벤트 사용여부 체크
+                if(objType  == Type.TELEPORT)
+                {
+                    other.transform.parent.position = gameObject1.transform.position;
+                }
+                else
                 {
                     ChangeHit(); // 충돌시 이벤트
                 }
+              
+
             }
+            if(layerMask2 != 0)
+            {
+                Debug.Log("1");
+                if ((1 << layerMask2.value) == (1 << other.gameObject.layer))
+                {
+
+                    CharacterController characterController = other.transform.parent.GetComponent<CharacterController>();
+                    Debug.Log(characterController);
+                    if (characterController != null)
+                    {
+                        ChangeHit2();
+                        Debug.Log("3");
+                        characterController.Move(Vector3.back * floatValue2 * Time.deltaTime);
+                    }
+                 
+                }
+            }
+       
+        }
+    }
+    public void OnRigdbody()
+    {
+        if(rb != null)
+        {
+            rb.useGravity = true;
+        }
+    }
+    public void MovementChang() //movement 작동 
+    {
+        movement = !movement;
+        if(intValue6 != 0)
+        {
+            QuestMananger.instance.intetactionQuestAdd(intValue6.ToString());
+
         }
     }
 
-
     public void DisableObject()
     {
- 
         gameObject.SetActive(false);
     }
 }
