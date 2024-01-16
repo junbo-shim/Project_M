@@ -28,4 +28,12 @@ public class Wand : GrabbableEvents
         Debug.Log("스냅존 탈출");
         base.OnSnapZoneExit();
     }
+
+    public override void OnRelease()
+    {
+        // 마법봉 놓았을 시 트리거들 꺼버리기
+        MagicBase magicBase = FindAnyObjectByType<MagicBase>();
+        magicBase.gameObject.SetActive(false);
+        base.OnRelease();
+    }
 }

@@ -25,11 +25,11 @@ public class SkillAction : MonoBehaviour
 
     protected SkillParent ReturnInfo(string key)
     {
-        if(CSVConverter_JHW.Instance.skillDic[key] as Damage != null)
+        if(CSVConverter_JHW.Instance.skillDic[key] is Damage)
         {
             return CSVConverter_JHW.Instance.skillDic[key] as Damage;
         }
-        else if(CSVConverter_JHW.Instance.skillDic[key] as NoDamage != null)
+        else if(CSVConverter_JHW.Instance.skillDic[key] is NoDamage)
         {
             return CSVConverter_JHW.Instance.skillDic[key] as NoDamage;
         }
