@@ -7,6 +7,7 @@ public class BookScript : GrabbableEvents
 {
     private LineRenderer lineRenderer;
     public GameObject magicUi;
+    public GameObject pageChangeBtn;
     public Transform book;
     public GameObject closeBook;
 
@@ -82,11 +83,13 @@ public class BookScript : GrabbableEvents
     public void OnMagicUi()
     {
         magicUi.SetActive(true);
+        pageChangeBtn.SetActive(true);
     }
 
     public void OffMagicUi()
     {
         magicUi.SetActive(false);
+        pageChangeBtn.SetActive(false);
     }
 
     public void OnLineRenderer()

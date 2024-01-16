@@ -1,6 +1,8 @@
+using Oculus.Platform.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static OVRPlugin;
 
 public class BasicPoison : SkillAction
 {
@@ -8,16 +10,24 @@ public class BasicPoison : SkillAction
     private RaycastHit hit;
     private Vector3 targetDirection;
     private Quaternion targetRotation;
+    public BookScript book;
+    public Vector3 destination;  // 발사할 목표 지점
 
 
     private float duration;         // 스킬 지속시간   
-    public LayerMask collideLayer;  // 충돌검사를 할 레이어
 
     private Damage poisonInfo;
 
     // Start is called before the first frame update
     void Start()
     {
+        book = transform.parent.GetComponent<BookScript>();
+        destination = book.target;
+        transform.SetParent(null);
+
+        transform.position = destination;
+        transform.position += transform.up * 1.0f;
+
         poisonInfo = ReturnInfo("Poison") as Damage;
         duration = poisonInfo.Value1;
         statusEffId = poisonInfo.Value2;
@@ -27,21 +37,17 @@ public class BasicPoison : SkillAction
 
     // Update is called once per frame
     void Update()
-    {       
-        ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out hit, 1000f))
-        {
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        }
-
-    }
-
-    private void OnTriggerStay(Collider other)
     {
-        if((collideLayer & (1 << other.gameObject.layer)) != 0)
+        if(poisonInfo != null)
         {
-            // TODO : 몬스터에게 데미지를 주는 내용 작성
+            ray = new Ray(transform.position, Vector3.down);
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            }
         }
+        
+
     }
 
     private IEnumerator DestroyPoison()

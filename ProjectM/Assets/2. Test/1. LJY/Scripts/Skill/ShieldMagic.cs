@@ -19,25 +19,28 @@ public class ShieldMagic : SkillAction
         {
             enhanceInfo = ReturnInfo("_Protect") as NoDamage;
         }
+        skillName = basicInfo.skillName;
         gameObject.SetActive(false);
     }
     private void OnEnable()
     {       
         if (isEnhanced == false)
         {
-            InputValue(basicInfo);
+            if(SkillManager.Instance.HasSkillEnhancedByName(skillName))
+            {
+                isEnhanced = true;
+                InputValue(enhanceInfo);
+            }
+            else
+            {
+                InputValue(basicInfo);
+            }
         }
         else
         {
             InputValue(enhanceInfo);
         }
         StartCoroutine(StartDuration());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // 시간이 모두 지나고 꺼지지 않았을 경우
