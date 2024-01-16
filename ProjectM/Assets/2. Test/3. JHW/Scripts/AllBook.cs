@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 
 public class AllBook : MonoBehaviour
 {
-
-    //public GameObject[] onOffCanvas;
-
     public InputActionReference inputActionReference;
     public InputActionReference inputActionReferenceSystemSetting;
     ShowDrawPattern showDrawPattern;
@@ -20,7 +17,7 @@ public class AllBook : MonoBehaviour
 
 
     public GameObject onOffCanvas;
-    bool activeCanvas = false;
+    public bool activeCanvas = false;
 
     public GameObject onOffSystemSetting;
     bool activeSystemSetting = false;

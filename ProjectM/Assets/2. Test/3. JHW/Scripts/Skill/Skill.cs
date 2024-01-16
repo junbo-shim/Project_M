@@ -9,6 +9,7 @@ public class Skill : MonoBehaviour
     ItemDataBase itemData;
     IllustratedGuide illustratedGuide;
 
+    public CreaftingUI creaftingUI;
     public GameObject[] creaftingButton;
     public GameObject[] enhanceButton;
     public List<string> creaftedItemNames;
@@ -47,14 +48,16 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "FIreBallRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("FIreBallRecipe");
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
+                //creaftedItemNames.Add("FIreBallRecipe");
                 EnhanceButtonManager("FIreBallRecipe", 0);
                 illustratedGuide.FireBallChangeColor();
+
 
             }
         }
         mySkill.Add("FireBall", 1000);
+        Debug.Log(mySkill.Keys);
     }
 
 
@@ -66,11 +69,11 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "FIreBallRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
             }
         }
 
-        mySkill.Add("E_FireBall", 1001);
+        mySkill.Add("_FireBall", 1001);
     }
     #endregion
 
@@ -84,14 +87,16 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "ProtectRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("ProtectRecipe");
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
+                //creaftedItemNames.Add("ProtectRecipe");
                 EnhanceButtonManager("ProtectRecipe", 1);
                 illustratedGuide.ProtectChangeColor();
             }
         }
 
         mySkill.Add("Protect", 1102);
+        Debug.Log(mySkill.Keys);
+
     }
 
 
@@ -103,11 +108,11 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "ProtectRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
             }
         }
 
-        mySkill.Add("E_Protect", 1103);
+        mySkill.Add("_Protect", 1103);
 
     }
 
@@ -123,13 +128,14 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "IceBallRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("IceBallRecipe");
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
+                //creaftedItemNames.Add("IceBallRecipe");
                 EnhanceButtonManager("IceBallRecipe", 2);
                 illustratedGuide.IceBallChangeColor();
             }
         }
         mySkill.Add("IceBall", 1100);
+        Debug.Log(mySkill.Keys);
 
     }
 
@@ -142,11 +148,11 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "IceBallRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
 
             }
         }
-        mySkill.Add("E_IceBall", 1101);
+        mySkill.Add("_IceBall", 1101);
 
     }
     #endregion
@@ -160,14 +166,15 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "PoisonRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("PoisonRecipe");
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
+                //creaftedItemNames.Add("PoisonRecipe");
                 EnhanceButtonManager("PoisonRecipe", 3);
                 illustratedGuide.PoisonChangeColor();
             }
         }
 
         mySkill.Add("Poison", 1002);
+        Debug.Log(mySkill.Keys);
 
     }
 
@@ -181,10 +188,10 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "PoisonRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
             }
         }
-        mySkill.Add("E_Poison", 1003);
+        mySkill.Add("_Poison", 1003);
 
     }
     #endregion
@@ -198,32 +205,17 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "JumpRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("JumpRecipe");
-                EnhanceButtonManager("JumpRecipe", 4);
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 2;
+                //creaftedItemNames.Add("JumpRecipe");
+                //EnhanceButtonManager("JumpRecipe", 4);
                 illustratedGuide.JumpChangeColor();
             }
         }
         mySkill.Add("Jump", 1104);
+        Debug.Log(mySkill.Keys);
 
     }
 
-
-
-    public void EnhanceFlySkill()
-    {
-        enhanceButton[4].SetActive(false);
-
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].itemName == "JumpRecipe")
-            {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-            }
-        }
-        mySkill.Add("E_Fly", 1105);
-
-    }
     #endregion
 
     #region Hill
@@ -235,12 +227,13 @@ public class Skill : MonoBehaviour
         {
             if (inventory.items[i].itemName == "HillRecipe")
             {
-                inventory.items[i].itemCount = inventory.items[i].itemCount - 4;
-                creaftedItemNames.Add("HillRecipe");
+                inventory.items[i].itemCount = inventory.items[i].itemCount - 3;
+                //creaftedItemNames.Add("HillRecipe");
                 illustratedGuide.HillChangeColor();
             }
         }
         mySkill.Add("Hill", 1107);
+        Debug.Log(mySkill.Keys);
 
     }
     #endregion
@@ -250,11 +243,11 @@ public class Skill : MonoBehaviour
     {
         int itemIndex = inventory.items.FindIndex(item => item.itemName == itemName);
 
-        if (inventory.items[itemIndex].itemCount >= 4)
+        if (inventory.items[itemIndex].itemCount >= 3)
         {
             enhanceButton[buttonIndex].SetActive(true);
         }
-        else if (inventory.items[itemIndex].itemCount < 4)
+        else if (inventory.items[itemIndex].itemCount < 3)
         {
             enhanceButton[buttonIndex].SetActive(false);
         }
@@ -273,13 +266,20 @@ public class Skill : MonoBehaviour
             EnhanceButtonManager("ProtectRecipe", 1);
             EnhanceButtonManager("IceBallRecipe", 2);
             EnhanceButtonManager("PoisonRecipe", 3);
-            EnhanceButtonManager("JumpRecipe", 4);
             return;
         }
 
         if (itemDBIndex < 6)
         {
-            if (inventory.items[itemIndex].itemCount >= 4)
+            if (inventory.items[itemIndex].itemName == "JumpRecipe")
+            {
+                if (inventory.items[itemIndex].itemCount >= 2)
+                {
+                    creaftingButton[itemDBIndex].SetActive(true);
+                }
+            }
+
+            else if (inventory.items[itemIndex].itemCount >= 3 && inventory.items[itemIndex].itemName != "JumpRecipe")
             {
                 creaftingButton[itemDBIndex].SetActive(true);
             }

@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -78,7 +78,7 @@ public class CreaftingItem : MonoBehaviour
         inventory.items[itemIndex].itemCount = inventory.items[itemIndex].itemCount - 2;
         inventory.items[itemIndex2].itemCount = inventory.items[itemIndex2].itemCount - 4;
 
-        //UpdateNumberText("MagicEssence", countNeedItem[0]);
+        UpdateNumberText("MagicEssence", countNeedItem[0]);
         UpdateNumberText("Wood", countNeedItem[1]);
         UpdateNumberText("MagicEssence", countNeedItem[2]);
         UpdateNumberText("Steel", countNeedItem[3]);
