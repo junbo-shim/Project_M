@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class DrawMagic : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class DrawMagic : MonoBehaviour
     public List<int> firePattern = new() { 0, 3, 4, 0 };
     // 23.12.11 SJB Editted for Prototype
 
-    public List<int> poisonPattern = new() { 3, 4 };
+    public List<int> poisonPattern = new() {0, 3, 2, 1, 4, 0 };
     public List<int> icePattern = new() { 1, 3, 2, 4, 1 };
     public List<int> flyPattern = new() { 0, 1, 2, 3 };
     public List<int> protectPattern = new() { 0, 1, 3, 4, 2, 0 };
@@ -31,9 +30,7 @@ public class DrawMagic : MonoBehaviour
     public InputActionReference UIInputAction;  // 인풋 액션 중 UI 클릭 인풋
     private bool isPressing = false;
 
-    public GameObject FireSkill;
-
-    private Damage skillParent;
+    //private Damage skillParent;
 
     private Transform playerCamera;     // UI Rotate에 사용할 플레이어 카메라
     private float playerYRotation;      // UI Rotate에 사용할 플레이어 Y 회전축
@@ -42,17 +39,25 @@ public class DrawMagic : MonoBehaviour
 
     public MagicSpawner magicSpawner;
 
+    private GameObject dotsObject;  // 페이지 온오프용 게임 오브젝트
+    public GameObject itemUi;       // 페이지 온오프용 아이템 Ui 오브젝트
+
+    public TextMeshProUGUI noticeText;     // 마법 그리기 전용 알림 텍스트
+    private float fadeDuration = 1.5f;             // 페이드 아웃에 걸리는 시간
+    private Coroutine fadeCoroutine;        // 텍스트 페이드 코루틴
+
     void Start()
     {
         AddSkillList();
         // Magicdot은 점들이 가지고있는 클래스로, 그 클래스들을 모을 리스트 공간 생성        
         dots = new List<Magicdot>();
         dotsTransform = new List<Transform>();
+        dotsObject = transform.GetChild(0).gameObject;
 
         // 오브젝트들의 자식 카운트만큼 반복하여 자식들의 MagicDot 컴포넌트를 찾아와 id를 입력해주고 리스트에 추가
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < 5; i++)
         {
-            var dot = transform.GetChild(i);
+            var dot = dotsObject.transform.GetChild(i);
 
             var magicdot = dot.GetComponent<Magicdot>();
 
@@ -151,11 +156,6 @@ public class DrawMagic : MonoBehaviour
         }
     }
 
-    public void OnMouseUpDot(Magicdot dot_)
-    {
-
-    }
-
     private void AddSkillList()
     {
         //리스트로 그리고 -> 순서를 스트링으로 바꿔서
@@ -234,6 +234,7 @@ public class DrawMagic : MonoBehaviour
     }    
     public void CompareSkillPattern(List<int> myPattern_)
     {
+        // { 그린 패턴을 string으로 변환
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < myPattern_.Count; i++)
@@ -242,6 +243,8 @@ public class DrawMagic : MonoBehaviour
         }
 
         string stringPattern = stringBuilder.ToString();
+        // } 그린 패턴을 string으로 변환
+
         #region 디버깅 로그
         //Debug.Log(stringPattern);
         //Debug.Log(stringPattern.Length);
@@ -253,27 +256,39 @@ public class DrawMagic : MonoBehaviour
 
         //Debug.Log(stringPattern.Equals(CSVConverter_JHW.Instance.tempString.Trim()));
         #endregion
-        if (CSVConverter_JHW.Instance.patternDic.ContainsKey(stringPattern))
+        // { 변환한 string을 키 값으로 사용하여 키값(패턴)에 알맞는 스킬이 있는지 확인 후 시전
+        if (CSVConverter_JHW.Instance.patternDic.ContainsKey(stringPattern))    
         {
             if (CSVConverter_JHW.Instance.patternDic[stringPattern] != null)
             {
-                Debug.Log("들어왔다 준보");
-
-                GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
-                magicObject.SetActive(true);
-                magicObject.transform.SetParent(transform.parent);
-                magicObject.transform.localPosition = transform.localPosition;               
-                magicObject.GetComponent<MagicBase>().magicUi = gameObject;
-                stringPattern = default(string);
-                lineRenderer.enabled = false;
-                gameObject.SetActive(false);
+                Debug.Log(SkillManager.Instance.HasSkillByName(CSVConverter_JHW.Instance.patternDic[stringPattern].skillName));
+                if (!SkillManager.Instance.HasSkillByName(CSVConverter_JHW.Instance.patternDic[stringPattern].skillName))
+                {
+                    Debug.Log("스킬 안갖고있음");
+                    if (fadeCoroutine != null)
+                    {
+                        StopCoroutine(fadeCoroutine);
+                    }
+                    fadeCoroutine = StartCoroutine(FadeOutText());
+                }    // if : 해당 스킬을 보유중이 아닐 때
+                else
+                {
+                    GameObject magicObject = magicSpawner.ReturnMagic(CSVConverter_JHW.Instance.patternDic[stringPattern].ID);
+                    magicObject.SetActive(true);
+                    magicObject.transform.SetParent(transform.parent);
+                    magicObject.transform.localPosition = transform.localPosition;
+                    magicObject.GetComponent<MagicBase>().magicUi = gameObject;
+                    magicObject.GetComponent<MagicBase>().skillName = CSVConverter_JHW.Instance.patternDic[stringPattern].skillName;
+                    stringPattern = default(string);
+                    lineRenderer.enabled = false;
+                    gameObject.SetActive(false);
+                }
             }
-        }
+        }   // 변환한 string을 키 값으로 사용하여 키값(패턴)에 알맞는 스킬이 있는지 확인 후 시전
         else
         {
             stringPattern = default(string);
-        }
-        // TODO : 스킬 분류 구조를 제작해서 패턴리스트와 스킬을 연동하고, 패턴마다 다른스킬을 사용할 수 있도록 해야한다.
+        }   // else : 없을 시 패턴 string 초기화
 
     }
 
@@ -294,5 +309,46 @@ public class DrawMagic : MonoBehaviour
         dotsTransform.Clear();
         lineRenderer.positionCount = 0;
         dotsIndex = 0;
+    }
+
+    // 날기 알림 텍스트 페이드 코루틴
+    private IEnumerator FadeOutText()
+    {
+        float elapsedTime = 0f;
+        noticeText.color = Color.white;
+
+        while (elapsedTime < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            SetTextAlpha(alpha);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        SetTextAlpha(0f);
+    }
+
+    // 알파값 변경하는 함수
+    private void SetTextAlpha(float alpha_)
+    {
+        Color textColor = Color.white;
+        textColor.a = alpha_;
+        noticeText.color = textColor;
+    }
+
+    // 버튼을 통한 페이지 변경 함수
+    public void ChangeUiPage()
+    {
+        if(dotsObject.activeSelf)
+        {
+            dotsObject.SetActive(false);
+            itemUi.SetActive(true);
+        }
+        else if(itemUi.activeSelf)
+        {
+            dotsObject.SetActive(true);
+            itemUi.SetActive(false);
+        }
     }
 }

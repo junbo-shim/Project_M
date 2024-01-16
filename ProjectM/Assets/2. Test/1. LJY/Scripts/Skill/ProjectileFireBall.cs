@@ -21,8 +21,19 @@ public class ProjectileFireBall : SkillAction
         transform.LookAt(book.target);
 
         fireInfo = ReturnInfo("FireBall") as Damage;    // 파이어인포에 스킬정보 가져오기
-        speed = fireInfo.Value1;
-        damage = fireInfo.skillDamage;
+        skillName = fireInfo.skillName;                 // 딕셔너리 키 용도 
+        isEnhanced = SkillManager.Instance.HasSkillEnhancedByName(skillName);   // 강화인지 체크
+        if(isEnhanced)
+        {
+            fireInfo = ReturnInfo("_FireBall") as Damage;
+            speed = fireInfo.Value1;
+            damage = fireInfo.skillDamage;
+        }
+        else
+        {
+            speed = fireInfo.Value1;
+            damage = fireInfo.skillDamage;
+        }
         CheckSkill();
 
         // Rigidbody를 사용하여 Projectile에 속도 부여

@@ -14680,6 +14680,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4d4f62f6030d74385cac70664822bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicEffect: {fileID: 6052982637081395503, guid: a360247d86bfd174eb8662a482567e2a,
+  magicEffect: {fileID: 5922389586745789840, guid: 7d954f98fa7f66646938e6c753206811,
     type: 3}
+  triggerDuration: 5
+  skillName: 
   magicUi: {fileID: 0}
+  ehancedEff: {fileID: 6052982637081395503, guid: a360247d86bfd174eb8662a482567e2a,
+    type: 3}

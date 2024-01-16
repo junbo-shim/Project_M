@@ -4,8 +4,6 @@ using System.Collections.Generic;
 //[Serializable]
 public class Damage : SkillParent
 {
-
-    public string skillName;
     public string description;
     public int skillDamage;
     public float skillCritical;
@@ -22,7 +20,6 @@ public class Damage : SkillParent
 public class NoDamage : SkillParent
 {
 
-    public string skillName;
     public string description;
     public float SkillDuration;
     public string Target;

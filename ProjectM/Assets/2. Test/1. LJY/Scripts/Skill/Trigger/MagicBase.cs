@@ -8,6 +8,8 @@ public class MagicBase : MonoBehaviour
     protected GameObject magicEffect;
     [SerializeField]
     protected float triggerDuration = 5f;
+
+    public string skillName;
     public GameObject magicUi;
 
     protected void OnEnable()
@@ -35,6 +37,7 @@ public class MagicBase : MonoBehaviour
     {
         yield return new WaitForSeconds(triggerDuration);
 
+        magicUi.SetActive(true);
         gameObject.SetActive(false);
     }
 }
