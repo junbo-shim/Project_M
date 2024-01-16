@@ -112,4 +112,7 @@ crashlytics-build.properties
 /[Aa]ssets/1. Main/Scene/
 /[Aa]ssets/4. LevelDesign/
 
+# JHW Scene Exception (24.1.16)
+/[Aa]ssets/2. Test/3. JHW/Scene/
+
 # End of https://www.toptal.com/developers/gitignore/api/unity

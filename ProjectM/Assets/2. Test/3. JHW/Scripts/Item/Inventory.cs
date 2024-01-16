@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public AllBook allBook;
     public CreaftingUI creaftingUI;
     public static Inventory Instance;
     public delegate void OnSlotCountChange(int val);  //대리자 정의
@@ -51,6 +52,19 @@ public class Inventory : MonoBehaviour
         SlotCnt = 32;
     }
 
+
+    private void Update()
+    {
+        if (allBook.activeCanvas == true)
+        { 
+            creaftingUI.UpdateNumberText("FIreBallRecipe", text[0], text[1]);
+            creaftingUI.UpdateNumberText("ProtectRecipe", text[2], text[3]);
+            creaftingUI.UpdateNumberText("IceBallRecipe", text[4], text[5]);
+            creaftingUI.UpdateNumberText("PoisonRecipe", text[6], text[7]);
+            creaftingUI.UpdateNumberText("JumpRecipe", text[8], text[9]);
+            creaftingUI.UpdateNumberText("HillRecipe", text[10], text[11]);
+        }
+    }
     public bool AddItem(Item _item)
     {
 
@@ -90,9 +104,6 @@ public class Inventory : MonoBehaviour
 
             if (AddItem(fIeldItem.GetItem()))
             {
-
-                //Debug.Log("준보형 이거 이상해");
-
                 skill.CreafringSkill(fIeldItem.item.itemName);
 
                 creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
@@ -102,14 +113,6 @@ public class Inventory : MonoBehaviour
                 creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
                 creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
                 creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
-
-
-                creaftingUI.UpdateNumberText("FIreBallRecipe", text[0], text[1]);
-                creaftingUI.UpdateNumberText("ProtectRecipe", text[2], text[3]);
-                creaftingUI.UpdateNumberText("IceBallRecipe", text[4], text[5]);
-                creaftingUI.UpdateNumberText("PoisonRecipe", text[6], text[7]);
-                creaftingUI.UpdateNumberText("JumpRecipe", text[8], text[9]);
-                creaftingUI.UpdateNumberText("HillRecipe", text[10], text[11]);
 
                 fIeldItem.DestroyItem();
             }

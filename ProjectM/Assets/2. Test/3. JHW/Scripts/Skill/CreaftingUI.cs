@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class CreaftingUI : MonoBehaviour
 {
     Inventory inventory;
-    Skill skill;
 
 
     public List<string> haveItem;
@@ -15,7 +14,6 @@ public class CreaftingUI : MonoBehaviour
     private void Start()
     {
         inventory = FindAnyObjectByType<Inventory>();
-        skill = FindAnyObjectByType<Skill>();
     }
 
 
@@ -32,8 +30,16 @@ public class CreaftingUI : MonoBehaviour
 
         else
         {
-            text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 4;
-            text2.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 4;
+            if(item.itemName == "JumpRecipe")
+            {
+                text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 2;
+                text2.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 2;
+            }
+            else
+            {
+                text1.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 3;
+                text2.text = inventory.items[itemIndex].itemCount.ToString() + "/" + 3;
+            }
         }
 
 

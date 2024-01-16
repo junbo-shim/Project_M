@@ -12,13 +12,15 @@ public class MiniMapController : MonoBehaviour
     private float testFloat = 0f;
     public float speed = 0.1f;
 
-    public RawImage rawImage;
-    public RawImage rawImage2;
-
     public float fadeSpeed = 0.5f;    //불투명 해지는 속도
-    private bool fadeInStarted = false;
+    //private bool fadeInStarted = false;
 
-    
+
+    public GameObject miniMap;
+    public GameObject miniMap2;
+
+
+
 
 
     public bool isacting = false;
@@ -28,6 +30,9 @@ public class MiniMapController : MonoBehaviour
         m = GetComponent<Renderer>().material;
         m.SetFloat(id, number);
 
+
+        miniMap = this.transform.GetChild(0).gameObject;
+        miniMap2 = this.transform.GetChild(1).gameObject;
     }
 
     void Update()
@@ -91,68 +96,60 @@ public class MiniMapController : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        // RawImage의 초기 불투명도
-        float currentAlpha = rawImage.color.a;
-        float currentAlpha2 = rawImage2.color.a;
+        
+        float mapAlpha = miniMap.GetComponent<CanvasGroup>().alpha;
+        float mapAlpha2 = miniMap2.GetComponent<CanvasGroup>().alpha;
 
 
-        // 불투명도가 1까지 서서히 올라가도록 반복
-        while (rawImage.color.a < 1.0f && rawImage2.color.a < 1.0f)
+        while (mapAlpha < 1.0f && mapAlpha2 < 1.0f)
         {
-            currentAlpha += fadeSpeed * Time.deltaTime;
-            currentAlpha2 += fadeSpeed * Time.deltaTime;
+            mapAlpha += fadeSpeed * Time.deltaTime;
+            mapAlpha2 += fadeSpeed * Time.deltaTime;
 
-            Color newColor = rawImage.color;
-            Color newColor2 = rawImage2.color;
-
-            newColor.a = Mathf.Clamp01(currentAlpha);
-            newColor2.a = Mathf.Clamp01(currentAlpha2);
-
-            rawImage.color = newColor;
-            rawImage2.color = newColor;
+            miniMap.GetComponent<CanvasGroup>().alpha = mapAlpha;
+            miniMap2.GetComponent<CanvasGroup>().alpha = mapAlpha2;
 
             yield return null;
         }
+
     }
 
 
     IEnumerator Close()
     {
-        // RawImage의 초기 불투명도
-        float currentAlpha = rawImage.color.a;
-        float currentAlpha2 = rawImage2.color.a;
+
+        float mapAlpha = miniMap.GetComponent<CanvasGroup>().alpha;
+        float mapAlpha2 = miniMap2.GetComponent<CanvasGroup>().alpha;
 
 
-        // 불투명도가 1까지 서서히 올라가도록 반복
-        while (rawImage.color.a > 0.001f && rawImage2.color.a > 0.001f)
+        while (mapAlpha > 0.001f && mapAlpha2 > 0.001f)
         {
-            currentAlpha -= fadeSpeed * Time.deltaTime;
-            currentAlpha2 -= fadeSpeed * Time.deltaTime;
+            mapAlpha -= fadeSpeed * Time.deltaTime;
+            mapAlpha2 -= fadeSpeed * Time.deltaTime;
 
-            Color newColor = rawImage.color;
-            Color newColor2 = rawImage2.color;
+            miniMap.GetComponent<CanvasGroup>().alpha = mapAlpha;
+            miniMap2.GetComponent<CanvasGroup>().alpha = mapAlpha2;
 
-            newColor.a = Mathf.Clamp01(currentAlpha);
-            newColor2.a = Mathf.Clamp01(currentAlpha2);
-
-            rawImage.color = newColor;
-            rawImage2.color = newColor;
 
             yield return null;
         }
 
 
-        if (rawImage.color.a < 0.1f && rawImage2.color.a < 0.1f)
+
+        if (mapAlpha < 0.1f && mapAlpha2 < 0.1f)
         {
-            while (testFloat > 0f)
             {
-                testFloat -= speed * 0.1f;
-                m.SetFloat(id, testFloat);
-                yield return new WaitForSeconds(0.01f);
+                while (testFloat > 0f)
+                {
+                    testFloat -= speed * 0.1f;
+                    m.SetFloat(id, testFloat);
+                    yield return new WaitForSeconds(0.01f);
+                }
+                yield return null;
+                isacting = false;
             }
-            yield return null;
-            isacting = false;
         }
+
     }
 
 }

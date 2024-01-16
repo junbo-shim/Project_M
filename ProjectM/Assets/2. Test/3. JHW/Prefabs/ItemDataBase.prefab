@@ -103,13 +103,13 @@ MonoBehaviour:
   - itemType: 1
     itemName: Steel
     itemImage: {fileID: 21300000, guid: 812df6bea2725ad41b0e08702aaa0bca, type: 3}
-    dropItem: {fileID: 7032466549439613822, guid: 33bc0ae6bc139ba42bb56c9bd5acff77,
+    dropItem: {fileID: 6403443969792345604, guid: 499a091e899a02f48b4f8cda69cbeda1,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: Wood
     itemImage: {fileID: 21300000, guid: dce4ec69e13558b419481bf50cd8923e, type: 3}
-    dropItem: {fileID: 3533576139441413009, guid: 3c3a373aab9a32f45be8fb6c43ebe5ef,
+    dropItem: {fileID: 5145159056608758566, guid: 5e941e209a0ab0b41a99955e65209054,
       type: 3}
     itemCount: 0
   - itemType: 1
@@ -131,36 +131,3 @@ MonoBehaviour:
     itemCount: 0
   fieldItemPrefab: {fileID: 5842721987353189140, guid: 3d6a5210c961382449250ce32570edcc,
     type: 3}
-  pos:
-  - {x: -2, y: -11, z: 1}
-  - {x: -1, y: -11, z: 1}
-  - {x: 1, y: -11, z: 1}
-  - {x: 2, y: -11, z: 2}
-  - {x: 3, y: -11, z: 2}
-  - {x: 1, y: -11, z: 1}
-  - {x: 2, y: -11, z: 2}
-  - {x: 3, y: -11, z: 2}
-  - {x: 2, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
-  - {x: 3, y: -11, z: 3}
-  - {x: 2, y: -11, z: 1}
-  - {x: 1, y: -11, z: 2}
-  - {x: 4, y: -11, z: 2}
-  - {x: 2, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
-  - {x: 4, y: -11, z: 1}
-  - {x: 2, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
-  - {x: 2, y: -11, z: 1}
-  - {x: 1, y: -11, z: 2}
-  - {x: 3, y: -11, z: 1}
-  - {x: 3, y: -11, z: 1}
-  - {x: 3, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
-  - {x: 3, y: -11, z: 2}
-  - {x: 1, y: -11, z: 1}
-  - {x: 2, y: -11, z: 2}
-  - {x: 1, y: -11, z: 1}
-  - {x: 2, y: -11, z: 2}
-  - {x: 1, y: -11, z: 2}
