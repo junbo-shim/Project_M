@@ -10,7 +10,7 @@ public class ChoiceScripts : MonoBehaviour
     public string Choice_Text_Answer;
     public int mbti_ID; // mbti1 값
     public NPCChildSet npcChildSet;
-  
+    public Inventory inventory;
 
     //public int Num => _num;
     // private int _num;
@@ -28,8 +28,20 @@ public class ChoiceScripts : MonoBehaviour
     public void ChoiceClick()
     {
         npcChildSet.npcAction.ChoiseClick(number, Choice_Text_Answer ,mbti_ID);
-    
-
+        if(id == 400040)
+        {
+            if(inventory != null)
+            {
+                for (int i = 0; inventory.items.Count > 0; i++)
+                {
+                    if (inventory.items[i].itemName == "SymbolStone_A")
+                    {
+                        inventory.items[i].itemCount = inventory.items[i].itemCount + 1;
+                    }
+                }
+            }
+          
+        }
      
     }
 

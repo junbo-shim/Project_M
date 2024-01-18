@@ -187,7 +187,7 @@ public class CSVRead : MonoBehaviour
         }
         npcSelectTalkDatas[id].Id = GetValue<int>(dict, "ID");
         npcSelectTalkDatas[id].NPCId = GetValue<int>(dict, "NPC_ID");
-     //   Debug.Log(GetValue<int>(dict, "NPC_ID"));
+       
         npcSelectTalkDatas[id].NextChoice_ID = GetValue<int>(dict, "NextChoice_ID");
         npcSelectTalkDatas[id].Quest_ID = GetValue<int>(dict, "Quest_ID");
         npcSelectTalkDatas[id].Choice_Before_Dialogue = GetValue<string>(dict, "Dialogue");   

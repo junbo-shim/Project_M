@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 public enum Type
@@ -36,14 +35,14 @@ public class InteractionObjScripts : MonoBehaviour
     [HideInInspector] public bool isDisable; // 비활성화 여부
     [HideInInspector] public bool isHit; // 충돌여부
     [HideInInspector] public bool isInteraction; // 상호작용체크 
-   
+
     [HideInInspector] public List<Mesh> Objmeshes; // 동작여부
     [HideInInspector] public bool isHitEventEnabled; // 히트 이벤트 사용여부
     [HideInInspector] public bool onMoving; // 이동 변수이름
     [HideInInspector] public LayerMask layerMask; // 레이어 선택용
     [HideInInspector] public LayerMask layerMask2; // 레이어 선택용2
     [HideInInspector] public GameObject gameObject1; // 게임오브젝트
-  
+
     private WaitForSeconds setSeconds; // 반복 속도용    
     private WaitForSeconds defultSeconds; // 기본시간초
     private int OrgValue1; // intValue1원래 값 저장용
@@ -57,7 +56,7 @@ public class InteractionObjScripts : MonoBehaviour
     [HideInInspector] public Vector3 pointOnPlane = Vector3.zero; // 평면 위의 한 점
 
     [System.Serializable] public class DisableEventList : UnityEvent<bool> { } //isColliding 작동시 이벤트
-    public DisableEventList onDisable; 
+    public DisableEventList onDisable;
 
     [System.Serializable] public class EnableEventList : UnityEvent<bool> { } // 작동시 이벤트
     public EnableEventList onEnable;
@@ -70,16 +69,16 @@ public class InteractionObjScripts : MonoBehaviour
     [System.Serializable] public class CompletedEvent : UnityEvent<bool> { } //isColliding 작동시 이벤트
     public CompletedEvent onCompleted;
 
-  
+
 
     [System.Serializable] public class OBjACt : UnityEvent<bool> { }
     public OBjACt objAct;
 
     private void Start()
     {
-      
+
         orgPos = transform.position;
-   
+
         rb = GetComponent<Rigidbody>();
         Objmeshes = new List<Mesh>();
         OrgValue1 = intValue1;
@@ -141,7 +140,7 @@ public class InteractionObjScripts : MonoBehaviour
     }
     private void OnDisable()
     {
-        if(isDisable)
+        if (isDisable)
         {
             onDisable?.Invoke(act);
 
@@ -297,7 +296,7 @@ public class InteractionObjScripts : MonoBehaviour
 
     }
 
-  
+
 
     public void ChangeMovement() //movement 값 변경시 작동함수
     {
@@ -315,34 +314,35 @@ public class InteractionObjScripts : MonoBehaviour
     }
     public void ReturnToOriginalPosition() // 원래 위치로 돌아가는 함수
     {
-        
+
         transform.position = orgPos;
     }
 
     public void RespawnObject()
     {
-     
+
         Invoke("SpObjActTrue", intValue4);
     }
 
     public void ObjActOn()//gameObject1 활성화
     {
         gameObject1.SetActive(true);
-        if(intValue1 != 0)
+        Debug.Log(intValue6);
+        if (intValue6 != 0)
         {
-            QuestMananger.instance.intetactionQuestAdd(intValue1.ToString()); //상호작용 id 상호작용퀘스트에 추가
+            QuestMananger.instance.intetactionQuestAdd(intValue6.ToString()); //상호작용 id 상호작용퀘스트에 추가
             ParticleSystem particleSystem = gameObject1.GetComponent<ParticleSystem>();
-            if(particleSystem != null)
+            if (particleSystem != null)
             {
                 particleSystem.Play();
             }
         }
-      
+
 
     }
     public void ObjActOff()//gameObject1 비활성화
     {
-        if(Type.OBJACT == objType)
+        if (Type.OBJACT == objType)
         {
             gameObject1.SetActive(false);
         }
@@ -352,18 +352,27 @@ public class InteractionObjScripts : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             gameObject.SetActive(false);
         }
-     
-    }
 
+    }
+    public void SelfObjOn()
+    {
+        gameObject.SetActive(true);
+        ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
+
+    }
     private void SpObjActTrue() // 오브젝트 리스폰
     {
-        
+
         gameObject.SetActive(true);
     }
 
     public void SpObjActFalse() // 오브젝트 비활성화
     {
- 
+
         gameObject.SetActive(false);
     }
 
@@ -374,7 +383,7 @@ public class InteractionObjScripts : MonoBehaviour
 
             if ((1 << layerMask.value) == (1 << other.gameObject.layer))
             {
-                if(objType  == Type.TELEPORT)
+                if (objType == Type.TELEPORT)
                 {
                     other.transform.parent.position = gameObject1.transform.position;
                 }
@@ -382,32 +391,32 @@ public class InteractionObjScripts : MonoBehaviour
                 {
                     ChangeHit(); // 충돌시 이벤트
                 }
-              
+
 
             }
-            if(layerMask2 != 0)
+            if (layerMask2 != 0)
             {
-                Debug.Log("1");
+
                 if ((1 << layerMask2.value) == (1 << other.gameObject.layer))
                 {
 
                     CharacterController characterController = other.transform.parent.GetComponent<CharacterController>();
-                    Debug.Log(characterController);
+
                     if (characterController != null)
                     {
                         ChangeHit2();
-                        Debug.Log("3");
+
                         characterController.Move(Vector3.back * floatValue2 * Time.deltaTime);
                     }
-                 
+
                 }
             }
-       
+
         }
     }
     public void OnRigdbody()
     {
-        if(rb != null)
+        if (rb != null)
         {
             rb.useGravity = true;
         }
@@ -415,7 +424,7 @@ public class InteractionObjScripts : MonoBehaviour
     public void MovementChang() //movement 작동 
     {
         movement = !movement;
-        if(intValue6 != 0)
+        if (intValue6 != 0)
         {
             QuestMananger.instance.intetactionQuestAdd(intValue6.ToString());
 

@@ -17,6 +17,8 @@ public class MapGameManager : MonoBehaviour
     public GameObject itemSpObj;
     public RidingSnapZone ridingSnapZone;
     public GameObject playerGameObject;
+    public Vector3 playerSavePos;
+
 
     //23.01.05 LJY
     public event Action dayStart;
@@ -50,11 +52,16 @@ public class MapGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
 
     void Start()
     {
+        if(playerSavePos == null)
+        {
+            playerSavePos =new Vector3(-13.1899414f + 2, -2.75f, -17.8699951f);
+        }
         currentState = DayState.MORNING;
     }
 
@@ -112,10 +119,16 @@ public class MapGameManager : MonoBehaviour
     public void ChangeDayState()
     {
         StopDayProgression = !StopDayProgression;
+      
     }
 
     public void OnObj(GameObject obj)
     {
         obj.SetActive(true);
+    }
+
+    public void SetplayerSavePos(Transform transform_)
+    {
+        playerSavePos = transform_.position;
     }
 }
