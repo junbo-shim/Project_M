@@ -4,57 +4,70 @@ using System.Collections.Generic;
 public class BossStateMachine : MonoBehaviour
 {
     // 상태 또는 패턴 정의
-    public enum Pattern 
+    public enum BossState 
     {
-        // 예티왕 돌진패턴
-        Yeti_Charge,
-        // 예티왕 눈덩이패턴
-        Yeti_Snowball,
-        // 예티왕 근접공격패턴
-        Yeti_Punch,
+        // 보스 대기상태
+        BossReady,
+        // 예티왕 공격상태
+        Yeti_BossAttack,
+        // 메카킹 공격상태,
 
-        Die
+        // 보스 죽음
+        BossDie
     }
 
     public GameObject bossMonster;
 
-    public Pattern currentPattern;
+    public BossState currentState;
 
-    private Yeti_Charge yetiCharge;
-    private Yeti_Snowball yetiSnowball;
-    private Yeti_Punch yetiPunch;
+    private Boss_Ready bossReady;
+    private Yeti_BossAttack yetiATT;
+    private Boss_Die bossDie;
 
-    public Dictionary<Pattern, MonsterState> enumToPattern;
+    public Dictionary<BossState, MonsterState> enumToBossState;
 
 
     // 생성자에서 초기화를 진행한다
     public BossStateMachine() 
     {
-        yetiCharge = new Yeti_Charge();
-        yetiSnowball = new Yeti_Snowball();
-        yetiPunch = new Yeti_Punch();
+        bossReady = new Boss_Ready();
+        yetiATT = new Yeti_BossAttack();
+        bossDie = new Boss_Die();
 
-        enumToPattern = new Dictionary<Pattern, MonsterState>
+        enumToBossState = new Dictionary<BossState, MonsterState>
         {
             // 딕셔너리를 사용하여 enum 을 각 MonsterState 와 연결해준다
-            { Pattern.Yeti_Charge, yetiCharge },
-            { Pattern.Yeti_Snowball, yetiSnowball },
-            { Pattern.Yeti_Punch, yetiPunch },
+            { BossState.BossReady, bossReady},
+            { BossState.Yeti_BossAttack, yetiATT },
+            { BossState.BossDie, bossDie}
         };
     }
 
-    public void ChangePattern(Pattern nextPattern_) 
+    public void ChangeState(BossState nextPattern_) 
     {
         switch (nextPattern_) 
         {
-            case Pattern.Yeti_Charge:
-            case Pattern.Yeti_Snowball:
-            case Pattern.Yeti_Punch:
+            case BossState.BossReady:
 
-                enumToPattern[currentPattern].OnStateExit();
-                currentPattern = nextPattern_;
-                enumToPattern[currentPattern].OnStateEnter();
-                enumToPattern[currentPattern].OnStateStay();
+                enumToBossState[currentState].OnStateExit(this);
+                currentState = nextPattern_;
+                enumToBossState[currentState].OnStateEnter(bossMonster);
+                break;
+
+            case BossState.Yeti_BossAttack:
+
+                enumToBossState[currentState].OnStateExit(this);
+                currentState = nextPattern_;
+                enumToBossState[currentState].OnStateEnter(bossMonster);
+                enumToBossState[currentState].OnStateStay(this);
+                break;
+
+            case BossState.BossDie:
+
+                enumToBossState[currentState].OnStateExit(this);
+                currentState = nextPattern_;
+                enumToBossState[currentState].OnStateEnter(bossMonster);
+                enumToBossState[currentState].OnStateStay(bossMonster, this);
                 break;
         }
     }

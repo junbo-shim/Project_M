@@ -11,7 +11,6 @@ public class Monster : MonoBehaviour
         Orc_Melee,
         Spirit_Range,
         Yeti_Melee_Big,
-        Yeti_Melee_Small,
         Spirit_Melee,
 
         YetiKing_Boss = 801,
@@ -104,7 +103,6 @@ public class Monster : MonoBehaviour
     // 몬스터 오브젝트 초기화 메서드
     protected virtual void InitMonster(MonsterType inputType_)
     {
-        // LEGACY: 
         monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;

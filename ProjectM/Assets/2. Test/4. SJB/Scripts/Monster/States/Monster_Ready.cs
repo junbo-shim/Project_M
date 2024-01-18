@@ -11,7 +11,7 @@ public class Monster_Ready : MonsterState
     {
         ResetHPSpeed(monster_);
     }
-    public override void OnStateExit()
+    public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
         CleanVariables();
     }

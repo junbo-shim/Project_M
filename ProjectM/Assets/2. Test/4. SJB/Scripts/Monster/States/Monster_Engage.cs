@@ -73,9 +73,16 @@ public class Monster_Engage : MonsterState
             return;
         }
 
-        speed = monsterComponent.monsterData.MonsterMoveSpeed;
+        if (type_ == (int)Monster.MonsterType.Mech_Large) 
+        {
+            speed = monsterComponent.monsterData.MonsterRunSpeed;
+        }
+        else 
+        {
+            speed = monsterComponent.monsterData.MonsterMoveSpeed;
+        }
+
         radius = monsterComponent.monsterSightRange * 0.5f;
-        //Debug.LogWarning(radius);
         atkRange = monsterComponent.monsterData.MonsterAttackRange;
 
         target = monsterComponent.target;
@@ -245,11 +252,21 @@ public class Monster_Engage : MonsterState
             // foreach 반복을 통해 colliders 를 모두 검사한다
             foreach (var collider in colliders)
             {
-                // 프로토타입
+                // 만약 검출 대상이 Rigidbody 컴포넌트를 가지고 있다면,
+                // 허수아비 > 플레이어의 순서로 공격대상을 선정
                 if (collider.GetComponent<Rigidbody>() == true)
                 {
-                    target = collider.gameObject;
-                    //Debug.LogWarning("타겟 찾음");
+                    // 허수아비이면 바로 메서드 종료
+                    if (collider.gameObject.name.Contains("Scarecrow")) 
+                    {
+                        target = collider.gameObject;
+                        return;
+                    }
+                    // 플레이어라면 일단 target 에 캐싱
+                    else 
+                    {
+                        target = collider.gameObject;
+                    }
                 }
             }
         }

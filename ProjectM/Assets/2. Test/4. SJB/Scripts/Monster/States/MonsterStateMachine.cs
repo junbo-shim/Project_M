@@ -97,7 +97,7 @@ public class MonsterStateMachine : MonoBehaviour
         switch (nextState_)
         {
             case State.Ready:
-                enumToStateClass[currentState].OnStateExit();
+                enumToStateClass[currentState].OnStateExit(monster, this);
                 currentState = nextState_;
                 enumToStateClass[currentState].OnStateEnter(monster);
                 break;

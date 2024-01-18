@@ -6,7 +6,8 @@ public class Hanger : MonoBehaviour
     private GameObject doorPoint;
     private float doorTime;
     private WaitForSeconds doorDelay;
-
+    public GameObject nightMonster;
+    private ObjectPool nightMonsterPool;
 
     private void Start()
     {
@@ -14,20 +15,12 @@ public class Hanger : MonoBehaviour
         doorPoint = transform.GetChild(1).gameObject;
         doorTime = 0.02f;
         doorDelay = new WaitForSeconds(doorTime);
-    }
+        nightMonsterPool = GameObject.Find("Pool_Mech_Large").GetComponent<ObjectPool>();
+        nightMonster = nightMonsterPool.ActiveObjFromPool(transform.position + (Vector3.forward * 10));
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.R)) 
-        {
-            OpenDoor();
-        }
-        else if (Input.GetKey(KeyCode.T))
-        {
-            CloseDoor();
-        }
+        MapGameManager.instance.dayStart += CloseDoor;
+        MapGameManager.instance.nightStart += OpenDoor;
     }
-
 
     // 문 여는 함수
     public void OpenDoor() 
@@ -47,6 +40,11 @@ public class Hanger : MonoBehaviour
             angle += 1f;
 
             doorPoint.transform.rotation = Quaternion.Euler(new Vector3(angle, 0, 0));
+        }
+
+        if (nightMonster.GetComponent<Monster>().enabled.Equals(false)) 
+        {
+            nightMonster = nightMonsterPool.ActiveObjFromPool(transform.position + (Vector3.forward * 10));
         }
     }
 
@@ -68,6 +66,11 @@ public class Hanger : MonoBehaviour
             angle -= 1f;
 
             doorPoint.transform.rotation = Quaternion.Euler(new Vector3(angle, 0, 0));
+        }
+
+        if (nightMonster.GetComponent<Monster>().enabled.Equals(true)) 
+        {
+            nightMonsterPool.ReturnObjToPool(nightMonster);
         }
     }
 }

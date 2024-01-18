@@ -7,21 +7,21 @@ public class MonsterRigid : MonoBehaviour
     // 몬스터 FSM
     public MonsterStateMachine monsterFSM;
     // 몬스터 컴포넌트
-    private Monster monsterComponent;
+    protected Monster monsterComponent;
     // 부딪힌 SkillAction 컴포넌트
-    private SkillAction skillAction;
+    protected SkillAction skillAction;
     // 플레이어 리지드 캐싱용 변수
-    private GameObject playerRigid;
+    protected GameObject playerRigid;
 
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         monsterComponent = monster.GetComponent<Monster>();
         playerRigid = 
             GameObject.Find("Player_LJY").transform.Find("PlayerController").transform.Find("PlayerRigid").gameObject;
     }
 
-    private void OnTriggerEnter(Collider other_)
+    protected virtual void OnTriggerEnter(Collider other_)
     {
         // 만약 충돌한 물체가 PlayerATK 레이어를 가지고 있을 경우 + 몬스터의 체력이 0 이상일 경우에만 체크
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerATK")) 
@@ -63,7 +63,7 @@ public class MonsterRigid : MonoBehaviour
 
 
     #region 데미지 받는 메서드
-    private void GetMonsterHit(int damage_)
+    protected virtual void GetMonsterHit(int damage_)
     {
         // 데미지 감소 적용
         monsterComponent.monsterHP -= damage_;
