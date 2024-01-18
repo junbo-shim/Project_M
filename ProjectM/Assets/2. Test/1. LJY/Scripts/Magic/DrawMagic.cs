@@ -261,10 +261,10 @@ public class DrawMagic : MonoBehaviour
         {
             if (CSVConverter_JHW.Instance.patternDic[stringPattern] != null)
             {
-                Debug.Log(SkillManager.Instance.HasSkillByName(CSVConverter_JHW.Instance.patternDic[stringPattern].skillName));
                 if (!SkillManager.Instance.HasSkillByName(CSVConverter_JHW.Instance.patternDic[stringPattern].skillName))
                 {
                     Debug.Log("스킬 안갖고있음");
+                    noticeText.text = string.Format("이 스킬은 사용할 수 없습니다!");
                     if (fadeCoroutine != null)
                     {
                         StopCoroutine(fadeCoroutine);
@@ -311,7 +311,7 @@ public class DrawMagic : MonoBehaviour
         dotsIndex = 0;
     }
 
-    // 날기 알림 텍스트 페이드 코루틴
+    // 스킬 알림 텍스트 페이드 코루틴
     private IEnumerator FadeOutText()
     {
         float elapsedTime = 0f;
