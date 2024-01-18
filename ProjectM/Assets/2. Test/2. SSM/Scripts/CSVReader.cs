@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 
 public class CSVReader
 {
- 
-    
+
+
 
 
 
@@ -19,7 +19,7 @@ public class CSVReader
     {
         List<ItemDataType> DataType = new List<ItemDataType>();
 
-          var list = new List<Dictionary<string, object>>();
+        var list = new List<Dictionary<string, object>>();
         TextAsset data = Resources.Load(file) as TextAsset;
 
         var lines = Regex.Split(data.text, LINE_SPLIT_RE);
@@ -38,6 +38,7 @@ public class CSVReader
             {
                 string value = values[j];
                 value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                value = value.Replace("n", "\n");
                 object finalvalue = value;
                 int n;
                 float f;
@@ -53,8 +54,8 @@ public class CSVReader
             }
             list.Add(entry);
         }
-      
-        
+
+
         return list;
     }
 }
