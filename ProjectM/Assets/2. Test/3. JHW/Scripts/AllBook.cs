@@ -9,7 +9,8 @@ public class AllBook : MonoBehaviour
 
     //인벤토리 Onoff
     public GameObject inventoryPanel;
-    public CanvasGroup canvasGroup;
+    //public CanvasGroup canvasGroup;
+
     private bool openIvUI = true;
 
     public GameObject[] uiControl;
@@ -37,6 +38,7 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(false);
         uiControl[1].SetActive(true);
         uiControl[2].SetActive(false);
+        uiControl[3].SetActive(false);
         inventoryPanel.GetComponent<CanvasGroup>().alpha = 0;
         openIvUI = true;
     }
@@ -49,6 +51,8 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(false);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(false);
+        uiControl[3].SetActive(false);
+
     }
 
     public void SkillUIOnOff()
@@ -58,6 +62,8 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(true);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(false);
+        uiControl[3].SetActive(false);
+
     }
 
     public void CreaftingItem()
@@ -67,7 +73,20 @@ public class AllBook : MonoBehaviour
         uiControl[0].SetActive(false);
         uiControl[1].SetActive(false);
         uiControl[2].SetActive(true);
+        uiControl[3].SetActive(false);
 
+
+    }
+
+
+    public void MBTIOnOff()
+    {
+        inventoryPanel.GetComponent<CanvasGroup>().alpha = 0;
+        openIvUI = true;
+        uiControl[0].SetActive(false);
+        uiControl[1].SetActive(false);
+        uiControl[2].SetActive(false);
+        uiControl[3].SetActive(true);
     }
 
 

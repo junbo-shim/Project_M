@@ -40,6 +40,18 @@ public class MBTIScripts : MonoBehaviour
     {
 
         MBTiScore_ = new Dictionary<string, int>();
+        finalMBTI = new StringBuilder();
+        if (MBTiScore_ != null)
+        {
+            MBTiScore_.Add("E",0);
+            MBTiScore_.Add("S", 0);
+            MBTiScore_.Add("T", 0);
+            MBTiScore_.Add("J", 0);
+            MBTiScore_.Add("I", 0);
+            MBTiScore_.Add("N", 0);
+            MBTiScore_.Add("F", 0);
+            MBTiScore_.Add("P", 0);
+        }
 
 
     }
@@ -50,12 +62,12 @@ public class MBTIScripts : MonoBehaviour
     }
     public string MaxMbti() // 저장시 최대값 뽑기
     {
-     
-        
+
+
         foreach (var dic in MBTiScore_)
         {
- 
-            if(maxValue < dic.Value)
+
+            if (maxValue < dic.Value)
             {
                 maxKey = dic.Key;
                 maxValue = dic.Value;
@@ -66,7 +78,7 @@ public class MBTIScripts : MonoBehaviour
                 minValue = dic.Value;
             }
         }
-      
+
         if (maxValue == 0)
         {
             maxKey = "I";
@@ -79,18 +91,18 @@ public class MBTIScripts : MonoBehaviour
     {
         if (MBTiScore_.ContainsKey("E"))
         {
-            MBTiScore_["E"] += value; 
+            MBTiScore_["E"] += value;
         }
         else
         {
-            MBTiScore_.Add("E", value); 
+            MBTiScore_.Add("E", value);
         }
-   
-       
+
+
     }
     public void MBTI_I_Add(int value)
     {
-   
+
         if (MBTiScore_.ContainsKey("I"))
         {
             MBTiScore_["I"] += value;
@@ -174,7 +186,12 @@ public class MBTIScripts : MonoBehaviour
     }
     public string FinalMBTIDerive()
     {
-        if(MBTiScore_["E"] > MBTiScore_["I"])
+        if(finalMBTI != null)
+        {
+
+            finalMBTI.Clear();
+        }
+        if (MBTiScore_["E"] > MBTiScore_["I"])
         {
             finalMBTI.Append("E");
         }
@@ -207,5 +224,77 @@ public class MBTIScripts : MonoBehaviour
             finalMBTI.Append("J");
         }
         return finalMBTI.ToString();
+    }
+
+
+
+
+    public string MBTIInfo(string str)
+    {
+        if (str == "ESFP")
+        {
+            return "100025";
+        }
+        else if (str == "ESFJ")
+        {
+            return "100026";
+        }
+        else if (str == "ESTP")
+        {
+            return "100027";
+        }
+        else if (str == "ESTJ")
+        {
+            return "100028";
+        }
+        else if (str == "ENFP")
+        {
+            return "100029";
+        }
+        else if (str == "ENFJ")
+        {
+            return "100030";
+        }
+        else if (str == "ENTP")
+        {
+            return "100031";
+        }
+        else if (str == "ENTJ")
+        {
+            return "100032";
+        }
+        else if (str == "ISFP")
+        {
+            return "100033";
+        }
+        else if (str == "ISFJ")
+        {
+            return "100034";
+        }
+        else if (str == "ISTP")
+        {
+            return "100035";
+        }
+        else if (str == "ISTJ")
+        {
+            return "100036";
+        }
+        else if (str == "INFP")
+        {
+            return "100037";
+        }
+        else if (str == "INFJ")
+        {
+            return "100038";
+        }
+        else if (str == "INTP")
+        {
+            return "100039";
+        }
+        else
+        {
+            return "100040";
+        }
+
     }
 }
