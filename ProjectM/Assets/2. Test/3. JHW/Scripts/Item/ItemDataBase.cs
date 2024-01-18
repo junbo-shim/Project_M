@@ -10,7 +10,7 @@ public class ItemDataBase : MonoBehaviour
 
     public Transform[] recipes;
 
-    public Transform herb;
+    public Transform[] herb;
 
 
     private void Awake()
@@ -51,9 +51,9 @@ public class ItemDataBase : MonoBehaviour
         for (int i = 0; i < recipes.Length; i++)
         {
 
-            Vector3 pos = new Vector3(recipes[i].position.x + Random.Range(-3, 4), recipes[i].position.y, recipes[i].position.z + Random.Range(-3, 4));
-            Vector3 pos2 = new Vector3(recipes[i].position.x + Random.Range(-3, 4), recipes[i].position.y, recipes[i].position.z + Random.Range(-3, 4));
-            Vector3 pos3 = new Vector3(recipes[i].position.x + Random.Range(-3, 4), recipes[i].position.y, recipes[i].position.z + Random.Range(-3, 4));
+            Vector3 pos = new Vector3(recipes[i].position.x + Random.Range(-70, 70), recipes[i].position.y, recipes[i].position.z + Random.Range(-70, 70));
+            Vector3 pos2 = new Vector3(recipes[i].position.x + Random.Range(-70, 70), recipes[i].position.y, recipes[i].position.z + Random.Range(-70, 70));
+            Vector3 pos3 = new Vector3(recipes[i].position.x + Random.Range(-70, 70), recipes[i].position.y, recipes[i].position.z + Random.Range(-70, 70));
 
 
             GameObject go = Instantiate(fieldItemPrefab, pos, Quaternion.identity);
@@ -69,18 +69,21 @@ public class ItemDataBase : MonoBehaviour
 
     private void SpawnHerb()
     {
-        Vector3 pos = new Vector3(herb.position.x + Random.Range(-3, 4), herb.position.y, herb.position.z + Random.Range(-3, 4));
-        Vector3 pos2 = new Vector3(herb.position.x + Random.Range(-3, 4), herb.position.y, herb.position.z + Random.Range(-3, 4));
-        Vector3 pos3 = new Vector3(herb.position.x + Random.Range(-3, 4), herb.position.y, herb.position.z + Random.Range(-3, 4));
+        for (int i = 0; herb.Length > i; i++)
+        {
+            Vector3 pos = new Vector3(herb[i].position.x + Random.Range(-50, 50), herb[i].position.y, herb[i].position.z + Random.Range(-50, 50));
+            Vector3 pos2 = new Vector3(herb[i].position.x + Random.Range(-50, 50), herb[i].position.y, herb[i].position.z + Random.Range(-50, 50));
+            Vector3 pos3 = new Vector3(herb[i].position.x + Random.Range(-50, 50), herb[i].position.y, herb[i].position.z + Random.Range(-50, 50));
 
+            GameObject go = Instantiate(fieldItemPrefab, pos, Quaternion.identity);
+            GameObject go2 = Instantiate(fieldItemPrefab, pos2, Quaternion.identity);
+            GameObject go3 = Instantiate(fieldItemPrefab, pos3, Quaternion.identity);
 
-        GameObject go = Instantiate(fieldItemPrefab, pos, Quaternion.identity);
-        GameObject go2 = Instantiate(fieldItemPrefab, pos2, Quaternion.identity);
-        GameObject go3 = Instantiate(fieldItemPrefab, pos3, Quaternion.identity);
+            go.GetComponent<FieldItem>().SetItem(itemDB[8]);
+            go2.GetComponent<FieldItem>().SetItem(itemDB[8]);
+            go3.GetComponent<FieldItem>().SetItem(itemDB[8]);
+        }
 
-        go.GetComponent<FieldItem>().SetItem(itemDB[8]);
-        go2.GetComponent<FieldItem>().SetItem(itemDB[8]);
-        go3.GetComponent<FieldItem>().SetItem(itemDB[8]);
     }
 
 

@@ -10,7 +10,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     public Dictionary<string, bool> intetactionQuest;
     private string[] fruits; // 자른문자저장용
     public GameObject gameobj1;
-
+    public GameObject gameobj2;
     private StringBuilder fruitsSb;                       // 자른문자 합치는용도 스트링 빌드
     private static QuestMananger Instance;
     Quest quest;
@@ -81,6 +81,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                 if (particleSystem != null)
                 {
                     particleSystem.Play();
+                    gameobj2.gameObject.SetActive(true);
                 }
             }
         
