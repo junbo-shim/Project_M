@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestMananger : MonoBehaviour // 저장할 스크립트
 {
@@ -8,8 +9,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     public Dictionary<string, BasicQuest> playerQuest;  // 플레이어가 수락한 퀘스트 정보
     public Dictionary<string, bool> intetactionQuest;
     private string[] fruits; // 자른문자저장용
-
-
+    public GameObject gameobj1;
 
     private StringBuilder fruitsSb;                       // 자른문자 합치는용도 스트링 빌드
     private static QuestMananger Instance;
@@ -40,6 +40,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
             Destroy(gameObject);
 
         }
+      
         intetactionQuest = new Dictionary<string, bool>();
         playerQuest = new Dictionary<string, BasicQuest>();
         fruitsSb = new StringBuilder();
@@ -51,10 +52,11 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
 
     public void intetactionQuestAdd(string str)
     {
-        if (intetactionQuest.ContainsKey(str))
+        if (!intetactionQuest.ContainsKey(str))
         {
             intetactionQuest.Add(str, true);
 
+          
         }
     }
     public void AddPlayerQuest(string str) // 퀘스트 수주
@@ -72,6 +74,19 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
                 quest.UpdateSlotUI(QuestMananger.instance.playerQuest.Keys);
 
             }
+            if(str == "100005")
+            {
+                gameobj1.SetActive(true);
+                ParticleSystem particleSystem = gameobj1.GetComponent<ParticleSystem>();
+                if (particleSystem != null)
+                {
+                    particleSystem.Play();
+                }
+            }
+        
+
+
+
             // Debug.Log(playerQuest[str].QuestNameKey);
             // Debug.Log(playerQuest[str].State);
         }
@@ -115,7 +130,7 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
     {
         fruitsSb.Clear();
         fruitsSb.Append(playerQuest[str].CompletionCondition_ID);
-
+        Debug.Log(fruitsSb.ToString());
         fruits = fruitsSb.ToString().Split(":"); // 스트링빌드 대화 태그순서 , 대화 순서 분리
 
         switch (fruits[0])
@@ -123,11 +138,13 @@ public class QuestMananger : MonoBehaviour // 저장할 스크립트
             case "NPC_Talk":
                 if (fruits[1].Equals(npcId.ToString()))
                 {
-
+                   
 
                     return true;
                 }
-                break;
+               
+
+                        break;
             case "Level":
 
 

@@ -64,7 +64,7 @@ public class SaveNpc : MonoBehaviour
         
     }
 
-    private void MBTIMaxKeySearch()
+    private void MBTIMaxKeySearch() // mbti 계산
     {
        
         var MbtTitle = CSVRead.instance;
@@ -75,7 +75,7 @@ public class SaveNpc : MonoBehaviour
         minValue = MBTIScripts.Instance.minValue;
 
         int Lv = 0;
-        Debug.Log(maxKey);
+        
         if(maxValue + minValue < 7)
         {
             Lv = 0;
@@ -222,6 +222,7 @@ public class SaveNpc : MonoBehaviour
 
             yield return timeSeconds;
         }
+        MapGameManager.instance.SetplayerSavePos(transform);
         textMeshPro.text = "지금까지의 여정을 기록했다네";
         saveSuccess = true;
     }

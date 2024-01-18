@@ -174,7 +174,7 @@ public class MBTIScripts : MonoBehaviour
     }
     public string FinalMBTIDerive()
     {
-        if(mbtiScore_E > mbtiScore_I)
+        if(MBTiScore_["E"] > MBTiScore_["I"])
         {
             finalMBTI.Append("E");
         }
@@ -182,7 +182,7 @@ public class MBTIScripts : MonoBehaviour
         {
             finalMBTI.Append("I");
         }
-        if (mbtiScore_S > mbtiScore_N)
+        if (MBTiScore_["S"] > MBTiScore_["N"])
         {
             finalMBTI.Append("S");
         }
@@ -190,7 +190,7 @@ public class MBTIScripts : MonoBehaviour
         {
             finalMBTI.Append("N");
         }
-        if (mbtiScore_F > mbtiScore_T)
+        if (MBTiScore_["F"] > MBTiScore_["T"])
         {
             finalMBTI.Append("F");
         }
@@ -198,7 +198,7 @@ public class MBTIScripts : MonoBehaviour
         {
             finalMBTI.Append("T");
         }
-        if (mbtiScore_P > mbtiScore_J)
+        if (MBTiScore_["P"] > MBTiScore_["J"])
         {
             finalMBTI.Append("P");
         }

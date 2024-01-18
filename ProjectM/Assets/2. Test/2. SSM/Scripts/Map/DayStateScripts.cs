@@ -30,6 +30,7 @@ public class DayStateScripts : MonoBehaviour
         {
             if (!mapGameManager.StopDayProgression)
             {
+
                 if (mapGameManager.BedAct)
                 {
 

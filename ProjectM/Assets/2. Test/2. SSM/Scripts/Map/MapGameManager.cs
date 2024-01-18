@@ -14,9 +14,11 @@ public class MapGameManager : MonoBehaviour
     private static MapGameManager Instance;
     public bool BedAct = false;
     public bool StopDayProgression = false;
-    public GameObject itemSpObj;
-    public RidingSnapZone ridingSnapZone;
-    public GameObject playerGameObject;
+    public GameObject itemSpObj; // 아이테 스폰 오브젝트
+    public RidingSnapZone ridingSnapZone; // 플레이어 비행 있는 스크립트
+    public GameObject playerGameObject; // 플레이어 게임 오브젝트
+    public Vector3 playerSavePos; // 리스폰 위치 
+
 
     //23.01.05 LJY
     public event Action dayStart;
@@ -50,11 +52,16 @@ public class MapGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
 
     void Start()
     {
+        if(playerSavePos == null)
+        {
+            playerSavePos =new Vector3(-13.1899414f + 2, -2.75f, -17.8699951f);
+        }
         currentState = DayState.MORNING;
     }
 
@@ -112,10 +119,16 @@ public class MapGameManager : MonoBehaviour
     public void ChangeDayState()
     {
         StopDayProgression = !StopDayProgression;
+      
     }
 
     public void OnObj(GameObject obj)
     {
         obj.SetActive(true);
+    }
+
+    public void SetplayerSavePos(Transform transform_)
+    {
+        playerSavePos = transform_.position;
     }
 }

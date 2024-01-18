@@ -67,6 +67,8 @@ public class NPCHitScripts : MonoBehaviour
             isGround = false;
             ragdollOn();
         }
+
+       
     }
 
     public void ragdollOn() // 렉돌상태on
@@ -106,7 +108,7 @@ public class NPCHitScripts : MonoBehaviour
 
     private GameObject ReParntOBJ(GameObject targetObject) // 부모함수 찾기 재귀
     {
-        if (targetObject.transform.parent != null)
+        if (targetObject.transform.parent != null && !targetObject.transform.name.Equals("NPC_Save"))
         {
             return ReParntOBJ(targetObject.transform.parent.gameObject);
         }

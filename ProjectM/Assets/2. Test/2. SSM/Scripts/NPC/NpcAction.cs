@@ -58,8 +58,18 @@ public class NpcAction : NpcActionBase
                     {
                         if (Talki != -2)
                         {
-                            npcTack.IconOn(); // 아이콘표시
+                            if (!npcTack.textimage.gameObject.activeSelf)
+                            {
+                                npcTack.IconOn(); // 아이콘표시
+                            }
+                            else
+                            {
+                                npcTack.IconOff();
+                            }
+                    
+                          
                         }
+                    
                         if (Physics.Raycast(ray, out hitInfo, NPCTalkDis))
                         {
                             //animator.enabled = false;
@@ -165,9 +175,9 @@ public class NpcAction : NpcActionBase
                 {
 
                     BoolChange();
-
+             
                     Talki = npcTack.WordChange(Talki);
-
+                  
                 }
 
             }
@@ -186,14 +196,11 @@ public class NpcAction : NpcActionBase
                     BoolChange();
                     if (!npcTack.textimage.gameObject.activeSelf)
                     {
-
+                    
                         npcTack.TalkOn();//대화창on
-
+                        npcTack.IconOff();
                     }
-                    else
-                    {
-                        npcTack.TalkOff();
-                    }
+                  
                 }
             }
         }

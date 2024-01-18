@@ -447,8 +447,9 @@ public class NPCTack : MonoBehaviour
 
         if (!npcChildSet.targetOBj[4].gameObject.activeSelf)
         {
-            npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
+      
             npcChildSet.targetOBj[4].gameObject.SetActive(true);
+
         }
 
     }
@@ -473,7 +474,14 @@ public class NPCTack : MonoBehaviour
         }
   
     }
-
+    public void IconOff()
+    {
+  
+        if (npcChildSet.targetOBj[newNPC.Type].gameObject.activeSelf)
+        {
+            npcChildSet.targetOBj[newNPC.Type].gameObject.SetActive(false);
+        }
+    }
 
 
     public void TalkOff() // 글닫기
@@ -518,7 +526,7 @@ public class NPCTack : MonoBehaviour
     #region 아이콘 번호로 부여
     public int IconSet(string Type) // 아이콘
     {
-
+    
         switch (Type) // 타입에 따라 값을 int값으로 만들기
         {
             case "Main":
