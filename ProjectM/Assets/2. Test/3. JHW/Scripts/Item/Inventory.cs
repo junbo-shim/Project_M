@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BNG;
 
 
 public class Inventory : MonoBehaviour
@@ -22,6 +23,8 @@ public class Inventory : MonoBehaviour
     public delegate void OnChangeItem();
     public OnChangeItem onChangeItem;
 
+    public Grabber leftGrabber;
+    public Grabber rightGrabber;
 
 
     private void Awake()
@@ -50,6 +53,8 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         SlotCnt = 32;
+        leftGrabber.OnGrabInvenItem += OnAfterLeftGrabEvent;
+        rightGrabber.OnGrabInvenItem += OnAfterRightGrabEvent;
     }
 
 
@@ -96,26 +101,66 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("FieldItem"))
+    //    {
+    //        FieldItem fIeldItem = other.GetComponent<FieldItem>();
+
+    //        if (AddItem(fIeldItem.GetItem()))
+    //        {
+    //            skill.CreafringSkill(fIeldItem.item.itemName);
+
+    //            creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
+    //            creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
+
+    //            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);
+    //            creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
+    //            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
+    //            creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
+
+    //            fIeldItem.DestroyItem();
+    //        }
+    //    }
+    //}
+
+    public void OnAfterLeftGrabEvent()
     {
-        if (other.CompareTag("FieldItem"))
+        FieldItem fIeldItem = leftGrabber.HeldGrabbable.GetComponent<FieldItem>();
+
+        if (AddItem(fIeldItem.GetItem()))
         {
-            FieldItem fIeldItem = other.GetComponent<FieldItem>();
+            skill.CreafringSkill(fIeldItem.item.itemName);
 
-            if (AddItem(fIeldItem.GetItem()))
-            {
-                skill.CreafringSkill(fIeldItem.item.itemName);
+            creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
+            creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
 
-                creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
-                creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
+            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);
+            creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
+            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
+            creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
 
-                creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);
-                creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
-                creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
-                creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
+            fIeldItem.DestroyItem();
+        }
+    }
 
-                fIeldItem.DestroyItem();
-            }
+    public void OnAfterRightGrabEvent()
+    {
+        FieldItem fIeldItem = rightGrabber.HeldGrabbable.GetComponent<FieldItem>();
+
+        if (AddItem(fIeldItem.GetItem()))
+        {
+            skill.CreafringSkill(fIeldItem.item.itemName);
+
+            creaftingItem.ScareCrowFindNeedItem("MagicEssence", "Wood", 0);
+            creaftingItem.TrabFindNeedItem("MagicEssence", "Steel", 1);
+
+            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[0]);
+            creaftingItem.UpdateNumberText("Wood", countNeedItem[1]);
+            creaftingItem.UpdateNumberText("MagicEssence", countNeedItem[2]);
+            creaftingItem.UpdateNumberText("Steel", countNeedItem[3]);
+
+            fIeldItem.DestroyItem();
         }
     }
 }

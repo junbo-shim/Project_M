@@ -62,6 +62,8 @@ public class NpcAction : NpcActionBase
                             {
                                 npcTack.IconOn(); // 아이콘표시
                             }
+
+
                             else
                             {
                                 npcTack.IconOff();

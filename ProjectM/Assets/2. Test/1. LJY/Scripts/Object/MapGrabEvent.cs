@@ -1,6 +1,7 @@
 using BNG;
+using UnityEngine;
 
-public class MapGrabEvent : GrabbableEvents
+public class MapGrabEvent : MonoBehaviour
 {
     public MiniMapController mc;
     private bool isOpened = false;
@@ -13,11 +14,16 @@ public class MapGrabEvent : GrabbableEvents
     // Update is called once per frame
     void Update()
     {
-
+        if(InputBridge.Instance.RightTriggerUp)
+        {
+            CloseAndOpenMap();
+        }
     }
 
-    public override void OnTriggerUp()
+    public void CloseAndOpenMap()
     {
+        Debug.Log("트리거업");
+
         if (!mc.isacting)
         {
             if (!isOpened)
@@ -33,13 +39,14 @@ public class MapGrabEvent : GrabbableEvents
         }
     }
 
-    public override void OnRelease()
+    public void ReleaseMapObj()
     {
+        Debug.Log("놓았음");
+
         if (isOpened)
         {
             isOpened = false;
             mc.CloseMap();
         }
-
     }
 }

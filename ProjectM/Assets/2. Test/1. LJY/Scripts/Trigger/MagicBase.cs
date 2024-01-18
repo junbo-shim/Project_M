@@ -11,9 +11,14 @@ public class MagicBase : MonoBehaviour
 
     public string skillName;
     public GameObject magicUi;
+    public GameObject pageChangeBtn;
 
     protected void OnEnable()
     {
+        if (pageChangeBtn == null)
+        {
+            GetPageChangeBtn();
+        }
         StartCoroutine(TriggerTimer());
     }
 
@@ -27,17 +32,27 @@ public class MagicBase : MonoBehaviour
     // 스킬 트리거 오브젝트가 마법봉에 닿으면 스킬 시전함수를 실행한다.
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Wand"))
+        if (other.CompareTag("Wand"))
         {
             CastSkill();
         }
     }
 
-    protected IEnumerator TriggerTimer()
+    protected virtual IEnumerator TriggerTimer()
     {
+        pageChangeBtn.SetActive(false);
         yield return new WaitForSeconds(triggerDuration);
 
-        magicUi.SetActive(true);
+        if(magicUi != null)
+        {
+            magicUi.SetActive(true);
+            pageChangeBtn.SetActive(true);
+        }
         gameObject.SetActive(false);
+    }
+
+    protected virtual void GetPageChangeBtn()
+    {
+        pageChangeBtn = transform.parent.parent.GetChild(0).gameObject;
     }
 }

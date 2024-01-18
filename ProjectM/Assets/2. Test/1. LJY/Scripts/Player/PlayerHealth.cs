@@ -62,9 +62,16 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             // 체력에서 데미지 감산
-            playerHp -= damage;
-            hitParticle.Play(); // 피격 이펙트 재생
-            ChangeHpGauge();    // 체력 게이지 변경 함수
+            if((playerHp - damage) <= 0)
+            {
+                // TODO : 플레이어 사망 함수 추가
+            }
+            else
+            {
+                playerHp -= damage;
+                hitParticle.Play(); // 피격 이펙트 재생
+                ChangeHpGauge();    // 체력 게이지 변경 함수
+            }
         }
 
     }

@@ -337,5 +337,7 @@ public class CSVRead : MonoBehaviour
         MbtTitleDatas[id].Category1 = GetValue<string>(dict, "Category1");
         MbtTitleDatas[id].Script = GetValue<string>(dict, "Script");
 
+
+
     }
 }

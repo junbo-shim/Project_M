@@ -10417,7 +10417,7 @@ MonoBehaviour:
   monsterHP: 0
   monsterMoveSpeed: 0
   monsterPatrolRange: 10
-  monsterSightRange: 12
+  monsterSightRange: 18
   monsterSonarRange: 0
   isMovingID: 0
   isAttackingID: 0

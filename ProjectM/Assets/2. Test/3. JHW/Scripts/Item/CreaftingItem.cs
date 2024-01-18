@@ -12,13 +12,6 @@ public class CreaftingItem : MonoBehaviour
     public Text[] countNeedItem;
 
 
-    private void Start()
-    {
-        Debug.Log(countNeedItem[0].text);
-        Debug.Log(countNeedItem[1].text);
-        Debug.Log(countNeedItem[2].text);
-        Debug.Log(countNeedItem[3].text);
-    }
 
     public void ScareCrowFindNeedItem(string itemName, string itemName2, int buttonIndex)
     {

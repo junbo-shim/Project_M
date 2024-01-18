@@ -45,53 +45,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  recipes:
+  - {fileID: 5149883846312764890, guid: f2a12b04b29c3d64892cbe018645872b, type: 3}
+  - {fileID: 52394568255267896, guid: 8a39d3ea5da1ca242b347f536ab2cf62, type: 3}
+  - {fileID: 27330463492865340, guid: 759d5ebf46aeb9545af8b4b8fb2aa00f, type: 3}
+  - {fileID: 6201083519761533782, guid: 91d319c1a8bf00b41b680dc20a75d912, type: 3}
+  - {fileID: 6418917576413351750, guid: fa32e48794432804db2a85cfdd877f3b, type: 3}
+  - {fileID: 6555157558070498680, guid: e6df5816557eed941ae3fd0c52ef728b, type: 3}
+  herb: {fileID: 1574824151274445961, guid: 1fea9419ecea9a04fa76a6617c0264bc, type: 3}
   itemDB:
   - itemType: 1
     itemName: FIreBallRecipe
     itemImage: {fileID: 21300000, guid: ed6bc2e50f30b72488ff92eb8b97e9c8, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: 1b587fe9c31050d4596a912eaea32bfd,
+    dropItem: {fileID: 5358480848783026973, guid: 45b4881608530c440bfb5050eca22a5d,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: ProtectRecipe
     itemImage: {fileID: 21300000, guid: 9fb0c5896066d4d42a810d88f9c750c5, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: 7acbf65b23bd27b48aa9ccadbf55c0bf,
+    dropItem: {fileID: 7031619516995227797, guid: b823c95e5655a274f89d1772cc1b514d,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: IceBallRecipe
     itemImage: {fileID: 21300000, guid: cbbbf4d6b31b2e04c9b84d667d8a1d4f, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: 356e18e89e600b24398ca93ddd324ae1,
+    dropItem: {fileID: 3907899474561212093, guid: 7437479f8970e38408aa102ed6c3fa88,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: PoisonRecipe
     itemImage: {fileID: 21300000, guid: dfbb9dc296db59346b4bfd431bff36fb, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: 16fe8363036b0cc4bbcd796b97e8f8f0,
+    dropItem: {fileID: 505300248317556765, guid: 890c72442bb2c83448d2bf5de417025a,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: JumpRecipe
     itemImage: {fileID: 21300000, guid: 9aa6830c43e5ab543bb058e7693d2dd3, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: b6b8ad0d7db7fdc40892e280e05bd120,
+    dropItem: {fileID: 983719554937450835, guid: e71af9ed708ce3e48bbdfb4035f96eb8,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: HillRecipe
     itemImage: {fileID: 21300000, guid: b52d97540d4191d4a9e24fc0a9887e7b, type: 3}
-    dropItem: {fileID: 6101652949435477172, guid: 2bceb064a0e97c74e9ec123ba0d48c59,
+    dropItem: {fileID: 7550033909845093781, guid: 10d4f564feb7d1c4fae7915e7b9170ba,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: SymbolStone_A
     itemImage: {fileID: 21300000, guid: 537e8c462e982164fa30f1c71685d57d, type: 3}
-    dropItem: {fileID: 279308442181748017, guid: 5383a7560bb3792469e3c28e8a10091a,
+    dropItem: {fileID: 7646776999325195544, guid: 26c9fc0c9f316954ebb29fe3f08510f6,
       type: 3}
     itemCount: 0
   - itemType: 1
     itemName: SymbolStone_B
     itemImage: {fileID: 21300000, guid: fe159e3cd69b69f4f83623d8ae77fc71, type: 3}
-    dropItem: {fileID: 279308442181748017, guid: 61fcecbb13383bd44bc0f9cc4f98fc66,
+    dropItem: {fileID: 4225892786020248042, guid: 9b718d6f98791824cab3795009cff695,
       type: 3}
     itemCount: 0
   - itemType: 1
@@ -115,12 +123,13 @@ MonoBehaviour:
   - itemType: 1
     itemName: MagicEssence
     itemImage: {fileID: 21300000, guid: 7dbd9af3c0e51984a9413dad2f2be8bb, type: 3}
-    dropItem: {fileID: 1280056767771472, guid: e53cd9b7f6ac44f3ebe9af3f0f302b4f, type: 3}
+    dropItem: {fileID: 8630919249617280078, guid: 9559d9b25d95bcb43bfce6d360eb17d3,
+      type: 3}
     itemCount: 0
   - itemType: 1
     itemName: ScareCrow
     itemImage: {fileID: 21300000, guid: e7e351e48e1b5b84098b67c5aef8379f, type: 3}
-    dropItem: {fileID: 8045810702686802794, guid: 6466f21c32f0b664d8f3c4d04a087c49,
+    dropItem: {fileID: 949875892610262086, guid: e4132944b928f674eac24caefcc58183,
       type: 3}
     itemCount: 0
   - itemType: 1
@@ -129,5 +138,5 @@ MonoBehaviour:
     dropItem: {fileID: 7450214475060116183, guid: b27e820fac959b740bd1bb376e4a8b59,
       type: 3}
     itemCount: 0
-  fieldItemPrefab: {fileID: 5842721987353189140, guid: 3d6a5210c961382449250ce32570edcc,
+  fieldItemPrefab: {fileID: 4428595819596279126, guid: 7859015cf75dc9645af7175597e1c41d,
     type: 3}

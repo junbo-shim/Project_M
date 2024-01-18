@@ -27,7 +27,7 @@ public class SkillManager : MonoBehaviour
     private static SkillManager _instance;
     #endregion
 
-    public Dictionary<string, int> skillCheckDict = new Dictionary<string, int>();
+    public Dictionary<string, int> skillCheckDict;
 
     // Start is called before the first frame update
     void Start()

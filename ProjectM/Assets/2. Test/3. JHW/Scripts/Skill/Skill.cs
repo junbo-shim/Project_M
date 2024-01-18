@@ -1,3 +1,4 @@
+using BNG;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,11 +18,17 @@ public class Skill : MonoBehaviour
 
     Dictionary<string, int> mySkill = new Dictionary<string, int>();
 
+    private void Awake()
+    {
+        SkillManager.Instance.skillCheckDict = mySkill;
+    }
+
     private void Start()
     {
         inventory = FindAnyObjectByType<Inventory>();
         itemData = FindAnyObjectByType<ItemDataBase>();
         illustratedGuide = FindAnyObjectByType<IllustratedGuide>();
+
 
         for (int i = 0; i < 5; i++)
         {
@@ -34,9 +41,27 @@ public class Skill : MonoBehaviour
         }
 
         mySkill.Add("Invisibility", 1106);
-
+        mySkill.Add("_FireBall", 1001);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Keypad0))
+        {
+            AddSkillDeveloperMode();
+        }
+    }
+
+    public void AddSkillDeveloperMode()
+    {
+        Debug.Log("스킬 추가완료");
+        FireBallSkill();
+        PosionSkill();
+        ProtectSkill();
+        IceBallSkill();
+        JumpSkill();
+        HealSkill();
+    }
 
 
     #region FIreBall
@@ -218,8 +243,8 @@ public class Skill : MonoBehaviour
 
     #endregion
 
-    #region Hill
-    public void HillSkill()
+    #region Heal
+    public void HealSkill()
     {
         creaftingButton[5].SetActive(false);
 
@@ -232,7 +257,7 @@ public class Skill : MonoBehaviour
                 illustratedGuide.HillChangeColor();
             }
         }
-        mySkill.Add("Hill", 1107);
+        mySkill.Add("Heal", 1107);
         Debug.Log(mySkill.Keys);
 
     }

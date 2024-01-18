@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameobj1: {fileID: 0}
+  gameobj2: {fileID: 0}

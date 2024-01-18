@@ -10,7 +10,6 @@ public class Monster_Detect : MonsterState
     public WaitForSeconds waitTime;
     public int waitTimer;
 
-    public bool isRoutineOn;
 
 
     public override void OnStateEnter(GameObject monster_)
@@ -25,11 +24,7 @@ public class Monster_Detect : MonsterState
 
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_)
     {
-        // 만약 코루틴이 살아있을 경우를 대비한 안전장치
-        if (isRoutineOn == true)
-        {
-            msm_.StopCoroutine(DoDetect(monster_, msm_));
-        }
+        msm_.StopCoroutine(DoDetect(monster_, msm_));
         // 변수 비우기
         CleanVariables(monster_);
     }
@@ -44,8 +39,6 @@ public class Monster_Detect : MonsterState
         radius = monster_.GetComponent<Monster>().monsterSonarRange;
         waitTime = new WaitForSeconds(1f);
         waitTimer = 5;
-
-        isRoutineOn = false;
 
         monster_.GetComponent<Monster>().detectUI.SetActive(true);
     }
@@ -85,8 +78,6 @@ public class Monster_Detect : MonsterState
             // 상태를 교전으로 변환한다
             msm_.ChangeState(MonsterStateMachine.State.Engage);
         }
-
-        isRoutineOn = true;
     }
     #endregion
 
@@ -105,7 +96,6 @@ public class Monster_Detect : MonsterState
             // 타겟 변수는 null 이다
             target = null;
             monster_.GetComponent<Monster>().target = null;
-            Debug.LogWarning("타겟 없음");
         }
         // 만약 검출된 것이 있다면
         else if (colliders.Length > 0)
@@ -118,7 +108,6 @@ public class Monster_Detect : MonsterState
                 {
                     monster_.GetComponent<Monster>().target = collider.transform.parent.gameObject;
                     target = monster_.GetComponent<Monster>().target;
-                    Debug.LogWarning("타겟 찾음");
                 }
             }
         }
@@ -133,8 +122,6 @@ public class Monster_Detect : MonsterState
         target = null;
         waitTime = default;
         waitTimer = default;
-
-        isRoutineOn = false;
 
         monster_.GetComponent<Monster>().detectUI.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "?";
         monster_.GetComponent<Monster>().detectUI.SetActive(false);
