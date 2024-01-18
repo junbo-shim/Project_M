@@ -12,7 +12,7 @@ public class LoadingSceneMamager : MonoBehaviour
 
     public void GoToStartScene()
     {
-        SceneManager.LoadSceneAsync("Demo");
+        SceneManager.LoadSceneAsync("Release_Main");
     }
 
 }

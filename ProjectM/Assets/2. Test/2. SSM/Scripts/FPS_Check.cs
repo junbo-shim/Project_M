@@ -27,7 +27,7 @@ public class FPS_Check : MonoBehaviour
 
         GUIStyle style = new GUIStyle();
 
-        Rect rect = new Rect(300, 500, w, h * 0.02f);
+        Rect rect = new Rect(600, 500, w, h * 0.02f);
         style.alignment = TextAnchor.UpperLeft;
         style.fontSize = h * 2 / fFont_Size;
         style.normal.textColor = new Color(Red, Green, Blue, 1.0f);

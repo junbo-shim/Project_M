@@ -646,6 +646,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScenePlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5930808510664794425, guid: e4aff119a4495e8469aff10bba5ab9bb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8782439944116888414, guid: e4aff119a4495e8469aff10bba5ab9bb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
