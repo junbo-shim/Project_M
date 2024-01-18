@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using BNG;
 
 public class MiniMapController : MonoBehaviour
 {
@@ -41,15 +42,13 @@ public class MiniMapController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                isacting = true;
                 OpenMap();
-                Debug.Log(testFloat);
+                isacting = true;
             }
             if (Input.GetKeyDown(KeyCode.K))
             {
-                isacting = true;
                 CloseMap();
-                Debug.Log(testFloat);
+                isacting = true;
             }
         }
     }
@@ -71,6 +70,7 @@ public class MiniMapController : MonoBehaviour
             if (testFloat > 0.9f)
             {
                 StartCoroutine(FadeIn());
+
             }
 
             m.SetFloat(id, testFloat);
@@ -78,7 +78,6 @@ public class MiniMapController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         yield return null;
-        isacting = false;
     }
 
 
@@ -111,6 +110,9 @@ public class MiniMapController : MonoBehaviour
 
             yield return null;
         }
+
+        isacting = false;
+
 
     }
 

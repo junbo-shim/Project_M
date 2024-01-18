@@ -431,7 +431,6 @@ GameObject:
   - component: {fileID: 1427001350521717765}
   - component: {fileID: 1427001350521717770}
   - component: {fileID: 1427001350521717771}
-  - component: {fileID: 1427001350521717768}
   - component: {fileID: 272685511778713483}
   m_Layer: 0
   m_Name: MiniMap
@@ -507,20 +506,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1427001350521717768
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427001350521717822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &272685511778713483
 MonoBehaviour:
   m_ObjectHideFlags: 0

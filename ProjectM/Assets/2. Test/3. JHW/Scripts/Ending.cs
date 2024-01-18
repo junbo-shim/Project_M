@@ -28,7 +28,7 @@ public class Ending : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(StartEnd());
+        StartCoroutine(StartEnd());
     }
 
     IEnumerator StartEnd()

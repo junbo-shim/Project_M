@@ -138,5 +138,5 @@ MonoBehaviour:
     dropItem: {fileID: 7450214475060116183, guid: b27e820fac959b740bd1bb376e4a8b59,
       type: 3}
     itemCount: 0
-  fieldItemPrefab: {fileID: 5842721987353189140, guid: 3d6a5210c961382449250ce32570edcc,
+  fieldItemPrefab: {fileID: 4428595819596279126, guid: 7859015cf75dc9645af7175597e1c41d,
     type: 3}
