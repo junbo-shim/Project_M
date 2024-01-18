@@ -14,10 +14,10 @@ public class MapGameManager : MonoBehaviour
     private static MapGameManager Instance;
     public bool BedAct = false;
     public bool StopDayProgression = false;
-    public GameObject itemSpObj;
-    public RidingSnapZone ridingSnapZone;
-    public GameObject playerGameObject;
-    public Vector3 playerSavePos;
+    public GameObject itemSpObj; // 아이테 스폰 오브젝트
+    public RidingSnapZone ridingSnapZone; // 플레이어 비행 있는 스크립트
+    public GameObject playerGameObject; // 플레이어 게임 오브젝트
+    public Vector3 playerSavePos; // 리스폰 위치 
 
 
     //23.01.05 LJY
