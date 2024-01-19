@@ -17,7 +17,7 @@ public class InvisibleSkill : SkillAction
         InputInfo();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         phm = player.transform.GetChild(0).GetComponent<PlayerHandManager>();
-        playerRigid = player.transform.GetChild(0).GetChild(2);
+        playerRigid = player.transform.GetChild(0).GetChild(3);
         gameObject.SetActive(false);
     }
 
@@ -57,7 +57,7 @@ public class InvisibleSkill : SkillAction
     {
         phm.ChangeHandMat(true);
         playerRigid.gameObject.layer = LayerMask.NameToLayer("Invisible");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(duration);
         EndInvisible();       
     }
 }

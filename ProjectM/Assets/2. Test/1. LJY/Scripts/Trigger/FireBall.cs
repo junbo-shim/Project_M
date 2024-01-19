@@ -32,8 +32,9 @@ public class FireBall : MagicBase
         {
             GameObject fireball = Instantiate(magicEffect, transform.position, transform.parent.rotation);
             fireball.transform.SetParent(transform.parent);
+
         }
-        
+
         // TODO : 방향 에임 방향으로 수정해야함
         base.CastSkill();
     }

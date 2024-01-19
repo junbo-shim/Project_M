@@ -21,7 +21,7 @@ public class IceTrigger : MagicBase
     {
         if (SkillManager.Instance.HasSkillEnhancedByName(skillName))
         {
-            GameObject iceProjectile = Instantiate(ehancedEff, transform.position, magicEffect.transform.rotation);
+            GameObject iceProjectile = Instantiate(ehancedEff, transform.position, transform.parent.rotation);
             iceProjectile.transform.SetParent(transform.parent);
         }   // if : 강화 스킬이라면
         else

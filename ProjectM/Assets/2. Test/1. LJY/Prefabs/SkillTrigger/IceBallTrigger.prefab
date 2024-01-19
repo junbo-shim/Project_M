@@ -29452,4 +29452,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magicEffect: {fileID: 4266197911013094007, guid: 4fde3915d2f189d4cb6f01e283c04ba6,
     type: 3}
+  triggerDuration: 5
+  skillName: 
   magicUi: {fileID: 0}
+  pageChangeBtn: {fileID: 0}
+  ehancedEff: {fileID: 8741448972994283850, guid: 0ddef3ef601461c4d9af4ee145f36b88,
+    type: 3}

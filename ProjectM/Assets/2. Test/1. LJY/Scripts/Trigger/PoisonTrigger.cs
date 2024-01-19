@@ -26,8 +26,9 @@ public class PoisonTrigger : MagicBase
         }
         else
         {
-            GameObject poisonProjectile = Instantiate(ehancedEff, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z), Quaternion.identity);
+            GameObject poisonProjectile = Instantiate(magicEffect, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z), magicEffect.transform.rotation);
             poisonProjectile.transform.SetParent(transform.parent);
+            Debug.Log(transform.parent);
         }
         
         base.CastSkill();
