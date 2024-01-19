@@ -30,7 +30,11 @@ public class ScarecrowTrigger : MagicBase
     protected override IEnumerator TriggerTimer()
     {
         yield return new WaitForSeconds(triggerDuration);
-
+        if(setItem.isSetting)
+        {
+            setItem.settingObj.SetActive(false);
+            setItem.isSetting = false;
+        }
         transform.parent.GetChild(0).gameObject.SetActive(true);
         gameObject.SetActive(false);
     }

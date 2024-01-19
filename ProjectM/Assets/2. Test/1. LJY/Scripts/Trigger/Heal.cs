@@ -32,7 +32,7 @@ public class Heal : MagicBase
 
         if (player == null)     // 플레이어 체력 정보가 없을 시 받아오기
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);    // 플레이어컨트롤러
+            player = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetChild(3);    // 플레이어리지드
             playerHealth = player.GetComponent<PlayerHealth>();
             //Debug.Log("플레이어 정보 받아옴");
         }

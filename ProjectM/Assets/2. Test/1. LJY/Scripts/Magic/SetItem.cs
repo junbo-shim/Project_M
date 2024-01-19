@@ -14,7 +14,7 @@ public class SetItem : MonoBehaviour
 
     private BookScript book;    // 책 레이 힛포인트 받아오기위한 컴포넌트
 
-    private GameObject settingObj;  // 설치중인 오브젝트를 담을 변수
+    public GameObject settingObj;  // 설치중인 오브젝트를 담을 변수
     public bool isSetting;         // 설치중인지 확인할 bool변수
     public GameObject buttons;     // 설치 버튼 모음 오브젝트
 
@@ -28,7 +28,7 @@ public class SetItem : MonoBehaviour
     {
         book = transform.parent.parent.GetComponent<BookScript>();
         playerInven = FindAnyObjectByType<Inventory>();
-        coolManager = book.GetComponent<CoolTimeManager>();
+        coolManager = playerInven.GetComponent<CoolTimeManager>();
         SetStarting(); // 시작하면 미리 생성하고 꺼놓기
     }
 
