@@ -19,8 +19,6 @@ public class Ending : MonoBehaviour
 
     public RectTransform rectTransform;
 
-    public GameObject endingUIOffButton;
-
     public GameObject endingUI;
 
     public Button button;
@@ -31,9 +29,14 @@ public class Ending : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public GameObject player;
+
+
+
     private void Start()
     {
         cullingCamera = cameraObj.GetComponent<Camera>();
+        StartEndCoroutine();
     }
 
     public void StartEndCoroutine()
@@ -52,6 +55,7 @@ public class Ending : MonoBehaviour
 
     IEnumerator StartEnd()
     {
+
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeInMBTI());
         yield return new WaitForSeconds(10f);
@@ -60,7 +64,7 @@ public class Ending : MonoBehaviour
         StartCoroutine(FadeInEndingCredit());
         yield return new WaitForSeconds(2f);
         StartCoroutine(UpEndingCredit());
-        yield return null;  
+        yield return null;
     }
 
     IEnumerator FadeInMBTI()
@@ -110,30 +114,36 @@ public class Ending : MonoBehaviour
 
     IEnumerator UpEndingCredit()
     {
+
         Vector3 endingPos = endingCreditUI.GetComponent<RectTransform>().anchoredPosition;
+
+        Transform playerPos = player.transform;
         Debug.Log(endingCreditUI.name);
 
-        while (endingPos.y < 2250)
+        while (endingPos.y < 2150)
         {
             endingPos.y += upSpeed * Time.deltaTime;
 
             rectTransform.anchoredPosition = new Vector3(0, endingPos.y, 0);
 
+            Vector3 newRo = new Vector3(0f, 0f, 0f);
+            playerPos.rotation = Quaternion.Euler(newRo);
+
             yield return null;
         }
 
-        endingUIOffButton.SetActive(true);
+        button.enabled = true;
+        endingUI.SetActive(false);
+        cullingCamera.cullingMask = -1;
 
     }
 
 
     public void OffEndingUI()
     {
-        button.enabled = true;
-        endingUI.SetActive(false);
-        cullingCamera.cullingMask = -1;
-
-
+        //button.enabled = true;
+        //endingUI.SetActive(false);
+        //cullingCamera.cullingMask = -1;
     }
 
 }
