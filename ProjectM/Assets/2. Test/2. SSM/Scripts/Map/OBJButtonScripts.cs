@@ -7,11 +7,23 @@ public class OBJButtonScripts : MonoBehaviour
     public GameObject GameObject_1;
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(!GameObject_1.activeSelf)
         {
-            GameObject_1.SetActive(true);
-        
+            if(other.CompareTag("Player"))
+            {
+                GameObject_1.SetActive(true);
+
+            }
         }
+        else
+        {
+            if (other.CompareTag("Player"))
+            {
+                GameObject_1.SetActive(false);
+
+            }
+        }
+      
  
     }
     private void OnTriggerExit(Collider other)

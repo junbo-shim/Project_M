@@ -6,7 +6,6 @@ public class Monster_Engage : MonsterState
     private CharacterController monsterControl;
     private Monster monsterComponent;
     private Animator monsterAni;
-    private float speed;
     private float radius;
     private float atkRange;
     private float gravity;
@@ -36,7 +35,7 @@ public class Monster_Engage : MonsterState
         msm_.StopCoroutine(Attack(monster_));
         msm_.StopCoroutine(WaitForTarget(monster_, msm_));
         msm_.StopCoroutine(DoEngage(monster_, msm_));
-        
+
         // 변수 비우기
         CleanVariables();
     }
@@ -67,19 +66,10 @@ public class Monster_Engage : MonsterState
     #region 낮밤 몬스터 구분하여 speed, radius, range, target 설정하는 함수
     private void SetSpeedRadiusRangeTarget(int type_)
     {
-        if (monsterComponent == null) 
+        if (monsterComponent == null)
         {
             Debug.LogError("monsterComponent 가 null");
             return;
-        }
-
-        if (type_ == (int)Monster.MonsterType.Mech_Large) 
-        {
-            speed = monsterComponent.monsterData.MonsterRunSpeed;
-        }
-        else 
-        {
-            speed = monsterComponent.monsterData.MonsterMoveSpeed;
         }
 
         radius = monsterComponent.monsterSightRange * 0.5f;
@@ -104,20 +94,20 @@ public class Monster_Engage : MonsterState
             && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
         {
             // 타겟이 없다면
-            if (target == null) 
+            if (target == null)
             {
                 // 타겟 재감지를 위한 카운트다운 코루틴을 실행한다
                 yield return msm_.StartCoroutine(WaitForTarget(monster_, msm_));
 
                 // 그래도 타겟이 없다면
-                if (target == null) 
+                if (target == null)
                 {
                     // 코루틴 헛돎을 예방하는 break
                     yield break;
                 }
             }
             // 타겟을 확보했다면
-            else if (target != null) 
+            else if (target != null)
             {
                 // 타겟 위치까지 움직이고 공격을 순차적으로 실행한다
                 yield return msm_.StartCoroutine(EngageMove(monster_));
@@ -141,7 +131,7 @@ public class Monster_Engage : MonsterState
         while (Vector3.Distance(target.transform.position, monster_.transform.position) > atkRange)
         {
             // target 의 layer 가 Invisible 일 경우
-            if(target.gameObject.layer.Equals(LayerMask.NameToLayer("Invisible")))
+            if (target.gameObject.layer.Equals(LayerMask.NameToLayer("Invisible")))
             {
                 // target 해제 및 반복문 탈출
                 target = null;
@@ -160,8 +150,18 @@ public class Monster_Engage : MonsterState
                 new Vector3(target.transform.position.x - monster_.transform.position.x,
                 gravity, target.transform.position.z - monster_.transform.position.z).normalized;
 
-            // 타겟의 위치로 움직인다
-            monsterControl.Move(tempMove * speed * Time.deltaTime);
+
+            // 몬스터 종류에 따라서 몬스터 속도 변화
+            if (monsterComponent.thisMonsterType == Monster.MonsterType.Mech_Large)
+            {
+                // 타겟의 위치로 움직인다
+                monsterControl.Move(tempMove * monsterComponent.monsterRunSpeed * Time.deltaTime);
+            }
+            else
+            {
+                // 타겟의 위치로 움직인다
+                monsterControl.Move(tempMove * monsterComponent.monsterMoveSpeed * Time.deltaTime);
+            }
 
             monsterAni.SetBool(monsterComponent.isMovingID, true);
         }
@@ -179,12 +179,12 @@ public class Monster_Engage : MonsterState
         CheckTarget(monster_);
 
         // 만약 타겟이 없다면
-        if (target == null) 
-        { 
+        if (target == null)
+        {
             yield break;
         }
         // 타겟이 존재한다면
-        else if (target != null) 
+        else if (target != null)
         {
             monsterAni.SetBool(monsterComponent.isAttackingID, true);
 
@@ -205,7 +205,7 @@ public class Monster_Engage : MonsterState
         int i = 0;
 
         // 타이머 설정한 부분까지 반복하고, 타겟이 존재하지 않을 때만 반복
-        while (i < waitTimer && target == null) 
+        while (i < waitTimer && target == null)
         {
             yield return waitTime;
             // n 초마다 타겟을 찾는다
@@ -228,7 +228,7 @@ public class Monster_Engage : MonsterState
     private void CheckTarget(GameObject monster_)
     {
         // Detect -> Engage 일 경우 target 초기화 회피용 안전장치
-        if (target != null) 
+        if (target != null)
         {
             return;
         }
@@ -240,7 +240,7 @@ public class Monster_Engage : MonsterState
         //Debug.LogError(colliders.Length);
 
         // 만약 검출된 것이 없다면 
-        if (colliders.Length <= 0) 
+        if (colliders.Length <= 0)
         {
             // 타겟 변수는 null 이다
             target = null;
@@ -257,13 +257,13 @@ public class Monster_Engage : MonsterState
                 if (collider.GetComponent<Rigidbody>() == true)
                 {
                     // 허수아비이면 바로 메서드 종료
-                    if (collider.gameObject.name.Contains("Scarecrow")) 
+                    if (collider.gameObject.name.Contains("Scarecrow"))
                     {
                         target = collider.gameObject;
                         return;
                     }
                     // 플레이어라면 일단 target 에 캐싱
-                    else 
+                    else
                     {
                         target = collider.gameObject;
                     }
@@ -275,13 +275,13 @@ public class Monster_Engage : MonsterState
 
 
     #region 변수 비우는 메서드
-    private void CleanVariables() 
+    private void CleanVariables()
     {
-        monsterAni.SetBool(monsterComponent.isMovingID, false); 
+        monsterAni.SetBool(monsterComponent.isMovingID, false);
         monsterAni.SetBool(monsterComponent.isAttackingID, false);
 
         // 밤 몬스터일 경우 sonarTarget 변수 초기화
-        if (monsterComponent.monsterData.MonsterType == 2) 
+        if (monsterComponent.monsterData.MonsterType == 2)
         {
             monsterComponent.target = null;
         }
@@ -289,7 +289,6 @@ public class Monster_Engage : MonsterState
         monsterControl = default;
         monsterComponent = default;
         monsterAni = default;
-        speed = default;
         radius = default;
         target = null;
         waitTime = default;

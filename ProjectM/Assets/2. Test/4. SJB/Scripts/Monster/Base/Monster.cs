@@ -60,6 +60,8 @@ public class Monster : MonoBehaviour
     public int monsterHP;
     // 몬스터 이동속도 (외부에서 접근가능하게끔 public 으로 열어둠)
     public float monsterMoveSpeed;
+    // 몬스터 이동속도 (외부에서 접근가능하게끔 public 으로 열어둠)
+    public float monsterRunSpeed;
     // 몬스터 정찰범위
     [SerializeField]
     public float monsterPatrolRange;
@@ -77,12 +79,14 @@ public class Monster : MonoBehaviour
     // 몬스터 애니메이터 파라미터 ID : Dead
     public int deadID;
 
-
+    // 몬스터 스폰 포인트 캐싱
+    public Vector3 monsterSpawnedPoint;
 
 
     // 오브젝트가 켜질 때 실행
     protected virtual void OnEnable()
     {
+        monsterSpawnedPoint = transform.position;
         monsterPool = transform.parent.gameObject.GetComponent<ObjectPool>();
         InitDebuffTimer();
 
@@ -91,6 +95,7 @@ public class Monster : MonoBehaviour
     // 오브젝트가 꺼질 때 실행
     protected virtual void OnDisable()
     {
+        monsterSpawnedPoint = default;
         monsterPool = default;
         InitDebuffTimer();
 
@@ -106,13 +111,17 @@ public class Monster : MonoBehaviour
         monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;
+        if (inputType_ == MonsterType.Mech_Large)
+        {
+            monsterRunSpeed = monsterData.MonsterRunSpeed;
+        }
 
         CheckAnimatorParameter(inputType_);
     }
 
 
     // 몬스터 상태이상 타이머 초기화 메서드
-    protected virtual void InitDebuffTimer() 
+    protected virtual void InitDebuffTimer()
     {
         toxicDuration = default;
         slowDuration = default;
@@ -122,7 +131,7 @@ public class Monster : MonoBehaviour
 
 
     // 몬스터 애니메이터 파라미터 할당 메서드
-    protected virtual void CheckAnimatorParameter(MonsterType inputType_) 
+    protected virtual void CheckAnimatorParameter(MonsterType inputType_)
     {
         // 애니메이터 파라미터 ID 캐싱
         isMovingID = Animator.StringToHash("isMoving");

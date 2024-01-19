@@ -12,7 +12,7 @@ public class BossRoomOpen : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        for (int i = 0; inventory.items.Count > 0; i++)
+        for (int i = 0; inventory.items.Count > i; i++)
         {
            
             if (inventory.items[i].itemName.Contains("SymbolStone_A"))
@@ -26,7 +26,7 @@ public class BossRoomOpen : MonoBehaviour
             }
         }
 
-        for (int i = 0; inventory.items.Count > 0; i++)
+        for (int i = 0; inventory.items.Count > i; i++)
         {
             if (inventory.items[i].itemName.Contains("SymbolStone_B"))
             {

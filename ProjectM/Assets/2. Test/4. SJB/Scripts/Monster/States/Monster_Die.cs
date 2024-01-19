@@ -79,7 +79,7 @@ public class Monster_Die : MonsterState
         yield return new WaitUntil(() => !dieEffect.isPlaying);
 
         // 아이템 드랍하기
-        //GetItemFromClientDB(monster_);
+        GetItemFromClientDB(monster_);
 
         // 이펙트 반납하기
         dieEffectPool.ReturnObjToPool(dieEffect.gameObject);
@@ -107,7 +107,7 @@ public class Monster_Die : MonsterState
         GameObject testItem = GameObject.Instantiate(ItemDataBase.Instance.fieldItemPrefab,
             monster_.transform.position, Quaternion.identity);
 
-        testItem.GetComponent<FieldItem>().SetItem(ItemDataBase.Instance.itemDB[Random.Range(0, 13)]);
+        testItem.GetComponent<FieldItem>().SetItem(ItemDataBase.Instance.itemDB[Random.Range(9, 12)]);
     }
     #endregion
 }

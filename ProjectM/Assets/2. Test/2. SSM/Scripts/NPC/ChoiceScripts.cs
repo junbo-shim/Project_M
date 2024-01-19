@@ -11,6 +11,7 @@ public class ChoiceScripts : MonoBehaviour
     public int mbti_ID; // mbti1 값
     public NPCChildSet npcChildSet;
     public Inventory inventory;
+    
 
     //public int Num => _num;
     // private int _num;
@@ -30,13 +31,19 @@ public class ChoiceScripts : MonoBehaviour
         npcChildSet.npcAction.ChoiseClick(number, Choice_Text_Answer ,mbti_ID);
         if(id == 400040)
         {
-            if(inventory != null)
+         
+            if (inventory != null)
             {
-                for (int i = 0; inventory.items.Count > 0; i++)
+     
+                for (int i = 0; ItemDataBase.Instance.itemDB.Count > i; i++)
                 {
-                    if (inventory.items[i].itemName == "SymbolStone_A")
+               
+                    if (ItemDataBase.Instance.itemDB[i].itemName == "SymbolStone_A")
                     {
-                        inventory.items[i].itemCount = inventory.items[i].itemCount + 1;
+
+                        inventory.AddItem(ItemDataBase.Instance.itemDB[i]);
+                        break;
+
                     }
                 }
             }

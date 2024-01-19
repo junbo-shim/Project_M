@@ -14,6 +14,8 @@ public class MonsterStateMachine : MonoBehaviour
         Detect,
         // 전투돌입
         Engage,
+        // 복귀
+        Return,
         // 죽음
         Die
     }
@@ -26,6 +28,7 @@ public class MonsterStateMachine : MonoBehaviour
     private Monster_Patrol patrolState;
     private Monster_Detect detectState;
     private Monster_Engage engageState;
+    private Monster_Return returnState;
     private Monster_Die dieState;
 
     public Dictionary<State, MonsterState> enumToStateClass;
@@ -38,6 +41,7 @@ public class MonsterStateMachine : MonoBehaviour
         patrolState = new Monster_Patrol();
         detectState = new Monster_Detect();
         engageState = new Monster_Engage();
+        returnState = new Monster_Return();
         dieState = new Monster_Die();
 
         enumToStateClass = new Dictionary<State, MonsterState>
@@ -47,6 +51,7 @@ public class MonsterStateMachine : MonoBehaviour
             { State.Patrol, patrolState },
             { State.Detect, detectState },
             { State.Engage, engageState },
+            { State.Return, returnState },
             { State.Die, dieState }
         };
     }
@@ -105,6 +110,7 @@ public class MonsterStateMachine : MonoBehaviour
             case State.Patrol:
             case State.Detect:
             case State.Engage:
+            case State.Return:
             case State.Die:
                 // 현재 상태를 종료한다
                 enumToStateClass[currentState].OnStateExit(monster, this);

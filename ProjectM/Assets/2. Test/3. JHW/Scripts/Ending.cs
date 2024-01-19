@@ -23,12 +23,31 @@ public class Ending : MonoBehaviour
 
     public GameObject endingUI;
 
-
     public Button button;
+
+    public GameObject cameraObj;
+
+    private Camera cullingCamera;
+
+    public LayerMask layerMask;
 
     private void Start()
     {
+        cullingCamera = cameraObj.GetComponent<Camera>();
+    }
+
+    public void StartEndCoroutine()
+    {
+
+        endingUI.SetActive(true);
+        SetCullingCamera();
         StartCoroutine(StartEnd());
+    }
+
+    public void SetCullingCamera()
+    {
+        cullingCamera.cullingMask = 0;
+        cullingCamera.cullingMask = layerMask;
     }
 
     IEnumerator StartEnd()
@@ -110,7 +129,11 @@ public class Ending : MonoBehaviour
 
     public void OffEndingUI()
     {
+        button.enabled = true;
         endingUI.SetActive(false);
+        cullingCamera.cullingMask = -1;
+
+
     }
 
 }
