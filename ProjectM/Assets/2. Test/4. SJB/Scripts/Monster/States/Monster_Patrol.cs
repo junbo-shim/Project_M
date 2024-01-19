@@ -36,6 +36,7 @@ public class Monster_Patrol : MonsterState
 
     public override void OnStateExit(GameObject monster_, MonsterStateMachine msm_) 
     {
+        
         int monsterType = monster_.GetComponent<Monster>().monsterData.MonsterType;
 
         // 만약 코루틴이 살아있을 경우를 대비한 안전장치

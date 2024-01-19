@@ -6,6 +6,7 @@ public class Hanger : MonoBehaviour
     private GameObject doorPoint;
     private float doorTime;
     private WaitForSeconds doorDelay;
+    public GameObject nightMonsterPool;
     public GameObject nightMonster;
 
 
@@ -15,6 +16,9 @@ public class Hanger : MonoBehaviour
         doorPoint = transform.GetChild(1).gameObject;
         doorTime = 0.02f;
         doorDelay = new WaitForSeconds(doorTime);
+
+        nightMonster = nightMonsterPool.GetComponent<ObjectPool>().ActiveObjFromPool(transform.position);
+        nightMonsterPool.GetComponent<ObjectPool>().ReturnObjToPool(nightMonster);
 
         MapGameManager.instance.dayStart += CloseDoor;
         MapGameManager.instance.nightStart += OpenDoor;
@@ -40,12 +44,9 @@ public class Hanger : MonoBehaviour
             doorPoint.transform.rotation = Quaternion.Euler(new Vector3(angle, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
         }
 
-        if (nightMonster.GetComponent<Monster>().enabled.Equals(false))
-        {
-            nightMonster.transform.position = transform.position + (Vector3.forward * 5f);
-            nightMonster.SetActive(true);
-            nightMonster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
-        }
+        nightMonster = nightMonsterPool.GetComponent<ObjectPool>().ActiveObjFromPool(transform.position);
+        nightMonster.transform.position = transform.position + (Vector3.forward * 10f);
+        nightMonster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
     }
 
     // 문 닫는 함수
@@ -68,10 +69,7 @@ public class Hanger : MonoBehaviour
             doorPoint.transform.rotation = Quaternion.Euler(new Vector3(angle, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
         }
 
-        if (nightMonster.GetComponent<Monster>().enabled.Equals(true))
-        {
-            nightMonster.SetActive(false);
-            nightMonster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
-        }
+        nightMonsterPool.GetComponent<ObjectPool>().ReturnObjToPool(nightMonster);
+        nightMonster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Ready);
     }
 }

@@ -66,7 +66,7 @@ public class Skill : MonoBehaviour
     {
         mySkill.Add("_FireBall", 1001);
         mySkill.Add("_Poison", 1003);
-        mySkill.Add("IceBall", 1101);
+        mySkill.Add("_IceBall", 1101);
         mySkill.Add("_Protect", 1103);
     }
 

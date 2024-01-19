@@ -15,14 +15,7 @@ public class OBJButtonScripts : MonoBehaviour
 
             }
         }
-        else
-        {
-            if (other.CompareTag("Player"))
-            {
-                GameObject_1.SetActive(false);
-
-            }
-        }
+     
       
  
     }

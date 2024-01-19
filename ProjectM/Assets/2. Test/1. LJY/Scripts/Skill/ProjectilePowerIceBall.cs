@@ -20,8 +20,8 @@ public class ProjectilePowerIceBall : SkillAction
         transform.LookAt(book.target);
 
         iceInfo = ReturnInfo("_IceBall") as NoDamage;    // 아이스인포에 스킬정보 담기
-        speed = iceInfo.Value2;
-        statusEffId = iceInfo.Value1;
+        speed = iceInfo.Value3;
+        statusEffId = iceInfo.Value2;
         CheckSkill();
 
         // Rigidbody를 사용하여 Projectile에 속도 부여

@@ -36,7 +36,6 @@ public class Ending : MonoBehaviour
     private void Start()
     {
         cullingCamera = cameraObj.GetComponent<Camera>();
-        StartEndCoroutine();
     }
 
     public void StartEndCoroutine()

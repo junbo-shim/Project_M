@@ -5,23 +5,9 @@ public class SpawnPointDetection : MonoBehaviour
     public ObjectPool monsterPool;
     public GameObject spawnPoint;
 
-    private Vector3[] pos;
-
     public int monsterSpawnCount;
     [SerializeField]
     public int monsterMaxCount;
-
-    private void Awake()
-    {
-        pos = new Vector3[] 
-        { 
-            new Vector3(0, 0, 12), 
-            new Vector3(12, 0, 2), 
-            new Vector3(-12, 0, 2), 
-            new Vector3(9, 0, -12),
-            new Vector3(-9, 0, -12)
-        };
-    }
 
     private void OnEnable()
     {
@@ -37,10 +23,13 @@ public class SpawnPointDetection : MonoBehaviour
             if (monsterSpawnCount == 0 && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
             {
                 // 반복문 돌아서 몬스터 생성
-                for (monsterSpawnCount = 0; monsterSpawnCount <= monsterMaxCount - 1; monsterSpawnCount++)
+                for (monsterSpawnCount = 0; monsterSpawnCount <= monsterMaxCount; monsterSpawnCount++)
                 {
+                    int randomX = Random.Range(-2, 2);
+                    int randomZ = Random.Range(-2, 2);
+
                     GameObject monster 
-                        = monsterPool.ActiveObjFromPool(spawnPoint.transform.position + pos[monsterSpawnCount]);
+                        = monsterPool.ActiveObjFromPool(spawnPoint.transform.position + (Vector3.up * 5));
 
                     monster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
                 }

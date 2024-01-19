@@ -35,7 +35,7 @@ public class ItemDataBase : MonoBehaviour
 
     public void Start()
     {
-        //SpreadItem();
+        SpreadItem();
         SpawnRecipe();
         SpawnHerb();
     }
@@ -43,14 +43,14 @@ public class ItemDataBase : MonoBehaviour
     //23.12.20 SJB Editted
     private void SpreadItem()
     {
-        for (int i = 0; i < 32; i++)
+        for (int i = 0; i < 3; i++)
         {
             Vector3 pos = new Vector3(player.position.x + Random.Range(-3, 4), player.position.y, player.position.z + Random.Range(-3, 4));
 
 
 
             GameObject go = Instantiate(fieldItemPrefab, pos, Quaternion.identity);
-            go.GetComponent<FieldItem>().SetItem(itemDB[Random.Range(0, 13)]);
+            go.GetComponent<FieldItem>().SetItem(itemDB[0]);
         }
     }
 
