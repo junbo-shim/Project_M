@@ -297,7 +297,14 @@ public class InteractionObjScripts : MonoBehaviour
     }
 
 
-
+    public void OnParticle()//파티클 실행
+    {
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
+    }
     public void ChangeMovement() //movement 값 변경시 작동함수
     {
         onMovementChanged?.Invoke(movement);
@@ -364,7 +371,8 @@ public class InteractionObjScripts : MonoBehaviour
         }
 
     }
-    private void SpObjActTrue() // 오브젝트 리스폰
+
+    private void SpObjActTrue() // 오브젝트 활성화
     {
 
         gameObject.SetActive(true);
