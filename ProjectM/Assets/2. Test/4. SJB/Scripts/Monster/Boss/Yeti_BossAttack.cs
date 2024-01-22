@@ -380,7 +380,7 @@ public class Yeti_BossAttack : MonsterState
 
         if (colliders.Length <= 0) 
         {
-            Debug.LogError("타겟 검출 에러");
+            //Debug.LogError("타겟 검출 에러");
             target = GameObject.Find("Player_LJY").transform.Find("PlayerController").Find("PlayerRigid").gameObject;
         }
         // 만약 검출된 것이 있다면
