@@ -29,6 +29,9 @@ public class Ending : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public Vector3 newPosition;
+    public Vector3 orgPosition;
+
     public GameObject player;
 
 
@@ -36,13 +39,14 @@ public class Ending : MonoBehaviour
     private void Start()
     {
         cullingCamera = cameraObj.GetComponent<Camera>();
+        //StartEndCoroutine();
     }
 
     public void StartEndCoroutine()
     {
 
         endingUI.SetActive(true);
-        SetCullingCamera();
+        //SetCullingCamera();
         StartCoroutine(StartEnd());
     }
 
@@ -54,7 +58,7 @@ public class Ending : MonoBehaviour
 
     IEnumerator StartEnd()
     {
-
+        //player.transform.localPosition = newPosition;
         yield return new WaitForSeconds(3f);
         StartCoroutine(FadeInMBTI());
         yield return new WaitForSeconds(10f);
@@ -63,6 +67,8 @@ public class Ending : MonoBehaviour
         StartCoroutine(FadeInEndingCredit());
         yield return new WaitForSeconds(2f);
         StartCoroutine(UpEndingCredit());
+        //player.transform.localPosition = orgPosition;
+
         yield return null;
     }
 
@@ -116,17 +122,13 @@ public class Ending : MonoBehaviour
 
         Vector3 endingPos = endingCreditUI.GetComponent<RectTransform>().anchoredPosition;
 
-        Transform playerPos = player.transform;
-        Debug.Log(endingCreditUI.name);
 
-        while (endingPos.y < 2150)
+
+        while (endingPos.y < 700)
         {
             endingPos.y += upSpeed * Time.deltaTime;
 
             rectTransform.anchoredPosition = new Vector3(0, endingPos.y, 0);
-
-            Vector3 newRo = new Vector3(0f, 0f, 0f);
-            playerPos.rotation = Quaternion.Euler(newRo);
 
             yield return null;
         }
