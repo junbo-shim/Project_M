@@ -363,6 +363,7 @@ public class InteractionObjScripts : MonoBehaviour
     }
     public void SelfObjOn()
     {
+        Debug.Log(gameObject);
         gameObject.SetActive(true);
         ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
         if (particleSystem != null)

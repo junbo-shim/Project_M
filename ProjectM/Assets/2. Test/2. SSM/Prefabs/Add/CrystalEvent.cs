@@ -32,13 +32,18 @@ public class CrystalEvent : MonoBehaviour
             {
                 childObj = transform.GetChild(0).gameObject;
                 childObj.AddComponent<PaticleEvent_SSM>();
-
+                childObj.AddComponent<SkillAction>();
+                childObj.GetComponent<SkillAction>().damage = 30;
+                childObj.GetComponent<SkillAction>().isDamage = true;
                 var collisionModule = particleSystemInstance.collision; // 파티클 콜리션 모듈 추가
                 collisionModule.enabled = true;
                 collisionModule.type = ParticleSystemCollisionType.World;
                 collisionModule.sendCollisionMessages = true;
+                int newLayer = LayerMask.NameToLayer("PlayerATK");
+                particleSystemInstance.gameObject.layer = newLayer;
+
             }
-         
+            
 
 
             particleSystemInstance.Play();

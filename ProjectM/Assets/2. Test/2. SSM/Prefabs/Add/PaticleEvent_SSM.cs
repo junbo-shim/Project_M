@@ -7,7 +7,9 @@ public class PaticleEvent_SSM : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.name);
+
+   
+        other.gameObject.GetComponent<MonsterRigid>()?.GetMonsterDamage(gameObject);
     }
 
    
