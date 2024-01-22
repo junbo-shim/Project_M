@@ -303,21 +303,27 @@ public class Yeti_BossAttack : MonsterState
         // 타겟 위치 저장
         Vector3 lastPos = target.transform.position;
 
+        // 보스와 타겟의 마지막 위치의 방향 구하기
+        Vector3 direction = (lastPos - monsterComponent.transform.position).normalized * 2f;
+
+        // 타겟 위치에서 뒤쪽으로 조금 벗어난 vector 구하기
+        Vector3 chargePos = lastPos + direction;
+
         // 타겟 위치로 돌진
-        while (Vector3.Distance(lastPos, monsterComponent.transform.position) > chargeRange) 
+        while (Vector3.Distance(chargePos, monsterComponent.transform.position) > chargeRange) 
         {
             yield return null;
 
             // 타겟 바라보기
-            monsterComponent.transform.LookAt(lastPos);
+            monsterComponent.transform.LookAt(chargePos);
 
             // 중력값 추가를 위한 지역변수
             Vector3 tempMove =
-                new Vector3(lastPos.x - monsterComponent.transform.position.x,
-                gravity, lastPos.z - monsterComponent.transform.position.z).normalized;
+                new Vector3(chargePos.x - monsterComponent.transform.position.x,
+                gravity, chargePos.z - monsterComponent.transform.position.z).normalized;
 
             // 타겟의 위치로 움직인다
-            monsterControl.Move(tempMove * speed * 3f * Time.deltaTime);
+            monsterControl.Move(tempMove * speed * Time.deltaTime);
         }
 
         // 애니메이션 정지

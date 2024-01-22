@@ -89,35 +89,79 @@ public class Monster_Engage : MonsterState
             target = null;
         }
 
-        // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
-        while (msm_.currentState.Equals(MonsterStateMachine.State.Engage)
-            && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
-        {
-            // 타겟이 없다면
-            if (target == null)
-            {
-                // 타겟 재감지를 위한 카운트다운 코루틴을 실행한다
-                yield return msm_.StartCoroutine(WaitForTarget(monster_, msm_));
 
-                // 그래도 타겟이 없다면
+        // 만약 밤몬스터일 경우
+        if (monsterComponent.thisMonsterType.Equals(Monster.MonsterType.Mech_Large))
+        {
+            // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
+            // 낮 상태가 아닐때만 Coroutine 지속
+            while (msm_.currentState.Equals(MonsterStateMachine.State.Engage) &&
+                !MapGameManager.instance.currentState.Equals(DayState.MORNING))
+            {
+                // 타겟이 없다면
                 if (target == null)
                 {
-                    // 코루틴 헛돎을 예방하는 break
-                    yield break;
+                    // 타겟 재감지를 위한 카운트다운 코루틴을 실행한다
+                    yield return msm_.StartCoroutine(WaitForTarget(monster_, msm_));
+
+                    // 그래도 타겟이 없다면
+                    if (target == null)
+                    {
+                        // 코루틴 헛돎을 예방하는 break
+                        yield break;
+                    }
+                }
+                // 타겟을 확보했다면
+                else if (target != null)
+                {
+                    // 타겟 위치까지 움직이고 공격을 순차적으로 실행한다
+                    yield return msm_.StartCoroutine(EngageMove(monster_));
+                    yield return msm_.StartCoroutine(Attack(monster_));
                 }
             }
-            // 타겟을 확보했다면
-            else if (target != null)
+
+            // Coroutine 이 끝나면 현재가 낮인지 아닌지 체크한다
+            if (MapGameManager.instance.currentState.Equals(DayState.MORNING))
             {
-                // 타겟 위치까지 움직이고 공격을 순차적으로 실행한다
-                yield return msm_.StartCoroutine(EngageMove(monster_));
-                yield return msm_.StartCoroutine(Attack(monster_));
+                // 낮이면 풀로 돌아간다
+                monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
             }
         }
-
-        if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+        else 
         {
-            monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
+            // MonsterStateMachine 상태가 Engage 일 때만 Coroutine 지속
+            // 밤 상태가 아닐때만 Coroutine 지속
+            while (msm_.currentState.Equals(MonsterStateMachine.State.Engage) &&
+                !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+            {
+                // 타겟이 없다면
+                if (target == null)
+                {
+                    // 타겟 재감지를 위한 카운트다운 코루틴을 실행한다
+                    yield return msm_.StartCoroutine(WaitForTarget(monster_, msm_));
+
+                    // 그래도 타겟이 없다면
+                    if (target == null)
+                    {
+                        // 코루틴 헛돎을 예방하는 break
+                        yield break;
+                    }
+                }
+                // 타겟을 확보했다면
+                else if (target != null)
+                {
+                    // 타겟 위치까지 움직이고 공격을 순차적으로 실행한다
+                    yield return msm_.StartCoroutine(EngageMove(monster_));
+                    yield return msm_.StartCoroutine(Attack(monster_));
+                }
+            }
+
+            // Coroutine 이 끝나면 현재가 밤인지 아닌지 체크한다
+            if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+            {
+                // 밤이면 풀로 돌아간다
+                monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
+            }
         }
     }
     #endregion

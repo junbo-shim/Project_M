@@ -79,21 +79,53 @@ public class Monster_Return : MonsterState
     #region 복귀
     private IEnumerator DoReturn(GameObject monster_, MonsterStateMachine msm_)
     {
-        // MonsterStateMachine 상태가 Return 일 때만 Coroutine 지속
-        while (msm_.currentState.Equals(MonsterStateMachine.State.Return)
-            && !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+        // 만약 밤몬스터일 경우
+        if (monsterComponent.thisMonsterType.Equals(Monster.MonsterType.Mech_Large))
         {
-            // PatrolMove 완료할 때까지 그 다음 행동이 대기한다
-            yield return msm_.StartCoroutine(ReturnMove(monster_));
-        }
+            // MonsterStateMachine 상태가 Return 일 때만 Coroutine 지속
+            // 낮 상태가 아닐때만 Coroutine 지속
+            while (msm_.currentState.Equals(MonsterStateMachine.State.Return) &&
+                !MapGameManager.instance.currentState.Equals(DayState.MORNING))
+            {
+                // PatrolMove 완료할 때까지 그 다음 행동이 대기한다
+                yield return msm_.StartCoroutine(ReturnMove(monster_));
+            }
 
-        if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+            // Coroutine 이 끝나면 현재가 낮인지 아닌지 체크한다
+            if (MapGameManager.instance.currentState.Equals(DayState.MORNING))
+            {
+                // 낮이면 풀로 돌아간다
+                monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
+            }
+            else 
+            {
+                // ReturnMove 가 끝나면 다시 Patrol 로 돌아감
+                msm_.ChangeState(MonsterStateMachine.State.Patrol);
+            }
+        }
+        else
         {
-            monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
-        }
+            // MonsterStateMachine 상태가 Return 일 때만 Coroutine 지속
+            // 밤 상태가 아닐때만 Coroutine 지속
+            while (msm_.currentState.Equals(MonsterStateMachine.State.Return) &&
+                !MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+            {
+                // PatrolMove 완료할 때까지 그 다음 행동이 대기한다
+                yield return msm_.StartCoroutine(ReturnMove(monster_));
+            }
 
-        // ReturnMove 가 끝나면 다시 Patrol 로 돌아감
-        msm_.ChangeState(MonsterStateMachine.State.Patrol);
+            // Coroutine 이 끝나면 현재가 밤인지 아닌지 체크한다
+            if (MapGameManager.instance.currentState.Equals(DayState.NIGHT))
+            {
+                // 밤이면 풀로 돌아간다
+                monsterComponent.monsterPool.ReturnObjToPool(monsterComponent.gameObject);
+            }
+            else 
+            {
+                // ReturnMove 가 끝나면 다시 Patrol 로 돌아감
+                msm_.ChangeState(MonsterStateMachine.State.Patrol);
+            }
+        }
     }
     #endregion
 

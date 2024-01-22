@@ -25,11 +25,8 @@ public class SpawnPointDetection : MonoBehaviour
                 // 반복문 돌아서 몬스터 생성
                 for (monsterSpawnCount = 0; monsterSpawnCount <= monsterMaxCount; monsterSpawnCount++)
                 {
-                    int randomX = Random.Range(-2, 2);
-                    int randomZ = Random.Range(-2, 2);
-
                     GameObject monster 
-                        = monsterPool.ActiveObjFromPool(spawnPoint.transform.position + (Vector3.up * 5));
+                        = monsterPool.ActiveObjFromPool(spawnPoint.transform.position + (Vector3.up * 3));
 
                     monster.GetComponent<Monster>().monsterFSM.ChangeState(MonsterStateMachine.State.Patrol);
                 }

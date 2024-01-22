@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    //public ObjectPool monsterPool;
     public GameObject detectArea;
 
 

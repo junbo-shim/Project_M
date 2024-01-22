@@ -109,7 +109,6 @@ public class Monster : MonoBehaviour
     protected virtual void InitMonster(MonsterType inputType_)
     {
         monsterData = MonsterCSVReader.Instance.MonsterDataDic[inputType_];
-        Debug.Log(monsterData);
         monsterHP = monsterData.MonsterHP;
         monsterMoveSpeed = monsterData.MonsterMoveSpeed;
         if (inputType_ == MonsterType.Mech_Large)
