@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterRigid : MonoBehaviour
@@ -27,6 +28,21 @@ public class MonsterRigid : MonoBehaviour
         if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("PlayerATK"))
             && monsterComponent.monsterHP > 0)
         {
+            GetMonsterDamage(other_.gameObject);
+        }
+
+        if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("Restricted"))
+            && monsterComponent.monsterHP > 0)
+        {
+            monsterFSM.ChangeState(MonsterStateMachine.State.Return);
+        }
+    }
+
+    public void GetMonsterDamage(GameObject gameObject_)
+    {
+        if (monsterComponent.monsterHP > 0)
+        {
+            Debug.Log("d");
             // 교전 상태가 아니거나 죽음 상태가 아닐 때
             if (!monsterFSM.currentState.Equals(MonsterStateMachine.State.Engage)
                 && !monsterFSM.currentState.Equals(MonsterStateMachine.State.Die))
@@ -39,7 +55,7 @@ public class MonsterRigid : MonoBehaviour
 
 
             // 부딪힌 collider 를 캐싱한다
-            skillAction = other_.GetComponent<SkillAction>();
+            skillAction = gameObject_.GetComponent<SkillAction>();
 
             // 데미지만 가하는 스킬인 경우
             if (skillAction.isDamage == true && skillAction.isStatusEff == false)
@@ -57,17 +73,9 @@ public class MonsterRigid : MonoBehaviour
             else if (skillAction.isDamage == false && skillAction.isStatusEff == true)
             {
                 MonsterDebuff.Instance.DoDebuff(monsterComponent, (int)skillAction.statusEffId);
-                Debug.Log("!!!");
             }
         }
-
-        if (other_.gameObject.layer.Equals(LayerMask.NameToLayer("Restricted"))
-            && monsterComponent.monsterHP > 0)
-        {
-            monsterFSM.ChangeState(MonsterStateMachine.State.Return);
-        }
     }
-
 
     #region 데미지 받는 메서드
     protected virtual void GetMonsterHit(int damage_)
