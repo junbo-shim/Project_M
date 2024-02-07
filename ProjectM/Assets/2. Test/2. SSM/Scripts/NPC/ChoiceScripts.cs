@@ -28,7 +28,7 @@ public class ChoiceScripts : MonoBehaviour
     }
     public void ChoiceClick()
     {
-        npcChildSet.npcAction.ChoiseClick(number, Choice_Text_Answer ,mbti_ID);
+        npcChildSet.npcTalk.ChoiseClick(number, Choice_Text_Answer ,mbti_ID);
         if(id == 400040)
         {
          

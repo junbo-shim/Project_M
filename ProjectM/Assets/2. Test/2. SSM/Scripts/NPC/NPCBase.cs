@@ -20,7 +20,7 @@ public class NPC
     public Func<int, List<NPCSelectTalkData>> ContinueDialogue { get; set; }
     // NPC 정보 }
 
-    //대화 갯수
+    //대화 갯수 확인용
     public int ContinueDialogueCount { get; set; }
 }
 

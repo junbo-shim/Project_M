@@ -44,7 +44,7 @@ public class NPCHitScripts : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("PlayerATK"))
         {
-            if (!npcAction.ragdoll)
+            if (npcAction._npcState != NpcState.RAGDOLL)
             {
                 isGround = false;
                 ragdollOn();
@@ -77,11 +77,9 @@ public class NPCHitScripts : MonoBehaviour
         {
             parntRb[i].isKinematic = false;
         }
-
-
         animator.enabled = false;
-        npcAction.ragdoll = true;
-        npcAction.npcTack.TalkOff();
+        npcAction.NPCStateChange(NpcState.RAGDOLL);
+        npcAction.NPCTalk.TalkOff();
         if (isGround)
         {
             Invoke("ragdollOff", 5f);
@@ -95,14 +93,14 @@ public class NPCHitScripts : MonoBehaviour
             Invoke("ragdollOff", 5f);
             return;
         }
-        for (int i = 0; i < parntRb.Length; i++)
+        for (int i = 0; i < parntRb.Length; i++) // 박다통과현상으로 인해 물리연산 처리 안하려고 사용
         {
             parntRb[i].isKinematic = true;
         }
 
        
         animator.enabled = true;
-        npcAction.ragdoll = false;
+        npcAction.NPCStateChange(NpcState.IDLE);
         return;
     }
 

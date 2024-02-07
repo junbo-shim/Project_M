@@ -9,7 +9,7 @@ public class NPCChildSet : MonoBehaviour
 
     public Transform ChoiceTransform;
 
-    public NPCTack npcAction;
+    public NPCTalk npcTalk;
     public void Awake()
     {
 
@@ -20,9 +20,9 @@ public class NPCChildSet : MonoBehaviour
   
     private void Caching()
     {
-        //npcTackUI 내부 Transform 저장용 {
+        //NPCTalkUI 내부 Transform 저장용 {
         targetOBj = new List<GameObject>();
-        Transform target = transform.Find("npcTackUI"); //npcTackUI 위치 가리키도록 
+        Transform target = transform.Find("npcTalkUI"); //NPCTalkUI 위치 가리키도록 
         if(target != null)
         {
               int targetChildCount = 0;
@@ -35,15 +35,15 @@ public class NPCChildSet : MonoBehaviour
         {
             targetOBj.Add(target.GetChild(i).gameObject);
         }
-        //npcTackUI 내부 Transform 저장용 }
+        //NPCTalkUI 내부 Transform 저장용 }
         //선택지 박스 위치 저장용 {
-        ChoiceTransform = transform.Find("npcTackUI").transform.GetChild(4).transform.GetChild(1);
+        ChoiceTransform = target.transform.GetChild(4).transform.GetChild(1);
 
         }
-      
+
         //선택지 박스 위치 저장용 }
         // npcAction 스크립트 저장용
-        npcAction = transform.Find("NpcAction").GetComponent<NPCTack>();
+        npcTalk = transform.Find("NpcAction").GetComponent<NPCTalk>();
         // npcAction 스크립트 저장용끝
 
     }
